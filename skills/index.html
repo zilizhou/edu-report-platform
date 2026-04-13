@@ -312,21 +312,13 @@
     <div class="sidebar-title">AI 教学辅助技能</div>
     <button class="skill-card active" onclick="selectSkill(0)" id="card-0">
       <div class="skill-card-header">
-        <span class="skill-icon">🤖</span>
-        <span class="skill-name">AI 私人助教</span>
-      </div>
-      <div class="skill-desc">将大模型变成大学生的 AI 私人助教，支持自由问答、出题测验、学习计划、导师对话四种辅导模式</div>
-      <span class="skill-tag">ai-personal-tutor</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(1)" id="card-1">
-      <div class="skill-card-header">
         <span class="skill-icon">🗺️</span>
         <span class="skill-name">课程知识图谱构建</span>
       </div>
       <div class="skill-desc">从教学大纲、教案、PPT、电子书籍等教学资源中自动抽取知识点，建立关联关系，输出三元组 CSV</div>
       <span class="skill-tag">course-knowledge-graph</span>
     </button>
-    <button class="skill-card" onclick="selectSkill(2)" id="card-2">
+    <button class="skill-card" onclick="selectSkill(1)" id="card-1">
       <div class="skill-card-header">
         <span class="skill-icon">📝</span>
         <span class="skill-name">试卷知识点标注</span>
@@ -334,7 +326,7 @@
       <div class="skill-desc">对作业、试卷等文档中的题目逐题分析，自动标注知识点、难度等级与认知层次，输出结构化 CSV</div>
       <span class="skill-tag">exam-question-tagging</span>
     </button>
-    <button class="skill-card" onclick="selectSkill(3)" id="card-3">
+    <button class="skill-card" onclick="selectSkill(2)" id="card-2">
       <div class="skill-card-header">
         <span class="skill-icon">🎓</span>
         <span class="skill-name">学生知识画像构建</span>
@@ -342,7 +334,7 @@
       <div class="skill-desc">根据成绩单（总分/大题分/小题分）为每位学生构建知识点维度的学习画像，含掌握等级与风险指数</div>
       <span class="skill-tag">student-knowledge-profiling</span>
     </button>
-    <button class="skill-card" onclick="selectSkill(4)" id="card-4">
+    <button class="skill-card" onclick="selectSkill(3)" id="card-3">
       <div class="skill-card-header">
         <span class="skill-icon">📚</span>
         <span class="skill-name">个性化作业推荐</span>
@@ -350,13 +342,21 @@
       <div class="skill-desc">结合学生知识画像与课程知识图谱，追溯薄弱根因节点，为每位学生生成满分 100 分的差异化作业</div>
       <span class="skill-tag">personalized-homework</span>
     </button>
-    <button class="skill-card" onclick="selectSkill(5)" id="card-5">
+    <button class="skill-card" onclick="selectSkill(4)" id="card-4">
       <div class="skill-card-header">
         <span class="skill-icon">🔍</span>
         <span class="skill-name">个性化资源推荐</span>
       </div>
       <div class="skill-desc">按掌握等级和知识关联分析，为大学生推荐多模态学习资源（视频/文章/工具/论文），含前置依赖分析</div>
       <span class="skill-tag">personalized-resources</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(5)" id="card-5">
+      <div class="skill-card-header">
+        <span class="skill-icon">🤖</span>
+        <span class="skill-name">AI 私人助教</span>
+      </div>
+      <div class="skill-desc">将大模型变成大学生的 AI 私人助教，支持自由问答、出题测验、学习计划、导师对话四种辅导模式</div>
+      <span class="skill-tag">ai-personal-tutor</span>
     </button>
   </div>
 
@@ -749,13 +749,16 @@ knowledge_point, question_count, question_ids, total_score, difficulty_distribut
   marked.setOptions({ breaks: true, gfm: true });
 
   const skillMeta = [
-    { name: 'AI 私人助教',    icon: '🤖', file: 'SKILL-Aiteacher.md',         tag: 'ai-personal-tutor' },
     { name: '课程知识图谱构建', icon: '🗺️', file: 'SKILL-course2Kg.md',        tag: 'course-knowledge-graph' },
     { name: '试卷知识点标注',  icon: '📝', file: 'SKILL-queskg.md',            tag: 'exam-question-tagging' },
     { name: '学生知识画像构建', icon: '🎓', file: 'SKILL-stukg.md',             tag: 'student-knowledge-profiling' },
     { name: '个性化作业推荐',  icon: '📚', file: 'SKILL-homeworkRecommend.md', tag: 'personalized-homework' },
     { name: '个性化资源推荐',  icon: '🔍', file: 'SKILL-resourceRecommend.md', tag: 'personalized-resources' },
+    { name: 'AI 私人助教',    icon: '🤖', file: 'SKILL-Aiteacher.md',         tag: 'ai-personal-tutor' },
   ];
+
+  // 映射：侧边栏位置 → 原始 md-X 脚本 id（AI助教原为md-0，移至最后）
+  const mdIds = [1, 2, 3, 4, 5, 0];
 
   let currentIdx = 0;
 
@@ -767,7 +770,7 @@ knowledge_point, question_count, question_ids, total_score, difficulty_distribut
 
     currentIdx = idx;
     const meta = skillMeta[idx];
-    const raw = document.getElementById('md-' + idx).textContent;
+    const raw = document.getElementById('md-' + mdIds[idx]).textContent;
 
     document.getElementById('contentIcon').textContent = meta.icon;
     document.getElementById('contentTitle').textContent = meta.name;
