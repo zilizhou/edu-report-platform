@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汇报演示 · AI 教学辅助平台</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --nav-h: 52px;
+      --font: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #060a14;
+      color: #e8eaf6;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Top nav ── */
+    .topnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(6,10,20,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      z-index: 100;
+    }
+
+    .topnav a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .topnav a:hover { color: rgba(255,255,255,0.8); }
+
+    .slide-counter {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Slide container ── */
+    .stage {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      bottom: var(--nav-h);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px 80px;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* Staggered animation for children */
+    .slide.active .anim { animation: fadeUp 0.5s ease both; }
+    .slide.active .anim:nth-child(1) { animation-delay: 0.08s; }
+    .slide.active .anim:nth-child(2) { animation-delay: 0.18s; }
+    .slide.active .anim:nth-child(3) { animation-delay: 0.28s; }
+    .slide.active .anim:nth-child(4) { animation-delay: 0.38s; }
+    .slide.active .anim:nth-child(5) { animation-delay: 0.46s; }
+    .slide.active .anim:nth-child(6) { animation-delay: 0.54s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Bottom nav ── */
+    .botnav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background: rgba(6,10,20,0.9);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      z-index: 100;
+    }
+
+    .btn-nav {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .btn-nav:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .btn-nav:disabled { opacity: 0.25; cursor: default; }
+
+    .dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: #818cf8;
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* ── Slide Components ── */
+
+    /* Section tag */
+    .tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--tag-color, rgba(129,140,248,0.4));
+      color: var(--tag-color, #a5b4fc);
+      background: rgba(129,140,248,0.1);
+      margin-bottom: 20px;
+    }
+
+    /* Slide title */
+    .slide-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      background: var(--title-grad, linear-gradient(135deg, #c7d2fe, #818cf8));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      max-width: 900px;
+    }
+
+    .slide-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      max-width: 700px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* Placeholder box */
+    .placeholder {
+      border: 2px dashed rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 24px 32px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.9rem;
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      font-style: italic;
+    }
+
+    /* Content grid */
+    .content-grid {
+      display: grid;
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .content-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .content-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .content-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+
+    .content-card .card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent, #818cf8);
+      margin-bottom: 8px;
+    }
+
+    .content-card p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    /* Agenda list */
+    .agenda {
+      list-style: none;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .agenda li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .agenda li:hover { background: rgba(255,255,255,0.07); }
+
+    .agenda .num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(129,140,248,0.2);
+      color: #a5b4fc;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Skill flow */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 860px;
+    }
+
+    .flow-step {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .flow-arrow {
+      color: rgba(255,255,255,0.25);
+      font-size: 1.2rem;
+    }
+
+    /* Cover special */
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Slide backgrounds */
+    #s1 { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
+    #s2 { background: radial-gradient(ellipse at 50% 50%, rgba(30,60,120,0.3) 0%, transparent 70%); }
+    #s3 { background: radial-gradient(ellipse at 20% 60%, rgba(0,140,100,0.15) 0%, transparent 55%); }
+    #s4 { background: radial-gradient(ellipse at 80% 30%, rgba(20,100,200,0.2) 0%, transparent 55%); }
+    #s5 { background: radial-gradient(ellipse at 25% 45%, rgba(0,180,120,0.18) 0%, transparent 55%); }
+    #s6 { background: radial-gradient(ellipse at 75% 55%, rgba(220,100,20,0.18) 0%, transparent 55%); }
+    #s7 { background: radial-gradient(ellipse at 35% 35%, rgba(200,60,130,0.18) 0%, transparent 55%); }
+    #s8 { background: radial-gradient(ellipse at 65% 65%, rgba(200,160,20,0.18) 0%, transparent 55%); }
+    #s9 { background: radial-gradient(ellipse at 40% 60%, rgba(20,160,200,0.18) 0%, transparent 55%); }
+    #s10 { background: radial-gradient(ellipse at 60% 40%, rgba(100,20,200,0.2) 0%, transparent 55%); }
+    #s11 { background: radial-gradient(ellipse at 50% 50%, rgba(80,130,255,0.2) 0%, transparent 60%); }
+
+    .highlight { color: #a5b4fc; font-weight: 600; -webkit-text-fill-color: #a5b4fc; }
+
+    @media (max-width: 768px) {
+      .slide { padding: 32px 28px; }
+      .slide-title { font-size: 1.8rem; }
+      .content-grid.cols-3 { grid-template-columns: 1fr; }
+      .content-grid.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top nav -->
+<div class="topnav">
+  <a href="../index.html">← 返回首页</a>
+  <span class="slide-counter" id="counter">1 / 11</span>
+</div>
+
+<!-- Slides stage -->
+<div class="stage" id="stage">
+
+  <!-- Slide 1: Cover -->
+  <section class="slide active" id="s1">
+    <div class="tag anim" style="--tag-color: #a5b4fc">AI Teaching Platform · 2026</div>
+    <h1 class="slide-title anim" style="font-size:3rem;">
+      基于大模型的智能教学辅助技能平台
+    </h1>
+    <p class="slide-subtitle anim">
+      AI-Driven Personalized Teaching Assistance System
+    </p>
+    <div class="placeholder anim" style="max-width:500px; padding:16px;">
+      [ 待填充：汇报人 · 所属单位 · 日期 ]
+    </div>
+    <div class="cover-meta anim">
+      <span>📅 2026 年</span>
+      <span>🏫 [ 待填充：学校/院系 ]</span>
+      <span>👤 [ 待填充：汇报人 ]</span>
+    </div>
+  </section>
+
+  <!-- Slide 2: Agenda -->
+  <section class="slide" id="s2">
+    <div class="tag anim">目录 · Contents</div>
+    <h2 class="slide-title anim" style="font-size:2rem; margin-bottom:28px;">本次汇报内容</h2>
+    <ul class="agenda anim">
+      <li><div class="num">01</div><span>研究背景与动机</span></li>
+      <li><div class="num">02</div><span>系统架构总览</span></li>
+      <li><div class="num">03</div><span>六大核心技能模块详解</span></li>
+      <li><div class="num">04</div><span>实验演示与效果展示</span></li>
+      <li><div class="num">05</div><span>总结与未来展望</span></li>
+    </ul>
+  </section>
+
+  <!-- Slide 3: Background -->
+  <section class="slide" id="s3">
+    <div class="tag anim" style="--tag-color: #6ee7b7">背景 · Background</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#34d399); font-size:2rem;">
+      研究背景与动机
+    </h2>
+    <div class="content-grid cols-2 anim" style="max-width:860px;">
+      <div class="content-card" style="--accent:#34d399">
+        <div class="card-title">🎯 现实痛点</div>
+        <p>[ 待填充：教育资源分配不均、教师批改负担重、学生缺乏个性化辅导等问题描述 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#34d399">
+        <div class="card-title">🤖 大模型机遇</div>
+        <p>[ 待填充：LLM 在教育领域的能力优势，如知识理解、个性化生成、多轮对话等 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#34d399">
+        <div class="card-title">📊 已有方案不足</div>
+        <p>[ 待填充：现有 AI 教育工具的局限性，缺乏系统化技能体系 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#34d399">
+        <div class="card-title">💡 本平台价值</div>
+        <p>[ 待填充：本平台如何通过标准化技能体系解决上述痛点 ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: System Overview -->
+  <section class="slide" id="s4">
+    <div class="tag anim" style="--tag-color: #93c5fd">架构 · Architecture</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#93c5fd,#3b82f6); font-size:2rem;">
+      系统架构总览
+    </h2>
+    <div class="placeholder anim" style="min-height:180px; display:flex; align-items:center; justify-content:center;">
+      [ 待填充：系统架构图 — 建议展示数据流向：成绩单/试卷/大纲 → 各技能模块 → 输出（画像/作业/资源） ]
+    </div>
+    <div class="flow anim" style="margin-top:20px;">
+      <div class="flow-step">📄<br><small>教学资源</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🗺️<br><small>知识图谱</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📊<br><small>学生画像</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📝<br><small>个性化作业</small></div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-step">📚<br><small>资源推荐</small></div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-step">🤖<br><small>AI 助教</small></div>
+    </div>
+  </section>
+
+  <!-- Slide 5: Skill — 课程知识图谱 -->
+  <section class="slide" id="s5">
+    <div class="tag anim" style="--tag-color: #6ee7b7">技能① · Skill One</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#10b981); font-size:2.2rem;">
+      课程知识图谱构建
+    </h2>
+    <p class="slide-subtitle anim" style="margin-bottom:20px;">
+      从教学大纲、教案、PPT、教材中自动抽取知识点，建立关联关系，以三元组形式输出课程知识图谱
+    </p>
+    <div class="content-grid cols-3 anim" style="max-width:840px;">
+      <div class="content-card" style="--accent:#10b981">
+        <div class="card-title">输入</div>
+        <p>[ 待填充：支持的教学资源格式 (PDF/PPTX/DOCX) 及示例 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#10b981">
+        <div class="card-title">处理</div>
+        <p>[ 待填充：知识点抽取过程、关系类型定义（IS_A / PREREQUISITE_OF 等）]</p>
+      </div>
+      <div class="content-card" style="--accent:#10b981">
+        <div class="card-title">输出</div>
+        <p>[ 待填充：三元组 CSV 示例、图谱统计数据、可视化效果图 ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 6: Skill — 试卷知识点标注 -->
+  <section class="slide" id="s6">
+    <div class="tag anim" style="--tag-color: #fdba74">技能② · Skill Two</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fdba74,#f97316); font-size:2.2rem;">
+      试卷知识点标注
+    </h2>
+    <p class="slide-subtitle anim" style="margin-bottom:20px;">
+      逐题分析作业或试卷中的每道题目，自动标注对应知识点、难度与认知层次
+    </p>
+    <div class="content-grid cols-2 anim" style="max-width:820px;">
+      <div class="content-card" style="--accent:#f97316">
+        <div class="card-title">标注维度</div>
+        <p>[ 待填充：主要知识点 / 次要知识点 / 难度等级 (easy/medium/hard) / 认知层次 (Bloom分类) ]</p>
+      </div>
+      <div class="content-card" style="--accent:#f97316">
+        <div class="card-title">输出示例</div>
+        <p>[ 待填充：question_knowledge_tags.csv 示例截图或数据表格 ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 7: Skill — 学生知识画像 -->
+  <section class="slide" id="s7">
+    <div class="tag anim" style="--tag-color: #f9a8d4">技能③ · Skill Three</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#f9a8d4,#ec4899); font-size:2.2rem;">
+      学生知识画像构建
+    </h2>
+    <p class="slide-subtitle anim" style="margin-bottom:20px;">
+      支持三种成绩单精度（总分 / 大题分 / 小题分），通过难度感知调整与认知层次修正，为每位学生构建差异化知识画像
+    </p>
+    <div class="content-grid cols-3 anim" style="max-width:840px;">
+      <div class="content-card" style="--accent:#ec4899">
+        <div class="card-title">类型A · 总分</div>
+        <p>[ 待填充：仅有总分时的推断逻辑与置信区间说明 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#ec4899">
+        <div class="card-title">类型B · 大题分</div>
+        <p>[ 待填充：大题内部难度分层调整说明 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#ec4899">
+        <div class="card-title">类型C · 小题分</div>
+        <p>[ 待填充：精确到题目的掌握度计算与一致性检验 ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 8: Skill — 个性化作业 -->
+  <section class="slide" id="s8">
+    <div class="tag anim" style="--tag-color: #fde68a">技能④ · Skill Four</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fde68a,#f59e0b); font-size:2.2rem;">
+      个性化作业推荐
+    </h2>
+    <p class="slide-subtitle anim" style="margin-bottom:20px;">
+      结合知识图谱依赖关系与学生画像，定位薄弱根因节点，生成满分 100 分的差异化作业方案
+    </p>
+    <div class="content-grid cols-2 anim" style="max-width:820px;">
+      <div class="content-card" style="--accent:#f59e0b">
+        <div class="card-title">核心逻辑：根因定位</div>
+        <p>[ 待填充：薄弱知识点 → 追溯前置依赖 → 优先补充根因知识点的流程示意图 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#f59e0b">
+        <div class="card-title">效果展示</div>
+        <p>[ 待填充：同班两位同学的作业方案对比，体现个性化差异 ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 9: Skills — 资源推荐 + AI助教 -->
+  <section class="slide" id="s9">
+    <div class="tag anim" style="--tag-color: #67e8f9">技能⑤⑥ · Skills Five & Six</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#06b6d4); font-size:2.2rem;">
+      个性化资源推荐 &amp; AI 私人助教
+    </h2>
+    <div class="content-grid cols-2 anim" style="max-width:820px; margin-top:8px;">
+      <div class="content-card" style="--accent:#06b6d4">
+        <div class="card-title">📚 个性化资源推荐</div>
+        <p>[ 待填充：按掌握等级匹配视频/文章/工具/论文等多模态资源，体现前置依赖分析价值 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#06b6d4">
+        <div class="card-title">🤖 AI 私人助教</div>
+        <p>[ 待填充：四种辅导模式（自由问答/出题测验/学习计划/导师对话）的对话示例 ]</p>
+      </div>
+    </div>
+    <div class="placeholder anim" style="margin-top:16px; padding:12px;">
+      [ 待填充：助教对话截图 或 系统使用演示动图 ]
+    </div>
+  </section>
+
+  <!-- Slide 10: Demo & Results -->
+  <section class="slide" id="s10">
+    <div class="tag anim" style="--tag-color: #c4b5fd">演示 · Demo</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#c4b5fd,#8b5cf6); font-size:2.2rem;">
+      实验演示与效果展示
+    </h2>
+    <div class="content-grid cols-2 anim" style="max-width:820px;">
+      <div class="content-card" style="--accent:#8b5cf6">
+        <div class="card-title">数据集说明</div>
+        <p>[ 待填充：计算机网络课程 30 名学生，3 种精度成绩单，45 道题目 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#8b5cf6">
+        <div class="card-title">技能管线演示</div>
+        <p>[ 待填充：从大纲 → 知识图谱 → 试卷标注 → 学生画像 → 个性化输出的完整流程截图 ]</p>
+      </div>
+    </div>
+    <div class="placeholder anim" style="margin-top:16px; min-height:100px;">
+      [ 待填充：班级知识热力图 · 典型学生对比 · 作业差异化程度量化指标 ]
+    </div>
+  </section>
+
+  <!-- Slide 11: Summary -->
+  <section class="slide" id="s11">
+    <div class="tag anim">总结 · Summary</div>
+    <h2 class="slide-title anim" style="font-size:2rem;">总结与展望</h2>
+    <div class="content-grid cols-2 anim" style="max-width:820px; margin-top:8px;">
+      <div class="content-card" style="--accent:#818cf8">
+        <div class="card-title">✅ 已完成</div>
+        <p>[ 待填充：六大技能构建完毕、支持三种成绩单格式、完整的个性化推荐闭环 ]</p>
+      </div>
+      <div class="content-card" style="--accent:#818cf8">
+        <div class="card-title">🔭 未来方向</div>
+        <p>[ 待填充：多轮对话记忆优化、技能联动自动化、多学科知识图谱扩展 ]</p>
+      </div>
+    </div>
+    <p class="slide-subtitle anim" style="margin-top:28px; font-size:0.95rem;">
+      感谢聆听 · Thank you
+    </p>
+  </section>
+
+</div><!-- /stage -->
+
+<!-- Bottom nav -->
+<div class="botnav">
+  <button class="btn-nav" id="prevBtn" onclick="go(-1)" disabled>◀</button>
+  <div class="dots" id="dots"></div>
+  <button class="btn-nav" id="nextBtn" onclick="go(1)">▶</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+
+  // Build dots
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    if (n < 0 || n >= total || n === cur) return;
+    const dir = n > cur ? 1 : -1;
+
+    slides[cur].classList.add(dir > 0 ? 'exit-left' : 'exit-right');
+    slides[cur].classList.remove('active');
+
+    setTimeout(() => {
+      slides.forEach(s => s.classList.remove('exit-left', 'exit-right'));
+    }, 520);
+
+    cur = n;
+    slides[cur].classList.add('active');
+    updateUI();
+  }
+
+  function go(dir) { goTo(cur + dir); }
+
+  function updateUI() {
+    document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
+    document.getElementById('prevBtn').disabled = cur === 0;
+    document.getElementById('nextBtn').disabled = cur === total - 1;
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === cur);
+    });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(total - 1);
+  });
+
+  updateUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技能文档 · AI 教学辅助平台</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #131624;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6;
+      --muted: rgba(255,255,255,0.45);
+      --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 52px;
+      background: rgba(13,15,26,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a:hover { color: var(--text); }
+    .nav-title { font-size: 0.9rem; font-weight: 600; }
+
+    .layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 52px);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 8px 10px;
+    }
+
+    .skill-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      text-align: left;
+      color: var(--text);
+      font-family: var(--font);
+      width: 100%;
+    }
+
+    .skill-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .skill-card.active {
+      background: rgba(129,140,248,0.1);
+      border-color: rgba(129,140,248,0.4);
+    }
+
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .skill-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .skill-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .skill-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      background: rgba(129,140,248,0.12);
+      color: #a5b4fc;
+      border: 1px solid rgba(129,140,248,0.25);
+    }
+
+    /* ── Content panel ── */
+    .content-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-header {
+      padding: 24px 36px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .content-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .content-big-icon { font-size: 2rem; }
+
+    .content-title { font-size: 1.4rem; font-weight: 700; }
+
+    .content-subtitle {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .btn-dl {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: rgba(129,140,248,0.12);
+      border: 1px solid rgba(129,140,248,0.35);
+      border-radius: 8px;
+      color: #a5b4fc;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-dl:hover { background: rgba(129,140,248,0.22); }
+
+    /* ── Markdown rendering ── */
+    .md-body {
+      padding: 32px 36px 48px;
+      max-width: 860px;
+      line-height: 1.75;
+    }
+
+    .md-body h1 { font-size: 1.8rem; margin-bottom: 16px; color: #c7d2fe; }
+    .md-body h2 { font-size: 1.3rem; margin: 32px 0 12px; color: #a5b4fc; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .md-body h3 { font-size: 1.05rem; margin: 20px 0 8px; color: #818cf8; }
+    .md-body h4 { font-size: 0.95rem; margin: 16px 0 6px; color: #93c5fd; }
+
+    .md-body p { margin-bottom: 12px; color: rgba(255,255,255,0.75); font-size: 0.92rem; }
+
+    .md-body ul, .md-body ol {
+      padding-left: 24px;
+      margin-bottom: 12px;
+    }
+
+    .md-body li {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .md-body code {
+      background: rgba(129,140,248,0.12);
+      border: 1px solid rgba(129,140,248,0.2);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.85em;
+      color: #a5b4fc;
+      font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    }
+
+    .md-body pre {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .md-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #c7d2fe;
+      font-size: 0.83rem;
+      white-space: pre;
+    }
+
+    .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.85rem;
+    }
+
+    .md-body th {
+      background: rgba(129,140,248,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 12px;
+      text-align: left;
+      color: #a5b4fc;
+    }
+
+    .md-body td {
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 7px 12px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .md-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    .md-body blockquote {
+      border-left: 3px solid #818cf8;
+      padding-left: 16px;
+      margin: 16px 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .md-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .md-body strong { color: rgba(255,255,255,0.9); }
+
+    /* Empty state */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      padding: 40px;
+    }
+
+    .empty-state .big { font-size: 3rem; }
+    .empty-state p { font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 760px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+      .content-header { padding: 16px 20px; }
+      .md-body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← 返回首页</a>
+  <span class="nav-title">⚡ 技能文档中心</span>
+  <span style="font-size:0.78rem;color:var(--muted);">6 个技能文档</span>
+</nav>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-title">AI 教学辅助技能</div>
+    <button class="skill-card active" onclick="selectSkill(0)" id="card-0">
+      <div class="skill-card-header">
+        <span class="skill-icon">🤖</span>
+        <span class="skill-name">AI 私人助教</span>
+      </div>
+      <div class="skill-desc">将大模型变成大学生的 AI 私人助教，支持自由问答、出题测验、学习计划、导师对话四种辅导模式</div>
+      <span class="skill-tag">ai-personal-tutor</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(1)" id="card-1">
+      <div class="skill-card-header">
+        <span class="skill-icon">🗺️</span>
+        <span class="skill-name">课程知识图谱构建</span>
+      </div>
+      <div class="skill-desc">从教学大纲、教案、PPT、电子书籍等教学资源中自动抽取知识点，建立关联关系，输出三元组 CSV</div>
+      <span class="skill-tag">course-knowledge-graph</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(2)" id="card-2">
+      <div class="skill-card-header">
+        <span class="skill-icon">📝</span>
+        <span class="skill-name">试卷知识点标注</span>
+      </div>
+      <div class="skill-desc">对作业、试卷等文档中的题目逐题分析，自动标注知识点、难度等级与认知层次，输出结构化 CSV</div>
+      <span class="skill-tag">exam-question-tagging</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(3)" id="card-3">
+      <div class="skill-card-header">
+        <span class="skill-icon">🎓</span>
+        <span class="skill-name">学生知识画像构建</span>
+      </div>
+      <div class="skill-desc">根据成绩单（总分/大题分/小题分）为每位学生构建知识点维度的学习画像，含掌握等级与风险指数</div>
+      <span class="skill-tag">student-knowledge-profiling</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(4)" id="card-4">
+      <div class="skill-card-header">
+        <span class="skill-icon">📚</span>
+        <span class="skill-name">个性化作业推荐</span>
+      </div>
+      <div class="skill-desc">结合学生知识画像与课程知识图谱，追溯薄弱根因节点，为每位学生生成满分 100 分的差异化作业</div>
+      <span class="skill-tag">personalized-homework</span>
+    </button>
+    <button class="skill-card" onclick="selectSkill(5)" id="card-5">
+      <div class="skill-card-header">
+        <span class="skill-icon">🔍</span>
+        <span class="skill-name">个性化资源推荐</span>
+      </div>
+      <div class="skill-desc">按掌握等级和知识关联分析，为大学生推荐多模态学习资源（视频/文章/工具/论文），含前置依赖分析</div>
+      <span class="skill-tag">personalized-resources</span>
+    </button>
+  </div>
+
+  <!-- Content panel -->
+  <div class="content-panel" id="contentPanel">
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="big">⚡</div>
+      <p>从左侧选择一个技能文档查看详情</p>
+    </div>
+    <div class="content-header" id="contentHeader">
+      <div class="content-title-row">
+        <span class="content-big-icon" id="contentIcon">🤖</span>
+        <div>
+          <div class="content-title" id="contentTitle">AI 私人助教</div>
+          <div class="content-subtitle" id="contentSubtitle">ai-personal-tutor · SKILL-Aiteacher.md</div>
+        </div>
+      </div>
+      <a class="btn-dl" id="dlBtn" href="SKILL-Aiteacher.md" download>
+        ⬇ 下载文档
+      </a>
+    </div>
+    <div class="md-body" id="mdBody">
+      <!-- Rendered markdown goes here -->
+    </div>
+  </div>
+</div>
+
+<!-- Embedded skill content (raw markdown, read via textContent) -->
+<script type="text/markdown" id="md-0">
+# AI 私人助教技能
+
+## 概述
+
+本技能让大模型成为大学生的 **AI 私人助教**。学生将自己的知识画像输入后，助教即可：
+
+- 精准了解该学生哪里会、哪里不会
+- 以学生当前知识状态为起点展开对话
+- **跨对话持续记录学习进展，随对话动态更新画像**
+- 根据学生需要灵活切换辅导模式
+
+> **面向学生的使用说明**：第一次使用时，把老师发给你的「知识画像」粘贴到对话框，然后告诉助教你想做什么。
+
+---
+
+## 四种辅导模式
+
+### 模式一：自由问答
+学生直接提问，助教根据知识画像中的掌握等级调整解释深度：
+- `good/excellent` → 提供进阶解释，聚焦边缘情况
+- `weak/poor` → 从基础开始，使用类比和例子，分步骤讲解
+
+### 模式二：出题测验
+- 优先针对 `weak/poor` 知识点出题
+- **一次只出一道题**，等学生回答后再继续
+- 答对 → 肯定 + 追问；答错 → 先问思路 → 讲解正确方法
+
+### 模式三：学习计划
+收集考试日期与每日可用时间，生成个性化分阶段复习计划：
+- 🔴 第一阶段：补根基（前置依赖薄弱的知识点）
+- 🟡 第二阶段：攻弱点（主要 weak/poor 知识点）
+- 🟢 第三阶段：综合提升
+
+### 模式四：导师对话
+苏格拉底式启发对话，像大学导师一样讨论问题，聚焦理解而非记忆。
+
+---
+
+## 快捷指令
+
+| 指令 | 效果 |
+|------|------|
+| `#出题` | 针对最薄弱知识点出一道题 |
+| `#计划 [天数]` | 生成 X 天复习计划 |
+| `#今天` | 显示今日学习任务 |
+| `#画像` | 显示当前知识画像摘要 |
+| `#历史` | 显示最近 3 次对话学习摘要 |
+
+---
+
+## 动态更新知识画像
+
+助教在对话中持续观察学生表现并更新画像：
+
+| 触发条件 | 等级变化 |
+|---------|---------|
+| 同一知识点连续 3 题答对且解释清晰 | 提升一级（如 weak → fair） |
+| 同一知识点连续 3 题答错 | 维持或降一级 |
+| 自由问答中展示深度理解 | 提升一级 |
+| 发现画像未标注的新薄弱点 | 新增知识点，标为 weak |
+
+---
+
+## 数据持久化
+
+助教使用键值存储跨对话记忆学生状态：
+
+- `tutor:profile` — 学生知识画像（含动态更新后的掌握等级）
+- `tutor:plan` — 当前学习计划
+- `tutor:session_log` — 历史学习记录
+- `tutor:quiz_stats` — 测验统计
+
+> 若平台支持持久化存储，学生无需每次重新输入画像；若不支持，每次对话开始时重新粘贴画像即可。
+</script>
+
+<script type="text/markdown" id="md-1">
+# 课程知识图谱构建技能
+
+## 概述
+
+本技能将教学资源（教学大纲、教案、教学PPT、电子书籍等）转化为结构化的课程知识图谱。核心产出是一份以**三元组**（主体, 关系, 客体）形式存储的 CSV 文件，可直接导入 Neo4j、Gephi 等图数据库或可视化工具。
+
+---
+
+## 工作流程
+
+### 第一步：读取教学资源
+支持 `.pdf`、`.pptx`、`.docx`、`.xlsx`、纯文本/Markdown 等格式。
+
+### 第二步：知识点抽取
+从资源内容中识别并抽取：**概念** · **方法/技术** · **模型/框架** · **属性/特征** · **过程/流程** · **人物/历史**
+
+### 第三步：关系类型定义
+
+| 关系类型 | 标签 | 说明 |
+|---------|------|------|
+| 是一种 | `IS_A` | 上下位/分类关系 |
+| 包含 | `CONTAINS` | 整体-部分关系 |
+| 前置知识 | `PREREQUISITE_OF` | 学习依赖关系 |
+| 用于 | `USED_FOR` | 应用关系 |
+| 相关于 | `RELATED_TO` | 横向关联 |
+| 对比于 | `CONTRASTS_WITH` | 对立/对比 |
+| 导致 | `LEADS_TO` | 因果关系 |
+| 属于章节 | `BELONGS_TO` | 知识点归属模块 |
+
+### 第四步：构建三元组
+```
+(主体知识点, 关系类型, 客体知识点)
+```
+
+### 第五步：生成 CSV 文件
+
+**主文件：`knowledge_graph_triples.csv`**
+```
+subject, relation, object, subject_type, object_type, source, confidence
+```
+
+**辅助文件：`knowledge_nodes.csv`**
+```
+node_id, name, type, chapter, definition, difficulty
+```
+
+---
+
+## 输出规范
+
+1. `knowledge_graph_triples.csv` — 核心三元组文件（必须）
+2. `knowledge_nodes.csv` — 知识点节点详情（推荐）
+3. 图谱统计摘要：知识点数量、三元组数量、关系类型分布、章节覆盖列表
+</script>
+
+<script type="text/markdown" id="md-2">
+# 作业与试卷题目知识点标注技能
+
+## 概述
+
+本技能面向作业、试卷、练习册等题目集合类文档，通过逐题理解与分析，为每道题目标注一个或多个对应知识点，输出结构化 CSV 文件。
+
+**应用场景**：题库建设 · 考点统计 · 学情分析 · 知识薄弱点诊断 · 自适应学习系统
+
+---
+
+## 工作流程
+
+### 第一步：读取题目文档
+支持 PDF、DOCX、PPTX、XLSX/CSV、纯文本/Markdown。
+
+### 第二步：题目解析与结构化
+
+**题型分类标签**：
+
+| 标签 | 说明 |
+|------|------|
+| `single_choice` | 单项选择题 |
+| `true_false` | 判断题 |
+| `fill_blank` | 填空题 |
+| `short_answer` | 简答题 |
+| `calculation` | 计算题 |
+| `coding` | 编程题 |
+
+### 第三步：知识点标注
+
+**标注思路（依次分析）**：
+1. 题目考查的核心操作是什么？（记忆/理解/应用/分析）
+2. 涉及哪些核心概念或术语？
+3. 解题需要哪些前置知识？
+
+**知识点优先级**：
+- `primary`：题目最直接考查的知识点（必填，至少1个）
+- `secondary`：辅助性、背景性知识点（选填）
+
+### 第四步：难度与认知层次（可选）
+
+**布鲁姆认知层次**：`remember` · `understand` · `apply` · `analyze` · `evaluate` · `create`
+
+---
+
+## 输出文件
+
+**主文件：`question_knowledge_tags.csv`**
+```
+question_id, question_type, question_stem, knowledge_points,
+primary_kp, secondary_kp, difficulty, cognitive_level, score
+```
+
+**辅助：`knowledge_point_statistics.csv`**
+```
+knowledge_point, question_count, question_ids, total_score, difficulty_distribution
+```
+</script>
+
+<script type="text/markdown" id="md-3">
+# 学生知识画像构建技能
+
+## 概述
+
+本技能综合题目知识点标注与学生成绩数据，为每位学生构建**知识点维度的学习画像**，量化各知识点的掌握程度，识别优势与薄弱点。
+
+**核心设计原则**：在任意精度的成绩数据下，都要体现学生个体差异。对于粗粒度成绩，通过难度感知调整与认知层次修正使同分学生产生有据差异。
+
+---
+
+## 三种成绩单格式
+
+### 类型 A：仅含总分
+通过难度感知调整 + 认知层次修正推断各知识点掌握度，置信区间 ≤ ±0.20，数据质量：`medium-low`
+
+### 类型 B：含大题分 + 总分
+精确到题组，大题内部二次分层，置信区间 ≤ ±0.10，数据质量：`medium-high`
+
+### 类型 C：含小题分 + 总分
+精确到每道题，含答题一致性检验，数据质量：`high`
+
+---
+
+## 掌握等级映射
+
+| 得分率 | 等级 | 标签 | 含义 |
+|-------|------|------|------|
+| ≥ 90% | 优秀 | `excellent` | 完全掌握，可迁移应用 |
+| 75%～89% | 良好 | `good` | 基本掌握，偶有失误 |
+| 60%～74% | 一般 | `fair` | 部分掌握，存在漏洞 |
+| 40%～59% | 薄弱 | `weak` | 掌握不足，需重点练习 |
+| < 40% | 欠缺 | `poor` | 严重欠缺，需系统补习 |
+
+---
+
+## 知识点风险指数
+
+```
+风险指数 = (1 - score_rate) × (1 + 置信区间宽度)
+```
+
+| 风险等级 | 阈值 | 建议 |
+|---------|------|------|
+| `high_risk` | > 0.60 | 优先干预 |
+| `medium_risk` | 0.30～0.60 | 需关注 |
+| `low_risk` | < 0.30 | 暂无需干预 |
+
+---
+
+## 输出文件
+
+1. `student_knowledge_profile.csv` — 学生×知识点掌握度明细（每行一条学生-知识点记录）
+2. `student_summary_profile.csv` — 学生综合画像摘要（每行一位学生）
+3. `class_knowledge_heatmap.csv` — 班级知识点热力图数据（含预警等级）
+</script>
+
+<script type="text/markdown" id="md-4">
+# 个性化作业布置技能
+
+## 概述
+
+本技能综合**学生知识画像**与**课程知识图谱**，考虑知识点间的关联与依赖关系，为每位学生自动生成一份满分 100 分的个性化作业方案。
+
+**有题库**时从中智能选题；**无题库**时根据学生薄弱点现场生成题目。
+
+---
+
+## 核心设计原则
+
+### 原则一：知识关联分析优先
+
+学生某知识点薄弱，根因不一定在该知识点本身。布置作业前必须：
+
+1. 查找薄弱知识点在知识图谱中的**前置依赖节点**
+2. 检查学生在这些前置节点上的掌握度
+3. 若前置节点也薄弱，**优先补充前置知识点练习**
+
+```
+学生 A：分数除法（poor）← 检查 → 分数乘法（fair）← 检查 → 分数的意义（good）
+根因定位：分数乘法是瓶颈，作业应先补分数乘法，再练分数除法
+```
+
+### 原则二：区分巩固与补漏
+
+| 掌握等级 | 作业策略 |
+|---------|---------|
+| excellent / good | 不布置（避免重复刷题） |
+| fair | 少量巩固题，提升稳定性 |
+| weak | 适量强化题 + 追溯前置知识点 |
+| poor | 较多补基础题 + 前置补习题，难度递进 |
+
+### 原则三：满分 100 分弹性分配
+
+薄弱/欠缺知识点获得更多分值，优良知识点不分配分值，确保作业聚焦在真正需要练习的地方。
+
+---
+
+## 分值权重基准
+
+| 知识点等级 | 基础分值 |
+|-----------|---------|
+| poor（欠缺）| 20 分/点 |
+| weak（薄弱）| 15 分/点 |
+| 前置根因节点 | 额外 +5～10 分 |
+| fair（一般，巩固）| 8 分/点 |
+
+---
+
+## 输出文件
+
+1. 每位学生的个性化作业单（含题目、答案、解析）
+2. `homework_summary.csv` — 班级作业汇总表
+3. `homework_kp_coverage.csv` — 知识点覆盖分析表
+</script>
+
+<script type="text/markdown" id="md-5">
+# 大学生个性化学习资源推荐技能
+
+## 概述
+
+本技能综合**学生知识画像**与**课程知识图谱**，为每位大学生推荐个性化学习资源清单，涵盖本地资源与网络资源，支持多模态形式。
+
+**资源来源**：本地课件/教材 + 网络公开课/论文/工具
+**面向对象**：高校大学生，强调学术深度与自主探索能力
+
+---
+
+## 掌握等级驱动资源深度
+
+| 等级 | 学习需求 | 资源策略 |
+|------|---------|---------|
+| poor | 重建认知框架 | 系统性入门课程、直观动画讲解、基础教材章节 |
+| weak | 填补理解漏洞 | 专题讲解视频、有例题的笔记/博客、配套练习平台 |
+| fair | 强化与应用 | 进阶课程片段、经典习题集、案例分析文章 |
+| good | 拓展与融会贯通 | 学术综述、开源项目实践、跨知识点综合资源 |
+| excellent | 前沿探索 | 顶会论文、前沿工具/框架、研究级项目、学术讲座 |
+
+> **大学生特别注意**：即使是 poor 等级，推荐资源也应保持大学本科/研究生的学术调性。
+
+---
+
+## 多模态资源形式
+
+| 资源形式 | 适用场景 | 典型来源 |
+|---------|---------|---------|
+| 🎬 视频课程 | 系统建立知识框架 | Bilibili、中国大学MOOC、MIT OCW、Coursera |
+| 📄 文章/博客 | 深度理解某一细节 | 知乎、CSDN、Medium、官方文档 |
+| 📊 学术论文 | 理解原理，前沿探索 | arXiv、知网、Google Scholar |
+| 🛠️ 交互平台 | 边学边练，即时反馈 | LeetCode、Kaggle、Brilliant.org |
+| 💻 代码/项目 | 实践应用，工程能力 | GitHub、Papers with Code |
+| 📊 可视化工具 | 理解抽象概念 | VisuAlgo、3Blue1Brown、Desmos |
+
+---
+
+## 知识关联分析优先
+
+薄弱知识点的根因可能是前置知识点不牢。推荐资源前须追溯前置依赖节点，优先推荐根因节点资源（标注"建议先学"）。
+
+---
+
+## 输出文件
+
+1. 每位学生的个性化资源推荐单（`.md` 格式，含获取方式与学习路径建议）
+2. `resource_recommendation_summary.csv` — 班级推荐汇总
+3. `resource_pool.csv` — 全班资源池（便于教师审核复用）
+</script>
+
+<script>
+  marked.setOptions({ breaks: true, gfm: true });
+
+  const skillMeta = [
+    { name: 'AI 私人助教',    icon: '🤖', file: 'SKILL-Aiteacher.md',         tag: 'ai-personal-tutor' },
+    { name: '课程知识图谱构建', icon: '🗺️', file: 'SKILL-course2Kg.md',        tag: 'course-knowledge-graph' },
+    { name: '试卷知识点标注',  icon: '📝', file: 'SKILL-queskg.md',            tag: 'exam-question-tagging' },
+    { name: '学生知识画像构建', icon: '🎓', file: 'SKILL-stukg.md',             tag: 'student-knowledge-profiling' },
+    { name: '个性化作业推荐',  icon: '📚', file: 'SKILL-homeworkRecommend.md', tag: 'personalized-homework' },
+    { name: '个性化资源推荐',  icon: '🔍', file: 'SKILL-resourceRecommend.md', tag: 'personalized-resources' },
+  ];
+
+  let currentIdx = 0;
+
+  function selectSkill(idx) {
+    // Update sidebar active state
+    document.querySelectorAll('.skill-card').forEach((c, i) => {
+      c.classList.toggle('active', i === idx);
+    });
+
+    currentIdx = idx;
+    const meta = skillMeta[idx];
+    const raw = document.getElementById('md-' + idx).textContent;
+
+    document.getElementById('contentIcon').textContent = meta.icon;
+    document.getElementById('contentTitle').textContent = meta.name;
+    document.getElementById('contentSubtitle').textContent = meta.tag + ' · ' + meta.file;
+    document.getElementById('dlBtn').href = meta.file;
+    document.getElementById('dlBtn').download = meta.file;
+    document.getElementById('mdBody').innerHTML = marked.parse(raw);
+
+    // Scroll content to top
+    document.getElementById('contentPanel').scrollTop = 0;
+  }
+
+  // Load first skill on page load
+  selectSkill(0);
+</script>
+</body>
+</html>

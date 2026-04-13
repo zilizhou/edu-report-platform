@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试资源 · AI 教学辅助平台</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #131624;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6;
+      --muted: rgba(255,255,255,0.45);
+      --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 52px;
+      background: rgba(13,15,26,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a:hover { color: var(--text); }
+    .nav-title { font-size: 0.9rem; font-weight: 600; }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 36px 24px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .page-header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Usage guide */
+    .usage-guide {
+      background: rgba(129,140,248,0.07);
+      border: 1px solid rgba(129,140,248,0.25);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .usage-guide strong { color: #a5b4fc; }
+
+    .usage-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .uf-step {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+    }
+
+    .uf-arrow { color: rgba(255,255,255,0.25); font-size: 1rem; }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .res-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .res-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .card-top {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .file-icon { font-size: 2.4rem; flex-shrink: 0; margin-top: 2px; }
+
+    .file-info { flex: 1; min-width: 0; }
+
+    .file-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      word-break: break-all;
+      margin-bottom: 5px;
+    }
+
+    .file-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 500;
+    }
+
+    .badge-docx { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
+    .badge-csv  { background: rgba(52,211,153,0.15); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
+    .badge-typeA { background: rgba(251,191,36,0.15); color: #fde68a; border: 1px solid rgba(251,191,36,0.25); }
+    .badge-typeB { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.25); }
+    .badge-typeC { background: rgba(129,140,248,0.15); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.25); }
+
+    .file-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Actions */
+    .card-actions {
+      padding: 12px 22px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-family: var(--font);
+      border: none;
+    }
+
+    .btn-primary {
+      background: rgba(129,140,248,0.15);
+      border: 1px solid rgba(129,140,248,0.35);
+      color: #a5b4fc;
+    }
+
+    .btn-primary:hover { background: rgba(129,140,248,0.25); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+
+    /* Preview table */
+    .card-preview {
+      border-top: 1px dashed rgba(255,255,255,0.06);
+      padding: 0 22px 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+
+    .card-preview.open {
+      max-height: 400px;
+      padding: 16px 22px;
+      overflow-x: auto;
+    }
+
+    .preview-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .preview-table {
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .preview-table th {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 5px 10px;
+      color: #a5b4fc;
+      text-align: left;
+    }
+
+    .preview-table td {
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .preview-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    /* Skill mapping hint */
+    .skill-map {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .skill-map h3 {
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+
+    .map-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+    }
+
+    .map-row:last-child { border-bottom: none; }
+
+    .map-files { color: #6ee7b7; flex: 1; }
+    .map-arrow { color: rgba(255,255,255,0.2); }
+    .map-skill { color: #a5b4fc; flex: 2; }
+
+    @media (max-width: 680px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← 返回首页</a>
+  <span class="nav-title">📁 测试资源下载</span>
+  <span style="font-size:0.78rem;color:var(--muted);">4 个文件</span>
+</nav>
+
+<main>
+  <div class="page-header">
+    <h1>测试资源</h1>
+    <p>以下资源用于演示和测试 AI 教学辅助平台的各项技能功能。<br>
+       数据来自《计算机网络》课程，30 名学生，包含一份试卷与三种不同精度的成绩单。</p>
+  </div>
+
+  <!-- Usage guide -->
+  <div class="usage-guide">
+    <strong>推荐使用流程</strong>
+    <div class="usage-flow">
+      <div class="uf-step">① 下载试卷 .docx</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">② 用「试卷知识点标注」技能处理</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">③ 选择成绩单精度</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">④ 用「学生知识画像」技能生成画像</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">⑤ 个性化作业 / 资源推荐</div>
+    </div>
+  </div>
+
+  <!-- File cards -->
+  <div class="section-label">📄 文件列表</div>
+  <div class="cards-grid">
+
+    <!-- Exam paper -->
+    <div class="res-card">
+      <div class="card-top">
+        <div class="file-icon">📋</div>
+        <div class="file-info">
+          <div class="file-name">计算机网络期末试卷（测试用）.docx</div>
+          <div class="file-badges">
+            <span class="badge badge-docx">Word · DOCX</span>
+          </div>
+          <div class="file-desc">
+            《计算机网络》期末考试试卷，含选择题 20 道、判断题 10 道、填空题 5 道、简答题 5 道、综合题 3 道，满分 100 分。<br>
+            搭配「试卷知识点标注」技能使用，生成题目-知识点映射表。
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl btn-primary" href="计算机网络期末试卷（测试用）.docx" download>⬇ 下载试卷</a>
+      </div>
+    </div>
+
+    <!-- Grade sheet 1 -->
+    <div class="res-card">
+      <div class="card-top">
+        <div class="file-icon">📊</div>
+        <div class="file-info">
+          <div class="file-name">成绩单1_总分.csv</div>
+          <div class="file-badges">
+            <span class="badge badge-csv">CSV</span>
+            <span class="badge badge-typeA">类型 A · 仅总分</span>
+          </div>
+          <div class="file-desc">
+            30 名学生的总分成绩单（满分 100 分），仅含学号、姓名、总分三列。<br>
+            对应知识画像技能「类型 A」处理路径，数据质量为 medium-low，含难度感知调整。
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl btn-primary" href="成绩单1_总分.csv" download>⬇ 下载</a>
+        <button class="btn-dl btn-secondary" onclick="togglePreview('prev1', this)">👁 预览数据</button>
+      </div>
+      <div class="card-preview" id="prev1">
+        <div class="preview-label">前 5 行数据预览</div>
+        <table class="preview-table">
+          <thead><tr><th>学号</th><th>姓名</th><th>总分(100分)</th></tr></thead>
+          <tbody>
+            <tr><td>20220101</td><td>张伟</td><td>69</td></tr>
+            <tr><td>20220102</td><td>李娜</td><td>64</td></tr>
+            <tr><td>20220103</td><td>王芳</td><td>78</td></tr>
+            <tr><td>20220104</td><td>刘洋</td><td>79</td></tr>
+            <tr><td>20220105</td><td>陈静</td><td>74</td></tr>
+            <tr><td colspan="3" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Grade sheet 2 -->
+    <div class="res-card">
+      <div class="card-top">
+        <div class="file-icon">📊</div>
+        <div class="file-info">
+          <div class="file-name">成绩单2_大题分+总分.csv</div>
+          <div class="file-badges">
+            <span class="badge badge-csv">CSV</span>
+            <span class="badge badge-typeB">类型 B · 大题分</span>
+          </div>
+          <div class="file-desc">
+            30 名学生各大题得分及总分，含选择题(20)、判断题(10)、填空题(10)、简答题(30)、综合题(30) 五个维度。<br>
+            对应知识画像技能「类型 B」，数据质量 medium-high，支持大题内部二次分层。
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl btn-primary" href="成绩单2_大题分+总分.csv" download>⬇ 下载</a>
+        <button class="btn-dl btn-secondary" onclick="togglePreview('prev2', this)">👁 预览数据</button>
+      </div>
+      <div class="card-preview" id="prev2">
+        <div class="preview-label">前 5 行数据预览</div>
+        <table class="preview-table">
+          <thead><tr><th>学号</th><th>姓名</th><th>选择题</th><th>判断题</th><th>填空题</th><th>简答题</th><th>综合题</th><th>总分</th></tr></thead>
+          <tbody>
+            <tr><td>20220101</td><td>张伟</td><td>17</td><td>8</td><td>4</td><td>21</td><td>19</td><td>69</td></tr>
+            <tr><td>20220102</td><td>李娜</td><td>15</td><td>9</td><td>6</td><td>18</td><td>16</td><td>64</td></tr>
+            <tr><td>20220103</td><td>王芳</td><td>18</td><td>8</td><td>6</td><td>20</td><td>26</td><td>78</td></tr>
+            <tr><td>20220104</td><td>刘洋</td><td>16</td><td>8</td><td>10</td><td>23</td><td>22</td><td>79</td></tr>
+            <tr><td>20220105</td><td>陈静</td><td>15</td><td>9</td><td>6</td><td>23</td><td>21</td><td>74</td></tr>
+            <tr><td colspan="8" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Grade sheet 3 -->
+    <div class="res-card">
+      <div class="card-top">
+        <div class="file-icon">📊</div>
+        <div class="file-info">
+          <div class="file-name">成绩单3_小题分+总分.csv</div>
+          <div class="file-badges">
+            <span class="badge badge-csv">CSV</span>
+            <span class="badge badge-typeC">类型 C · 小题分</span>
+          </div>
+          <div class="file-desc">
+            30 名学生每道小题得分及总分，精确到每道题（43 个得分列 + 总分）。<br>
+            对应知识画像技能「类型 C」，数据质量最高（high），支持答题一致性检验，可生成最精准的个性化画像。
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl btn-primary" href="成绩单3_小题分+总分.csv" download>⬇ 下载</a>
+        <button class="btn-dl btn-secondary" onclick="togglePreview('prev3', this)">👁 预览数据</button>
+      </div>
+      <div class="card-preview" id="prev3">
+        <div class="preview-label">前 3 行数据预览（列较多，横向滚动查看）</div>
+        <table class="preview-table">
+          <thead><tr>
+            <th>学号</th><th>姓名</th>
+            <th>选择1</th><th>选择2</th><th>选择3</th><th>…</th>
+            <th>判断1</th><th>…</th>
+            <th>填空1</th><th>…</th>
+            <th>简答1</th><th>…</th>
+            <th>综合1</th><th>综合2</th><th>综合3</th>
+            <th>总分</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>20220101</td><td>张伟</td><td>1</td><td>1</td><td>1</td><td>…</td><td>1</td><td>…</td><td>2</td><td>…</td><td>5</td><td>…</td><td>6</td><td>6</td><td>7</td><td>69</td></tr>
+            <tr><td>20220102</td><td>李娜</td><td>1</td><td>1</td><td>1</td><td>…</td><td>1</td><td>…</td><td>1</td><td>…</td><td>4</td><td>…</td><td>4</td><td>5</td><td>7</td><td>64</td></tr>
+            <tr><td>20220103</td><td>王芳</td><td>1</td><td>1</td><td>1</td><td>…</td><td>1</td><td>…</td><td>1</td><td>…</td><td>3</td><td>…</td><td>10</td><td>7</td><td>9</td><td>78</td></tr>
+            <tr><td colspan="16" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行 · 43 道题目得分列</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <!-- Skill mapping -->
+  <div class="section-label">🔗 资源与技能对应关系</div>
+  <div class="skill-map">
+    <h3>下载后可搭配以下技能使用</h3>
+    <div class="map-row">
+      <div class="map-files">📋 期末试卷.docx</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ 试卷知识点标注（SKILL-queskg.md）</div>
+    </div>
+    <div class="map-row">
+      <div class="map-files">📊 成绩单1 / 2 / 3 + 试卷标注结果</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ 学生知识画像构建（SKILL-stukg.md）</div>
+    </div>
+    <div class="map-row">
+      <div class="map-files">🎓 学生知识画像 + 知识图谱</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ 个性化作业推荐（SKILL-homeworkRecommend.md）</div>
+    </div>
+    <div class="map-row">
+      <div class="map-files">🎓 学生知识画像 + 知识图谱</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ 个性化资源推荐（SKILL-resourceRecommend.md）</div>
+    </div>
+    <div class="map-row">
+      <div class="map-files">🎓 学生知识画像（CSV）</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ AI 私人助教（SKILL-Aiteacher.md）</div>
+    </div>
+    <div class="map-row">
+      <div class="map-files">📊 knowledge_graph_triples.csv（图谱输出）</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">📊 数据可视化 · 知识图谱网络图</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function togglePreview(id, btn) {
+    const el = document.getElementById(id);
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '👁 预览数据' : '🙈 收起预览';
+  }
+</script>
+</body>
+</html>

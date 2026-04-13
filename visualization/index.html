@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据可视化 · AI 教学辅助平台</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #131624;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6;
+      --muted: rgba(255,255,255,0.45);
+      --accent: #818cf8;
+      --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 52px;
+      background: rgba(13,15,26,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+      flex-shrink: 0;
+    }
+
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a:hover { color: var(--text); }
+
+    .nav-center { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+    #reupload {
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font);
+    }
+    #reupload:hover { border-color: var(--accent); color: var(--accent); }
+    #reupload { display: none; }
+
+    /* ── Upload zone ── */
+    #uploadZone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .drop-area {
+      width: 100%;
+      max-width: 560px;
+      border: 2px dashed rgba(129,140,248,0.4);
+      border-radius: 20px;
+      padding: 64px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: rgba(129,140,248,0.04);
+    }
+
+    .drop-area.drag-over {
+      border-color: var(--accent);
+      background: rgba(129,140,248,0.1);
+      transform: scale(1.01);
+    }
+
+    .drop-icon { font-size: 3.5rem; margin-bottom: 16px; }
+    .drop-area h2 { font-size: 1.2rem; margin-bottom: 8px; }
+    .drop-area p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+    .btn-file {
+      display: inline-block;
+      padding: 10px 24px;
+      background: rgba(129,140,248,0.15);
+      border: 1px solid rgba(129,140,248,0.35);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-file:hover { background: rgba(129,140,248,0.25); }
+
+    input[type="file"] { display: none; }
+
+    .hint-cards {
+      display: flex;
+      gap: 12px;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .hint-card {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .hint-card strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 0.82rem; }
+
+    /* ── Viz layout ── */
+    #vizLayout {
+      display: none;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .viz-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 52px);
+    }
+
+    /* Sidebar controls */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .sb-section { display: flex; flex-direction: column; gap: 8px; }
+
+    .sb-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .file-info {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .file-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .file-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .type-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .type-badge.graph { background: rgba(52,211,153,0.15); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
+    .type-badge.heatmap { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.3); }
+    .type-badge.chart { background: rgba(129,140,248,0.15); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.3); }
+
+    /* Chart type buttons */
+    .chart-types { display: flex; flex-direction: column; gap: 6px; }
+
+    .ct-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font);
+      text-align: left;
+    }
+
+    .ct-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .ct-btn.active { background: rgba(129,140,248,0.15); border-color: rgba(129,140,248,0.4); color: var(--accent); }
+
+    /* Column selectors */
+    select {
+      width: 100%;
+      padding: 7px 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: var(--font);
+      cursor: pointer;
+    }
+
+    select:focus { outline: none; border-color: var(--accent); }
+
+    .sb-row { display: flex; flex-direction: column; gap: 5px; }
+    .sb-row label { font-size: 0.75rem; color: var(--muted); }
+
+    /* Graph options */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+    }
+
+    .toggle {
+      width: 36px; height: 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .toggle.on { background: var(--accent); }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: white;
+      transition: transform 0.2s;
+    }
+
+    .toggle.on::after { transform: translateX(16px); }
+
+    /* Viz area */
+    .viz-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    #graphContainer {
+      width: 100%; height: 100%;
+    }
+
+    #chartContainer {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    #chartCanvas { max-height: 100%; }
+
+    #heatmapContainer {
+      width: 100%; height: 100%;
+      overflow: auto;
+      padding: 24px;
+    }
+
+    .heatmap-table {
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .heatmap-table th {
+      padding: 6px 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+    }
+
+    .heatmap-table td {
+      padding: 5px 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+
+    .heatmap-table .row-header {
+      background: var(--bg2);
+      color: var(--text);
+      text-align: left;
+      position: sticky;
+      left: 0;
+      border-right: 1px solid var(--border);
+    }
+
+    /* Graph legend */
+    .graph-legend {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      background: rgba(13,15,26,0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.75rem;
+    }
+
+    .legend-title { color: var(--muted); margin-bottom: 8px; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Status messages */
+    .status-msg {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← 返回首页</a>
+  <span class="nav-center">📊 数据可视化</span>
+  <button id="reupload" onclick="resetUpload()">重新上传</button>
+</nav>
+
+<!-- Upload zone -->
+<div id="uploadZone">
+  <div class="drop-area" id="dropArea">
+    <div class="drop-icon">📂</div>
+    <h2>拖入 CSV 文件即可可视化</h2>
+    <p>自动识别数据类型：<strong>知识图谱</strong>（网络图）·
+    <strong>学生画像</strong>（热力图）· <strong>数据表格</strong>（多种图表）</p>
+    <label class="btn-file" for="fileInput">选择文件</label>
+    <input type="file" id="fileInput" accept=".csv">
+  </div>
+
+  <div class="hint-cards">
+    <div class="hint-card">
+      <strong>🗺️ 知识图谱 CSV</strong>
+      包含 subject / relation / object 列，自动渲染网络图
+    </div>
+    <div class="hint-card">
+      <strong>🎓 学生画像 CSV</strong>
+      包含 student_name + knowledge_point + score_rate，渲染热力图
+    </div>
+    <div class="hint-card">
+      <strong>📊 普通数据 CSV</strong>
+      任意表格数据，选择柱状图 / 折线 / 饼图 / 雷达图等
+    </div>
+  </div>
+</div>
+
+<!-- Viz layout (hidden until file loaded) -->
+<div id="vizLayout">
+  <div class="viz-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sb-section">
+        <div class="sb-label">文件信息</div>
+        <div class="file-info">
+          <div class="file-name" id="fileName">—</div>
+          <div class="file-meta" id="fileMeta">—</div>
+          <div id="typeBadge"></div>
+        </div>
+      </div>
+
+      <!-- Chart controls (shown for chart mode) -->
+      <div class="sb-section" id="ctrlChart" style="display:none;">
+        <div class="sb-label">图表类型</div>
+        <div class="chart-types">
+          <button class="ct-btn active" data-type="bar" onclick="switchChart('bar',this)">📊 柱状图</button>
+          <button class="ct-btn" data-type="line" onclick="switchChart('line',this)">📈 折线图</button>
+          <button class="ct-btn" data-type="pie" onclick="switchChart('pie',this)">🥧 饼图</button>
+          <button class="ct-btn" data-type="radar" onclick="switchChart('radar',this)">🕸️ 雷达图</button>
+          <button class="ct-btn" data-type="doughnut" onclick="switchChart('doughnut',this)">🍩 环形图</button>
+          <button class="ct-btn" data-type="polarArea" onclick="switchChart('polarArea',this)">🎯 极坐标图</button>
+        </div>
+        <div class="sb-section" id="colSelectors"></div>
+      </div>
+
+      <!-- Graph controls -->
+      <div class="sb-section" id="ctrlGraph" style="display:none;">
+        <div class="sb-label">图谱选项</div>
+        <div class="toggle-row">
+          <span>物理引擎</span>
+          <button class="toggle on" id="physicsToggle" onclick="togglePhysics(this)"></button>
+        </div>
+        <div class="toggle-row" style="margin-top:8px;">
+          <span>边标签</span>
+          <button class="toggle on" id="edgeLabelToggle" onclick="toggleEdgeLabels(this)"></button>
+        </div>
+        <div class="sb-row" style="margin-top:8px;">
+          <label>节点数量</label>
+          <div class="file-meta" id="graphStats">—</div>
+        </div>
+        <div class="sb-row" style="margin-top:8px;">
+          <label>过滤关系类型</label>
+          <select id="relationFilter" onchange="filterRelations()">
+            <option value="">全部显示</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Heatmap controls -->
+      <div class="sb-section" id="ctrlHeatmap" style="display:none;">
+        <div class="sb-label">热力图选项</div>
+        <div class="toggle-row">
+          <span>显示等级标签</span>
+          <button class="toggle on" id="levelLabelToggle" onclick="toggleLevelLabels(this)"></button>
+        </div>
+        <div class="sb-row" style="margin-top:8px;">
+          <label>排序方式</label>
+          <select onchange="renderHeatmap(currentData, this.value)">
+            <option value="name">按姓名</option>
+            <option value="score">按总分</option>
+          </select>
+        </div>
+        <div class="sb-row" style="margin-top:8px;">
+          <label>图例</label>
+          <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;">
+            <span style="background:#22c55e;color:#fff;font-size:0.7rem;padding:2px 7px;border-radius:4px;">优秀≥0.9</span>
+            <span style="background:#86efac;color:#166534;font-size:0.7rem;padding:2px 7px;border-radius:4px;">良好≥0.75</span>
+            <span style="background:#fef08a;color:#713f12;font-size:0.7rem;padding:2px 7px;border-radius:4px;">一般≥0.6</span>
+            <span style="background:#fca5a5;color:#7f1d1d;font-size:0.7rem;padding:2px 7px;border-radius:4px;">薄弱≥0.4</span>
+            <span style="background:#ef4444;color:#fff;font-size:0.7rem;padding:2px 7px;border-radius:4px;">欠缺&lt;0.4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Viz area -->
+    <div class="viz-area" id="vizArea">
+      <div id="graphContainer" style="display:none;"></div>
+      <canvas id="chartCanvas" style="display:none;"></canvas>
+      <div id="heatmapContainer" style="display:none;"></div>
+      <div class="graph-legend" id="graphLegend" style="display:none;">
+        <div class="legend-title">节点类型</div>
+        <div id="legendItems"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let currentData = null;
+  let currentType = null;
+  let currentChart = null;
+  let networkInstance = null;
+  let showLevelLabels = true;
+  let showEdgeLabels = true;
+  let graphData = null;
+
+  const COLORS = ['#818cf8','#34d399','#f97316','#ec4899','#60a5fa','#fbbf24','#a78bfa','#2dd4bf','#fb923c','#f472b6'];
+
+  // ── File drop & select ──
+  const dropArea = document.getElementById('dropArea');
+  const fileInput = document.getElementById('fileInput');
+
+  dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('drag-over'); });
+  dropArea.addEventListener('dragleave', () => dropArea.classList.remove('drag-over'));
+  dropArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dropArea.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  dropArea.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+  function handleFile(file) {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: res => {
+        if (!res.data || !res.data.length) return alert('CSV 文件为空或格式错误');
+        currentData = res.data;
+        const cols = res.meta.fields || [];
+        const type = detectType(cols, res.data);
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileMeta').textContent = `${res.data.length} 行 · ${cols.length} 列`;
+        showViz(type, res.data, cols);
+      },
+      error: () => alert('解析 CSV 失败，请检查文件格式')
+    });
+  }
+
+  function detectType(cols, data) {
+    const c = cols.map(x => x.toLowerCase().trim());
+    const hasSubject = c.some(x => ['subject','主体'].includes(x));
+    const hasObject  = c.some(x => ['object','客体'].includes(x));
+    const hasRelation = c.some(x => ['relation','relationship','关系'].includes(x));
+    if (hasSubject && hasObject) return 'graph';
+
+    const hasStudent = c.some(x => x.includes('student') || x.includes('学生') || x.includes('姓名'));
+    const hasKP = c.some(x => x.includes('knowledge') || x.includes('知识点') || x === 'kp');
+    const hasScore = c.some(x => x.includes('score_rate') || x.includes('掌握') || x === 'mastery_level');
+    if (hasStudent && hasKP && hasScore) return 'heatmap';
+
+    return 'chart';
+  }
+
+  function showViz(type, data, cols) {
+    currentType = type;
+    document.getElementById('uploadZone').style.display = 'none';
+    document.getElementById('vizLayout').style.display = 'flex';
+    document.getElementById('reupload').style.display = 'block';
+    document.getElementById('graphContainer').style.display = 'none';
+    document.getElementById('chartCanvas').style.display = 'none';
+    document.getElementById('heatmapContainer').style.display = 'none';
+    document.getElementById('graphLegend').style.display = 'none';
+    document.getElementById('ctrlChart').style.display = 'none';
+    document.getElementById('ctrlGraph').style.display = 'none';
+    document.getElementById('ctrlHeatmap').style.display = 'none';
+
+    const badge = document.getElementById('typeBadge');
+    if (type === 'graph') {
+      badge.innerHTML = '<span class="type-badge graph">知识图谱</span>';
+      document.getElementById('ctrlGraph').style.display = '';
+      renderGraph(data, cols);
+    } else if (type === 'heatmap') {
+      badge.innerHTML = '<span class="type-badge heatmap">学生热力图</span>';
+      document.getElementById('ctrlHeatmap').style.display = '';
+      renderHeatmap(data, 'name');
+    } else {
+      badge.innerHTML = '<span class="type-badge chart">数据图表</span>';
+      document.getElementById('ctrlChart').style.display = '';
+      buildColSelectors(cols, data);
+      renderChart('bar', data, cols);
+    }
+  }
+
+  // ── Knowledge Graph ──
+  function renderGraph(data, cols) {
+    const c = cols.map(x => x.toLowerCase().trim());
+    const subjectCol = cols[c.findIndex(x => ['subject','主体'].includes(x))];
+    const objectCol  = cols[c.findIndex(x => ['object','客体'].includes(x))];
+    const relationCol = cols[c.findIndex(x => ['relation','relationship','关系'].includes(x))];
+    const sTypeCol = cols[c.findIndex(x => x === 'subject_type')] || null;
+    const oTypeCol = cols[c.findIndex(x => x === 'object_type')]  || null;
+
+    const nodeMap = new Map();
+    const edges = [];
+    const relationSet = new Set();
+    const typeColors = {};
+    let colorIdx = 0;
+
+    data.forEach(row => {
+      const s = row[subjectCol], o = row[objectCol], r = row[relationCol] || '';
+      if (!s || !o) return;
+      const sType = sTypeCol ? row[sTypeCol] || 'entity' : 'entity';
+      const oType = oTypeCol ? row[oTypeCol] || 'entity' : 'entity';
+      if (!typeColors[sType]) typeColors[sType] = COLORS[colorIdx++ % COLORS.length];
+      if (!typeColors[oType]) typeColors[oType] = COLORS[colorIdx++ % COLORS.length];
+      if (!nodeMap.has(s)) nodeMap.set(s, { id: nodeMap.size+1, label: s, color: { background: typeColors[sType], border: typeColors[sType] }, font: { color: '#e8eaf6', size: 13 }, shape: 'dot', size: 12, title: `${sType}: ${s}` });
+      if (!nodeMap.has(o)) nodeMap.set(o, { id: nodeMap.size+1, label: o, color: { background: typeColors[oType], border: typeColors[oType] }, font: { color: '#e8eaf6', size: 13 }, shape: 'dot', size: 12, title: `${oType}: ${o}` });
+      edges.push({ from: nodeMap.get(s).id, to: nodeMap.get(o).id, label: r, arrows: 'to', font: { color: 'rgba(255,255,255,0.5)', size: 10, align: 'middle' }, color: { color: 'rgba(255,255,255,0.25)', highlight: '#818cf8' } });
+      if (r) relationSet.add(r);
+    });
+
+    const nodes = Array.from(nodeMap.values());
+    graphData = { nodes, edges, types: typeColors, allEdges: edges };
+
+    document.getElementById('graphStats').textContent = `${nodes.length} 节点 · ${edges.length} 边`;
+    document.getElementById('graphContainer').style.display = 'block';
+
+    // Populate relation filter
+    const rf = document.getElementById('relationFilter');
+    rf.innerHTML = '<option value="">全部显示</option>';
+    relationSet.forEach(r => rf.innerHTML += `<option value="${r}">${r}</option>`);
+
+    // Build legend
+    const li = document.getElementById('legendItems');
+    li.innerHTML = '';
+    Object.entries(typeColors).forEach(([type, color]) => {
+      li.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${color}"></div><span>${type}</span></div>`;
+    });
+    document.getElementById('graphLegend').style.display = 'block';
+
+    // Render vis.js
+    const container = document.getElementById('graphContainer');
+    const dataset = {
+      nodes: new vis.DataSet(nodes),
+      edges: new vis.DataSet(edges)
+    };
+    const options = {
+      physics: { enabled: true, solver: 'forceAtlas2Based', forceAtlas2Based: { gravitationalConstant: -30, springLength: 120, springConstant: 0.15 }, stabilization: { iterations: 200 } },
+      interaction: { hover: true, tooltipDelay: 200 },
+      layout: { improvedLayout: nodes.length < 100 }
+    };
+    if (networkInstance) networkInstance.destroy();
+    networkInstance = new vis.Network(container, dataset, options);
+    networkInstance.fit({ animation: { duration: 800 } });
+  }
+
+  function togglePhysics(btn) {
+    btn.classList.toggle('on');
+    if (networkInstance) networkInstance.setOptions({ physics: { enabled: btn.classList.contains('on') } });
+  }
+
+  function toggleEdgeLabels(btn) {
+    btn.classList.toggle('on');
+    showEdgeLabels = btn.classList.contains('on');
+    if (networkInstance && graphData) {
+      const updatedEdges = graphData.edges.map(e => ({
+        ...e, label: showEdgeLabels ? e.label : ''
+      }));
+      networkInstance.setData({ nodes: new vis.DataSet(graphData.nodes), edges: new vis.DataSet(updatedEdges) });
+    }
+  }
+
+  function filterRelations() {
+    const val = document.getElementById('relationFilter').value;
+    if (!graphData) return;
+    const filtered = val ? graphData.allEdges.filter(e => e.label === val) : graphData.allEdges;
+    networkInstance.setData({ nodes: new vis.DataSet(graphData.nodes), edges: new vis.DataSet(filtered) });
+  }
+
+  // ── Heatmap ──
+  function renderHeatmap(data, sortBy) {
+    const c = Object.keys(data[0]).map(x => x.toLowerCase());
+    const nameCol = Object.keys(data[0])[c.findIndex(x => x.includes('student_name') || x.includes('姓名') || x.includes('name'))];
+    const kpCol   = Object.keys(data[0])[c.findIndex(x => x.includes('knowledge_point') || x.includes('知识点'))];
+    const rateCol = Object.keys(data[0])[c.findIndex(x => x.includes('score_rate'))];
+    const lvlCol  = Object.keys(data[0])[c.findIndex(x => x.includes('mastery_level'))];
+
+    // Pivot
+    const students = [...new Set(data.map(r => r[nameCol]))];
+    const kps = [...new Set(data.map(r => r[kpCol]))];
+
+    if (sortBy === 'score') {
+      students.sort((a, b) => {
+        const scoreA = data.filter(r => r[nameCol] === a).reduce((s,r) => s + (parseFloat(r[rateCol])||0), 0);
+        const scoreB = data.filter(r => r[nameCol] === b).reduce((s,r) => s + (parseFloat(r[rateCol])||0), 0);
+        return scoreB - scoreA;
+      });
+    }
+
+    const matrix = {};
+    data.forEach(r => {
+      if (!matrix[r[nameCol]]) matrix[r[nameCol]] = {};
+      matrix[r[nameCol]][r[kpCol]] = { rate: parseFloat(r[rateCol])||0, level: r[lvlCol]||'' };
+    });
+
+    function scoreColor(v) {
+      if (v >= 0.9) return ['#22c55e','#fff'];
+      if (v >= 0.75) return ['#86efac','#166534'];
+      if (v >= 0.6)  return ['#fef08a','#713f12'];
+      if (v >= 0.4)  return ['#fca5a5','#7f1d1d'];
+      return ['#ef4444','#fff'];
+    }
+
+    let html = '<table class="heatmap-table"><thead><tr><th class="row-header">学生</th>';
+    kps.forEach(kp => { html += `<th title="${kp}">${kp.length>8 ? kp.slice(0,8)+'…' : kp}</th>`; });
+    html += '</tr></thead><tbody>';
+
+    students.forEach(s => {
+      html += `<tr><td class="row-header">${s}</td>`;
+      kps.forEach(kp => {
+        const cell = matrix[s]?.[kp];
+        if (!cell) { html += '<td style="background:rgba(255,255,255,0.03);color:#555;">—</td>'; return; }
+        const [bg, fg] = scoreColor(cell.rate);
+        const txt = showLevelLabels && cell.level ? cell.level.slice(0,4) : (cell.rate*100).toFixed(0)+'%';
+        html += `<td style="background:${bg};color:${fg};" title="${cell.rate.toFixed(2)}">${txt}</td>`;
+      });
+      html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+    const hc = document.getElementById('heatmapContainer');
+    hc.innerHTML = html;
+    hc.style.display = 'block';
+  }
+
+  function toggleLevelLabels(btn) {
+    btn.classList.toggle('on');
+    showLevelLabels = btn.classList.contains('on');
+    if (currentData) renderHeatmap(currentData, 'name');
+  }
+
+  // ── Chart ──
+  let xCol, yCols;
+
+  function buildColSelectors(cols, data) {
+    const numCols = cols.filter(c => data.slice(0,5).some(r => !isNaN(parseFloat(r[c])) && r[c] !== '' && r[c] !== null));
+    const strCols = cols.filter(c => !numCols.includes(c));
+
+    xCol = strCols[0] || cols[0];
+    yCols = [numCols[0] || cols[1]];
+
+    const cs = document.getElementById('colSelectors');
+    cs.innerHTML = `
+      <div class="sb-section">
+        <div class="sb-label">轴设置</div>
+        <div class="sb-row">
+          <label>X 轴 / 标签</label>
+          <select id="xColSel" onchange="onColChange()">
+            ${cols.map(c => `<option value="${c}" ${c===xCol?'selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+        <div class="sb-row" style="margin-top:8px;">
+          <label>Y 轴 / 数值</label>
+          <select id="yColSel" onchange="onColChange()">
+            ${cols.map(c => `<option value="${c}" ${c===yCols[0]?'selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>`;
+  }
+
+  function onColChange() {
+    xCol = document.getElementById('xColSel').value;
+    yCols = [document.getElementById('yColSel').value];
+    const active = document.querySelector('.ct-btn.active');
+    if (active) renderChart(active.dataset.type, currentData, Object.keys(currentData[0]));
+  }
+
+  function switchChart(type, btn) {
+    document.querySelectorAll('.ct-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderChart(type, currentData, Object.keys(currentData[0]));
+  }
+
+  function renderChart(type, data, cols) {
+    if (!xCol) { xCol = cols[0]; }
+    if (!yCols || !yCols[0]) {
+      const numCols = cols.filter(c => data.slice(0,3).some(r => !isNaN(parseFloat(r[c])) && r[c] !== ''));
+      yCols = [numCols[0] || cols[1]];
+    }
+
+    const labels = data.map(r => String(r[xCol] ?? ''));
+    const values = data.map(r => parseFloat(r[yCols[0]]) || 0);
+
+    if (currentChart) { currentChart.destroy(); currentChart = null; }
+
+    const canvas = document.getElementById('chartCanvas');
+    canvas.style.display = 'block';
+    canvas.width = canvas.parentElement.clientWidth - 64;
+    canvas.height = canvas.parentElement.clientHeight - 64;
+    const ctx = canvas.getContext('2d');
+
+    const bgColors = labels.map((_, i) => COLORS[i % COLORS.length] + 'cc');
+    const bdColors = labels.map((_, i) => COLORS[i % COLORS.length]);
+
+    const chartCfg = {
+      type,
+      data: {
+        labels,
+        datasets: [{
+          label: yCols[0],
+          data: values,
+          backgroundColor: bgColors,
+          borderColor: bdColors,
+          borderWidth: 2,
+          fill: type === 'line' ? false : undefined,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'rgba(255,255,255,0.7)', font: { family: "'PingFang SC','Microsoft YaHei',sans-serif" } } },
+          tooltip: { bodyFont: { family: "'PingFang SC','Microsoft YaHei',sans-serif" } }
+        },
+        scales: (type === 'pie' || type === 'doughnut' || type === 'radar' || type === 'polarArea') ? {} : {
+          x: { ticks: { color: 'rgba(255,255,255,0.55)', maxRotation: 45 }, grid: { color: 'rgba(255,255,255,0.06)' } },
+          y: { ticks: { color: 'rgba(255,255,255,0.55)' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+        }
+      }
+    };
+
+    if (type === 'radar') {
+      chartCfg.options.scales = {
+        r: {
+          ticks: { color: 'rgba(255,255,255,0.5)', backdropColor: 'transparent' },
+          grid: { color: 'rgba(255,255,255,0.1)' },
+          pointLabels: { color: 'rgba(255,255,255,0.7)' }
+        }
+      };
+    }
+
+    currentChart = new Chart(ctx, chartCfg);
+  }
+
+  function resetUpload() {
+    if (networkInstance) { networkInstance.destroy(); networkInstance = null; }
+    if (currentChart) { currentChart.destroy(); currentChart = null; }
+    currentData = null; currentType = null; graphData = null;
+    document.getElementById('vizLayout').style.display = 'none';
+    document.getElementById('uploadZone').style.display = 'flex';
+    document.getElementById('reupload').style.display = 'none';
+    document.getElementById('fileInput').value = '';
+  }
+</script>
+</body>
+</html>
