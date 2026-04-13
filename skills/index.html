@@ -374,9 +374,9 @@
           <div class="content-subtitle" id="contentSubtitle">ai-personal-tutor · SKILL-Aiteacher.md</div>
         </div>
       </div>
-      <a class="btn-dl" id="dlBtn" href="SKILL-Aiteacher.md" download>
+      <button class="btn-dl" id="dlBtn" onclick="downloadCurrentSkill()">
         ⬇ 下载文档
-      </a>
+      </button>
     </div>
     <div class="md-body" id="mdBody">
       <!-- Rendered markdown goes here -->
@@ -775,12 +775,24 @@ knowledge_point, question_count, question_ids, total_score, difficulty_distribut
     document.getElementById('contentIcon').textContent = meta.icon;
     document.getElementById('contentTitle').textContent = meta.name;
     document.getElementById('contentSubtitle').textContent = meta.tag + ' · ' + meta.file;
-    document.getElementById('dlBtn').href = meta.file;
-    document.getElementById('dlBtn').download = meta.file;
     document.getElementById('mdBody').innerHTML = marked.parse(raw);
 
     // Scroll content to top
     document.getElementById('contentPanel').scrollTop = 0;
+  }
+
+  function downloadCurrentSkill() {
+    const meta = skillMeta[currentIdx];
+    const raw = document.getElementById('md-' + mdIds[currentIdx]).textContent;
+    const blob = new Blob([raw.trim()], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = meta.file;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   // Load first skill on page load
