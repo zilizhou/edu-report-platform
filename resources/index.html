@@ -292,35 +292,59 @@
 <nav>
   <a href="../index.html">← 返回首页</a>
   <span class="nav-title">📁 测试资源下载</span>
-  <span style="font-size:0.78rem;color:var(--muted);">4 个文件</span>
+  <span style="font-size:0.78rem;color:var(--muted);">5 个文件</span>
 </nav>
 
 <main>
   <div class="page-header">
     <h1>测试资源</h1>
     <p>以下资源用于演示和测试 AI 教学辅助平台的各项技能功能。<br>
-       数据来自《计算机网络》课程，30 名学生，包含一份试卷与三种不同精度的成绩单。</p>
+       数据来自《计算机网络》课程，30 名学生，包含一份教学大纲、一份试卷与三种不同精度的成绩单。</p>
   </div>
 
   <!-- Usage guide -->
   <div class="usage-guide">
     <strong>推荐使用流程</strong>
     <div class="usage-flow">
-      <div class="uf-step">① 下载试卷 .docx</div>
+      <div class="uf-step">① 下载教学大纲</div>
       <div class="uf-arrow">→</div>
-      <div class="uf-step">② 用「试卷知识点标注」技能处理</div>
+      <div class="uf-step">② 「课程知识图谱构建」</div>
       <div class="uf-arrow">→</div>
-      <div class="uf-step">③ 选择成绩单精度</div>
+      <div class="uf-step">③ 下载试卷</div>
       <div class="uf-arrow">→</div>
-      <div class="uf-step">④ 用「学生知识画像」技能生成画像</div>
+      <div class="uf-step">④ 「试卷知识点标注」</div>
       <div class="uf-arrow">→</div>
-      <div class="uf-step">⑤ 个性化作业 / 资源推荐</div>
+      <div class="uf-step">⑤ 选择成绩单精度</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">⑥ 「学生知识画像」</div>
+      <div class="uf-arrow">→</div>
+      <div class="uf-step">⑦ 个性化作业 / 资源推荐</div>
     </div>
   </div>
 
   <!-- File cards -->
   <div class="section-label">📄 文件列表</div>
   <div class="cards-grid">
+
+    <!-- Syllabus -->
+    <div class="res-card">
+      <div class="card-top">
+        <div class="file-icon">📘</div>
+        <div class="file-info">
+          <div class="file-name">计算机网络大纲 (1).docx</div>
+          <div class="file-badges">
+            <span class="badge badge-docx">Word · DOCX</span>
+          </div>
+          <div class="file-desc">
+            《计算机网络》课程教学大纲，涵盖课程目标、知识模块划分、各章节知识点与学时安排。<br>
+            搭配「课程知识图谱构建」技能使用，可自动抽取知识点并生成课程三元组图谱。
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl btn-primary" href="计算机网络大纲 (1).docx" download="计算机网络大纲.docx">⬇ 下载大纲</a>
+      </div>
+    </div>
 
     <!-- Exam paper -->
     <div class="res-card">
@@ -462,6 +486,11 @@
   <div class="section-label">🔗 资源与技能对应关系</div>
   <div class="skill-map">
     <h3>下载后可搭配以下技能使用</h3>
+    <div class="map-row">
+      <div class="map-files">📘 教学大纲.docx</div>
+      <div class="map-arrow">→</div>
+      <div class="map-skill">⚡ 课程知识图谱构建（SKILL-course2Kg.md）</div>
+    </div>
     <div class="map-row">
       <div class="map-files">📋 期末试卷.docx</div>
       <div class="map-arrow">→</div>
