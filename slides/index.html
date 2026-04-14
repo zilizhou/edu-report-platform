@@ -297,13 +297,44 @@
     }
 
     /* Cover special */
+    .cover-quote {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      font-style: italic;
+      letter-spacing: 1px;
+      margin: 4px 0 20px;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .cover-quote::before,
+    .cover-quote::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      vertical-align: middle;
+      margin: 0 10px;
+    }
+
+    .cover-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(165,180,252,0.5), transparent);
+      margin: 8px auto 20px;
+    }
+
     .cover-meta {
       display: flex;
       gap: 32px;
-      margin-top: 16px;
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.3);
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
     }
+
+    .cover-meta span { display: flex; align-items: center; gap: 6px; }
 
     /* Slide backgrounds */
     #s1 { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
@@ -341,20 +372,19 @@
 
   <!-- Slide 1: Cover -->
   <section class="slide active" id="s1">
-    <div class="tag anim" style="--tag-color: #a5b4fc">AI Teaching Platform · 2026</div>
-    <h1 class="slide-title anim" style="font-size:3rem;">
-      基于大模型的智能教学辅助技能平台
+    <div class="tag anim" style="--tag-color: #a5b4fc">因材施教 · AI Practice · 2026</div>
+    <h1 class="slide-title anim" style="font-size:2.6rem; max-width:820px;">
+      因材施教的 AI 实践<br>
+      <span style="font-size:1.8rem;">从知识图谱到个性化教学的探索之路</span>
     </h1>
-    <p class="slide-subtitle anim">
-      AI-Driven Personalized Teaching Assistance System
+    <div class="cover-divider anim"></div>
+    <p class="cover-quote anim">
+      让 AI 与孔子「因材施教」思想相结合，从圣人故里发扬光大
     </p>
-    <div class="placeholder anim" style="max-width:500px; padding:16px;">
-      [ 待填充：汇报人 · 所属单位 · 日期 ]
-    </div>
     <div class="cover-meta anim">
-      <span>📅 2026 年</span>
-      <span>🏫 [ 待填充：学校/院系 ]</span>
-      <span>👤 [ 待填充：汇报人 ]</span>
+      <span>👤 周子力</span>
+      <span>🏫 网络空间安全学院</span>
+      <span>📅 2026 年 4 月 22 日</span>
     </div>
   </section>
 
