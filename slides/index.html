@@ -65,7 +65,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 48px 80px;
+      padding: 36px 72px;
       opacity: 0;
       transform: translateX(60px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -91,6 +91,7 @@
     .slide.active .anim:nth-child(4) { animation-delay: 0.38s; }
     .slide.active .anim:nth-child(5) { animation-delay: 0.46s; }
     .slide.active .anim:nth-child(6) { animation-delay: 0.54s; }
+    .slide.active .anim:nth-child(7) { animation-delay: 0.62s; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -164,8 +165,8 @@
       text-transform: uppercase;
       border: 1px solid var(--tag-color, rgba(129,140,248,0.4));
       color: var(--tag-color, #a5b4fc);
-      background: rgba(129,140,248,0.1);
-      margin-bottom: 20px;
+      background: rgba(129,140,248,0.08);
+      margin-bottom: 16px;
     }
 
     /* Slide title */
@@ -183,35 +184,21 @@
     }
 
     .slide-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: rgba(255,255,255,0.5);
       text-align: center;
-      max-width: 700px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    /* Placeholder box */
-    .placeholder {
-      border: 2px dashed rgba(255,255,255,0.15);
-      border-radius: 12px;
-      padding: 24px 32px;
-      color: rgba(255,255,255,0.3);
-      font-size: 0.9rem;
-      text-align: center;
-      width: 100%;
-      max-width: 800px;
-      font-style: italic;
+      max-width: 680px;
+      line-height: 1.65;
+      margin-bottom: 24px;
     }
 
     /* Content grid */
     .content-grid {
       display: grid;
-      gap: 16px;
+      gap: 14px;
       width: 100%;
       max-width: 900px;
     }
-
     .content-grid.cols-2 { grid-template-columns: 1fr 1fr; }
     .content-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
 
@@ -219,81 +206,20 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px;
-      padding: 20px 24px;
+      padding: 18px 22px;
     }
 
     .content-card .card-title {
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--accent, #818cf8);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .content-card p {
       font-size: 0.82rem;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.55;
-      font-style: italic;
-    }
-
-    /* Agenda list */
-    .agenda {
-      list-style: none;
-      width: 100%;
-      max-width: 600px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .agenda li {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-
-    .agenda li:hover { background: rgba(255,255,255,0.07); }
-
-    .agenda .num {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(129,140,248,0.2);
-      color: #a5b4fc;
-      font-size: 0.78rem;
-      font-weight: 600;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* Skill flow */
-    .flow {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 860px;
-    }
-
-    .flow-step {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 12px 18px;
-      font-size: 0.82rem;
-      text-align: center;
-      min-width: 100px;
-    }
-
-    .flow-arrow {
-      color: rgba(255,255,255,0.25);
-      font-size: 1.2rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
     }
 
     /* Cover special */
@@ -307,25 +233,19 @@
       padding: 0 20px;
       position: relative;
     }
-
-    .cover-quote::before,
-    .cover-quote::after {
+    .cover-quote::before, .cover-quote::after {
       content: '';
       display: inline-block;
-      width: 40px;
-      height: 1px;
+      width: 40px; height: 1px;
       background: rgba(255,255,255,0.2);
       vertical-align: middle;
       margin: 0 10px;
     }
-
     .cover-divider {
-      width: 60px;
-      height: 1px;
+      width: 60px; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(165,180,252,0.5), transparent);
       margin: 8px auto 20px;
     }
-
     .cover-meta {
       display: flex;
       gap: 32px;
@@ -333,29 +253,349 @@
       font-size: 0.85rem;
       color: rgba(255,255,255,0.45);
     }
-
     .cover-meta span { display: flex; align-items: center; gap: 6px; }
 
-    /* Slide backgrounds */
-    #s1 { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
-    #s2 { background: radial-gradient(ellipse at 50% 50%, rgba(30,60,120,0.3) 0%, transparent 70%); }
-    #s3 { background: radial-gradient(ellipse at 20% 60%, rgba(0,140,100,0.15) 0%, transparent 55%); }
-    #s4 { background: radial-gradient(ellipse at 80% 30%, rgba(20,100,200,0.2) 0%, transparent 55%); }
-    #s5 { background: radial-gradient(ellipse at 25% 45%, rgba(0,180,120,0.18) 0%, transparent 55%); }
-    #s6 { background: radial-gradient(ellipse at 75% 55%, rgba(220,100,20,0.18) 0%, transparent 55%); }
-    #s7 { background: radial-gradient(ellipse at 35% 35%, rgba(200,60,130,0.18) 0%, transparent 55%); }
-    #s8 { background: radial-gradient(ellipse at 65% 65%, rgba(200,160,20,0.18) 0%, transparent 55%); }
-    #s9 { background: radial-gradient(ellipse at 40% 60%, rgba(20,160,200,0.18) 0%, transparent 55%); }
-    #s10 { background: radial-gradient(ellipse at 60% 40%, rgba(100,20,200,0.2) 0%, transparent 55%); }
+    /* ── CONFUCIUS SLIDE ── */
+    .char-reveal {
+      display: flex;
+      gap: 0.12em;
+      justify-content: center;
+      margin: 10px 0 18px;
+    }
+    .char-big {
+      font-size: 5.5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(150deg, #fde68a, #fbbf24, #d97706);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(251,191,36,0.25));
+    }
+    .slide.active .char-big { animation: charIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .slide.active .char-big:nth-child(1) { animation-delay: 0.25s; }
+    .slide.active .char-big:nth-child(2) { animation-delay: 0.50s; }
+    .slide.active .char-big:nth-child(3) { animation-delay: 0.75s; }
+    .slide.active .char-big:nth-child(4) { animation-delay: 1.00s; }
+    @keyframes charIn {
+      from { opacity: 0; transform: translateY(44px) scale(0.6); filter: blur(16px); }
+      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    .analects-quote {
+      font-size: 0.9rem;
+      color: rgba(251,191,36,0.75);
+      letter-spacing: 3px;
+      text-align: center;
+      padding: 10px 28px;
+      border-top: 1px solid rgba(251,191,36,0.2);
+      border-bottom: 1px solid rgba(251,191,36,0.2);
+      max-width: 560px;
+    }
+    .analects-src {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 2px;
+      margin-top: 5px;
+    }
+    .timeline-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+      font-size: 0.74rem;
+      letter-spacing: 2px;
+    }
+    .timeline-bar .tl-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(251,191,36,0.5), rgba(129,140,248,0.3));
+    }
+    .timeline-bar .tl-l { color: rgba(251,191,36,0.6); }
+    .timeline-bar .tl-r { color: rgba(165,180,252,0.6); }
+
+    /* ── CONTRAST / CHALLENGE SLIDE ── */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 820px;
+      margin: 10px 0;
+    }
+    .contrast-panel {
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .contrast-panel.ancient {
+      background: rgba(251,191,36,0.06);
+      border: 1px solid rgba(251,191,36,0.2);
+    }
+    .contrast-panel.modern {
+      background: rgba(96,165,250,0.06);
+      border: 1px solid rgba(96,165,250,0.2);
+    }
+    .contrast-era {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+    .contrast-num {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .ancient .contrast-num { color: #fbbf24; }
+    .modern .contrast-num  { color: #60a5fa; }
+    .contrast-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.55;
+    }
+    .pain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      max-width: 680px;
+    }
+    .pain-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+    }
+    .pain-list .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── AI BRIDGE SLIDE ── */
+    .ai-bridge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      max-width: 720px;
+    }
+    .bridge-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .bridge-arrow { color: rgba(165,180,252,0.5); font-size: 1.3rem; }
+    .req-card {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .req-item {
+      flex: 1;
+      padding: 14px 18px;
+      background: rgba(129,140,248,0.08);
+      border: 1px solid rgba(129,140,248,0.2);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.55;
+    }
+    .req-num {
+      display: block;
+      font-size: 0.7rem;
+      color: #a5b4fc;
+      font-weight: 600;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+    .kg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.12));
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 100px;
+      font-size: 0.9rem;
+      color: #6ee7b7;
+      font-weight: 500;
+    }
+
+    /* ── KG INTRO SLIDE ── */
+    .kg-def {
+      display: flex;
+      gap: 18px;
+      width: 100%;
+      max-width: 800px;
+      align-items: stretch;
+    }
+    .kg-def-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .def-step {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.7);
+    }
+    .def-step.ds1 { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); }
+    .def-step.ds2 { background: rgba(6,182,212,0.08);  border: 1px solid rgba(6,182,212,0.2); }
+    .def-step.ds3 { background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.2); }
+    .def-step strong { display: block; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 4px; }
+    .def-step.ds1 strong { color: #34d399; }
+    .def-step.ds2 strong { color: #22d3ee; }
+    .def-step.ds3 strong { color: #a5b4fc; }
+    .kg-def-right {
+      width: 220px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+    }
+
+    /* ── CANVAS WRAPPER ── */
+    .canvas-wrap {
+      width: 100%;
+      max-width: 620px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .canvas-wrap canvas {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .canvas-caption {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    /* Wide canvas for student profiles */
+    .canvas-wide {
+      max-width: 820px;
+    }
+
+    /* ── STEP FLOW ── */
+    .step-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 760px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 13px 18px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .step-item.s-green .step-num  { background: rgba(16,185,129,0.2); color: #34d399; }
+    .step-item.s-blue  .step-num  { background: rgba(99,102,241,0.2);  color: #a5b4fc; }
+    .step-item.s-amber .step-num  { background: rgba(245,158,11,0.2);  color: #fbbf24; }
+    .step-item.s-cyan  .step-num  { background: rgba(6,182,212,0.2);   color: #22d3ee; }
+    .step-body { flex: 1; }
+    .step-body strong { display: block; font-size: 0.87rem; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+    .step-body span { font-size: 0.78rem; color: rgba(255,255,255,0.42); line-height: 1.5; }
+
+    /* ── TRIO CARD (personalization outputs) ── */
+    .trio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      max-width: 840px;
+    }
+    .trio-card {
+      border-radius: 14px;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .trio-card.tc1 { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2); }
+    .trio-card.tc2 { background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.2); }
+    .trio-card.tc3 { background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.2); }
+    .trio-icon { font-size: 1.6rem; }
+    .trio-title { font-size: 0.9rem; font-weight: 600; }
+    .tc1 .trio-title { color: #34d399; }
+    .tc2 .trio-title { color: #a5b4fc; }
+    .tc3 .trio-title { color: #fbbf24; }
+    .trio-desc { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+    .trio-ex {
+      margin-top: 4px;
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.3);
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+
+    /* ── HIGHLIGHT ── */
+    .hl { color: #a5b4fc; font-weight: 600; -webkit-text-fill-color: #a5b4fc; }
+    .hl-g { color: #34d399; -webkit-text-fill-color: #34d399; }
+    .hl-a { color: #fbbf24; -webkit-text-fill-color: #fbbf24; }
+
+    /* ── SLIDE BACKGROUNDS ── */
+    #s1  { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
+    #s2  { background: radial-gradient(ellipse at 40% 40%, rgba(180,120,10,0.22) 0%, transparent 55%), radial-gradient(ellipse at 72% 68%, rgba(140,80,5,0.15) 0%, transparent 50%); }
+    #s3  { background: radial-gradient(ellipse at 25% 60%, rgba(96,40,10,0.2) 0%, transparent 55%), radial-gradient(ellipse at 75% 35%, rgba(30,60,140,0.18) 0%, transparent 50%); }
+    #s4  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(16,185,129,0.1) 0%, transparent 50%); }
+    #s5  { background: radial-gradient(ellipse at 30% 55%, rgba(6,182,212,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 35%, rgba(16,185,129,0.12) 0%, transparent 55%); }
+    #s6  { background: radial-gradient(ellipse at 20% 50%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(ellipse at 80% 50%, rgba(6,182,212,0.12) 0%, transparent 55%); }
+    #s7  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.15) 0%, transparent 55%); }
+    #s8  { background: radial-gradient(ellipse at 35% 50%, rgba(16,185,129,0.12) 0%, transparent 50%), radial-gradient(ellipse at 65% 50%, rgba(245,158,11,0.1) 0%, transparent 50%); }
+    #s9  { background: radial-gradient(ellipse at 40% 40%, rgba(6,182,212,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 65%, rgba(99,102,241,0.12) 0%, transparent 50%); }
+    #s10 { background: radial-gradient(ellipse at 30% 45%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 55%, rgba(245,158,11,0.12) 0%, transparent 55%), radial-gradient(ellipse at 50% 20%, rgba(99,102,241,0.12) 0%, transparent 50%); }
     #s11 { background: radial-gradient(ellipse at 50% 50%, rgba(80,130,255,0.2) 0%, transparent 60%); }
 
-    .highlight { color: #a5b4fc; font-weight: 600; -webkit-text-fill-color: #a5b4fc; }
-
     @media (max-width: 768px) {
-      .slide { padding: 32px 28px; }
+      .slide { padding: 28px 22px; }
       .slide-title { font-size: 1.8rem; }
-      .content-grid.cols-3 { grid-template-columns: 1fr; }
-      .content-grid.cols-2 { grid-template-columns: 1fr; }
+      .content-grid.cols-3, .trio-grid { grid-template-columns: 1fr; }
+      .content-grid.cols-2, .contrast-grid, .kg-def { grid-template-columns: 1fr; flex-direction: column; }
+      .char-big { font-size: 3.5rem; }
     }
   </style>
 </head>
@@ -370,7 +610,7 @@
 <!-- Slides stage -->
 <div class="stage" id="stage">
 
-  <!-- Slide 1: Cover -->
+  <!-- ══ Slide 1: Cover ══ -->
   <section class="slide active" id="s1">
     <div class="tag anim" style="--tag-color: #a5b4fc">因材施教 · AI Practice · 2026</div>
     <h1 class="slide-title anim" style="font-size:2.6rem; max-width:820px;">
@@ -388,219 +628,366 @@
     </div>
   </section>
 
-  <!-- Slide 2: Agenda -->
+  <!-- ══ Slide 2: 因材施教引入 ══ -->
   <section class="slide" id="s2">
-    <div class="tag anim">目录 · Contents</div>
-    <h2 class="slide-title anim" style="font-size:2rem; margin-bottom:28px;">本次汇报内容</h2>
-    <ul class="agenda anim">
-      <li><div class="num">01</div><span>研究背景与动机</span></li>
-      <li><div class="num">02</div><span>系统架构总览</span></li>
-      <li><div class="num">03</div><span>六大核心技能模块详解</span></li>
-      <li><div class="num">04</div><span>实验演示与效果展示</span></li>
-      <li><div class="num">05</div><span>总结与未来展望</span></li>
+    <div class="anim" style="font-size:0.72rem; letter-spacing:4px; color:rgba(251,191,36,0.5); text-transform:uppercase; margin-bottom:6px; animation-delay:.05s">
+      春秋时期 · 公元前 551—479 年 · 鲁国
+    </div>
+
+    <div class="char-reveal">
+      <span class="char-big">因</span>
+      <span class="char-big">材</span>
+      <span class="char-big">施</span>
+      <span class="char-big">教</span>
+    </div>
+
+    <p class="anim" style="font-size:0.95rem; color:rgba(255,255,255,0.5); letter-spacing:2px; margin-bottom:14px; animation-delay:1.3s">
+      孔子的核心教育哲学：<span class="hl-a">根据每个人的特点和基础，给予不同的教导</span>
+    </p>
+
+    <div class="analects-quote anim" style="animation-delay:1.6s">
+      视其所以，观其所由，察其所安，人焉廋哉？
+    </div>
+    <div class="analects-src anim" style="animation-delay:1.8s">——《论语·为政》· 了解一个人，要看他的动机、行为和内心</div>
+
+    <div class="timeline-bar anim" style="animation-delay:2.1s; max-width:540px; width:100%;">
+      <span class="tl-l">公元前 500 年</span>
+      <span class="tl-line"></span>
+      <span style="font-size:0.68rem; color:rgba(255,255,255,0.2); white-space:nowrap">── 跨越 2500 年 ──</span>
+      <span class="tl-line"></span>
+      <span class="tl-r">2026 年</span>
+    </div>
+    <p class="anim" style="font-size:0.78rem; color:rgba(255,255,255,0.28); margin-top:8px; animation-delay:2.3s">
+      这个思想影响了中国教育两千五百年，但在现代教室里，却越来越难以实现……
+    </p>
+  </section>
+
+  <!-- ══ Slide 3: 现代教育的困境 ══ -->
+  <section class="slide" id="s3">
+    <div class="tag anim" style="--tag-color: #f87171">现实困境 · The Challenge</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fca5a5,#f87171); font-size:1.9rem; margin-bottom:12px;">
+      两千五百年后，因材施教更难了
+    </h2>
+
+    <div class="contrast-grid anim" style="animation-delay:.28s">
+      <div class="contrast-panel ancient">
+        <div class="contrast-era">孔子时代</div>
+        <div style="font-size:1.8rem">📜</div>
+        <div class="contrast-num">1 : 72</div>
+        <div class="contrast-desc">三千弟子，七十二贤<br>小班授课，师生相知<br><span style="color:rgba(251,191,36,0.5)">✓ 因材施教可以落实</span></div>
+      </div>
+      <div class="contrast-panel modern">
+        <div class="contrast-era">当今课堂</div>
+        <div style="font-size:1.8rem">🏫</div>
+        <div class="contrast-num">1 : <span id="student-count">0</span></div>
+        <div class="contrast-desc">一位教师，几十上百学生<br>批改负担重，难以逐一了解<br><span style="color:rgba(248,113,113,0.7)">✗ 因材施教无从下手</span></div>
+      </div>
+    </div>
+
+    <ul class="pain-list anim" style="animation-delay:.46s">
+      <li><span class="icon">📊</span>每位学生的知识基础、学习节奏各不相同，标准化教学覆盖不了个性差异</li>
+      <li><span class="icon">⏱️</span>教师批改试卷、作业已占用大量时间，再做个性化辅导几乎不可能</li>
+      <li><span class="icon">📚</span>学习资源铺天盖地，学生不知该学什么、从哪里开始</li>
     </ul>
   </section>
 
-  <!-- Slide 3: Background -->
-  <section class="slide" id="s3">
-    <div class="tag anim" style="--tag-color: #6ee7b7">背景 · Background</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#34d399); font-size:2rem;">
-      研究背景与动机
-    </h2>
-    <div class="content-grid cols-2 anim" style="max-width:860px;">
-      <div class="content-card" style="--accent:#34d399">
-        <div class="card-title">🎯 现实痛点</div>
-        <p>[ 待填充：教育资源分配不均、教师批改负担重、学生缺乏个性化辅导等问题描述 ]</p>
-      </div>
-      <div class="content-card" style="--accent:#34d399">
-        <div class="card-title">🤖 大模型机遇</div>
-        <p>[ 待填充：LLM 在教育领域的能力优势，如知识理解、个性化生成、多轮对话等 ]</p>
-      </div>
-      <div class="content-card" style="--accent:#34d399">
-        <div class="card-title">📊 已有方案不足</div>
-        <p>[ 待填充：现有 AI 教育工具的局限性，缺乏系统化技能体系 ]</p>
-      </div>
-      <div class="content-card" style="--accent:#34d399">
-        <div class="card-title">💡 本平台价值</div>
-        <p>[ 待填充：本平台如何通过标准化技能体系解决上述痛点 ]</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Slide 4: System Overview -->
+  <!-- ══ Slide 4: AI 是现代的解法 ══ -->
   <section class="slide" id="s4">
-    <div class="tag anim" style="--tag-color: #93c5fd">架构 · Architecture</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#93c5fd,#3b82f6); font-size:2rem;">
-      系统架构总览
+    <div class="tag anim" style="--tag-color: #6ee7b7">解法 · AI Empowers</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#818cf8); font-size:2rem; margin-bottom:10px;">
+      AI 技术，让因材施教成为可能
     </h2>
-    <div class="placeholder anim" style="min-height:180px; display:flex; align-items:center; justify-content:center;">
-      [ 待填充：系统架构图 — 建议展示数据流向：成绩单/试卷/大纲 → 各技能模块 → 输出（画像/作业/资源） ]
+    <p class="slide-subtitle anim" style="margin-bottom:14px;">
+      AI 的载体是<strong style="color:#e2e8f0">机器</strong>——要让机器帮助实现因材施教，它必须先做到两件事：
+    </p>
+
+    <div class="req-card anim" style="animation-delay:.36s">
+      <div class="req-item">
+        <span class="req-num">① 了解教学内容</span>
+        课程讲的是什么知识点？它们之间有什么联系？哪些是重点和难点？
+      </div>
+      <div class="req-item">
+        <span class="req-num">② 了解每位学生的掌握情况</span>
+        这位同学哪些知识点已掌握？哪些还有漏洞？从哪里开始补效果最好？
+      </div>
     </div>
-    <div class="flow anim" style="margin-top:20px;">
-      <div class="flow-step">📄<br><small>教学资源</small></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">🗺️<br><small>知识图谱</small></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">📊<br><small>学生画像</small></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">📝<br><small>个性化作业</small></div>
-      <div class="flow-arrow">+</div>
-      <div class="flow-step">📚<br><small>资源推荐</small></div>
-      <div class="flow-arrow">+</div>
-      <div class="flow-step">🤖<br><small>AI 助教</small></div>
+
+    <div class="anim" style="margin-top:20px; text-align:center; font-size:0.9rem; color:rgba(255,255,255,0.45); animation-delay:.5s">
+      如何让机器获取这两类信息？这就用到了一个关键技术——
+    </div>
+    <div class="anim" style="animation-delay:.65s; margin-top:12px;">
+      <div class="kg-badge">
+        🕸️ &nbsp;知识图谱（Knowledge Graph）
+      </div>
     </div>
   </section>
 
-  <!-- Slide 5: Skill — 课程知识图谱 -->
+  <!-- ══ Slide 5: 什么是知识图谱 ══ -->
   <section class="slide" id="s5">
-    <div class="tag anim" style="--tag-color: #6ee7b7">技能① · Skill One</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#10b981); font-size:2.2rem;">
-      课程知识图谱构建
+    <div class="tag anim" style="--tag-color: #22d3ee">核心概念 · Knowledge Graph</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#22d3ee); font-size:2rem; margin-bottom:10px;">
+      知识图谱：让机器"看懂"知识结构
     </h2>
-    <p class="slide-subtitle anim" style="margin-bottom:20px;">
-      从教学大纲、教案、PPT、教材中自动抽取知识点，建立关联关系，以三元组形式输出课程知识图谱
-    </p>
-    <div class="content-grid cols-3 anim" style="max-width:840px;">
-      <div class="content-card" style="--accent:#10b981">
-        <div class="card-title">输入</div>
-        <p>[ 待填充：支持的教学资源格式 (PDF/PPTX/DOCX) 及示例 ]</p>
+
+    <div class="kg-def anim" style="animation-delay:.26s">
+      <div class="kg-def-left">
+        <div class="def-step ds1">
+          <strong>① 实体（节点）</strong>
+          每一个知识点就是一个节点。比如"IP协议"、"TCP协议"、"网络层"……
+        </div>
+        <div class="def-step ds2">
+          <strong>② 关系（边）</strong>
+          知识点之间的联系：<em>A 是 B 的前置知识</em>、<em>A 属于 B 模块</em>……
+          这些关联把孤立的知识点织成一张<strong style="color:#67e8f9">网</strong>。
+        </div>
+        <div class="def-step ds3">
+          <strong>③ 构成知识网络</strong>
+          节点 + 关联 = 知识图谱。有了它，机器就能理解"知识是怎么组织的"，而不只是一堆文字。
+        </div>
       </div>
-      <div class="content-card" style="--accent:#10b981">
-        <div class="card-title">处理</div>
-        <p>[ 待填充：知识点抽取过程、关系类型定义（IS_A / PREREQUISITE_OF 等）]</p>
-      </div>
-      <div class="content-card" style="--accent:#10b981">
-        <div class="card-title">输出</div>
-        <p>[ 待填充：三元组 CSV 示例、图谱统计数据、可视化效果图 ]</p>
+      <div class="kg-def-right">
+        <canvas id="canvas-intro" width="200" height="180"></canvas>
+        <div class="canvas-caption">（计算机网络课程 · 示意）</div>
       </div>
     </div>
+
+    <p class="anim" style="font-size:0.82rem; color:rgba(255,255,255,0.35); text-align:center; margin-top:12px; animation-delay:.5s">
+      接下来，我们看看知识图谱是如何一步步构建起来的 →
+    </p>
   </section>
 
-  <!-- Slide 6: Skill — 试卷知识点标注 -->
+  <!-- ══ Slide 6: 课程知识图谱构建（动画）══ -->
   <section class="slide" id="s6">
-    <div class="tag anim" style="--tag-color: #fdba74">技能② · Skill Two</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fdba74,#f97316); font-size:2.2rem;">
-      试卷知识点标注
+    <div class="tag anim" style="--tag-color: #34d399">构建过程 · Build the Graph</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#34d399); font-size:1.9rem; margin-bottom:8px;">
+      课程知识图谱是怎么来的？
     </h2>
-    <p class="slide-subtitle anim" style="margin-bottom:20px;">
-      逐题分析作业或试卷中的每道题目，自动标注对应知识点、难度与认知层次
-    </p>
-    <div class="content-grid cols-2 anim" style="max-width:820px;">
-      <div class="content-card" style="--accent:#f97316">
-        <div class="card-title">标注维度</div>
-        <p>[ 待填充：主要知识点 / 次要知识点 / 难度等级 (easy/medium/hard) / 认知层次 (Bloom分类) ]</p>
+
+    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.26s">
+      <!-- Left: steps -->
+      <div style="width:220px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+        <div class="step-item s-green" id="build-step1">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>输入教学资源</strong>
+            <span>大纲、试卷、PPT、教材……</span>
+          </div>
+        </div>
+        <div class="step-item s-blue" id="build-step2" style="opacity:0.35">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>大语言模型抽取知识点</strong>
+            <span>识别出课程中所有知识实体</span>
+          </div>
+        </div>
+        <div class="step-item s-cyan" id="build-step3" style="opacity:0.35">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>建立知识点关联</strong>
+            <span>前置关系、包含关系……</span>
+          </div>
+        </div>
+        <div class="step-item s-amber" id="build-step4" style="opacity:0.35">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>输出课程知识图谱 ✓</strong>
+            <span>以三元组形式存储：(节点A, 关系, 节点B)</span>
+          </div>
+        </div>
       </div>
-      <div class="content-card" style="--accent:#f97316">
-        <div class="card-title">输出示例</div>
-        <p>[ 待填充：question_knowledge_tags.csv 示例截图或数据表格 ]</p>
+      <!-- Right: animated canvas -->
+      <div class="canvas-wrap" style="flex:1">
+        <canvas id="canvas-build" width="520" height="210"></canvas>
+        <div class="canvas-caption" id="build-caption">正在构建知识图谱……</div>
       </div>
     </div>
   </section>
 
-  <!-- Slide 7: Skill — 学生知识画像 -->
+  <!-- ══ Slide 7: 知识网络的优势（动画）══ -->
   <section class="slide" id="s7">
-    <div class="tag anim" style="--tag-color: #f9a8d4">技能③ · Skill Three</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#f9a8d4,#ec4899); font-size:2.2rem;">
-      学生知识画像构建
+    <div class="tag anim" style="--tag-color: #a5b4fc">为什么用图谱 · Why Network</div>
+    <h2 class="slide-title anim" style="font-size:1.9rem; margin-bottom:6px;">
+      知识图谱比知识清单强在哪里？
     </h2>
-    <p class="slide-subtitle anim" style="margin-bottom:20px;">
-      支持三种成绩单精度（总分 / 大题分 / 小题分），通过难度感知调整与认知层次修正，为每位学生构建差异化知识画像
+    <p class="slide-subtitle anim" style="font-size:0.88rem; margin-bottom:10px;">
+      一堆知识点是"仓库"；知识图谱是"思维地图"——它有两个独特优势：
     </p>
-    <div class="content-grid cols-3 anim" style="max-width:840px;">
-      <div class="content-card" style="--accent:#ec4899">
-        <div class="card-title">类型A · 总分</div>
-        <p>[ 待填充：仅有总分时的推断逻辑与置信区间说明 ]</p>
+
+    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.32s">
+      <div style="width:210px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+        <div class="step-item s-blue" id="bene-step1" style="border-color:rgba(165,180,252,0.4)">
+          <div class="step-num" style="background:rgba(165,180,252,0.15); color:#c7d2fe">①</div>
+          <div class="step-body">
+            <strong style="color:#c7d2fe">记忆恢复</strong>
+            <span>遗忘一个知识点？相邻知识点可以帮助唤起记忆，知识体系不会崩溃</span>
+          </div>
+        </div>
+        <div class="step-item s-cyan" id="bene-step2" style="opacity:0.4; border-color:rgba(34,211,238,0.3)">
+          <div class="step-num" style="background:rgba(34,211,238,0.15); color:#67e8f9">②</div>
+          <div class="step-body">
+            <strong style="color:#67e8f9">推理求解</strong>
+            <span>解题时可沿关联路径快速检索：知道A→B→C，就能推导出不记得的D</span>
+          </div>
+        </div>
+        <div style="padding:10px 12px; background:rgba(255,255,255,0.03); border-radius:8px; font-size:0.75rem; color:rgba(255,255,255,0.3); margin-top:4px;">
+          💡 这正是有知识体系的学生比死记硬背的学生更有后劲的原因
+        </div>
       </div>
-      <div class="content-card" style="--accent:#ec4899">
-        <div class="card-title">类型B · 大题分</div>
-        <p>[ 待填充：大题内部难度分层调整说明 ]</p>
-      </div>
-      <div class="content-card" style="--accent:#ec4899">
-        <div class="card-title">类型C · 小题分</div>
-        <p>[ 待填充：精确到题目的掌握度计算与一致性检验 ]</p>
+      <div class="canvas-wrap" style="flex:1">
+        <canvas id="canvas-benefit" width="520" height="210"></canvas>
+        <div class="canvas-caption" id="benefit-caption">显示完整知识图谱……</div>
       </div>
     </div>
   </section>
 
-  <!-- Slide 8: Skill — 个性化作业 -->
+  <!-- ══ Slide 8: 学生知识画像（动画）══ -->
   <section class="slide" id="s8">
-    <div class="tag anim" style="--tag-color: #fde68a">技能④ · Skill Four</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fde68a,#f59e0b); font-size:2.2rem;">
-      个性化作业推荐
+    <div class="tag anim" style="--tag-color: #f9a8d4">学生画像 · Student Profile</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#f9a8d4,#ec4899); font-size:1.9rem; margin-bottom:6px;">
+      每位学生的"知识地图"都不一样
     </h2>
-    <p class="slide-subtitle anim" style="margin-bottom:20px;">
-      结合知识图谱依赖关系与学生画像，定位薄弱根因节点，生成满分 100 分的差异化作业方案
+    <p class="slide-subtitle anim" style="font-size:0.86rem; margin-bottom:10px;">
+      教学的本质，是将课程知识图谱<span class="hl">传播</span>到每位学生脑海中——
+      但每个人的知识基础不同，最终留下的图谱也各不相同。
     </p>
-    <div class="content-grid cols-2 anim" style="max-width:820px;">
-      <div class="content-card" style="--accent:#f59e0b">
-        <div class="card-title">核心逻辑：根因定位</div>
-        <p>[ 待填充：薄弱知识点 → 追溯前置依赖 → 优先补充根因知识点的流程示意图 ]</p>
-      </div>
-      <div class="content-card" style="--accent:#f59e0b">
-        <div class="card-title">效果展示</div>
-        <p>[ 待填充：同班两位同学的作业方案对比，体现个性化差异 ]</p>
+
+    <div class="canvas-wrap canvas-wide anim" style="animation-delay:.36s">
+      <canvas id="canvas-student" width="780" height="190"></canvas>
+      <div style="display:flex; justify-content:space-around; width:100%; padding:0 10px;">
+        <div id="stu-label-0" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
+          <span style="display:block; font-size:1rem">👩‍🎓</span>学生 A · 基础扎实<br><span style="color:#34d399">大部分已掌握</span>
+        </div>
+        <div id="stu-label-1" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
+          <span style="display:block; font-size:1rem">🧑‍🎓</span>学生 B · 仍在追赶<br><span style="color:#f87171">多处知识薄弱</span>
+        </div>
+        <div id="stu-label-2" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
+          <span style="display:block; font-size:1rem">👨‍🎓</span>学生 C · 全面掌握<br><span style="color:#fbbf24">综合运用阶段</span>
+        </div>
       </div>
     </div>
+
+    <p class="anim" style="font-size:0.82rem; color:rgba(255,255,255,0.38); text-align:center; margin-top:8px; animation-delay:.55s">
+      掌握了每位学生的知识画像，就可以<span class="hl">量身定制</span>教学方案——这正是因材施教的现代实现方式
+    </p>
   </section>
 
-  <!-- Slide 9: Skills — 资源推荐 + AI助教 -->
+  <!-- ══ Slide 9: 三步让机器获取知识 ══ -->
   <section class="slide" id="s9">
-    <div class="tag anim" style="--tag-color: #67e8f9">技能⑤⑥ · Skills Five & Six</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#06b6d4); font-size:2.2rem;">
-      个性化资源推荐 &amp; AI 私人助教
+    <div class="tag anim" style="--tag-color: #22d3ee">实现路径 · How It Works</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#818cf8); font-size:1.9rem; margin-bottom:8px;">
+      三步走：让机器真正"了解"教与学
     </h2>
-    <div class="content-grid cols-2 anim" style="max-width:820px; margin-top:8px;">
-      <div class="content-card" style="--accent:#06b6d4">
-        <div class="card-title">📚 个性化资源推荐</div>
-        <p>[ 待填充：按掌握等级匹配视频/文章/工具/论文等多模态资源，体现前置依赖分析价值 ]</p>
+
+    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.26s">
+      <div class="step-flow" style="flex:1">
+        <div class="step-item s-green">
+          <div class="step-num">①</div>
+          <div class="step-body">
+            <strong>把课程知识图谱给机器</strong>
+            <span>借助大语言模型 + 精心设计的<span class="hl-g">技能提示词文档</span>，让 AI 解析教学资源，构建结构化知识图谱</span>
+          </div>
+        </div>
+        <div class="step-item s-blue">
+          <div class="step-num">②</div>
+          <div class="step-body">
+            <strong>通过做题，获取学生知识画像</strong>
+            <span>学生答题 → 对照知识图谱标注 → 逐渐更新每位学生的节点掌握程度
+            <em style="color:rgba(165,180,252,0.5)">（见右侧动画）</em></span>
+          </div>
+        </div>
+        <div class="step-item s-amber">
+          <div class="step-num">③</div>
+          <div class="step-body">
+            <strong>有了画像，就可以做个性化</strong>
+            <span>作业推荐、学习资源、AI 私人助教——全部基于每位学生当前的真实知识状态</span>
+          </div>
+        </div>
       </div>
-      <div class="content-card" style="--accent:#06b6d4">
-        <div class="card-title">🤖 AI 私人助教</div>
-        <p>[ 待填充：四种辅导模式（自由问答/出题测验/学习计划/导师对话）的对话示例 ]</p>
+      <!-- Quiz animation canvas -->
+      <div class="canvas-wrap" style="width:260px; flex-shrink:0">
+        <canvas id="canvas-quiz" width="240" height="260"></canvas>
+        <div class="canvas-caption" id="quiz-caption">学生作答中……</div>
       </div>
-    </div>
-    <div class="placeholder anim" style="margin-top:16px; padding:12px;">
-      [ 待填充：助教对话截图 或 系统使用演示动图 ]
     </div>
   </section>
 
-  <!-- Slide 10: Demo & Results -->
+  <!-- ══ Slide 10: 个性化三件套 ══ -->
   <section class="slide" id="s10">
-    <div class="tag anim" style="--tag-color: #c4b5fd">演示 · Demo</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#c4b5fd,#8b5cf6); font-size:2.2rem;">
-      实验演示与效果展示
+    <div class="tag anim" style="--tag-color: #6ee7b7">个性化输出 · Personalization</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#a5b4fc,#fbbf24); font-size:1.9rem; margin-bottom:6px;">
+      知识画像 → 三件套个性化输出
     </h2>
-    <div class="content-grid cols-2 anim" style="max-width:820px;">
-      <div class="content-card" style="--accent:#8b5cf6">
-        <div class="card-title">数据集说明</div>
-        <p>[ 待填充：计算机网络课程 30 名学生，3 种精度成绩单，45 道题目 ]</p>
+    <p class="slide-subtitle anim" style="font-size:0.86rem; margin-bottom:12px;">
+      每位学生的画像不同，他们收到的作业、资源和辅导也各不相同——这才是真正的因材施教。
+    </p>
+
+    <div class="trio-grid anim" style="animation-delay:.32s">
+      <div class="trio-card tc1">
+        <div class="trio-icon">📝</div>
+        <div class="trio-title">个性化作业推荐</div>
+        <div class="trio-desc">基于知识图谱的依赖关系，<strong style="color:rgba(255,255,255,0.7)">定位薄弱根因</strong>：不是哪错练哪，而是找到最上游的漏洞优先补</div>
+        <div class="trio-ex">学生 A 的弱点在"IP协议" → 先补"网络层"前置知识 → 再出相关题目巩固</div>
       </div>
-      <div class="content-card" style="--accent:#8b5cf6">
-        <div class="card-title">技能管线演示</div>
-        <p>[ 待填充：从大纲 → 知识图谱 → 试卷标注 → 学生画像 → 个性化输出的完整流程截图 ]</p>
+      <div class="trio-card tc2">
+        <div class="trio-icon">📚</div>
+        <div class="trio-title">个性化资源推荐</div>
+        <div class="trio-desc">按掌握等级匹配<strong style="color:rgba(255,255,255,0.7)">多模态学习资源</strong>：视频、文章、工具、论文——推给最需要它的学生</div>
+        <div class="trio-ex">学生 B 的 TCP 理解薄弱 → 推荐入门级视频 + 动画演示 + 练习题</div>
+      </div>
+      <div class="trio-card tc3">
+        <div class="trio-icon">🤖</div>
+        <div class="trio-title">AI 私人助教</div>
+        <div class="trio-desc">知道学生画像的 AI 助教，能<strong style="color:rgba(255,255,255,0.7)">针对性辅导</strong>：自由问答、出题测验、制定学习计划、模拟老师对话</div>
+        <div class="trio-ex">学生 C 已掌握基础 → 助教切换为"拓展深化"模式，引导高阶思考</div>
       </div>
     </div>
-    <div class="placeholder anim" style="margin-top:16px; min-height:100px;">
-      [ 待填充：班级知识热力图 · 典型学生对比 · 作业差异化程度量化指标 ]
-    </div>
+
+    <p class="anim" style="font-size:0.78rem; color:rgba(255,255,255,0.28); text-align:center; margin-top:10px; animation-delay:.52s">
+      这三件套共同构成本平台的六大技能模块：课程图谱 · 试卷标注 · 学生画像 · 作业推荐 · 资源推荐 · AI 助教
+    </p>
   </section>
 
-  <!-- Slide 11: Summary -->
+  <!-- ══ Slide 11: 总结与展望 ══ -->
   <section class="slide" id="s11">
     <div class="tag anim">总结 · Summary</div>
-    <h2 class="slide-title anim" style="font-size:2rem;">总结与展望</h2>
-    <div class="content-grid cols-2 anim" style="max-width:820px; margin-top:8px;">
-      <div class="content-card" style="--accent:#818cf8">
-        <div class="card-title">✅ 已完成</div>
-        <p>[ 待填充：六大技能构建完毕、支持三种成绩单格式、完整的个性化推荐闭环 ]</p>
+    <h2 class="slide-title anim" style="font-size:2rem;">一条从古至今的完整逻辑链</h2>
+
+    <div class="step-flow anim" style="animation-delay:.22s; max-width:680px;">
+      <div class="step-item s-amber">
+        <div class="step-num" style="font-size:1rem">📜</div>
+        <div class="step-body">
+          <strong>孔子「因材施教」思想（公元前 500 年）</strong>
+          <span>了解每位学生，给予个性化指导——2500 年来的教育理想</span>
+        </div>
       </div>
-      <div class="content-card" style="--accent:#818cf8">
-        <div class="card-title">🔭 未来方向</div>
-        <p>[ 待填充：多轮对话记忆优化、技能联动自动化、多学科知识图谱扩展 ]</p>
+      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
+      <div class="step-item s-blue">
+        <div class="step-num" style="font-size:1rem">🕸️</div>
+        <div class="step-body">
+          <strong>知识图谱 · 学生画像（技术基础）</strong>
+          <span>结构化表达课程知识 + 量化每位学生的知识掌握状态</span>
+        </div>
+      </div>
+      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
+      <div class="step-item s-green">
+        <div class="step-num" style="font-size:1rem">🤖</div>
+        <div class="step-body">
+          <strong>六大 AI 技能模块（本平台实现）</strong>
+          <span>课程图谱 · 试卷标注 · 学生画像 · 个性化作业 · 资源推荐 · AI 助教</span>
+        </div>
+      </div>
+      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
+      <div class="step-item" style="background:rgba(165,180,252,0.07); border-color:rgba(165,180,252,0.25)">
+        <div class="step-num" style="background:rgba(165,180,252,0.15); color:#c7d2fe; font-size:1rem">✨</div>
+        <div class="step-body">
+          <strong style="color:#c7d2fe">规模化的因材施教（实践目标）</strong>
+          <span>让每位学生在 AI 的帮助下，都能得到孔子式的个性化教导</span>
+        </div>
       </div>
     </div>
-    <p class="slide-subtitle anim" style="margin-top:28px; font-size:0.95rem;">
-      感谢聆听 · Thank you
+
+    <p class="slide-subtitle anim" style="margin-top:18px; font-size:0.88rem; animation-delay:.5s">
+      感谢聆听 · Thank you for listening
     </p>
   </section>
 
@@ -614,11 +1001,13 @@
 </div>
 
 <script>
+  /* ════════════════════════════════════════
+     NAVIGATION
+  ════════════════════════════════════════ */
   const slides = Array.from(document.querySelectorAll('.slide'));
   const total = slides.length;
   let cur = 0;
 
-  // Build dots
   const dotsEl = document.getElementById('dots');
   slides.forEach((_, i) => {
     const d = document.createElement('div');
@@ -630,16 +1019,12 @@
   function goTo(n) {
     if (n < 0 || n >= total || n === cur) return;
     const dir = n > cur ? 1 : -1;
-
     slides[cur].classList.add(dir > 0 ? 'exit-left' : 'exit-right');
     slides[cur].classList.remove('active');
-
-    setTimeout(() => {
-      slides.forEach(s => s.classList.remove('exit-left', 'exit-right'));
-    }, 520);
-
+    setTimeout(() => { slides.forEach(s => s.classList.remove('exit-left', 'exit-right')); }, 520);
     cur = n;
     slides[cur].classList.add('active');
+    onSlideEnter(cur);
     updateUI();
   }
 
@@ -649,20 +1034,526 @@
     document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
     document.getElementById('prevBtn').disabled = cur === 0;
     document.getElementById('nextBtn').disabled = cur === total - 1;
-    document.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i === cur);
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                      go(-1);
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End')  goTo(total - 1);
+  });
+
+  /* ════════════════════════════════════════
+     KNOWLEDGE GRAPH DRAWING ENGINE
+  ════════════════════════════════════════ */
+
+  /* Node layout for 520×210 canvas */
+  const KG = {
+    nodes: [
+      { id: 0, label: '物理层',   x: 52,  y: 175 },
+      { id: 1, label: '数据链路', x: 148, y: 120 },
+      { id: 2, label: '网络层',   x: 255, y: 78  },
+      { id: 3, label: 'IP协议',   x: 255, y: 175 },
+      { id: 4, label: '传输层',   x: 365, y: 50  },
+      { id: 5, label: 'TCP',      x: 368, y: 155 },
+      { id: 6, label: '应用层',   x: 470, y: 30  },
+      { id: 7, label: 'HTTP',     x: 475, y: 130 },
+    ],
+    edges: [[0,1],[1,2],[2,3],[2,4],[4,5],[4,6],[6,7]]
+  };
+
+  /* Compact layout for 200×180 (intro canvas) */
+  const KG_SMALL = {
+    nodes: [
+      { id: 0, label: '物理层',   x: 22,  y: 148 },
+      { id: 1, label: '数据链路', x: 62,  y: 100 },
+      { id: 2, label: '网络层',   x: 108, y: 65  },
+      { id: 3, label: 'IP',       x: 108, y: 145 },
+      { id: 4, label: '传输层',   x: 155, y: 40  },
+      { id: 5, label: 'TCP',      x: 158, y: 125 },
+      { id: 6, label: '应用层',   x: 188, y: 22  },
+      { id: 7, label: 'HTTP',     x: 192, y: 108 },
+    ],
+    edges: [[0,1],[1,2],[2,3],[2,4],[4,5],[4,6],[6,7]]
+  };
+
+  /* Mini graph layout for 3-student canvas (each 240px wide) */
+  function miniKG(offsetX, scaleF) {
+    return {
+      nodes: KG.nodes.map(n => ({ ...n, x: n.x * scaleF + offsetX, y: n.y * scaleF + 10 })),
+      edges: KG.edges
+    };
+  }
+
+  const COLOR = {
+    green:  '#34d399',
+    red:    '#f87171',
+    amber:  '#fbbf24',
+    blue:   '#60a5fa',
+    purple: '#a5b4fc',
+    grey:   '#475569',
+    dim:    '#1e293b',
+  };
+
+  function hexAlpha(hex, a) {
+    // Convert hex color + alpha to rgba for fill
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  function drawGraph(ctx, graph, state) {
+    /* state: {
+         nodeColor: { id: color },
+         nodeAlpha: { id: 0..1 },
+         edgeAlpha: [0..1 per edge],
+         highlightEdges: [[from,to],...],
+         glowNodes: [id,...],
+         nodeSize: { id: radius }
+       }
+    */
+    const {
+      nodeColor = {}, nodeAlpha = {}, edgeAlpha = [],
+      highlightEdges = [], glowNodes = [], nodeSize = {}
+    } = state || {};
+
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw edges
+    graph.edges.forEach(([f, t], i) => {
+      const a = graph.nodes[f];
+      const b = graph.nodes[t];
+      const isHL = highlightEdges.some(([hf, ht]) => hf === f && ht === t);
+      const alpha = edgeAlpha[i] !== undefined ? edgeAlpha[i] : 0.25;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = isHL ? COLOR.purple : 'rgba(255,255,255,0.6)';
+      ctx.lineWidth = isHL ? 2.5 : 1.5;
+      if (isHL) {
+        ctx.shadowColor = COLOR.purple;
+        ctx.shadowBlur = 6;
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    // Draw nodes
+    graph.nodes.forEach(n => {
+      const col   = nodeColor[n.id] || COLOR.green;
+      const alpha = nodeAlpha[n.id] !== undefined ? nodeAlpha[n.id] : 1;
+      const r     = nodeSize[n.id]  || 22;
+      const isGlow = glowNodes.includes(n.id);
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      if (isGlow) {
+        ctx.shadowColor = col;
+        ctx.shadowBlur = 18;
+      }
+
+      // Fill circle
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = hexAlpha(col.replace(/rgba?\([^)]+\)/,'') || col, 0.18);
+      // fallback: just use low alpha version
+      ctx.fillStyle = col + '30'; // 19% opacity hex trick (works for 6-char hex)
+      ctx.fill();
+
+      // Stroke circle
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+
+      // Label
+      ctx.fillStyle = '#e2e8f0';
+      const fontSize = r < 18 ? 9 : (r < 22 ? 10 : 11);
+      ctx.font = `${fontSize}px 'PingFang SC', sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(n.label, n.x, n.y);
+
+      ctx.restore();
     });
   }
 
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
-    if (e.key === 'Home') goTo(0);
-    if (e.key === 'End') goTo(total - 1);
-  });
+  /* ── Easing helper ── */
+  function easeOut(t) { return 1 - Math.pow(1 - Math.min(t, 1), 3); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
 
+  /* ════════════════════════════════════════
+     SLIDE ENTER CALLBACKS
+  ════════════════════════════════════════ */
+  let activeAnim = null; // cancel previous RAF
+
+  function cancelAnim() {
+    if (activeAnim) { cancelAnimationFrame(activeAnim); activeAnim = null; }
+  }
+
+  function onSlideEnter(idx) {
+    cancelAnim();
+    const id = slides[idx].id;
+
+    if (id === 's3') animStudentCounter();
+    if (id === 's5') drawIntroGraph();
+    if (id === 's6') animBuildGraph();
+    if (id === 's7') animBenefits();
+    if (id === 's8') animStudentProfiles();
+    if (id === 's9') animQuiz();
+  }
+
+  /* ── Slide 3: Student counter ── */
+  function animStudentCounter() {
+    const el = document.getElementById('student-count');
+    if (!el) return;
+    el.textContent = '0';
+    let start = null;
+    const dur = 1600, target = 50;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = easeOut((ts - start) / dur);
+      el.textContent = Math.round(target * p) + (p >= 1 ? '+' : '');
+      if (p < 1) activeAnim = requestAnimationFrame(step);
+    }
+    setTimeout(() => { activeAnim = requestAnimationFrame(step); }, 700);
+  }
+
+  /* ── Slide 5: Intro small graph ── */
+  function drawIntroGraph() {
+    const canvas = document.getElementById('canvas-intro');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const allGreen = {};
+    KG_SMALL.nodes.forEach(n => { allGreen[n.id] = COLOR.green; });
+    const edgeA = KG_SMALL.edges.map(() => 0.35);
+    const nodeA = {};
+    KG_SMALL.nodes.forEach(n => { nodeA[n.id] = 1; });
+    drawGraph(ctx, KG_SMALL, { nodeColor: allGreen, nodeAlpha: nodeA, edgeAlpha: edgeA, nodeSize: KG_SMALL.nodes.reduce((o,n)=>({...o,[n.id]:14}),{}) });
+  }
+
+  /* ── Slide 6: Build graph animation ── */
+  function animBuildGraph() {
+    const canvas = document.getElementById('canvas-build');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const caption = document.getElementById('build-caption');
+
+    const N = KG.nodes.length;
+    const E = KG.edges.length;
+    const nodeDelay = 280; // ms per node
+    const edgeDelay = 220; // ms per edge
+    const totalDur = N * nodeDelay + E * edgeDelay + 600;
+
+    let start = null;
+    const steps = [
+      { el: 'build-step1', t: 0 },
+      { el: 'build-step2', t: N * nodeDelay },
+      { el: 'build-step3', t: N * nodeDelay + E * edgeDelay * 0.5 },
+      { el: 'build-step4', t: N * nodeDelay + E * edgeDelay + 200 },
+    ];
+
+    function render(ts) {
+      if (!start) start = ts;
+      const elapsed = ts - start;
+
+      // Highlight steps
+      steps.forEach((s, i) => {
+        const el = document.getElementById(s.el);
+        if (!el) return;
+        el.style.opacity = elapsed >= s.t ? '1' : '0.35';
+        el.style.transition = 'opacity 0.4s';
+      });
+
+      // Node alpha
+      const nodeAlpha = {};
+      KG.nodes.forEach((n, i) => {
+        const t = elapsed - i * nodeDelay;
+        nodeAlpha[n.id] = t < 0 ? 0 : easeOut(t / 300);
+      });
+
+      // Edge alpha (after nodes)
+      const edgeAlpha = KG.edges.map((_, i) => {
+        const t = elapsed - (N * nodeDelay + i * edgeDelay);
+        return t < 0 ? 0 : easeOut(t / 300) * 0.35;
+      });
+
+      const nodeColor = {};
+      KG.nodes.forEach(n => { nodeColor[n.id] = COLOR.green; });
+
+      drawGraph(ctx, KG, { nodeColor, nodeAlpha, edgeAlpha });
+
+      // Caption
+      if (elapsed < N * nodeDelay) caption.textContent = '正在提取知识点……';
+      else if (elapsed < N * nodeDelay + E * edgeDelay) caption.textContent = '正在建立知识关联……';
+      else caption.textContent = '✓ 课程知识图谱构建完成';
+
+      if (elapsed < totalDur) activeAnim = requestAnimationFrame(render);
+    }
+
+    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 600);
+  }
+
+  /* ── Slide 7: Benefits animation ── */
+  function animBenefits() {
+    const canvas = document.getElementById('canvas-benefit');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const caption = document.getElementById('benefit-caption');
+    const stepEls = ['bene-step1', 'bene-step2'];
+
+    /* Phases:
+       0–800ms: show full green graph
+       800–1600ms: node 7 (HTTP) fades to grey (forgotten)
+       1600–2600ms: nodes 4,6 glow (neighbor recovery)
+       2600–4200ms: path 0→1→2→4 edges highlight (reasoning)
+    */
+    const phases = [0, 800, 1600, 2600, 4200];
+    let start = null;
+
+    function render(ts) {
+      if (!start) start = ts;
+      const el = ts - start;
+
+      const nodeColor = {};
+      const nodeAlpha = {};
+      const glowNodes = [];
+      let highlightEdges = [];
+
+      KG.nodes.forEach(n => {
+        nodeColor[n.id] = COLOR.green;
+        nodeAlpha[n.id] = 1;
+      });
+
+      if (el >= phases[1]) {
+        // node 7 fading to grey
+        const t = Math.min((el - phases[1]) / 600, 1);
+        // interpolate from green to grey
+        nodeColor[7] = el - phases[1] > 600 ? COLOR.grey : COLOR.green;
+        if (el - phases[1] > 600) nodeAlpha[7] = lerp(1, 0.4, easeOut((el - phases[1] - 600) / 400));
+        caption.textContent = '某个知识点被遗忘了……';
+        stepEls[0] && (document.getElementById(stepEls[0]).style.opacity = '1');
+      }
+
+      if (el >= phases[2]) {
+        // neighbors glow
+        glowNodes.push(4, 6);
+        nodeColor[4] = COLOR.amber;
+        nodeColor[6] = COLOR.amber;
+        caption.textContent = '相邻知识点激活 → 可以帮助唤起记忆';
+        stepEls[1] && (document.getElementById(stepEls[1]).style.opacity = '1');
+      }
+
+      if (el >= phases[3]) {
+        // reasoning path highlight
+        highlightEdges = [[0,1],[1,2],[2,4]];
+        glowNodes.length = 0;
+        KG.nodes.forEach(n => { nodeColor[n.id] = COLOR.green; nodeAlpha[n.id] = 1; });
+        caption.textContent = '沿关联路径推理求解 → 触类旁通';
+      }
+
+      const edgeAlpha = KG.edges.map(([f,t], i) => {
+        if (el < phases[0] + 400) return easeOut((el - phases[0]) / 400) * 0.3;
+        return 0.28;
+      });
+
+      drawGraph(ctx, KG, { nodeColor, nodeAlpha, edgeAlpha, glowNodes, highlightEdges });
+
+      if (el < phases[4]) activeAnim = requestAnimationFrame(render);
+    }
+
+    // Reset step styles
+    stepEls.forEach(id => { const el = document.getElementById(id); if (el) el.style.opacity = '0.4'; });
+    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 500);
+  }
+
+  /* ── Slide 8: Student profiles ── */
+  function animStudentProfiles() {
+    const canvas = document.getElementById('canvas-student');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    /* Three student profiles */
+    const profiles = [
+      // Student A: mostly green, 2 red (nodes 3, 7)
+      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.green, 3: COLOR.red,
+        4: COLOR.green, 5: COLOR.green, 6: COLOR.green, 7: COLOR.red },
+      // Student B: many red (0,1 green; rest red/amber)
+      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.amber, 3: COLOR.red,
+        4: COLOR.red, 5: COLOR.red, 6: COLOR.red, 7: COLOR.red },
+      // Student C: all green, some extra glow
+      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.green, 3: COLOR.green,
+        4: COLOR.green, 5: COLOR.green, 6: COLOR.green, 7: COLOR.green },
+    ];
+
+    const sf = 0.43; // scale factor
+    const gap = 260;
+    const graphs = [0, 1, 2].map(i => miniKG(i * gap + 10, sf));
+    // Adjust node sizes for mini graphs
+    const miniSize = {};
+    KG.nodes.forEach(n => { miniSize[n.id] = 15; });
+
+    let start = null;
+    const labels = ['stu-label-0', 'stu-label-1', 'stu-label-2'];
+
+    function render(ts) {
+      if (!start) start = ts;
+      const el = ts - start;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      graphs.forEach((graph, gi) => {
+        const delay = gi * 400;
+        const alpha = easeOut(Math.max(el - delay, 0) / 500);
+
+        const nodeAlpha = {};
+        KG.nodes.forEach(n => { nodeAlpha[n.id] = alpha; });
+        const edgeAlpha = KG.edges.map(() => alpha * 0.3);
+
+        drawGraph(ctx, graph, { nodeColor: profiles[gi], nodeAlpha, edgeAlpha, nodeSize: miniSize });
+
+        // Show label
+        const labelEl = document.getElementById(labels[gi]);
+        if (labelEl) labelEl.style.opacity = alpha;
+      });
+
+      if (el < 2000) activeAnim = requestAnimationFrame(render);
+    }
+
+    labels.forEach(id => { const el = document.getElementById(id); if (el) el.style.opacity = 0; });
+    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 400);
+  }
+
+  /* ── Slide 9: Quiz animation ── */
+  function animQuiz() {
+    const canvas = document.getElementById('canvas-quiz');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const caption = document.getElementById('quiz-caption');
+
+    /* Quiz layout: small graph on top (260×170), quiz card below */
+    const qKG = {
+      nodes: KG.nodes.map(n => ({
+        ...n,
+        x: n.x * 0.44 + 8,
+        y: n.y * 0.44 + 8
+      })),
+      edges: KG.edges
+    };
+    const qSize = {};
+    KG.nodes.forEach(n => { qSize[n.id] = 13; });
+
+    /* Quiz sequence: questions and which node they test */
+    const questions = [
+      { q: 'Q: IP协议工作在哪一层？', node: 3, correct: true,  delay: 800  },
+      { q: 'Q: TCP提供可靠传输吗？',   node: 5, correct: true,  delay: 2400 },
+      { q: 'Q: HTTP默认端口号？',       node: 7, correct: false, delay: 4000 },
+      { q: 'Q: 数据链路层的作用？',     node: 1, correct: true,  delay: 5600 },
+    ];
+
+    // Node states: start as amber (uncertain)
+    let nodeStates = {};
+    KG.nodes.forEach(n => { nodeStates[n.id] = COLOR.amber; });
+
+    let activeQ = -1;
+    let quizStartTs = null;
+
+    function render(ts) {
+      if (!quizStartTs) quizStartTs = ts;
+      const el = ts - quizStartTs;
+      const W = canvas.width;
+      const H = canvas.height;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Draw mini graph (top 160px)
+      const edgeAlpha = KG.edges.map(() => 0.25);
+      const nodeAlpha = {};
+      KG.nodes.forEach(n => { nodeAlpha[n.id] = 1; });
+      drawGraph(ctx, qKG, { nodeColor: nodeStates, nodeAlpha, edgeAlpha, nodeSize: qSize });
+
+      // Check quiz events
+      questions.forEach((q, qi) => {
+        if (el >= q.delay && el < q.delay + 800) {
+          activeQ = qi;
+          nodeStates[q.node] = q.correct ? COLOR.green : COLOR.red;
+        }
+      });
+
+      // Draw quiz card (bottom area)
+      const qIdx = questions.findIndex(q => el >= q.delay - 100 && el < q.delay + 1500);
+      if (qIdx >= 0) {
+        const q = questions[qIdx];
+        const cardY = 165;
+        ctx.fillStyle = 'rgba(30,41,59,0.9)';
+        ctx.beginPath();
+        const rx = 8, qx = 6, qw = W - 12, qh = 62;
+        ctx.moveTo(qx + rx, cardY);
+        ctx.lineTo(qx + qw - rx, cardY);
+        ctx.arcTo(qx + qw, cardY, qx + qw, cardY + rx, rx);
+        ctx.lineTo(qx + qw, cardY + qh - rx);
+        ctx.arcTo(qx + qw, cardY + qh, qx + qw - rx, cardY + qh, rx);
+        ctx.lineTo(qx + rx, cardY + qh);
+        ctx.arcTo(qx, cardY + qh, qx, cardY + qh - rx, rx);
+        ctx.lineTo(qx, cardY + rx);
+        ctx.arcTo(qx, cardY, qx + rx, cardY, rx);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillText(q.q, 14, cardY + 10);
+
+        if (el >= q.delay + 300) {
+          const ans = q.correct ? '✓ 正确' : '✗ 错误';
+          ctx.fillStyle = q.correct ? COLOR.green : COLOR.red;
+          ctx.font = 'bold 11px sans-serif';
+          ctx.fillText(ans, 14, cardY + 32);
+          ctx.fillStyle = 'rgba(255,255,255,0.35)';
+          ctx.font = '9px sans-serif';
+          ctx.fillText(q.correct ? '掌握该知识点 →' : '需要强化该知识点 →', 14, cardY + 48);
+        }
+      }
+
+      caption.textContent = activeQ >= 0
+        ? `答题更新知识画像 (${activeQ + 1}/${questions.length})`
+        : '学生正在答题…';
+
+      // Loop after all questions
+      if (el < questions[questions.length - 1].delay + 2200) {
+        activeAnim = requestAnimationFrame(render);
+      } else {
+        // restart loop
+        setTimeout(() => {
+          nodeStates = {};
+          KG.nodes.forEach(n => { nodeStates[n.id] = COLOR.amber; });
+          quizStartTs = null;
+          activeAnim = requestAnimationFrame(render);
+        }, 1500);
+      }
+    }
+
+    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 500);
+  }
+
+  /* ════════════════════════════════════════
+     INIT
+  ════════════════════════════════════════ */
   updateUI();
+  onSlideEnter(0); // init first slide (no-op since s1 has no canvas)
 </script>
 </body>
 </html>
