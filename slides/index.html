@@ -314,50 +314,7 @@
     .timeline-bar .tl-l { color: rgba(251,191,36,0.6); }
     .timeline-bar .tl-r { color: rgba(165,180,252,0.6); }
 
-    /* ── CONTRAST / CHALLENGE SLIDE ── */
-    .contrast-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      width: 100%;
-      max-width: 820px;
-      margin: 10px 0;
-    }
-    .contrast-panel {
-      border-radius: 14px;
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
-    }
-    .contrast-panel.ancient {
-      background: rgba(251,191,36,0.06);
-      border: 1px solid rgba(251,191,36,0.2);
-    }
-    .contrast-panel.modern {
-      background: rgba(96,165,250,0.06);
-      border: 1px solid rgba(96,165,250,0.2);
-    }
-    .contrast-era {
-      font-size: 0.68rem;
-      letter-spacing: 3px;
-      color: rgba(255,255,255,0.3);
-      text-transform: uppercase;
-    }
-    .contrast-num {
-      font-size: 2.6rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-    .ancient .contrast-num { color: #fbbf24; }
-    .modern .contrast-num  { color: #60a5fa; }
-    .contrast-desc {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.55;
-    }
+    /* ── PAIN LIST ── */
     .pain-list {
       list-style: none;
       display: flex;
@@ -590,11 +547,143 @@
     #s10 { background: radial-gradient(ellipse at 30% 45%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 55%, rgba(245,158,11,0.12) 0%, transparent 55%), radial-gradient(ellipse at 50% 20%, rgba(99,102,241,0.12) 0%, transparent 50%); }
     #s11 { background: radial-gradient(ellipse at 50% 50%, rgba(80,130,255,0.2) 0%, transparent 60%); }
 
+    /* ============================================================
+       BROADCAST WAVES (Slide 3)
+       ============================================================ */
+    .bcast-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0,212,255,0.6);
+      opacity: 0;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      animation: ring-expand 1.4s ease-out infinite;
+    }
+    @keyframes ring-expand {
+      0%   { width: 0px;   height: 0px;   opacity: 0.7; }
+      100% { width: 280px; height: 160px; opacity: 0; }
+    }
+
+    /* ── Teacher-students scene ── */
+    .teach-scene {
+      width: 100%; max-width: 820px;
+      display: flex; align-items: center; gap: 0;
+      position: relative;
+    }
+    .teach-left {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex-shrink: 0; z-index: 2;
+    }
+    .teach-icon { font-size: 52px; filter: drop-shadow(0 0 20px rgba(0,212,255,0.4)); }
+    .teach-badge { font-size: 13px; font-weight: 700; color: #00d4ff; }
+    .teach-note  { font-size: 10px; color: #64748b; text-align:center; line-height:1.4; }
+    .teach-waves {
+      flex: 1; position: relative; height: 120px; overflow: visible;
+    }
+    .teach-right {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; flex-shrink: 0; z-index: 2;
+    }
+    .stu-mini-card {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 10px 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .stu-mini-card.show { opacity: 1; transform: translateY(0); }
+    .stu-mini-card.c-g { border-color: rgba(16,185,129,0.3); }
+    .stu-mini-card.c-o { border-color: rgba(245,158,11,0.3); }
+    .stu-mini-card.c-r { border-color: rgba(239,68,68,0.3); }
+    .stu-mini-ava {
+      font-size: 26px;
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    .c-g .stu-mini-ava { border-color: #10b981; box-shadow: 0 0 12px rgba(16,185,129,0.3); }
+    .c-o .stu-mini-ava { border-color: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,0.25); }
+    .c-r .stu-mini-ava { border-color: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,0.25); }
+    .stu-mini-bar { width: 44px; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+    .stu-mini-fill { height: 100%; width: 0; border-radius: 2px; transition: width 1s ease; }
+    .stu-mini-fill.fg { background: #10b981; }
+    .stu-mini-fill.fo { background: #f59e0b; }
+    .stu-mini-fill.fr { background: #ef4444; }
+    .stu-mini-name { font-size: 10px; color: #64748b; }
+    .teach-msg {
+      width: 100%; max-width: 820px;
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      text-align: center; margin-top: 12px;
+      padding: 8px 20px;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 24px;
+      opacity: 0; transition: opacity 0.5s;
+    }
+    .teach-msg.show { opacity: 1; }
+
+    /* ============================================================
+       SVG NODE/EDGE STYLES (reused from ai_personalized_teaching.html)
+       ============================================================ */
+    .kg-node-circle { fill: rgba(13,20,40,0.8); stroke: rgba(0,212,255,0.4); stroke-width: 1.5; transition: all 0.5s; }
+    .kg-node-circle.mastered { fill: rgba(16,185,129,0.18); stroke: #10b981; filter: drop-shadow(0 0 5px rgba(16,185,129,0.5)); }
+    .kg-node-circle.partial  { fill: rgba(245,158,11,0.15); stroke: #f59e0b; }
+    .kg-node-circle.unknown  { fill: rgba(100,116,139,0.1); stroke: rgba(100,116,139,0.25); }
+    .kg-node-circle.weak     { fill: rgba(239,68,68,0.18); stroke: #ef4444; filter: drop-shadow(0 0 5px rgba(239,68,68,0.4)); }
+    .kg-node-text  { fill: #e2e8f0; font-size: 10px; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+    .kg-node-text.dim { fill: #64748b; }
+    @keyframes node-pop {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .node-pop { transform-origin: center; animation: node-pop 0.4s cubic-bezier(.34,1.56,.64,1) forwards; }
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(0,212,255,0.3)); }
+      50%       { filter: drop-shadow(0 0 12px rgba(0,212,255,0.7)); }
+    }
+    .kg-node-circle.pulse { animation: pulse-glow 2.5s ease-in-out infinite; }
+    @keyframes amber-glow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(245,158,11,0.4)); }
+      50%       { filter: drop-shadow(0 0 14px rgba(245,158,11,0.8)); }
+    }
+    .kg-node-circle.recovery { animation: amber-glow 1.5s ease-in-out infinite; }
+
+    /* ============================================================
+       SLIDE 8 PROFILE PANELS
+       ============================================================ */
+    .s3-panel { background: rgba(13,20,40,0.8); border: 1px solid rgba(0,212,255,0.15); border-radius: 14px; padding: 14px; opacity: 0; transform: translateY(14px); transition: all 0.5s ease; display: flex; flex-direction: column; gap: 10px; }
+    .s3-panel.show { opacity: 1; transform: translateY(0); }
+    .s3-panel.border-g { border-color: rgba(16,185,129,0.4); }
+    .s3-panel.border-o { border-color: rgba(245,158,11,0.4); }
+    .s3-panel.border-r { border-color: rgba(239,68,68,0.4); }
+    .s3-header { display: flex; align-items: center; gap: 10px; }
+    .s3-ava { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .s3-ava.g { background: rgba(16,185,129,0.12); border: 2px solid #10b981; }
+    .s3-ava.o { background: rgba(245,158,11,0.12); border: 2px solid #f59e0b; }
+    .s3-ava.r { background: rgba(239,68,68,0.12); border: 2px solid #ef4444; }
+    .s3-name { font-size: 13px; font-weight: 700; color: #e2e8f0; }
+    .s3-score { font-size: 11px; color: #64748b; }
+    .s3-svg-wrap { flex: 1; min-height: 0; }
+
+    /* ============================================================
+       SLIDE 9 EXERCISE CARDS
+       ============================================================ */
+    .ex-card { background: rgba(13,20,40,0.8); border: 1px solid rgba(0,212,255,0.15); border-radius: 10px; padding: 10px 12px; opacity: 0; transform: translateX(-12px); transition: all 0.4s; cursor: pointer; position: relative; font-size: 12px; color: #e2e8f0; line-height: 1.5; }
+    .ex-card.show { opacity: 1; transform: translateX(0); }
+    .ex-card:hover:not(.answered) { border-color: rgba(0,212,255,0.4); }
+    .ex-card.ans-ok { border-color: #10b981; background: rgba(16,185,129,0.05); }
+    .ex-card.ans-bad { border-color: #ef4444; background: rgba(239,68,68,0.05); }
+    .ex-tag { font-size: 10px; padding: 2px 7px; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.18); border-radius: 8px; color: #00d4ff; }
+
     @media (max-width: 768px) {
       .slide { padding: 28px 22px; }
       .slide-title { font-size: 1.8rem; }
-      .content-grid.cols-3, .trio-grid { grid-template-columns: 1fr; }
-      .content-grid.cols-2, .contrast-grid, .kg-def { grid-template-columns: 1fr; flex-direction: column; }
+      .trio-grid { grid-template-columns: 1fr; }
+      .content-grid.cols-2 { grid-template-columns: 1fr; }
       .char-big { font-size: 3.5rem; }
     }
   </style>
@@ -669,26 +758,34 @@
       两千五百年后，因材施教更难了
     </h2>
 
-    <div class="contrast-grid anim" style="animation-delay:.28s">
-      <div class="contrast-panel ancient">
-        <div class="contrast-era">孔子时代</div>
-        <div style="font-size:1.8rem">📜</div>
-        <div class="contrast-num">1 : 72</div>
-        <div class="contrast-desc">三千弟子，七十二贤<br>小班授课，师生相知<br><span style="color:rgba(251,191,36,0.5)">✓ 因材施教可以落实</span></div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:14px; width:100%;">
+      <!-- Teacher → Students scene -->
+      <div class="teach-scene">
+        <div class="teach-left">
+          <div class="teach-icon">👨‍🏫</div>
+          <div class="teach-badge">教师</div>
+          <div class="teach-note">统一进度<br>同一内容</div>
+        </div>
+        <div class="teach-waves" id="teachWaves">
+          <!-- rings injected by JS -->
+        </div>
+        <div class="teach-right" id="stuGrid">
+          <div class="stu-mini-card c-g" id="smc0"><div class="stu-mini-ava">👩‍🎓</div><div class="stu-mini-bar"><div class="stu-mini-fill fg" id="smf0"></div></div><div class="stu-mini-name">A · 优</div></div>
+          <div class="stu-mini-card c-o" id="smc1"><div class="stu-mini-ava">👨‍🎓</div><div class="stu-mini-bar"><div class="stu-mini-fill fo" id="smf1"></div></div><div class="stu-mini-name">B · 中</div></div>
+          <div class="stu-mini-card c-r" id="smc2"><div class="stu-mini-ava">🧑‍🎓</div><div class="stu-mini-bar"><div class="stu-mini-fill fr" id="smf2"></div></div><div class="stu-mini-name">C · 弱</div></div>
+          <div class="stu-mini-card c-g" id="smc3"><div class="stu-mini-ava">👩‍💻</div><div class="stu-mini-bar"><div class="stu-mini-fill fg" id="smf3"></div></div><div class="stu-mini-name">D · 优</div></div>
+          <div class="stu-mini-card c-r" id="smc4"><div class="stu-mini-ava">👨‍💻</div><div class="stu-mini-bar"><div class="stu-mini-fill fr" id="smf4"></div></div><div class="stu-mini-name">E · 弱</div></div>
+          <div class="stu-mini-card c-o" id="smc5"><div class="stu-mini-ava">🧑‍💻</div><div class="stu-mini-bar"><div class="stu-mini-fill fo" id="smf5"></div></div><div class="stu-mini-name">F · 中</div></div>
+        </div>
       </div>
-      <div class="contrast-panel modern">
-        <div class="contrast-era">当今课堂</div>
-        <div style="font-size:1.8rem">🏫</div>
-        <div class="contrast-num">1 : <span id="student-count">0</span></div>
-        <div class="contrast-desc">一位教师，几十上百学生<br>批改负担重，难以逐一了解<br><span style="color:rgba(248,113,113,0.7)">✗ 因材施教无从下手</span></div>
-      </div>
+      <!-- Pain points -->
+      <ul class="pain-list anim" style="animation-delay:.4s">
+        <li><span class="icon">📊</span>同一进度授课，但学生知识基础千差万别，标准化覆盖不了个体差异</li>
+        <li><span class="icon">⏱️</span>教师批改负担重，无暇做逐一的个性化辅导</li>
+        <li><span class="icon">📚</span>学生不知道自己哪里弱、该从哪里补起</li>
+      </ul>
+      <div class="teach-msg" id="teachMsg">传统课堂：一套方案，造就了天壤之别的学习结果——因材施教急需现代化解法</div>
     </div>
-
-    <ul class="pain-list anim" style="animation-delay:.46s">
-      <li><span class="icon">📊</span>每位学生的知识基础、学习节奏各不相同，标准化教学覆盖不了个性差异</li>
-      <li><span class="icon">⏱️</span>教师批改试卷、作业已占用大量时间，再做个性化辅导几乎不可能</li>
-      <li><span class="icon">📚</span>学习资源铺天盖地，学生不知该学什么、从哪里开始</li>
-    </ul>
   </section>
 
   <!-- ══ Slide 4: AI 是现代的解法 ══ -->
@@ -756,7 +853,7 @@
     </p>
   </section>
 
-  <!-- ══ Slide 6: 课程知识图谱构建（动画）══ -->
+  <!-- ══ Slide 6: 课程知识图谱构建（SVG 动画）══ -->
   <section class="slide" id="s6">
     <div class="tag anim" style="--tag-color: #34d399">构建过程 · Build the Graph</div>
     <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#34d399); font-size:1.9rem; margin-bottom:8px;">
@@ -795,15 +892,15 @@
           </div>
         </div>
       </div>
-      <!-- Right: animated canvas -->
-      <div class="canvas-wrap" style="flex:1">
-        <canvas id="canvas-build" width="520" height="210"></canvas>
-        <div class="canvas-caption" id="build-caption">正在构建知识图谱……</div>
+      <!-- Right: SVG -->
+      <div class="canvas-wrap" style="flex:1; padding:8px;">
+        <svg id="s6Svg" width="100%" height="210" viewBox="0 0 520 260" style="border-radius:8px;"></svg>
+        <div class="canvas-caption" id="build-caption">等待构建知识图谱……</div>
       </div>
     </div>
   </section>
 
-  <!-- ══ Slide 7: 知识网络的优势（动画）══ -->
+  <!-- ══ Slide 7: 知识网络的优势（SVG 动画）══ -->
   <section class="slide" id="s7">
     <div class="tag anim" style="--tag-color: #a5b4fc">为什么用图谱 · Why Network</div>
     <h2 class="slide-title anim" style="font-size:1.9rem; margin-bottom:6px;">
@@ -833,14 +930,14 @@
           💡 这正是有知识体系的学生比死记硬背的学生更有后劲的原因
         </div>
       </div>
-      <div class="canvas-wrap" style="flex:1">
-        <canvas id="canvas-benefit" width="520" height="210"></canvas>
+      <div class="canvas-wrap" style="flex:1; padding:8px;">
+        <svg id="s7Svg" width="100%" height="200" viewBox="0 0 520 260" style="border-radius:8px;"></svg>
         <div class="canvas-caption" id="benefit-caption">显示完整知识图谱……</div>
       </div>
     </div>
   </section>
 
-  <!-- ══ Slide 8: 学生知识画像（动画）══ -->
+  <!-- ══ Slide 8: 学生知识画像（SVG 三面板）══ -->
   <section class="slide" id="s8">
     <div class="tag anim" style="--tag-color: #f9a8d4">学生画像 · Student Profile</div>
     <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#f9a8d4,#ec4899); font-size:1.9rem; margin-bottom:6px;">
@@ -851,18 +948,30 @@
       但每个人的知识基础不同，最终留下的图谱也各不相同。
     </p>
 
-    <div class="canvas-wrap canvas-wide anim" style="animation-delay:.36s">
-      <canvas id="canvas-student" width="780" height="190"></canvas>
-      <div style="display:flex; justify-content:space-around; width:100%; padding:0 10px;">
-        <div id="stu-label-0" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
-          <span style="display:block; font-size:1rem">👩‍🎓</span>学生 A · 基础扎实<br><span style="color:#34d399">大部分已掌握</span>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; width:100%; max-width:860px;" class="anim" style="animation-delay:.36s">
+      <!-- Panel A -->
+      <div class="s3-panel border-g" id="s8p0">
+        <div class="s3-header">
+          <div class="s3-ava g">👩‍🎓</div>
+          <div><div class="s3-name">学生 A — 基础扎实</div><div class="s3-score">掌握率 ~85%</div></div>
         </div>
-        <div id="stu-label-1" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
-          <span style="display:block; font-size:1rem">🧑‍🎓</span>学生 B · 仍在追赶<br><span style="color:#f87171">多处知识薄弱</span>
+        <div class="s3-svg-wrap"><svg id="s8svg0" width="100%" height="140" viewBox="0 0 480 140"></svg></div>
+      </div>
+      <!-- Panel B -->
+      <div class="s3-panel border-o" id="s8p1">
+        <div class="s3-header">
+          <div class="s3-ava o">👨‍🎓</div>
+          <div><div class="s3-name">学生 B — 中等水平</div><div class="s3-score">掌握率 ~55%</div></div>
         </div>
-        <div id="stu-label-2" style="font-size:0.72rem; color:rgba(255,255,255,0.3); text-align:center; opacity:0">
-          <span style="display:block; font-size:1rem">👨‍🎓</span>学生 C · 全面掌握<br><span style="color:#fbbf24">综合运用阶段</span>
+        <div class="s3-svg-wrap"><svg id="s8svg1" width="100%" height="140" viewBox="0 0 480 140"></svg></div>
+      </div>
+      <!-- Panel C -->
+      <div class="s3-panel border-r" id="s8p2">
+        <div class="s3-header">
+          <div class="s3-ava r">🧑‍🎓</div>
+          <div><div class="s3-name">学生 C — 基础薄弱</div><div class="s3-score">掌握率 ~25%</div></div>
         </div>
+        <div class="s3-svg-wrap"><svg id="s8svg2" width="100%" height="140" viewBox="0 0 480 140"></svg></div>
       </div>
     </div>
 
@@ -871,7 +980,7 @@
     </p>
   </section>
 
-  <!-- ══ Slide 9: 三步让机器获取知识 ══ -->
+  <!-- ══ Slide 9: 三步让机器获取知识（交互式）══ -->
   <section class="slide" id="s9">
     <div class="tag anim" style="--tag-color: #22d3ee">实现路径 · How It Works</div>
     <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#818cf8); font-size:1.9rem; margin-bottom:8px;">
@@ -903,10 +1012,14 @@
           </div>
         </div>
       </div>
-      <!-- Quiz animation canvas -->
-      <div class="canvas-wrap" style="width:260px; flex-shrink:0">
-        <canvas id="canvas-quiz" width="240" height="260"></canvas>
-        <div class="canvas-caption" id="quiz-caption">学生作答中……</div>
+      <!-- Interactive quiz area -->
+      <div style="width:300px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; font-weight:700; color:#22d3ee; flex-shrink:0;">🧩 点击题目，查看知识画像更新</div>
+        <div id="s9ExList" style="display:flex; flex-direction:column; gap:6px;"></div>
+        <svg id="s9Svg" width="100%" height="200" viewBox="0 0 300 220" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;"></svg>
+        <div style="display:flex; gap:10px; font-size:10px; color:#64748b; flex-shrink:0;">
+          <span>🟢 已掌握</span><span>🔴 薄弱</span><span>⚫ 未测</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1045,25 +1158,49 @@
   });
 
   /* ════════════════════════════════════════
-     KNOWLEDGE GRAPH DRAWING ENGINE
+     DATA
   ════════════════════════════════════════ */
+  const NODES = [
+    { id:0, x:60,  y:150, label:'变量',    short:'变量'   },
+    { id:1, x:170, y:80,  label:'数据类型', short:'数据\n类型' },
+    { id:2, x:170, y:220, label:'运算符',   short:'运算符' },
+    { id:3, x:290, y:60,  label:'条件语句', short:'条件\n语句' },
+    { id:4, x:290, y:200, label:'循环结构', short:'循环\n结构' },
+    { id:5, x:410, y:130, label:'函数',    short:'函数'   },
+    { id:6, x:510, y:60,  label:'列表',    short:'列表'   },
+    { id:7, x:510, y:200, label:'字典',    short:'字典'   },
+    { id:8, x:620, y:130, label:'类与对象', short:'面向\n对象' },
+    { id:9, x:680, y:260, label:'异常处理', short:'异常\n处理' },
+  ];
+  const EDGES = [[0,1],[0,2],[1,3],[2,4],[3,5],[4,5],[5,6],[5,7],[6,8],[7,8],[5,9],[8,9]];
 
-  /* Node layout for 520×210 canvas */
-  const KG = {
-    nodes: [
-      { id: 0, label: '物理层',   x: 52,  y: 175 },
-      { id: 1, label: '数据链路', x: 148, y: 120 },
-      { id: 2, label: '网络层',   x: 255, y: 78  },
-      { id: 3, label: 'IP协议',   x: 255, y: 175 },
-      { id: 4, label: '传输层',   x: 365, y: 50  },
-      { id: 5, label: 'TCP',      x: 368, y: 155 },
-      { id: 6, label: '应用层',   x: 470, y: 30  },
-      { id: 7, label: 'HTTP',     x: 475, y: 130 },
-    ],
-    edges: [[0,1],[1,2],[2,3],[2,4],[4,5],[4,6],[6,7]]
-  };
+  const STUDENTS_MASTERY = [
+    [2,2,2,2,2,2,2,1,1,0],  // A: excellent
+    [2,2,1,1,2,1,0,1,0,0],  // B: medium
+    [2,1,1,0,0,0,0,0,0,0],  // C: weak
+  ];
 
-  /* Compact layout for 200×180 (intro canvas) */
+  const EXERCISES = [
+    { q:'Q1：下列哪个是合法的 Python 变量名？\nA. 2name  B. name_2  C. name-2  D. class',
+      tags:['变量','数据类型'], nodeIds:[0,1], correct:true },
+    { q:'Q2：执行 while 1==1: pass 会发生什么？\nA. 正常退出  B. 死循环  C. 报错  D. 跳过',
+      tags:['循环结构','条件语句'], nodeIds:[4,3], correct:false },
+    { q:'Q3：def add(a,b=10): return a+b，调用 add(5) 的结果是？\nA. 报错  B. 5  C. 15  D. 10',
+      tags:['函数'], nodeIds:[5], correct:true },
+  ];
+
+  /* ════════════════════════════════════════
+     SVG HELPER
+  ════════════════════════════════════════ */
+  function makeSvgElem(tag, attrs) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k,v));
+    return el;
+  }
+
+  /* ════════════════════════════════════════
+     CANVAS INTRO GRAPH (Slide 5, kept as Canvas)
+  ════════════════════════════════════════ */
   const KG_SMALL = {
     nodes: [
       { id: 0, label: '物理层',   x: 22,  y: 148 },
@@ -1078,482 +1215,497 @@
     edges: [[0,1],[1,2],[2,3],[2,4],[4,5],[4,6],[6,7]]
   };
 
-  /* Mini graph layout for 3-student canvas (each 240px wide) */
-  function miniKG(offsetX, scaleF) {
-    return {
-      nodes: KG.nodes.map(n => ({ ...n, x: n.x * scaleF + offsetX, y: n.y * scaleF + 10 })),
-      edges: KG.edges
-    };
-  }
-
-  const COLOR = {
-    green:  '#34d399',
-    red:    '#f87171',
-    amber:  '#fbbf24',
-    blue:   '#60a5fa',
-    purple: '#a5b4fc',
-    grey:   '#475569',
-    dim:    '#1e293b',
-  };
-
-  function hexAlpha(hex, a) {
-    // Convert hex color + alpha to rgba for fill
-    const r = parseInt(hex.slice(1,3),16);
-    const g = parseInt(hex.slice(3,5),16);
-    const b = parseInt(hex.slice(5,7),16);
-    return `rgba(${r},${g},${b},${a})`;
-  }
-
-  function drawGraph(ctx, graph, state) {
-    /* state: {
-         nodeColor: { id: color },
-         nodeAlpha: { id: 0..1 },
-         edgeAlpha: [0..1 per edge],
-         highlightEdges: [[from,to],...],
-         glowNodes: [id,...],
-         nodeSize: { id: radius }
-       }
-    */
-    const {
-      nodeColor = {}, nodeAlpha = {}, edgeAlpha = [],
-      highlightEdges = [], glowNodes = [], nodeSize = {}
-    } = state || {};
-
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
-    ctx.clearRect(0, 0, W, H);
+  function drawIntroGraph() {
+    const canvas = document.getElementById('canvas-intro');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw edges
-    graph.edges.forEach(([f, t], i) => {
-      const a = graph.nodes[f];
-      const b = graph.nodes[t];
-      const isHL = highlightEdges.some(([hf, ht]) => hf === f && ht === t);
-      const alpha = edgeAlpha[i] !== undefined ? edgeAlpha[i] : 0.25;
+    KG_SMALL.edges.forEach(([f, t]) => {
+      const a = KG_SMALL.nodes[f], b = KG_SMALL.nodes[t];
       ctx.save();
-      ctx.globalAlpha = alpha;
+      ctx.globalAlpha = 0.35;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = isHL ? COLOR.purple : 'rgba(255,255,255,0.6)';
-      ctx.lineWidth = isHL ? 2.5 : 1.5;
-      if (isHL) {
-        ctx.shadowColor = COLOR.purple;
-        ctx.shadowBlur = 6;
-      }
+      ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.restore();
     });
 
     // Draw nodes
-    graph.nodes.forEach(n => {
-      const col   = nodeColor[n.id] || COLOR.green;
-      const alpha = nodeAlpha[n.id] !== undefined ? nodeAlpha[n.id] : 1;
-      const r     = nodeSize[n.id]  || 22;
-      const isGlow = glowNodes.includes(n.id);
-
+    KG_SMALL.nodes.forEach(n => {
       ctx.save();
-      ctx.globalAlpha = alpha;
-
-      if (isGlow) {
-        ctx.shadowColor = col;
-        ctx.shadowBlur = 18;
-      }
-
-      // Fill circle
       ctx.beginPath();
-      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = hexAlpha(col.replace(/rgba?\([^)]+\)/,'') || col, 0.18);
-      // fallback: just use low alpha version
-      ctx.fillStyle = col + '30'; // 19% opacity hex trick (works for 6-char hex)
+      ctx.arc(n.x, n.y, 14, 0, Math.PI * 2);
+      ctx.fillStyle = '#34d39930';
       ctx.fill();
-
-      // Stroke circle
-      ctx.strokeStyle = col;
+      ctx.strokeStyle = '#34d399';
       ctx.lineWidth = 2;
       ctx.stroke();
-
-      ctx.shadowBlur = 0;
-
-      // Label
       ctx.fillStyle = '#e2e8f0';
-      const fontSize = r < 18 ? 9 : (r < 22 ? 10 : 11);
-      ctx.font = `${fontSize}px 'PingFang SC', sans-serif`;
+      ctx.font = '9px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(n.label, n.x, n.y);
-
       ctx.restore();
     });
   }
 
-  /* ── Easing helper ── */
-  function easeOut(t) { return 1 - Math.pow(1 - Math.min(t, 1), 3); }
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
   /* ════════════════════════════════════════
-     SLIDE ENTER CALLBACKS
+     CANCEL ANIM (for RAF if any)
   ════════════════════════════════════════ */
-  let activeAnim = null; // cancel previous RAF
-
+  let activeAnim = null;
   function cancelAnim() {
     if (activeAnim) { cancelAnimationFrame(activeAnim); activeAnim = null; }
   }
 
+  /* ════════════════════════════════════════
+     SLIDE ENTER CALLBACKS
+  ════════════════════════════════════════ */
   function onSlideEnter(idx) {
     cancelAnim();
     const id = slides[idx].id;
-
-    if (id === 's3') animStudentCounter();
+    if (id === 's3') animS3Scene();
     if (id === 's5') drawIntroGraph();
-    if (id === 's6') animBuildGraph();
-    if (id === 's7') animBenefits();
-    if (id === 's8') animStudentProfiles();
-    if (id === 's9') animQuiz();
+    if (id === 's6') animS6Graph();
+    if (id === 's7') animS7Benefits();
+    if (id === 's8') animS8Profiles();
+    if (id === 's9') initS9Quiz();
   }
 
-  /* ── Slide 3: Student counter ── */
-  function animStudentCounter() {
-    const el = document.getElementById('student-count');
-    if (!el) return;
-    el.textContent = '0';
-    let start = null;
-    const dur = 1600, target = 50;
-    function step(ts) {
-      if (!start) start = ts;
-      const p = easeOut((ts - start) / dur);
-      el.textContent = Math.round(target * p) + (p >= 1 ? '+' : '');
-      if (p < 1) activeAnim = requestAnimationFrame(step);
+  /* ════════════════════════════════════════
+     SLIDE 3: Teacher-Students Broadcast Scene
+  ════════════════════════════════════════ */
+  function animS3Scene() {
+    // Show broadcast waves
+    const waves = document.getElementById('teachWaves');
+    if (waves) {
+      waves.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const ring = document.createElement('div');
+        ring.className = 'bcast-ring';
+        ring.style.animationDelay = (i * 0.45) + 's';
+        waves.appendChild(ring);
+      }
     }
-    setTimeout(() => { activeAnim = requestAnimationFrame(step); }, 700);
+    // Show student cards + progress bars
+    const fills = [88, 52, 22, 90, 18, 55];
+    for (let i = 0; i < 6; i++) {
+      setTimeout(() => {
+        const c = document.getElementById('smc' + i);
+        if (c) c.classList.add('show');
+      }, i * 120);
+      setTimeout(() => {
+        const f = document.getElementById('smf' + i);
+        if (f) f.style.width = fills[i] + '%';
+      }, i * 120 + 600);
+    }
+    // Show message
+    setTimeout(() => {
+      const m = document.getElementById('teachMsg');
+      if (m) m.classList.add('show');
+    }, 1600);
   }
 
-  /* ── Slide 5: Intro small graph ── */
-  function drawIntroGraph() {
-    const canvas = document.getElementById('canvas-intro');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const allGreen = {};
-    KG_SMALL.nodes.forEach(n => { allGreen[n.id] = COLOR.green; });
-    const edgeA = KG_SMALL.edges.map(() => 0.35);
-    const nodeA = {};
-    KG_SMALL.nodes.forEach(n => { nodeA[n.id] = 1; });
-    drawGraph(ctx, KG_SMALL, { nodeColor: allGreen, nodeAlpha: nodeA, edgeAlpha: edgeA, nodeSize: KG_SMALL.nodes.reduce((o,n)=>({...o,[n.id]:14}),{}) });
-  }
+  /* ════════════════════════════════════════
+     SLIDE 6: Build Knowledge Graph Animation
+  ════════════════════════════════════════ */
+  function animS6Graph() {
+    const svg = document.getElementById('s6Svg');
+    if (!svg) return;
+    svg.innerHTML = '';
 
-  /* ── Slide 6: Build graph animation ── */
-  function animBuildGraph() {
-    const canvas = document.getElementById('canvas-build');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('build-caption');
-
-    const N = KG.nodes.length;
-    const E = KG.edges.length;
-    const nodeDelay = 280; // ms per node
-    const edgeDelay = 220; // ms per edge
-    const totalDur = N * nodeDelay + E * edgeDelay + 600;
-
-    let start = null;
-    const steps = [
-      { el: 'build-step1', t: 0 },
-      { el: 'build-step2', t: N * nodeDelay },
-      { el: 'build-step3', t: N * nodeDelay + E * edgeDelay * 0.5 },
-      { el: 'build-step4', t: N * nodeDelay + E * edgeDelay + 200 },
+    const SN = [
+      {id:0,x:46,y:131},{id:1,x:129,y:70},{id:2,x:129,y:191},
+      {id:3,x:220,y:52},{id:4,x:220,y:174},{id:5,x:311,y:113},
+      {id:6,x:388,y:52},{id:7,x:388,y:174},{id:8,x:471,y:113},
+      {id:9,x:517,y:226}
     ];
 
-    function render(ts) {
-      if (!start) start = ts;
-      const elapsed = ts - start;
+    const steps = ['build-step1','build-step2','build-step3','build-step4'];
+    steps.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = i === 0 ? '1' : '0.35';
+    });
 
-      // Highlight steps
-      steps.forEach((s, i) => {
-        const el = document.getElementById(s.el);
-        if (!el) return;
-        el.style.opacity = elapsed >= s.t ? '1' : '0.35';
-        el.style.transition = 'opacity 0.4s';
-      });
+    // Add defs with arrow marker
+    const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.innerHTML = `<marker id="arr6" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(0,212,255,0.5)"/></marker>`;
+    svg.appendChild(defs);
 
-      // Node alpha
-      const nodeAlpha = {};
-      KG.nodes.forEach((n, i) => {
-        const t = elapsed - i * nodeDelay;
-        nodeAlpha[n.id] = t < 0 ? 0 : easeOut(t / 300);
-      });
+    // Phase 1: faint dashed edges
+    EDGES.forEach(([a,b]) => {
+      svg.appendChild(makeSvgElem('line', {
+        x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
+        stroke:'rgba(0,212,255,0.08)', 'stroke-width':1.2, 'stroke-dasharray':'3,3',
+        class:'edge-faint'
+      }));
+    });
 
-      // Edge alpha (after nodes)
-      const edgeAlpha = KG.edges.map((_, i) => {
-        const t = elapsed - (N * nodeDelay + i * edgeDelay);
-        return t < 0 ? 0 : easeOut(t / 300) * 0.35;
-      });
-
-      const nodeColor = {};
-      KG.nodes.forEach(n => { nodeColor[n.id] = COLOR.green; });
-
-      drawGraph(ctx, KG, { nodeColor, nodeAlpha, edgeAlpha });
-
-      // Caption
-      if (elapsed < N * nodeDelay) caption.textContent = '正在提取知识点……';
-      else if (elapsed < N * nodeDelay + E * edgeDelay) caption.textContent = '正在建立知识关联……';
-      else caption.textContent = '✓ 课程知识图谱构建完成';
-
-      if (elapsed < totalDur) activeAnim = requestAnimationFrame(render);
-    }
-
-    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 600);
-  }
-
-  /* ── Slide 7: Benefits animation ── */
-  function animBenefits() {
-    const canvas = document.getElementById('canvas-benefit');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('benefit-caption');
-    const stepEls = ['bene-step1', 'bene-step2'];
-
-    /* Phases:
-       0–800ms: show full green graph
-       800–1600ms: node 7 (HTTP) fades to grey (forgotten)
-       1600–2600ms: nodes 4,6 glow (neighbor recovery)
-       2600–4200ms: path 0→1→2→4 edges highlight (reasoning)
-    */
-    const phases = [0, 800, 1600, 2600, 4200];
-    let start = null;
-
-    function render(ts) {
-      if (!start) start = ts;
-      const el = ts - start;
-
-      const nodeColor = {};
-      const nodeAlpha = {};
-      const glowNodes = [];
-      let highlightEdges = [];
-
-      KG.nodes.forEach(n => {
-        nodeColor[n.id] = COLOR.green;
-        nodeAlpha[n.id] = 1;
-      });
-
-      if (el >= phases[1]) {
-        // node 7 fading to grey
-        const t = Math.min((el - phases[1]) / 600, 1);
-        // interpolate from green to grey
-        nodeColor[7] = el - phases[1] > 600 ? COLOR.grey : COLOR.green;
-        if (el - phases[1] > 600) nodeAlpha[7] = lerp(1, 0.4, easeOut((el - phases[1] - 600) / 400));
-        caption.textContent = '某个知识点被遗忘了……';
-        stepEls[0] && (document.getElementById(stepEls[0]).style.opacity = '1');
-      }
-
-      if (el >= phases[2]) {
-        // neighbors glow
-        glowNodes.push(4, 6);
-        nodeColor[4] = COLOR.amber;
-        nodeColor[6] = COLOR.amber;
-        caption.textContent = '相邻知识点激活 → 可以帮助唤起记忆';
-        stepEls[1] && (document.getElementById(stepEls[1]).style.opacity = '1');
-      }
-
-      if (el >= phases[3]) {
-        // reasoning path highlight
-        highlightEdges = [[0,1],[1,2],[2,4]];
-        glowNodes.length = 0;
-        KG.nodes.forEach(n => { nodeColor[n.id] = COLOR.green; nodeAlpha[n.id] = 1; });
-        caption.textContent = '沿关联路径推理求解 → 触类旁通';
-      }
-
-      const edgeAlpha = KG.edges.map(([f,t], i) => {
-        if (el < phases[0] + 400) return easeOut((el - phases[0]) / 400) * 0.3;
-        return 0.28;
-      });
-
-      drawGraph(ctx, KG, { nodeColor, nodeAlpha, edgeAlpha, glowNodes, highlightEdges });
-
-      if (el < phases[4]) activeAnim = requestAnimationFrame(render);
-    }
-
-    // Reset step styles
-    stepEls.forEach(id => { const el = document.getElementById(id); if (el) el.style.opacity = '0.4'; });
-    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 500);
-  }
-
-  /* ── Slide 8: Student profiles ── */
-  function animStudentProfiles() {
-    const canvas = document.getElementById('canvas-student');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    /* Three student profiles */
-    const profiles = [
-      // Student A: mostly green, 2 red (nodes 3, 7)
-      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.green, 3: COLOR.red,
-        4: COLOR.green, 5: COLOR.green, 6: COLOR.green, 7: COLOR.red },
-      // Student B: many red (0,1 green; rest red/amber)
-      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.amber, 3: COLOR.red,
-        4: COLOR.red, 5: COLOR.red, 6: COLOR.red, 7: COLOR.red },
-      // Student C: all green, some extra glow
-      { 0: COLOR.green, 1: COLOR.green, 2: COLOR.green, 3: COLOR.green,
-        4: COLOR.green, 5: COLOR.green, 6: COLOR.green, 7: COLOR.green },
-    ];
-
-    const sf = 0.43; // scale factor
-    const gap = 260;
-    const graphs = [0, 1, 2].map(i => miniKG(i * gap + 10, sf));
-    // Adjust node sizes for mini graphs
-    const miniSize = {};
-    KG.nodes.forEach(n => { miniSize[n.id] = 15; });
-
-    let start = null;
-    const labels = ['stu-label-0', 'stu-label-1', 'stu-label-2'];
-
-    function render(ts) {
-      if (!start) start = ts;
-      const el = ts - start;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      graphs.forEach((graph, gi) => {
-        const delay = gi * 400;
-        const alpha = easeOut(Math.max(el - delay, 0) / 500);
-
-        const nodeAlpha = {};
-        KG.nodes.forEach(n => { nodeAlpha[n.id] = alpha; });
-        const edgeAlpha = KG.edges.map(() => alpha * 0.3);
-
-        drawGraph(ctx, graph, { nodeColor: profiles[gi], nodeAlpha, edgeAlpha, nodeSize: miniSize });
-
-        // Show label
-        const labelEl = document.getElementById(labels[gi]);
-        if (labelEl) labelEl.style.opacity = alpha;
-      });
-
-      if (el < 2000) activeAnim = requestAnimationFrame(render);
-    }
-
-    labels.forEach(id => { const el = document.getElementById(id); if (el) el.style.opacity = 0; });
-    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 400);
-  }
-
-  /* ── Slide 9: Quiz animation ── */
-  function animQuiz() {
-    const canvas = document.getElementById('canvas-quiz');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const caption = document.getElementById('quiz-caption');
-
-    /* Quiz layout: small graph on top (260×170), quiz card below */
-    const qKG = {
-      nodes: KG.nodes.map(n => ({
-        ...n,
-        x: n.x * 0.44 + 8,
-        y: n.y * 0.44 + 8
-      })),
-      edges: KG.edges
+    const updateStep = (si) => {
+      const el = document.getElementById(steps[si]);
+      if (el) { el.style.opacity = '1'; el.style.transition = 'opacity 0.4s'; }
     };
-    const qSize = {};
-    KG.nodes.forEach(n => { qSize[n.id] = 13; });
 
-    /* Quiz sequence: questions and which node they test */
-    const questions = [
-      { q: 'Q: IP协议工作在哪一层？', node: 3, correct: true,  delay: 800  },
-      { q: 'Q: TCP提供可靠传输吗？',   node: 5, correct: true,  delay: 2400 },
-      { q: 'Q: HTTP默认端口号？',       node: 7, correct: false, delay: 4000 },
-      { q: 'Q: 数据链路层的作用？',     node: 1, correct: true,  delay: 5600 },
+    // Phase 2: nodes pop in (start 400ms, 180ms each)
+    setTimeout(() => updateStep(1), 400);
+    SN.forEach((n, i) => {
+      setTimeout(() => {
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        g.classList.add('node-pop');
+        const c = makeSvgElem('circle', {cx:0, cy:0, r:22, class:'kg-node-circle pulse'});
+        const label = NODES[i].short.split('\n');
+        const t = makeSvgElem('text', {x:0, y:0, class:'kg-node-text'});
+        if (label.length === 1) {
+          t.setAttribute('y','0');
+          t.textContent = label[0];
+        } else {
+          label.forEach((l, li) => {
+            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-6':'13'});
+            ts.textContent = l;
+            t.appendChild(ts);
+          });
+        }
+        g.appendChild(c); g.appendChild(t);
+        svg.appendChild(g);
+      }, 400 + i * 180);
+    });
+
+    const edgeStart = 400 + SN.length * 180;
+
+    // Phase 3: redraw edges with stroke animation
+    setTimeout(() => {
+      updateStep(2);
+      svg.querySelectorAll('.edge-faint').forEach(l => l.remove());
+      EDGES.forEach(([a,b], i) => {
+        const line = makeSvgElem('line', {
+          x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
+          stroke:'rgba(0,212,255,0.45)', 'stroke-width':1.8,
+          'marker-end':'url(#arr6)',
+          'stroke-dasharray':'300', 'stroke-dashoffset':'300'
+        });
+        // Insert before first g element so edges are below nodes
+        const firstG = svg.querySelector('g');
+        if (firstG) svg.insertBefore(line, firstG);
+        else svg.appendChild(line);
+        setTimeout(() => {
+          line.style.transition = 'stroke-dashoffset 0.65s ease';
+          line.setAttribute('stroke-dashoffset','0');
+        }, i * 120);
+      });
+    }, edgeStart);
+
+    // Phase 4: caption + path highlight
+    setTimeout(() => {
+      updateStep(3);
+      const caption = document.getElementById('build-caption');
+      if (caption) caption.textContent = '✓ 课程知识图谱构建完成！节点 = 知识点，边 = 前置依赖';
+      // Highlight path: 变量(0)→数据类型(1)→条件语句(3)→函数(5)→列表(6)→面向对象(8)
+      const pathEdges = [[0,1],[1,3],[3,5],[5,6],[6,8]];
+      svg.querySelectorAll('line').forEach(l => {
+        l.setAttribute('stroke','rgba(0,212,255,0.12)');
+        l.setAttribute('stroke-width','1.2');
+        l.setAttribute('marker-end','url(#arr6)');
+      });
+      pathEdges.forEach(([a,b], i) => {
+        setTimeout(() => {
+          svg.querySelectorAll('line').forEach(l => {
+            if (+l.getAttribute('x1') === SN[a].x && +l.getAttribute('y1') === SN[a].y) {
+              l.setAttribute('stroke','rgba(165,180,252,0.85)');
+              l.setAttribute('stroke-width','2.8');
+            }
+          });
+          svg.querySelectorAll('g').forEach(g => {
+            const m = g.getAttribute('transform');
+            if (!m) return;
+            const match = m.match(/translate\(([^,]+),([^)]+)\)/);
+            if (match) {
+              const [,gx,gy] = match;
+              if (Math.abs(+gx - SN[b].x) < 1 && Math.abs(+gy - SN[b].y) < 1) {
+                const c = g.querySelector('circle');
+                if (c) {
+                  c.setAttribute('fill','rgba(165,180,252,0.22)');
+                  c.setAttribute('stroke','#a5b4fc');
+                  c.setAttribute('stroke-width','2.5');
+                }
+              }
+            }
+          });
+        }, i * 280);
+      });
+    }, edgeStart + EDGES.length * 120 + 500);
+  }
+
+  /* ════════════════════════════════════════
+     SLIDE 7: Benefits Animation
+  ════════════════════════════════════════ */
+  function animS7Benefits() {
+    const svg = document.getElementById('s7Svg');
+    if (!svg) return;
+
+    const SN = [
+      {id:0,x:46,y:131},{id:1,x:129,y:70},{id:2,x:129,y:191},
+      {id:3,x:220,y:52},{id:4,x:220,y:174},{id:5,x:311,y:113},
+      {id:6,x:388,y:52},{id:7,x:388,y:174},{id:8,x:471,y:113},
+      {id:9,x:517,y:226}
     ];
 
-    // Node states: start as amber (uncertain)
-    let nodeStates = {};
-    KG.nodes.forEach(n => { nodeStates[n.id] = COLOR.amber; });
+    const beneSteps = ['bene-step1','bene-step2'];
+    beneSteps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = '0.4';
+    });
 
-    let activeQ = -1;
-    let quizStartTs = null;
-
-    function render(ts) {
-      if (!quizStartTs) quizStartTs = ts;
-      const el = ts - quizStartTs;
-      const W = canvas.width;
-      const H = canvas.height;
-
-      ctx.clearRect(0, 0, W, H);
-
-      // Draw mini graph (top 160px)
-      const edgeAlpha = KG.edges.map(() => 0.25);
-      const nodeAlpha = {};
-      KG.nodes.forEach(n => { nodeAlpha[n.id] = 1; });
-      drawGraph(ctx, qKG, { nodeColor: nodeStates, nodeAlpha, edgeAlpha, nodeSize: qSize });
-
-      // Check quiz events
-      questions.forEach((q, qi) => {
-        if (el >= q.delay && el < q.delay + 800) {
-          activeQ = qi;
-          nodeStates[q.node] = q.correct ? COLOR.green : COLOR.red;
-        }
+    function drawFullGraph(nodeClassFn) {
+      svg.innerHTML = '';
+      const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+      defs.innerHTML = `<marker id="arr7" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(0,212,255,0.4)"/></marker>`;
+      svg.appendChild(defs);
+      EDGES.forEach(([a,b]) => {
+        svg.appendChild(makeSvgElem('line', {
+          x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
+          stroke:'rgba(0,212,255,0.22)', 'stroke-width':1.5,
+          'marker-end':'url(#arr7)', class:'s7edge',
+          'data-from':a, 'data-to':b
+        }));
       });
-
-      // Draw quiz card (bottom area)
-      const qIdx = questions.findIndex(q => el >= q.delay - 100 && el < q.delay + 1500);
-      if (qIdx >= 0) {
-        const q = questions[qIdx];
-        const cardY = 165;
-        ctx.fillStyle = 'rgba(30,41,59,0.9)';
-        ctx.beginPath();
-        const rx = 8, qx = 6, qw = W - 12, qh = 62;
-        ctx.moveTo(qx + rx, cardY);
-        ctx.lineTo(qx + qw - rx, cardY);
-        ctx.arcTo(qx + qw, cardY, qx + qw, cardY + rx, rx);
-        ctx.lineTo(qx + qw, cardY + qh - rx);
-        ctx.arcTo(qx + qw, cardY + qh, qx + qw - rx, cardY + qh, rx);
-        ctx.lineTo(qx + rx, cardY + qh);
-        ctx.arcTo(qx, cardY + qh, qx, cardY + qh - rx, rx);
-        ctx.lineTo(qx, cardY + rx);
-        ctx.arcTo(qx, cardY, qx + rx, cardY, rx);
-        ctx.closePath();
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.font = '10px sans-serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillText(q.q, 14, cardY + 10);
-
-        if (el >= q.delay + 300) {
-          const ans = q.correct ? '✓ 正确' : '✗ 错误';
-          ctx.fillStyle = q.correct ? COLOR.green : COLOR.red;
-          ctx.font = 'bold 11px sans-serif';
-          ctx.fillText(ans, 14, cardY + 32);
-          ctx.fillStyle = 'rgba(255,255,255,0.35)';
-          ctx.font = '9px sans-serif';
-          ctx.fillText(q.correct ? '掌握该知识点 →' : '需要强化该知识点 →', 14, cardY + 48);
+      SN.forEach((n, i) => {
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        g.setAttribute('data-nid', i);
+        const cls = nodeClassFn(i);
+        const c = makeSvgElem('circle', {cx:0, cy:0, r:22, class:`kg-node-circle ${cls}`});
+        const label = NODES[i].short.split('\n');
+        const t = makeSvgElem('text', {x:0, y:0, class:`kg-node-text${cls==='unknown'?' dim':''}`});
+        if (label.length === 1) {
+          t.setAttribute('y','0');
+          t.textContent = label[0];
+        } else {
+          label.forEach((l, li) => {
+            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-6':'13'});
+            ts.textContent = l;
+            t.appendChild(ts);
+          });
         }
-      }
-
-      caption.textContent = activeQ >= 0
-        ? `答题更新知识画像 (${activeQ + 1}/${questions.length})`
-        : '学生正在答题…';
-
-      // Loop after all questions
-      if (el < questions[questions.length - 1].delay + 2200) {
-        activeAnim = requestAnimationFrame(render);
-      } else {
-        // restart loop
-        setTimeout(() => {
-          nodeStates = {};
-          KG.nodes.forEach(n => { nodeStates[n.id] = COLOR.amber; });
-          quizStartTs = null;
-          activeAnim = requestAnimationFrame(render);
-        }, 1500);
-      }
+        g.appendChild(c); g.appendChild(t);
+        svg.appendChild(g);
+      });
     }
 
-    setTimeout(() => { activeAnim = requestAnimationFrame(render); }, 500);
+    const caption = document.getElementById('benefit-caption');
+
+    // Phase 1: all mastered (0ms)
+    drawFullGraph(() => 'mastered pulse');
+    if (caption) caption.textContent = '课程知识图谱——所有知识点均已掌握';
+
+    // Phase 2: node 8 "forgotten" (800ms)
+    setTimeout(() => {
+      if (caption) caption.textContent = '⚠ 某个知识点遗忘了…（面向对象）';
+      const el = document.getElementById('bene-step1');
+      if (el) el.style.opacity = '1';
+      svg.querySelectorAll('g[data-nid="8"] circle').forEach(c => {
+        c.setAttribute('class','kg-node-circle unknown');
+      });
+      svg.querySelectorAll('g[data-nid="8"] text').forEach(t => t.setAttribute('class','kg-node-text dim'));
+    }, 800);
+
+    // Phase 3: neighbors 5,9 glow (1800ms)
+    setTimeout(() => {
+      if (caption) caption.textContent = '💡 相邻知识点（函数、异常处理）可帮助恢复记忆';
+      const el = document.getElementById('bene-step2');
+      if (el) el.style.opacity = '1';
+      [5,9].forEach(nid => {
+        svg.querySelectorAll(`g[data-nid="${nid}"] circle`).forEach(c => {
+          c.setAttribute('class','kg-node-circle recovery');
+          c.setAttribute('stroke','#f59e0b');
+          c.setAttribute('fill','rgba(245,158,11,0.18)');
+        });
+      });
+    }, 1800);
+
+    // Phase 4: reasoning path 0→1→3→5 (3000ms)
+    setTimeout(() => {
+      if (caption) caption.textContent = '🔍 推理路径：沿依赖关系快速找到解题路径';
+      const pathPairs = [[0,1],[1,3],[3,5]];
+      svg.querySelectorAll('.s7edge').forEach(l => {
+        l.setAttribute('stroke','rgba(0,212,255,0.1)');
+        l.setAttribute('stroke-width','1.2');
+      });
+      pathPairs.forEach(([a,b], i) => {
+        setTimeout(() => {
+          svg.querySelectorAll('.s7edge').forEach(l => {
+            if (+l.getAttribute('data-from') === a && +l.getAttribute('data-to') === b) {
+              l.setAttribute('stroke','rgba(165,180,252,0.9)');
+              l.setAttribute('stroke-width','3');
+            }
+          });
+          svg.querySelectorAll(`g[data-nid="${b}"] circle`).forEach(c => {
+            c.setAttribute('fill','rgba(165,180,252,0.22)');
+            c.setAttribute('stroke','#a5b4fc');
+            c.setAttribute('stroke-width','2.5');
+            c.setAttribute('class','kg-node-circle');
+          });
+        }, i * 400);
+      });
+    }, 3000);
+  }
+
+  /* ════════════════════════════════════════
+     SLIDE 8: Student Profile Panels
+  ════════════════════════════════════════ */
+  function animS8Profiles() {
+    const S8_NODES = [
+      {id:0,x:38,y:70},{id:1,x:95,y:38},{id:2,x:95,y:102},
+      {id:3,x:162,y:24},{id:4,x:162,y:86},{id:5,x:230,y:56},
+      {id:6,x:298,y:24},{id:7,x:298,y:88},{id:8,x:366,y:56},
+      {id:9,x:420,y:114}
+    ];
+    const labels = ['变','类型','算','if','for','fn','[]','{}','OOP','try'];
+    const panels = ['s8p0','s8p1','s8p2'];
+    panels.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('show');
+    });
+
+    function drawS8Graph(si) {
+      const svg = document.getElementById('s8svg' + si);
+      if (!svg) return;
+      svg.innerHTML = '';
+      const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+      defs.innerHTML = `<marker id="arrs8${si}" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(0,212,255,0.3)"/></marker>`;
+      svg.appendChild(defs);
+      EDGES.forEach(([a,b]) => {
+        svg.appendChild(makeSvgElem('line', {
+          x1:S8_NODES[a].x, y1:S8_NODES[a].y, x2:S8_NODES[b].x, y2:S8_NODES[b].y,
+          stroke:'rgba(0,212,255,0.15)', 'stroke-width':1, 'marker-end':`url(#arrs8${si})`
+        }));
+      });
+      S8_NODES.forEach((n, i) => {
+        const m = STUDENTS_MASTERY[si][i];
+        let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.25)';
+        if (m === 2) { fill = 'rgba(16,185,129,0.2)'; stroke = '#10b981'; }
+        else if (m === 1) { fill = 'rgba(245,158,11,0.18)'; stroke = '#f59e0b'; }
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:14, fill, stroke, 'stroke-width':1.5}));
+        const t = makeSvgElem('text', {
+          x:0, y:0,
+          fill: m === 0 ? '#64748b' : '#e2e8f0',
+          'font-size':'8.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
+        });
+        t.textContent = labels[i];
+        g.appendChild(t);
+        svg.appendChild(g);
+      });
+    }
+
+    panels.forEach((id, i) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('show');
+        drawS8Graph(i);
+      }, i * 300);
+    });
+  }
+
+  /* ════════════════════════════════════════
+     SLIDE 9: Interactive Quiz
+  ════════════════════════════════════════ */
+  let s9NodeState = {};
+
+  function initS9Quiz() {
+    s9NodeState = {};
+    const list = document.getElementById('s9ExList');
+    if (!list) return;
+    list.innerHTML = '';
+    EXERCISES.forEach((ex, i) => {
+      const card = document.createElement('div');
+      card.className = 'ex-card';
+      card.id = 's9card' + i;
+      card.innerHTML = `<div style="font-size:11px;line-height:1.55;margin-bottom:6px">${ex.q.replace(/\n/g,'<br>')}</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">${ex.tags.map(t=>`<span class="ex-tag">${t}</span>`).join('')}</div>
+        <div id="s9res${i}" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;opacity:0;transition:opacity 0.3s">${ex.correct?'✅':'❌'}</div>`;
+      card.onclick = () => answerS9(i);
+      list.appendChild(card);
+      setTimeout(() => card.classList.add('show'), i * 200 + 400);
+    });
+    drawS9Graph();
+  }
+
+  function answerS9(i) {
+    const card = document.getElementById('s9card' + i);
+    if (!card || card.classList.contains('answered')) return;
+    card.classList.add('answered');
+    const ex = EXERCISES[i];
+    card.classList.add(ex.correct ? 'ans-ok' : 'ans-bad');
+    const res = document.getElementById('s9res' + i);
+    if (res) res.style.opacity = '1';
+    ex.nodeIds.forEach(nid => {
+      s9NodeState[nid] = ex.correct ? 'mastered' : 'weak';
+    });
+    drawS9Graph();
+  }
+
+  function drawS9Graph() {
+    const svg = document.getElementById('s9Svg');
+    if (!svg) return;
+    const SN = [
+      {id:0,x:27,y:110},{id:1,x:76,y:66},{id:2,x:76,y:154},
+      {id:3,x:135,y:44},{id:4,x:135,y:132},{id:5,x:190,y:92},
+      {id:6,x:245,y:44},{id:7,x:245,y:140},{id:8,x:294,y:92},
+      {id:9,x:294,y:188}
+    ];
+    svg.innerHTML = '';
+    const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.innerHTML = `<marker id="arr9" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(0,212,255,0.35)"/></marker>`;
+    svg.appendChild(defs);
+    EDGES.forEach(([a,b]) => {
+      svg.appendChild(makeSvgElem('line', {
+        x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
+        stroke:'rgba(0,212,255,0.18)', 'stroke-width':1.2, 'marker-end':'url(#arr9)'
+      }));
+    });
+    SN.forEach((n, i) => {
+      const state = s9NodeState[i] || 'unknown';
+      let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.22)';
+      if (state === 'mastered') { fill = 'rgba(16,185,129,0.2)'; stroke = '#10b981'; }
+      if (state === 'weak')     { fill = 'rgba(239,68,68,0.18)'; stroke = '#ef4444'; }
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${n.x},${n.y})`);
+      g.appendChild(makeSvgElem('circle', {
+        cx:0, cy:0, r:18, fill, stroke,
+        'stroke-width': state === 'unknown' ? 1 : 1.8
+      }));
+      const label = ['变量','类型','算符','条件','循环','函数','列表','字典','OOP','异常'][i];
+      const t = makeSvgElem('text', {
+        x:0, y:0,
+        fill: state === 'unknown' ? '#64748b' : '#e2e8f0',
+        'font-size':'9', 'text-anchor':'middle', 'dominant-baseline':'middle'
+      });
+      t.textContent = label;
+      g.appendChild(t);
+      if (state !== 'unknown') {
+        const icon = makeSvgElem('text', {
+          x:12, y:-12,
+          fill: state === 'mastered' ? '#10b981' : '#ef4444',
+          'font-size':'11'
+        });
+        icon.textContent = state === 'mastered' ? '✓' : '✗';
+        g.appendChild(icon);
+      }
+      svg.appendChild(g);
+    });
   }
 
   /* ════════════════════════════════════════
      INIT
   ════════════════════════════════════════ */
   updateUI();
-  onSlideEnter(0); // init first slide (no-op since s1 has no canvas)
+  onSlideEnter(0); // init first slide (s1 has no special animation)
 </script>
 </body>
 </html>
