@@ -818,77 +818,54 @@
 
   <!-- ══ Slide 4: AI 是现代的解法 ══ -->
   <section class="slide" id="s4">
-    <div class="tag anim" style="--tag-color: #6ee7b7">解法 · AI Empowers</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#818cf8); font-size:1.85rem; margin-bottom:10px;">
-      AI 技术，让因材施教成为可能
+    <div class="tag anim" style="--tag-color: #6ee7b7">本质 · The Core Insight</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#818cf8); font-size:2rem; margin-bottom:12px;">
+      教与学，本质上都是知识网络
     </h2>
 
-    <!-- ── 上半部分：两列 ── -->
-    <div class="anim" style="display:flex; gap:14px; width:100%; max-width:860px; animation-delay:.28s">
+    <!-- ── 两列面板 ── -->
+    <div class="anim" style="display:flex; gap:16px; width:100%; max-width:900px; animation-delay:.28s">
 
       <!-- 左：课程知识网络 -->
-      <div style="flex:1.3; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:14px; padding:14px 16px;">
-        <div style="font-size:0.78rem; font-weight:600; color:#34d399; margin-bottom:8px;">📚 教学内容 = 课程知识网络</div>
-        <svg id="s4CourseGraph" width="100%" height="130" viewBox="0 0 220 130" style="display:block;"></svg>
-        <div style="font-size:0.67rem; color:rgba(255,255,255,0.26); text-align:center; margin-top:4px; letter-spacing:.5px;">Python 课程知识图谱（10 个节点）</div>
+      <div style="flex:1.4; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:16px; padding:16px 18px;">
+        <div style="font-size:0.82rem; font-weight:700; color:#34d399; margin-bottom:10px; letter-spacing:.5px;">📚 教学内容 = 课程知识网络</div>
+        <svg id="s4CourseGraph" width="100%" height="200" viewBox="0 0 320 200" style="display:block;"></svg>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.28); text-align:center; margin-top:6px; letter-spacing:.5px;">Python 课程 · 10 个知识节点</div>
       </div>
 
       <!-- 右：三位学生掌握情况 -->
-      <div style="flex:1; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.2); border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:5px;">
-        <div style="font-size:0.78rem; font-weight:600; color:#a5b4fc; margin-bottom:4px;">🧑‍🎓 每位学生 = 对知识网络的掌握</div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <span style="font-size:0.67rem; color:#34d399; width:38px; flex-shrink:0;">学生 A</span>
-          <svg id="s4Stu0" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+      <div style="flex:1; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.2); border-radius:16px; padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.82rem; font-weight:700; color:#a5b4fc; margin-bottom:4px; letter-spacing:.5px;">🧑‍🎓 每位学生 = 对知识网络的掌握</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:0.72rem; color:#34d399; width:40px; flex-shrink:0;">学生 A</span>
+          <svg id="s4Stu0" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <span style="font-size:0.67rem; color:#fbbf24; width:38px; flex-shrink:0;">学生 B</span>
-          <svg id="s4Stu1" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:0.72rem; color:#fbbf24; width:40px; flex-shrink:0;">学生 B</span>
+          <svg id="s4Stu1" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <span style="font-size:0.67rem; color:#f87171; width:38px; flex-shrink:0;">学生 C</span>
-          <svg id="s4Stu2" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:0.72rem; color:#f87171; width:40px; flex-shrink:0;">学生 C</span>
+          <svg id="s4Stu2" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; gap:10px; font-size:0.62rem; color:rgba(255,255,255,0.3); margin-top:2px;">
-          <span>🟢 已掌握</span><span>🟡 部分</span><span>⚫ 未学</span>
+        <div style="display:flex; gap:12px; font-size:0.66rem; color:rgba(255,255,255,0.3); margin-top:2px;">
+          <span>🟢 已掌握</span><span>🟡 部分掌握</span><span>⚫ 尚未学</span>
+        </div>
+        <div style="font-size:0.76rem; color:rgba(255,255,255,0.38); line-height:1.6; padding:8px 10px; background:rgba(99,102,241,0.07); border-radius:8px; margin-top:2px;">
+          同样的课程，落到每位学生脑中的<br>知识网络<span style="color:#a5b4fc">各不相同</span>
         </div>
       </div>
     </div>
 
-    <!-- ── 中间桥接文字 ── -->
-    <div class="anim" style="display:flex; align-items:center; gap:12px; width:100%; max-width:860px; margin-top:10px; animation-delay:.50s">
-      <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08));"></div>
-      <div style="font-size:0.82rem; color:rgba(255,255,255,0.48); text-align:center; white-space:nowrap;">
-        如何让 AI 理解这两类信息？——
-        <span style="color:#34d399; font-weight:600;">知识图谱（Knowledge Graph）技术</span>
+    <!-- ── 底部引出文字 ── -->
+    <div class="anim" style="display:flex; align-items:center; gap:14px; width:100%; max-width:900px; margin-top:14px; animation-delay:.55s">
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1));"></div>
+      <div style="text-align:center; padding:10px 22px; background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(99,102,241,0.1)); border:1px solid rgba(16,185,129,0.25); border-radius:100px; font-size:0.86rem; color:rgba(255,255,255,0.7); white-space:nowrap;">
+        如何让机器理解这种网络结构？——
+        <span style="color:#34d399; font-weight:700;">知识图谱（Knowledge Graph）</span>
+        正是解答 →
       </div>
-      <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent);"></div>
-    </div>
-
-    <!-- ── 下方流程卡 ── -->
-    <div class="anim" style="display:flex; align-items:center; gap:8px; width:100%; max-width:860px; margin-top:10px; animation-delay:.68s">
-      <div class="flow-card">
-        <div class="fc-icon">📚</div>
-        <div class="fc-label">课程知识图谱</div>
-        <div class="fc-sub">结构化课程内容</div>
-      </div>
-      <div class="fc-arrow">→</div>
-      <div class="flow-card">
-        <div class="fc-icon">🕸️</div>
-        <div class="fc-label">AI 知识图谱技术</div>
-        <div class="fc-sub">机器理解知识结构</div>
-      </div>
-      <div class="fc-arrow">→</div>
-      <div class="flow-card">
-        <div class="fc-icon">🧑‍🎓</div>
-        <div class="fc-label">学生知识画像</div>
-        <div class="fc-sub">量化每位学生状态</div>
-      </div>
-      <div class="fc-arrow">→</div>
-      <div class="flow-card fc-hl">
-        <div class="fc-icon">✨</div>
-        <div class="fc-label">因材施教</div>
-        <div class="fc-sub">个性化教学成为可能</div>
-      </div>
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.1),transparent);"></div>
     </div>
   </section>
 
@@ -1353,15 +1330,15 @@
      SLIDE 4 (s4): Course KG + Student Mastery
   ════════════════════════════════════════ */
   function animS4Page() {
-    // Compact node positions for course graph (viewBox 0 0 220 130, r=9)
+    // Node positions for course graph (viewBox 0 0 320 200, r=13)
     const C_NODES = [
-      {x:16,y:65},{x:50,y:35},{x:50,y:95},{x:90,y:20},{x:90,y:80},
-      {x:130,y:50},{x:165,y:22},{x:165,y:78},{x:200,y:50},{x:208,y:108}
+      {x:26, y:100},{x:80, y:55},{x:80, y:148},{x:140,y:28},{x:140,y:124},
+      {x:196,y:80}, {x:250,y:28},{x:250,y:128},{x:300,y:78},{x:308,y:168}
     ];
-    // Compact node positions for student mini graphs (viewBox 0 0 110 50, r=5.5)
+    // Node positions for student mini graphs (viewBox 0 0 150 60, r=7)
     const M_NODES = [
-      {x:8,y:25},{x:24,y:13},{x:24,y:38},{x:43,y:6},{x:43,y:32},
-      {x:61,y:19},{x:77,y:6},{x:77,y:33},{x:93,y:19},{x:101,y:43}
+      {x:11,y:30},{x:30,y:15},{x:30,y:46},{x:55,y:7},{x:55,y:38},
+      {x:80,y:23},{x:102,y:7},{x:102,y:40},{x:124,y:23},{x:138,y:53}
     ];
 
     // Draw course graph (all nodes mastered = green)
@@ -1381,30 +1358,31 @@
         setTimeout(() => {
           // Use cx/cy directly — avoids CSS transform overriding SVG translate
           const c = makeSvgElem('circle', {
-            cx:n.x, cy:n.y, r:9,
-            fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.5,
-            opacity:0
+            cx:n.x, cy:n.y, r:13,
+            fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.8
           });
+          c.style.opacity = '0';
           cSvg.appendChild(c);
-          requestAnimationFrame(() => {
+          // Small delay so browser paints opacity:0 first, enabling the CSS transition
+          setTimeout(() => {
             c.style.transition = 'opacity 0.35s ease';
-            c.setAttribute('opacity','1');
-          });
+            c.style.opacity = '1';
+          }, 16);
           const label = NODES[i].short.split('\n');
           if (label.length === 1) {
             const t = makeSvgElem('text', {
               x:n.x, y:n.y, fill:'#e2e8f0',
-              'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'
+              'font-size':'8.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             t.textContent = label[0];
             cSvg.appendChild(t);
           } else {
             const t = makeSvgElem('text', {
               x:n.x, fill:'#e2e8f0',
-              'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'
+              'font-size':'8', 'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             label.forEach((l, li) => {
-              const ts = makeSvgElem('tspan', {x:n.x, y: li===0 ? n.y-3 : n.y+4});
+              const ts = makeSvgElem('tspan', {x:n.x, y: li===0 ? n.y-4 : n.y+5});
               ts.textContent = l;
               t.appendChild(ts);
             });
@@ -1435,7 +1413,7 @@
         else if (m === 1) { fill = 'rgba(245,158,11,0.2)';  stroke = '#f59e0b'; }
         const g = document.createElementNS('http://www.w3.org/2000/svg','g');
         g.setAttribute('transform', `translate(${n.x},${n.y})`);
-        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:5.5, fill, stroke, 'stroke-width':1}));
+        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:7, fill, stroke, 'stroke-width':1.2}));
         svg.appendChild(g);
       });
     }
