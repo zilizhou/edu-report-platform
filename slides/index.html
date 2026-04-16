@@ -834,25 +834,27 @@
       </div>
 
       <!-- 右：三位学生掌握情况 -->
-      <div style="flex:1; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.2); border-radius:16px; padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+      <div style="flex:1; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.2); border-radius:16px; padding:14px 16px; display:flex; flex-direction:column; gap:5px;">
         <div style="font-size:0.82rem; font-weight:700; color:#a5b4fc; margin-bottom:4px; letter-spacing:.5px;">🧑‍🎓 每位学生 = 对知识网络的掌握</div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:0.72rem; color:#34d399; width:40px; flex-shrink:0;">学生 A</span>
-          <svg id="s4Stu0" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.7rem; font-weight:600; color:#34d399; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 A</span>
+          <svg id="s4Stu0" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:0.72rem; color:#fbbf24; width:40px; flex-shrink:0;">学生 B</span>
-          <svg id="s4Stu1" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.7rem; font-weight:600; color:#fbbf24; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 B</span>
+          <svg id="s4Stu1" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:0.72rem; color:#f87171; width:40px; flex-shrink:0;">学生 C</span>
-          <svg id="s4Stu2" width="100%" height="58" viewBox="0 0 150 60" style="flex:1;"></svg>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.7rem; font-weight:600; color:#f87171; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 C</span>
+          <svg id="s4Stu2" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
         </div>
-        <div style="display:flex; gap:12px; font-size:0.66rem; color:rgba(255,255,255,0.3); margin-top:2px;">
-          <span>🟢 已掌握</span><span>🟡 部分掌握</span><span>⚫ 尚未学</span>
+        <div style="display:flex; gap:12px; font-size:0.66rem; color:rgba(255,255,255,0.32); margin-top:4px; align-items:center;">
+          <span style="display:flex;align-items:center;gap:3px"><svg width="9" height="9"><circle cx="4.5" cy="4.5" r="3.5" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1"/></svg>已掌握</span>
+          <span style="display:flex;align-items:center;gap:3px"><svg width="9" height="9"><circle cx="4.5" cy="4.5" r="3.5" fill="rgba(245,158,11,0.25)" stroke="#f59e0b" stroke-width="1"/></svg>部分掌握</span>
+          <span style="display:flex;align-items:center;gap:3px"><svg width="9" height="9"><circle cx="4.5" cy="4.5" r="3.5" fill="rgba(100,116,139,0.1)" stroke="rgba(100,116,139,0.35)" stroke-width="1"/></svg>尚未学</span>
         </div>
-        <div style="font-size:0.76rem; color:rgba(255,255,255,0.38); line-height:1.6; padding:8px 10px; background:rgba(99,102,241,0.07); border-radius:8px; margin-top:2px;">
-          同样的课程，落到每位学生脑中的<br>知识网络<span style="color:#a5b4fc">各不相同</span>
+        <div style="font-size:0.73rem; color:rgba(255,255,255,0.35); line-height:1.5; padding:6px 10px; background:rgba(99,102,241,0.07); border-radius:8px; margin-top:2px;">
+          同样的课程，落入每位学生脑中的知识网络<span style="color:#a5b4fc; font-weight:600;">各不相同</span>
         </div>
       </div>
     </div>
@@ -860,10 +862,10 @@
     <!-- ── 底部引出文字 ── -->
     <div class="anim" style="display:flex; align-items:center; gap:14px; width:100%; max-width:900px; margin-top:14px; animation-delay:.55s">
       <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1));"></div>
-      <div style="text-align:center; padding:10px 22px; background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(99,102,241,0.1)); border:1px solid rgba(16,185,129,0.25); border-radius:100px; font-size:0.86rem; color:rgba(255,255,255,0.7); white-space:nowrap;">
-        如何让机器理解这种网络结构？——
-        <span style="color:#34d399; font-weight:700;">知识图谱（Knowledge Graph）</span>
-        正是解答 →
+      <div style="text-align:center; padding:10px 24px; background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(99,102,241,0.1)); border:1px solid rgba(245,158,11,0.25); border-radius:100px; font-size:0.86rem; color:rgba(255,255,255,0.68); white-space:nowrap;">
+        那么，如何将课程知识网络
+        <span style="color:#fbbf24; font-weight:700;">图谱化</span>，
+        让机器真正读懂这张网络？→
       </div>
       <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.1),transparent);"></div>
     </div>
@@ -1335,11 +1337,12 @@
       {x:26, y:100},{x:80, y:55},{x:80, y:148},{x:140,y:28},{x:140,y:124},
       {x:196,y:80}, {x:250,y:28},{x:250,y:128},{x:300,y:78},{x:308,y:168}
     ];
-    // Node positions for student mini graphs (viewBox 0 0 150 60, r=7)
+    // Node positions for student mini graphs (viewBox 0 0 210 82, r=9)
     const M_NODES = [
-      {x:11,y:30},{x:30,y:15},{x:30,y:46},{x:55,y:7},{x:55,y:38},
-      {x:80,y:23},{x:102,y:7},{x:102,y:40},{x:124,y:23},{x:138,y:53}
+      {x:14,y:41},{x:42,y:20},{x:42,y:62},{x:76,y:9},{x:76,y:52},
+      {x:112,y:30},{x:144,y:9},{x:144,y:55},{x:177,y:30},{x:197,y:70}
     ];
+    const M_LABELS = ['变量','类型','算符','条件','循环','函数','列表','字典','OOP','异常'];
 
     // Draw course graph (all nodes mastered = green)
     const cSvg = document.getElementById('s4CourseGraph');
@@ -1398,23 +1401,39 @@
       if (!svg) return;
       svg.innerHTML = '';
       const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
-      defs.innerHTML = `<marker id="arrs4${si}" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto"><polygon points="0 0,5 1.75,0 3.5" fill="rgba(0,212,255,0.22)"/></marker>`;
+      // Arrowhead color varies by student
+      const arrColors = ['rgba(16,185,129,0.5)','rgba(245,158,11,0.5)','rgba(239,68,68,0.4)'];
+      defs.innerHTML = `<marker id="arrs4${si}" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="${arrColors[si]}"/></marker>`;
       svg.appendChild(defs);
+
+      // Edges — color based on whether both endpoints are mastered
       EDGES.forEach(([a,b]) => {
+        const ma = STUDENTS_MASTERY[si][a], mb = STUDENTS_MASTERY[si][b];
+        let eStroke = 'rgba(100,116,139,0.18)';
+        if (ma === 2 && mb === 2) eStroke = 'rgba(16,185,129,0.5)';
+        else if (ma >= 1 && mb >= 1) eStroke = 'rgba(245,158,11,0.4)';
+        else if (ma > 0 || mb > 0)  eStroke = 'rgba(100,116,139,0.28)';
         svg.appendChild(makeSvgElem('line', {
           x1:M_NODES[a].x, y1:M_NODES[a].y, x2:M_NODES[b].x, y2:M_NODES[b].y,
-          stroke:'rgba(0,212,255,0.12)', 'stroke-width':0.8, 'marker-end':`url(#arrs4${si})`
+          stroke:eStroke, 'stroke-width':1.2, 'marker-end':`url(#arrs4${si})`
         }));
       });
+
+      // Nodes — direct cx/cy, with label text
       M_NODES.forEach((n,i) => {
         const m = STUDENTS_MASTERY[si][i];
-        let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.25)';
-        if (m === 2) { fill = 'rgba(16,185,129,0.22)'; stroke = '#10b981'; }
-        else if (m === 1) { fill = 'rgba(245,158,11,0.2)';  stroke = '#f59e0b'; }
-        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('transform', `translate(${n.x},${n.y})`);
-        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:7, fill, stroke, 'stroke-width':1.2}));
-        svg.appendChild(g);
+        let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.3)', txtFill = '#64748b';
+        if (m === 2) { fill = 'rgba(16,185,129,0.22)'; stroke = '#10b981'; txtFill = '#e2e8f0'; }
+        else if (m === 1) { fill = 'rgba(245,158,11,0.2)'; stroke = '#f59e0b'; txtFill = '#e2e8f0'; }
+        svg.appendChild(makeSvgElem('circle', {
+          cx:n.x, cy:n.y, r:9, fill, stroke, 'stroke-width':1.5
+        }));
+        const t = makeSvgElem('text', {
+          x:n.x, y:n.y, fill:txtFill,
+          'font-size':'6.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
+        });
+        t.textContent = M_LABELS[i];
+        svg.appendChild(t);
       });
     }
 
