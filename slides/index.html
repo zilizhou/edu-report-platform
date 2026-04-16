@@ -1378,26 +1378,39 @@
         }));
       });
       C_NODES.forEach((n,i) => {
-        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('transform', `translate(${n.x},${n.y})`);
-        g.classList.add('node-pop');
-        g.style.animationDelay = (i * 55) + 'ms';
-        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:9,
-          fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.5}));
-        const label = NODES[i].short.split('\n');
-        const t = makeSvgElem('text', {x:0, y:0, fill:'#e2e8f0',
-          'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'});
-        if (label.length === 1) {
-          t.textContent = label[0];
-        } else {
-          label.forEach((l, li) => {
-            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-3':'7'});
-            ts.textContent = l;
-            t.appendChild(ts);
+        setTimeout(() => {
+          // Use cx/cy directly — avoids CSS transform overriding SVG translate
+          const c = makeSvgElem('circle', {
+            cx:n.x, cy:n.y, r:9,
+            fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.5,
+            opacity:0
           });
-        }
-        g.appendChild(t);
-        cSvg.appendChild(g);
+          cSvg.appendChild(c);
+          requestAnimationFrame(() => {
+            c.style.transition = 'opacity 0.35s ease';
+            c.setAttribute('opacity','1');
+          });
+          const label = NODES[i].short.split('\n');
+          if (label.length === 1) {
+            const t = makeSvgElem('text', {
+              x:n.x, y:n.y, fill:'#e2e8f0',
+              'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'
+            });
+            t.textContent = label[0];
+            cSvg.appendChild(t);
+          } else {
+            const t = makeSvgElem('text', {
+              x:n.x, fill:'#e2e8f0',
+              'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'
+            });
+            label.forEach((l, li) => {
+              const ts = makeSvgElem('tspan', {x:n.x, y: li===0 ? n.y-3 : n.y+4});
+              ts.textContent = l;
+              t.appendChild(ts);
+            });
+            cSvg.appendChild(t);
+          }
+        }, i * 55);
       });
     }
 
