@@ -679,6 +679,27 @@
     .ex-card.ans-bad { border-color: #ef4444; background: rgba(239,68,68,0.05); }
     .ex-tag { font-size: 10px; padding: 2px 7px; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.18); border-radius: 8px; color: #00d4ff; }
 
+    /* ── Flow cards (slide 3 bottom row) ── */
+    .flow-card {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 11px 10px;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .flow-card.fc-hl {
+      background: rgba(16,185,129,0.08);
+      border-color: rgba(16,185,129,0.35);
+    }
+    .fc-icon { font-size: 1.2rem; }
+    .fc-label { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.8); }
+    .fc-sub   { font-size: 0.65rem; color: rgba(255,255,255,0.32); line-height: 1.4; }
+    .fc-hl .fc-label { color: #34d399; }
+    .fc-hl .fc-sub   { color: rgba(52,211,153,0.55); }
+    .fc-arrow { font-size: 1rem; color: rgba(255,255,255,0.18); flex-shrink: 0; }
+
     @media (max-width: 768px) {
       .slide { padding: 28px 22px; }
       .slide-title { font-size: 1.8rem; }
@@ -798,30 +819,75 @@
   <!-- ══ Slide 4: AI 是现代的解法 ══ -->
   <section class="slide" id="s4">
     <div class="tag anim" style="--tag-color: #6ee7b7">解法 · AI Empowers</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#818cf8); font-size:2rem; margin-bottom:10px;">
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#6ee7b7,#818cf8); font-size:1.85rem; margin-bottom:10px;">
       AI 技术，让因材施教成为可能
     </h2>
-    <p class="slide-subtitle anim" style="margin-bottom:14px;">
-      AI 的载体是<strong style="color:#e2e8f0">机器</strong>——要让机器帮助实现因材施教，它必须先做到两件事：
-    </p>
 
-    <div class="req-card anim" style="animation-delay:.36s">
-      <div class="req-item">
-        <span class="req-num">① 了解教学内容</span>
-        课程讲的是什么知识点？它们之间有什么联系？哪些是重点和难点？
+    <!-- ── 上半部分：两列 ── -->
+    <div class="anim" style="display:flex; gap:14px; width:100%; max-width:860px; animation-delay:.28s">
+
+      <!-- 左：课程知识网络 -->
+      <div style="flex:1.3; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:14px; padding:14px 16px;">
+        <div style="font-size:0.78rem; font-weight:600; color:#34d399; margin-bottom:8px;">📚 教学内容 = 课程知识网络</div>
+        <svg id="s4CourseGraph" width="100%" height="130" viewBox="0 0 220 130" style="display:block;"></svg>
+        <div style="font-size:0.67rem; color:rgba(255,255,255,0.26); text-align:center; margin-top:4px; letter-spacing:.5px;">Python 课程知识图谱（10 个节点）</div>
       </div>
-      <div class="req-item">
-        <span class="req-num">② 了解每位学生的掌握情况</span>
-        这位同学哪些知识点已掌握？哪些还有漏洞？从哪里开始补效果最好？
+
+      <!-- 右：三位学生掌握情况 -->
+      <div style="flex:1; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.2); border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:5px;">
+        <div style="font-size:0.78rem; font-weight:600; color:#a5b4fc; margin-bottom:4px;">🧑‍🎓 每位学生 = 对知识网络的掌握</div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.67rem; color:#34d399; width:38px; flex-shrink:0;">学生 A</span>
+          <svg id="s4Stu0" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.67rem; color:#fbbf24; width:38px; flex-shrink:0;">学生 B</span>
+          <svg id="s4Stu1" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.67rem; color:#f87171; width:38px; flex-shrink:0;">学生 C</span>
+          <svg id="s4Stu2" width="100%" height="46" viewBox="0 0 110 50" style="flex:1;"></svg>
+        </div>
+        <div style="display:flex; gap:10px; font-size:0.62rem; color:rgba(255,255,255,0.3); margin-top:2px;">
+          <span>🟢 已掌握</span><span>🟡 部分</span><span>⚫ 未学</span>
+        </div>
       </div>
     </div>
 
-    <div class="anim" style="margin-top:20px; text-align:center; font-size:0.9rem; color:rgba(255,255,255,0.45); animation-delay:.5s">
-      如何让机器获取这两类信息？这就用到了一个关键技术——
+    <!-- ── 中间桥接文字 ── -->
+    <div class="anim" style="display:flex; align-items:center; gap:12px; width:100%; max-width:860px; margin-top:10px; animation-delay:.50s">
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08));"></div>
+      <div style="font-size:0.82rem; color:rgba(255,255,255,0.48); text-align:center; white-space:nowrap;">
+        如何让 AI 理解这两类信息？——
+        <span style="color:#34d399; font-weight:600;">知识图谱（Knowledge Graph）技术</span>
+      </div>
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent);"></div>
     </div>
-    <div class="anim" style="animation-delay:.65s; margin-top:12px;">
-      <div class="kg-badge">
-        🕸️ &nbsp;知识图谱（Knowledge Graph）
+
+    <!-- ── 下方流程卡 ── -->
+    <div class="anim" style="display:flex; align-items:center; gap:8px; width:100%; max-width:860px; margin-top:10px; animation-delay:.68s">
+      <div class="flow-card">
+        <div class="fc-icon">📚</div>
+        <div class="fc-label">课程知识图谱</div>
+        <div class="fc-sub">结构化课程内容</div>
+      </div>
+      <div class="fc-arrow">→</div>
+      <div class="flow-card">
+        <div class="fc-icon">🕸️</div>
+        <div class="fc-label">AI 知识图谱技术</div>
+        <div class="fc-sub">机器理解知识结构</div>
+      </div>
+      <div class="fc-arrow">→</div>
+      <div class="flow-card">
+        <div class="fc-icon">🧑‍🎓</div>
+        <div class="fc-label">学生知识画像</div>
+        <div class="fc-sub">量化每位学生状态</div>
+      </div>
+      <div class="fc-arrow">→</div>
+      <div class="flow-card fc-hl">
+        <div class="fc-icon">✨</div>
+        <div class="fc-label">因材施教</div>
+        <div class="fc-sub">个性化教学成为可能</div>
       </div>
     </div>
   </section>
@@ -1275,11 +1341,93 @@
   function onSlideEnter(idx) {
     cancelAnim();
     const id = slides[idx].id;
+    if (id === 's4') animS4Page();
     if (id === 's5') drawIntroGraph();
     if (id === 's6') animS6Graph();
     if (id === 's7') animS7Benefits();
     if (id === 's8') animS8Profiles();
     if (id === 's9') initS9Quiz();
+  }
+
+  /* ════════════════════════════════════════
+     SLIDE 4 (s4): Course KG + Student Mastery
+  ════════════════════════════════════════ */
+  function animS4Page() {
+    // Compact node positions for course graph (viewBox 0 0 220 130, r=9)
+    const C_NODES = [
+      {x:16,y:65},{x:50,y:35},{x:50,y:95},{x:90,y:20},{x:90,y:80},
+      {x:130,y:50},{x:165,y:22},{x:165,y:78},{x:200,y:50},{x:208,y:108}
+    ];
+    // Compact node positions for student mini graphs (viewBox 0 0 110 50, r=5.5)
+    const M_NODES = [
+      {x:8,y:25},{x:24,y:13},{x:24,y:38},{x:43,y:6},{x:43,y:32},
+      {x:61,y:19},{x:77,y:6},{x:77,y:33},{x:93,y:19},{x:101,y:43}
+    ];
+
+    // Draw course graph (all nodes mastered = green)
+    const cSvg = document.getElementById('s4CourseGraph');
+    if (cSvg) {
+      cSvg.innerHTML = '';
+      const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+      defs.innerHTML = `<marker id="arrc4" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(16,185,129,0.45)"/></marker>`;
+      cSvg.appendChild(defs);
+      EDGES.forEach(([a,b]) => {
+        cSvg.appendChild(makeSvgElem('line', {
+          x1:C_NODES[a].x, y1:C_NODES[a].y, x2:C_NODES[b].x, y2:C_NODES[b].y,
+          stroke:'rgba(16,185,129,0.28)', 'stroke-width':1.2, 'marker-end':'url(#arrc4)'
+        }));
+      });
+      C_NODES.forEach((n,i) => {
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        g.classList.add('node-pop');
+        g.style.animationDelay = (i * 55) + 'ms';
+        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:9,
+          fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.5}));
+        const label = NODES[i].short.split('\n');
+        const t = makeSvgElem('text', {x:0, y:0, fill:'#e2e8f0',
+          'font-size':'6', 'text-anchor':'middle', 'dominant-baseline':'middle'});
+        if (label.length === 1) {
+          t.textContent = label[0];
+        } else {
+          label.forEach((l, li) => {
+            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-3':'7'});
+            ts.textContent = l;
+            t.appendChild(ts);
+          });
+        }
+        g.appendChild(t);
+        cSvg.appendChild(g);
+      });
+    }
+
+    // Draw each student's mastery graph
+    function drawStuGraph(si) {
+      const svg = document.getElementById('s4Stu' + si);
+      if (!svg) return;
+      svg.innerHTML = '';
+      const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+      defs.innerHTML = `<marker id="arrs4${si}" markerWidth="5" markerHeight="3.5" refX="5" refY="1.75" orient="auto"><polygon points="0 0,5 1.75,0 3.5" fill="rgba(0,212,255,0.22)"/></marker>`;
+      svg.appendChild(defs);
+      EDGES.forEach(([a,b]) => {
+        svg.appendChild(makeSvgElem('line', {
+          x1:M_NODES[a].x, y1:M_NODES[a].y, x2:M_NODES[b].x, y2:M_NODES[b].y,
+          stroke:'rgba(0,212,255,0.12)', 'stroke-width':0.8, 'marker-end':`url(#arrs4${si})`
+        }));
+      });
+      M_NODES.forEach((n,i) => {
+        const m = STUDENTS_MASTERY[si][i];
+        let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.25)';
+        if (m === 2) { fill = 'rgba(16,185,129,0.22)'; stroke = '#10b981'; }
+        else if (m === 1) { fill = 'rgba(245,158,11,0.2)';  stroke = '#f59e0b'; }
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('transform', `translate(${n.x},${n.y})`);
+        g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:5.5, fill, stroke, 'stroke-width':1}));
+        svg.appendChild(g);
+      });
+    }
+
+    [0,1,2].forEach(i => setTimeout(() => drawStuGraph(i), i * 150 + 350));
   }
 
   /* ════════════════════════════════════════
