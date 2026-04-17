@@ -462,6 +462,60 @@
       max-width: 820px;
     }
 
+    /* ── S9 THREE-STEP CARDS ── */
+    @keyframes s9Rise {
+      from { opacity:0; transform:translateY(28px) scale(0.96); }
+      to   { opacity:1; transform:translateY(0)    scale(1);    }
+    }
+    @keyframes s9ArrowPop {
+      from { opacity:0; transform:scaleX(0); }
+      to   { opacity:1; transform:scaleX(1); }
+    }
+    .s9-card {
+      flex:1; padding:22px 18px 16px; border-radius:16px;
+      background:rgba(255,255,255,0.025);
+      border:1px solid rgba(255,255,255,0.08);
+      display:flex; flex-direction:column; gap:9px;
+      opacity:0; animation:s9Rise 0.55s ease forwards;
+      position:relative; overflow:hidden;
+    }
+    .s9-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--c); border-radius:16px 16px 0 0;
+    }
+    .s9-card-num {
+      width:36px; height:36px; border-radius:50%;
+      border:2px solid var(--c); color:var(--c);
+      font-size:1.05rem; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,0.04);
+    }
+    .s9-card-icon { font-size:2.2rem; line-height:1; }
+    .s9-card-title { font-size:1.05rem; font-weight:700; color:rgba(255,255,255,0.92); }
+    .s9-card-sub { font-size:0.74rem; font-weight:600; color:var(--c); letter-spacing:.3px; }
+    .s9-card-desc { font-size:0.77rem; color:rgba(255,255,255,0.48); line-height:1.65; flex:1; }
+    .s9-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+    .s9-card-tags span {
+      padding:2px 8px; border-radius:100px; font-size:0.66rem;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+      color:rgba(255,255,255,0.4);
+    }
+    .s9-arrow {
+      flex-shrink:0; width:44px; display:flex; align-items:center; justify-content:center;
+      color:rgba(255,255,255,0.22); font-size:1.6rem;
+      opacity:0; transform-origin:left center;
+      animation:s9ArrowPop 0.35s ease forwards;
+    }
+    .s9-flow-bar {
+      display:flex; align-items:center; gap:0;
+      padding:10px 18px; border-radius:100px;
+      background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+      font-size:0.75rem; color:rgba(255,255,255,0.38); white-space:nowrap;
+      opacity:0; animation:s9Rise 0.5s ease forwards;
+    }
+    .s9-flow-bar .fb-item { color:rgba(255,255,255,0.62); font-weight:600; }
+    .s9-flow-bar .fb-arrow { margin:0 8px; color:rgba(255,255,255,0.18); }
+
     /* ── STEP FLOW ── */
     .step-flow {
       display: flex;
@@ -541,7 +595,8 @@
     #s4  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(16,185,129,0.1) 0%, transparent 50%); }
     #s5  { background: radial-gradient(ellipse at 30% 55%, rgba(6,182,212,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 35%, rgba(16,185,129,0.12) 0%, transparent 55%); }
     #s6  { background: radial-gradient(ellipse at 20% 50%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(ellipse at 80% 50%, rgba(6,182,212,0.12) 0%, transparent 55%); }
-    #s7  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.15) 0%, transparent 55%); }
+    #s_quiz { background: radial-gradient(ellipse at 25% 50%, rgba(245,158,11,0.12) 0%, transparent 55%), radial-gradient(ellipse at 75% 45%, rgba(239,68,68,0.08) 0%, transparent 50%); }
+
     #s8  { background: radial-gradient(ellipse at 35% 50%, rgba(16,185,129,0.12) 0%, transparent 50%), radial-gradient(ellipse at 65% 50%, rgba(245,158,11,0.1) 0%, transparent 50%); }
     #s9  { background: radial-gradient(ellipse at 40% 40%, rgba(6,182,212,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 65%, rgba(99,102,241,0.12) 0%, transparent 50%); }
     #s10 { background: radial-gradient(ellipse at 30% 45%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(ellipse at 70% 55%, rgba(245,158,11,0.12) 0%, transparent 55%), radial-gradient(ellipse at 50% 20%, rgba(99,102,241,0.12) 0%, transparent 50%); }
@@ -669,15 +724,6 @@
     .s3-score { font-size: 11px; color: #64748b; }
     .s3-svg-wrap { flex: 1; min-height: 0; }
 
-    /* ============================================================
-       SLIDE 9 EXERCISE CARDS
-       ============================================================ */
-    .ex-card { background: rgba(13,20,40,0.8); border: 1px solid rgba(0,212,255,0.15); border-radius: 10px; padding: 10px 12px; opacity: 0; transform: translateX(-12px); transition: all 0.4s; cursor: pointer; position: relative; font-size: 12px; color: #e2e8f0; line-height: 1.5; }
-    .ex-card.show { opacity: 1; transform: translateX(0); }
-    .ex-card:hover:not(.answered) { border-color: rgba(0,212,255,0.4); }
-    .ex-card.ans-ok { border-color: #10b981; background: rgba(16,185,129,0.05); }
-    .ex-card.ans-bad { border-color: #ef4444; background: rgba(239,68,68,0.05); }
-    .ex-tag { font-size: 10px; padding: 2px 7px; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.18); border-radius: 8px; color: #00d4ff; }
 
     /* ── Flow cards (slide 3 bottom row) ── */
     .flow-card {
@@ -741,37 +787,53 @@
   <!-- ══ Slide 2: 因材施教 × 现实困境 ══ -->
   <section class="slide" id="s2">
 
-    <!-- ── 第一行：因材施教 + 时间桥 + 今天 ── -->
-    <div class="anim" style="display:flex; align-items:center; gap:24px; width:100%; max-width:900px; animation-delay:.05s">
+    <!-- ── 第一行：双图并排（各自原始比例）── -->
+    <div class="anim" style="display:flex; align-items:flex-start; gap:12px; width:100%; max-width:900px; animation-delay:.05s">
+      <!-- 古代私塾图 -->
+      <div style="flex:1; border-radius:12px; overflow:hidden; background:rgba(40,28,5,0.8);">
+        <img src="images/ancientClassroot.png" alt="古代私塾"
+             style="width:100%; height:auto; display:block;"
+             onerror="this.style.display='none'" />
+      </div>
+      <!-- 现代课堂图 -->
+      <div style="flex:1; border-radius:12px; overflow:hidden; background:rgba(5,12,30,0.8);">
+        <img src="images/modernClassroom.png" alt="现代课堂"
+             style="width:100%; height:auto; display:block;"
+             onerror="this.style.display='none'" />
+      </div>
+    </div>
 
-      <!-- 左：因材施教字符 -->
-      <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:5px;">
-        <div style="font-size:0.62rem; letter-spacing:3px; color:rgba(251,191,36,0.4); text-transform:uppercase;">公元前551—479年 · 孔子</div>
-        <div class="char-reveal" style="margin:2px 0 4px;">
-          <span class="char-big" style="font-size:3.4rem">因</span>
-          <span class="char-big" style="font-size:3.4rem">材</span>
-          <span class="char-big" style="font-size:3.4rem">施</span>
-          <span class="char-big" style="font-size:3.4rem">教</span>
+    <!-- ── 第二行：因材施教 + 时间桥 + 今日困境 ── -->
+    <div class="anim" style="display:flex; align-items:center; gap:24px; width:100%; max-width:900px; margin-top:12px; animation-delay:.3s">
+
+      <!-- 左：因材施教 -->
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:5px;">
+        <div style="font-size:0.6rem; letter-spacing:3px; color:rgba(251,191,36,0.5);">公元前551—479年 · 孔子</div>
+        <div class="char-reveal" style="margin:2px 0 3px;">
+          <span class="char-big" style="font-size:3rem">因</span>
+          <span class="char-big" style="font-size:3rem">材</span>
+          <span class="char-big" style="font-size:3rem">施</span>
+          <span class="char-big" style="font-size:3rem">教</span>
         </div>
-        <div style="font-size:0.73rem; color:rgba(251,191,36,0.6); letter-spacing:1.5px; text-align:center; padding:4px 12px; border:1px solid rgba(251,191,36,0.18); border-radius:20px;">
+        <div style="font-size:0.7rem; color:rgba(251,191,36,0.6); letter-spacing:1.5px; text-align:center; padding:3px 12px; border:1px solid rgba(251,191,36,0.18); border-radius:20px;">
           根据每人特点，给予不同的教导
         </div>
       </div>
 
       <!-- 中：时间桥 -->
       <div style="display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; padding:0 6px;">
-        <div style="width:1px; height:28px; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.12));"></div>
-        <div style="font-size:0.62rem; color:rgba(255,255,255,0.18); writing-mode:vertical-rl; letter-spacing:2px; white-space:nowrap;">─ 2500 年 ─</div>
-        <div style="width:1px; height:28px; background:linear-gradient(180deg,rgba(248,113,113,0.25),transparent);"></div>
+        <div style="width:1px; height:24px; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.12));"></div>
+        <div style="font-size:0.58rem; color:rgba(255,255,255,0.18); writing-mode:vertical-rl; letter-spacing:2px; white-space:nowrap;">─ 2500 年 ─</div>
+        <div style="width:1px; height:24px; background:linear-gradient(180deg,rgba(248,113,113,0.25),transparent);"></div>
       </div>
 
-      <!-- 右：今天 + 困境标题 -->
+      <!-- 右：今日困境 -->
       <div style="flex:1;">
-        <div style="font-size:0.65rem; letter-spacing:3px; color:rgba(248,113,113,0.55); margin-bottom:6px;">今天 · 现代课堂</div>
-        <div style="font-size:1.3rem; font-weight:700; color:rgba(255,255,255,0.88); line-height:1.4; margin-bottom:6px;">
+        <div style="font-size:0.62rem; letter-spacing:3px; color:rgba(248,113,113,0.6); margin-bottom:5px;">今天 · 现代课堂</div>
+        <div style="font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.88); line-height:1.45; margin-bottom:5px;">
           这个千年理想，<br>在现代课堂遭遇了严峻挑战
         </div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.35); line-height:1.6;">
+        <div style="font-size:0.73rem; color:rgba(255,255,255,0.38); line-height:1.6;">
           规模化教育使「了解每一位学生」几乎成为不可能
         </div>
       </div>
@@ -918,31 +980,31 @@
       课程知识图谱是怎么来的？
     </h2>
 
-    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.26s">
+    <div class="anim" style="display:flex; gap:18px; width:100%; max-width:820px; align-items:stretch; animation-delay:.26s">
       <!-- Left: steps -->
-      <div style="width:220px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
-        <div class="step-item s-green" id="build-step1">
+      <div style="width:228px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+        <div class="step-item s-green" id="build-step1" style="flex:1; align-items:center;">
           <div class="step-num">1</div>
           <div class="step-body">
             <strong>输入教学资源</strong>
             <span>大纲、试卷、PPT、教材……</span>
           </div>
         </div>
-        <div class="step-item s-blue" id="build-step2" style="opacity:0.35">
+        <div class="step-item s-blue" id="build-step2" style="flex:1; align-items:center; opacity:0.4; cursor:pointer;" onclick="s6Step(2)">
           <div class="step-num">2</div>
           <div class="step-body">
             <strong>大语言模型抽取知识点</strong>
             <span>识别出课程中所有知识实体</span>
           </div>
         </div>
-        <div class="step-item s-cyan" id="build-step3" style="opacity:0.35">
+        <div class="step-item s-cyan" id="build-step3" style="flex:1; align-items:center; opacity:0.4; cursor:pointer;" onclick="s6Step(3)">
           <div class="step-num">3</div>
           <div class="step-body">
             <strong>建立知识点关联</strong>
             <span>前置关系、包含关系……</span>
           </div>
         </div>
-        <div class="step-item s-amber" id="build-step4" style="opacity:0.35">
+        <div class="step-item s-amber" id="build-step4" style="flex:1; align-items:center; opacity:0.4; cursor:pointer;" onclick="s6Step(4)">
           <div class="step-num">4</div>
           <div class="step-body">
             <strong>输出课程知识图谱 ✓</strong>
@@ -951,46 +1013,40 @@
         </div>
       </div>
       <!-- Right: SVG -->
-      <div class="canvas-wrap" style="flex:1; padding:8px;">
-        <svg id="s6Svg" width="100%" height="210" viewBox="0 0 520 260" style="border-radius:8px;"></svg>
-        <div class="canvas-caption" id="build-caption">等待构建知识图谱……</div>
+      <div class="canvas-wrap" style="flex:1; padding:10px; display:flex; flex-direction:column;">
+        <svg id="s6Svg" width="100%" height="100%" viewBox="0 0 520 260" style="flex:1; min-height:200px; border-radius:8px;"></svg>
+        <div class="canvas-caption" id="build-caption" style="flex-shrink:0;">点击左侧步骤，逐步构建知识图谱</div>
       </div>
     </div>
   </section>
 
-  <!-- ══ Slide 7: 知识网络的优势（SVG 动画）══ -->
-  <section class="slide" id="s7">
-    <div class="tag anim" style="--tag-color: #a5b4fc">为什么用图谱 · Why Network</div>
-    <h2 class="slide-title anim" style="font-size:1.9rem; margin-bottom:6px;">
-      知识图谱比知识清单强在哪里？
+  <!-- ══ Slide s_quiz: 答题 → 实时知识画像 ══ -->
+  <section class="slide" id="s_quiz">
+    <div class="tag anim" style="--tag-color: #f59e0b">场景演示 · Live Demo</div>
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#fde68a,#f59e0b); font-size:1.75rem; margin-bottom:4px;">
+      作业 → 答题数据 → 知识画像
     </h2>
-    <p class="slide-subtitle anim" style="font-size:0.88rem; margin-bottom:10px;">
-      一堆知识点是"仓库"；知识图谱是"思维地图"——它有两个独特优势：
+    <p class="slide-subtitle anim" style="font-size:0.82rem; margin-bottom:10px;">
+      每道题对应 1-2 个知识点，学生作答后，机器实时更新知识图谱，描绘出该学生的"知识画像"
     </p>
-
-    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.32s">
-      <div style="width:210px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
-        <div class="step-item s-blue" id="bene-step1" style="border-color:rgba(165,180,252,0.4)">
-          <div class="step-num" style="background:rgba(165,180,252,0.15); color:#c7d2fe">①</div>
-          <div class="step-body">
-            <strong style="color:#c7d2fe">记忆恢复</strong>
-            <span>遗忘一个知识点？相邻知识点可以帮助唤起记忆，知识体系不会崩溃</span>
-          </div>
+    <div class="anim" style="display:flex; gap:18px; width:100%; max-width:940px; align-items:stretch; animation-delay:.28s;">
+      <!-- Left: question list -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="font-size:0.74rem; color:rgba(255,255,255,0.35); margin-bottom:2px; letter-spacing:.5px;">
+          📋 作业题目（点击逐题作答）
         </div>
-        <div class="step-item s-cyan" id="bene-step2" style="opacity:0.4; border-color:rgba(34,211,238,0.3)">
-          <div class="step-num" style="background:rgba(34,211,238,0.15); color:#67e8f9">②</div>
-          <div class="step-body">
-            <strong style="color:#67e8f9">推理求解</strong>
-            <span>解题时可沿关联路径快速检索：知道A→B→C，就能推导出不记得的D</span>
-          </div>
-        </div>
-        <div style="padding:10px 12px; background:rgba(255,255,255,0.03); border-radius:8px; font-size:0.75rem; color:rgba(255,255,255,0.3); margin-top:4px;">
-          💡 这正是有知识体系的学生比死记硬背的学生更有后劲的原因
-        </div>
+        <div id="quiz-list" style="display:flex; flex-direction:column; gap:7px;"></div>
       </div>
-      <div class="canvas-wrap" style="flex:1; padding:8px;">
-        <svg id="s7Svg" width="100%" height="200" viewBox="0 0 520 260" style="border-radius:8px;"></svg>
-        <div class="canvas-caption" id="benefit-caption">显示完整知识图谱……</div>
+      <!-- Right: live graph -->
+      <div style="width:360px; flex-shrink:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:0.74rem; color:#f87171; display:flex; align-items:center; gap:5px; letter-spacing:.5px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#f87171;display:inline-block;animation:pulse 1.5s infinite;"></span>
+          实时知识画像（答题后自动更新）
+        </div>
+        <div class="canvas-wrap" style="flex:1; padding:10px; display:flex; flex-direction:column;">
+          <svg id="quizSvg" width="100%" height="100%" viewBox="0 0 520 270" style="flex:1; min-height:220px; border-radius:8px;"></svg>
+          <div class="canvas-caption" id="quiz-caption" style="flex-shrink:0;">点击左侧题目作答，图谱随之更新</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1038,47 +1094,92 @@
     </p>
   </section>
 
-  <!-- ══ Slide 9: 三步让机器获取知识（交互式）══ -->
+  <!-- ══ Slide 9: 三步走 AI 赋能个性化教学 ══ -->
   <section class="slide" id="s9">
     <div class="tag anim" style="--tag-color: #22d3ee">实现路径 · How It Works</div>
-    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#818cf8); font-size:1.9rem; margin-bottom:8px;">
-      三步走：让机器真正"了解"教与学
+    <h2 class="slide-title anim" style="--title-grad: linear-gradient(135deg,#67e8f9,#818cf8); font-size:1.9rem; margin-bottom:4px;">
+      三步走：AI 赋能个性化教学
     </h2>
+    <p class="slide-subtitle anim" style="font-size:0.85rem; margin-bottom:20px;">
+      从"一份课程"到"每人一套方案"——只需三步
+    </p>
 
-    <div class="anim" style="display:flex; gap:20px; width:100%; max-width:820px; align-items:flex-start; animation-delay:.26s">
-      <div class="step-flow" style="flex:1">
-        <div class="step-item s-green">
-          <div class="step-num">①</div>
-          <div class="step-body">
-            <strong>把课程知识图谱给机器</strong>
-            <span>借助大语言模型 + 精心设计的<span class="hl-g">技能提示词文档</span>，让 AI 解析教学资源，构建结构化知识图谱</span>
-          </div>
+    <!-- Three cards + arrows -->
+    <div style="display:flex; align-items:stretch; gap:0; width:100%; max-width:880px;">
+
+      <!-- Card 1 -->
+      <div class="s9-card" style="--c:#34d399; animation-delay:.2s;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="s9-card-num">1</div>
+          <div class="s9-card-icon">🕸️</div>
         </div>
-        <div class="step-item s-blue">
-          <div class="step-num">②</div>
-          <div class="step-body">
-            <strong>通过做题，获取学生知识画像</strong>
-            <span>学生答题 → 对照知识图谱标注 → 逐渐更新每位学生的节点掌握程度
-            <em style="color:rgba(165,180,252,0.5)">（见右侧动画）</em></span>
-          </div>
+        <div class="s9-card-title">课程知识图谱化</div>
+        <div class="s9-card-sub">教学资源 → 结构化知识</div>
+        <div class="s9-card-desc">
+          借助大语言模型解析大纲、教材与试卷，自动提取知识实体并建立依赖关系，构建课程知识图谱
         </div>
-        <div class="step-item s-amber">
-          <div class="step-num">③</div>
-          <div class="step-body">
-            <strong>有了画像，就可以做个性化</strong>
-            <span>作业推荐、学习资源、AI 私人助教——全部基于每位学生当前的真实知识状态</span>
-          </div>
+        <div class="s9-card-tags">
+          <span style="color:#34d399;border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.08)">大纲</span>
+          <span style="color:#34d399;border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.08)">教材</span>
+          <span style="color:#34d399;border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.08)">试卷</span>
+          <span style="color:#34d399;border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.08)">LLM 抽取</span>
         </div>
       </div>
-      <!-- Interactive quiz area -->
-      <div style="width:300px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:12px; font-weight:700; color:#22d3ee; flex-shrink:0;">🧩 点击题目，查看知识画像更新</div>
-        <div id="s9ExList" style="display:flex; flex-direction:column; gap:6px;"></div>
-        <svg id="s9Svg" width="100%" height="200" viewBox="0 0 300 220" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;"></svg>
-        <div style="display:flex; gap:10px; font-size:10px; color:#64748b; flex-shrink:0;">
-          <span>🟢 已掌握</span><span>🔴 薄弱</span><span>⚫ 未测</span>
+
+      <!-- Arrow 1→2 -->
+      <div class="s9-arrow" style="animation-delay:.62s;">›</div>
+
+      <!-- Card 2 -->
+      <div class="s9-card" style="--c:#818cf8; animation-delay:.7s;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="s9-card-num" style="border-color:#818cf8;color:#818cf8;">2</div>
+          <div class="s9-card-icon">📊</div>
+        </div>
+        <div class="s9-card-title">学生知识画像</div>
+        <div class="s9-card-sub">答题数据 → 实时画像</div>
+        <div class="s9-card-desc">
+          每道作业题与知识图谱节点自动关联，学生答对 / 答错后立即更新其在每个知识点上的掌握程度
+        </div>
+        <div class="s9-card-tags">
+          <span style="color:#10b981;border-color:rgba(16,185,129,0.4);background:rgba(16,185,129,0.1)">✓ 已掌握</span>
+          <span style="color:#ef4444;border-color:rgba(239,68,68,0.4);background:rgba(239,68,68,0.1)">✗ 薄弱</span>
+          <span style="color:#94a3b8;border-color:rgba(148,163,184,0.3);background:rgba(148,163,184,0.06)">◎ 未测</span>
         </div>
       </div>
+
+      <!-- Arrow 2→3 -->
+      <div class="s9-arrow" style="animation-delay:1.12s;">›</div>
+
+      <!-- Card 3 -->
+      <div class="s9-card" style="--c:#f59e0b; animation-delay:1.2s;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="s9-card-num" style="border-color:#f59e0b;color:#f59e0b;">3</div>
+          <div class="s9-card-icon">🎯</div>
+        </div>
+        <div class="s9-card-title">个性化教学输出</div>
+        <div class="s9-card-sub">画像驱动，因材施教</div>
+        <div class="s9-card-desc">
+          依据每位学生的真实知识状态，推送专属作业、匹配学习资源、启用 AI 私人助教针对性辅导
+        </div>
+        <div class="s9-card-tags">
+          <span style="color:#f59e0b;border-color:rgba(245,158,11,0.35);background:rgba(245,158,11,0.08)">个性化作业</span>
+          <span style="color:#f59e0b;border-color:rgba(245,158,11,0.35);background:rgba(245,158,11,0.08)">资源推荐</span>
+          <span style="color:#f59e0b;border-color:rgba(245,158,11,0.35);background:rgba(245,158,11,0.08)">AI 助教</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom data-flow bar -->
+    <div class="s9-flow-bar" style="margin-top:18px; animation-delay:1.55s;">
+      <span class="fb-item">📚 教学资源</span>
+      <span class="fb-arrow">→</span>
+      <span class="fb-item">🕸️ 课程图谱</span>
+      <span class="fb-arrow">→</span>
+      <span class="fb-item">✏️ 学生答题</span>
+      <span class="fb-arrow">→</span>
+      <span class="fb-item">👤 知识画像</span>
+      <span class="fb-arrow">→</span>
+      <span class="fb-item" style="color:#f59e0b;">🎯 个性化方案</span>
     </div>
   </section>
 
@@ -1120,46 +1221,80 @@
 
   <!-- ══ Slide 11: 总结与展望 ══ -->
   <section class="slide" id="s11">
-    <div class="tag anim">总结 · Summary</div>
-    <h2 class="slide-title anim" style="font-size:2rem;">一条从古至今的完整逻辑链</h2>
+    <div class="tag anim" style="--tag-color:#a5b4fc">总结 · Summary</div>
+    <h2 class="slide-title anim" style="--title-grad:linear-gradient(135deg,#fbbf24,#a5b4fc,#34d399); font-size:1.8rem; margin-bottom:4px;">
+      AI 让 2500 年的教育理想，成为今日现实
+    </h2>
+    <p class="slide-subtitle anim" style="font-size:0.82rem; margin-bottom:16px; animation-delay:.15s;">
+      从一位圣人的洞见，到每一间教室的实践——这是技术与教育的真正结合
+    </p>
 
-    <div class="step-flow anim" style="animation-delay:.22s; max-width:680px;">
-      <div class="step-item s-amber">
-        <div class="step-num" style="font-size:1rem">📜</div>
-        <div class="step-body">
-          <strong>孔子「因材施教」思想（公元前 500 年）</strong>
-          <span>了解每位学生，给予个性化指导——2500 年来的教育理想</span>
+    <!-- Bridge layout -->
+    <div class="anim" style="display:flex; align-items:stretch; gap:0; width:100%; max-width:860px; animation-delay:.28s;">
+
+      <!-- Left: Ancient ideal -->
+      <div style="flex:1; padding:22px 20px; border-radius:16px 0 0 16px;
+           background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(251,191,36,0.06));
+           border:1px solid rgba(251,191,36,0.25); border-right:none;
+           display:flex; flex-direction:column; gap:10px;">
+        <div style="font-size:2.4rem; line-height:1;">📜</div>
+        <div style="font-size:0.68rem; color:#fbbf24; letter-spacing:1.5px; font-weight:600;">公元前 500 年</div>
+        <div style="font-size:1.12rem; font-weight:700; color:rgba(255,255,255,0.92);">孔子「因材施教」</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); line-height:1.7; font-style:italic; border-left:2px solid rgba(251,191,36,0.4); padding-left:10px;">
+          视其所以，观其所由，察其所安——<br>
+          了解每位学生，因其所需而施教
+        </div>
+        <div style="margin-top:auto; font-size:0.72rem; color:rgba(251,191,36,0.55);">
+          人类教育史上最深刻的洞见之一<br>
+          <span style="color:rgba(255,255,255,0.3);">然而 2500 年来，受制于规模，难以普及</span>
         </div>
       </div>
-      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
-      <div class="step-item s-blue">
-        <div class="step-num" style="font-size:1rem">🕸️</div>
-        <div class="step-body">
-          <strong>知识图谱 · 学生画像（技术基础）</strong>
-          <span>结构化表达课程知识 + 量化每位学生的知识掌握状态</span>
-        </div>
+
+      <!-- Center bridge -->
+      <div style="width:90px; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+           background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); padding:12px 6px;">
+        <div style="font-size:0.6rem; color:rgba(255,255,255,0.2); letter-spacing:1px; text-align:center; writing-mode:vertical-rl; line-height:1.8;">AI  技  术  赋  能</div>
+        <div style="width:2px; flex:1; background:linear-gradient(to bottom,rgba(251,191,36,0.4),rgba(165,180,252,0.5),rgba(52,211,153,0.4));"></div>
+        <div style="font-size:1.4rem;">⚡</div>
+        <div style="width:2px; flex:1; background:linear-gradient(to bottom,rgba(52,211,153,0.4),rgba(165,180,252,0.3));"></div>
+        <div style="font-size:0.6rem; color:rgba(255,255,255,0.2); writing-mode:vertical-rl; letter-spacing:1px; line-height:1.8;">知  识  图  谱  ·  学  生  画  像</div>
       </div>
-      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
-      <div class="step-item s-green">
-        <div class="step-num" style="font-size:1rem">🤖</div>
-        <div class="step-body">
-          <strong>六大 AI 技能模块（本平台实现）</strong>
-          <span>课程图谱 · 试卷标注 · 学生画像 · 个性化作业 · 资源推荐 · AI 助教</span>
+
+      <!-- Right: Modern realization -->
+      <div style="flex:1; padding:22px 20px; border-radius:0 16px 16px 0;
+           background:linear-gradient(135deg,rgba(52,211,153,0.1),rgba(165,180,252,0.08));
+           border:1px solid rgba(52,211,153,0.28); border-left:none;
+           display:flex; flex-direction:column; gap:10px;">
+        <div style="font-size:2.4rem; line-height:1;">🎯</div>
+        <div style="font-size:0.68rem; color:#34d399; letter-spacing:1.5px; font-weight:600;">当下与未来</div>
+        <div style="font-size:1.12rem; font-weight:700; color:rgba(255,255,255,0.92);">规模化的因材施教</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); line-height:1.7; border-left:2px solid rgba(52,211,153,0.4); padding-left:10px;">
+          每一位学生都拥有专属的知识画像，<br>
+          AI 依此持续给予个性化指导
         </div>
-      </div>
-      <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:1.2rem; padding:2px 0">↓</div>
-      <div class="step-item" style="background:rgba(165,180,252,0.07); border-color:rgba(165,180,252,0.25)">
-        <div class="step-num" style="background:rgba(165,180,252,0.15); color:#c7d2fe; font-size:1rem">✨</div>
-        <div class="step-body">
-          <strong style="color:#c7d2fe">规模化的因材施教（实践目标）</strong>
-          <span>让每位学生在 AI 的帮助下，都能得到孔子式的个性化教导</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px 10px; margin-top:auto;">
+          <span style="font-size:0.72rem; color:#34d399;">✓ 课程知识图谱</span>
+          <span style="font-size:0.72rem; color:#34d399;">✓ 实时学生画像</span>
+          <span style="font-size:0.72rem; color:#a5b4fc;">✓ 个性化作业</span>
+          <span style="font-size:0.72rem; color:#a5b4fc;">✓ 资源精准推荐</span>
+          <span style="font-size:0.72rem; color:#67e8f9;">✓ AI 私人助教</span>
+          <span style="font-size:0.72rem; color:#67e8f9;">✓ 试卷智能标注</span>
         </div>
       </div>
     </div>
 
-    <p class="slide-subtitle anim" style="margin-top:18px; font-size:0.88rem; animation-delay:.5s">
-      感谢聆听 · Thank you for listening
-    </p>
+    <!-- Closing CTA -->
+    <div class="anim" style="margin-top:18px; display:flex; align-items:center; gap:18px; width:100%; max-width:860px; animation-delay:.75s;">
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08));"></div>
+      <div style="text-align:center; padding:11px 28px;
+           background:linear-gradient(135deg,rgba(52,211,153,0.1),rgba(165,180,252,0.1));
+           border:1px solid rgba(165,180,252,0.3); border-radius:100px;
+           font-size:0.86rem; color:rgba(255,255,255,0.75); white-space:nowrap; line-height:1.5;">
+        以上是系统设计的完整思路——<br>
+        <span style="color:#a5b4fc; font-weight:600;">接下来，欢迎进入实操，亲手体验每一个功能模块 →</span>
+      </div>
+      <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent);"></div>
+    </div>
   </section>
 
 </div><!-- /stage -->
@@ -1345,9 +1480,9 @@
     if (id === 's4') animS4Page();
     if (id === 's5') drawIntroGraph();
     if (id === 's6') animS6Graph();
-    if (id === 's7') animS7Benefits();
+
+    if (id === 's_quiz') initQuizSlide();
     if (id === 's8') animS8Profiles();
-    if (id === 's9') initS9Quiz();
   }
 
   /* ════════════════════════════════════════
@@ -1499,245 +1634,381 @@
   /* ════════════════════════════════════════
      SLIDE 6: Build Knowledge Graph Animation
   ════════════════════════════════════════ */
+  /* ── s6 interactive state ── */
+  let s6State = 0;
+  const S6N = [
+    {id:0,x:46,y:131},{id:1,x:129,y:70},{id:2,x:129,y:191},
+    {id:3,x:220,y:52},{id:4,x:220,y:174},{id:5,x:311,y:113},
+    {id:6,x:388,y:52},{id:7,x:388,y:174},{id:8,x:471,y:113},
+    {id:9,x:480,y:220}
+  ];
+
   function animS6Graph() {
+    s6State = 0;
     const svg = document.getElementById('s6Svg');
     if (!svg) return;
     svg.innerHTML = '';
 
-    const SN = [
-      {id:0,x:46,y:131},{id:1,x:129,y:70},{id:2,x:129,y:191},
-      {id:3,x:220,y:52},{id:4,x:220,y:174},{id:5,x:311,y:113},
-      {id:6,x:388,y:52},{id:7,x:388,y:174},{id:8,x:471,y:113},
-      {id:9,x:517,y:226}
-    ];
-
-    const steps = ['build-step1','build-step2','build-step3','build-step4'];
-    steps.forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (el) el.style.opacity = i === 0 ? '1' : '0.35';
+    ['build-step1','build-step2','build-step3','build-step4'].forEach((sid, i) => {
+      const el = document.getElementById(sid);
+      if (el) { el.style.opacity = i === 0 ? '1' : '0.4'; el.style.transition = 'opacity 0.4s'; }
     });
 
-    // Add defs with arrow marker
+    const caption = document.getElementById('build-caption');
+    if (caption) caption.textContent = '点击左侧步骤，逐步构建知识图谱';
+
+    // Arrow marker defs (needed from step 3 onwards)
     const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
     defs.innerHTML = `<marker id="arr6" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(0,212,255,0.5)"/></marker>`;
     svg.appendChild(defs);
 
-    // Phase 1: faint dashed edges
-    EDGES.forEach(([a,b]) => {
-      svg.appendChild(makeSvgElem('line', {
-        x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
-        stroke:'rgba(0,212,255,0.08)', 'stroke-width':1.2, 'stroke-dasharray':'3,3',
-        class:'edge-faint'
-      }));
+    // Book emoji centered
+    const book = makeSvgElem('text', {
+      id:'s6book', x:260, y:118,
+      'font-size':'80', 'text-anchor':'middle', 'dominant-baseline':'middle'
     });
+    book.textContent = '📚';
+    svg.appendChild(book);
 
-    const updateStep = (si) => {
-      const el = document.getElementById(steps[si]);
-      if (el) { el.style.opacity = '1'; el.style.transition = 'opacity 0.4s'; }
-    };
+    const bookLabel = makeSvgElem('text', {
+      id:'s6booklabel', x:260, y:200,
+      fill:'rgba(255,255,255,0.5)', 'font-size':'13', 'text-anchor':'middle'
+    });
+    bookLabel.textContent = '教学资源（大纲 · 教材 · 试卷）';
+    svg.appendChild(bookLabel);
+  }
 
-    // Phase 2: nodes pop in (start 400ms, 180ms each)
-    setTimeout(() => updateStep(1), 400);
-    SN.forEach((n, i) => {
-      setTimeout(() => {
-        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('transform', `translate(${n.x},${n.y})`);
-        g.classList.add('node-pop');
-        const c = makeSvgElem('circle', {cx:0, cy:0, r:22, class:'kg-node-circle pulse'});
-        const label = NODES[i].short.split('\n');
-        const t = makeSvgElem('text', {x:0, y:0, class:'kg-node-text'});
-        if (label.length === 1) {
-          t.setAttribute('y','0');
-          t.textContent = label[0];
-        } else {
-          label.forEach((l, li) => {
-            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-6':'13'});
-            ts.textContent = l;
-            t.appendChild(ts);
+  function s6Step(n) {
+    // Enforce sequential: step 2 needs state 0, step 3 needs state 1, step 4 needs state 2
+    if (n - 2 !== s6State) return;
+    s6State++;
+
+    const svg = document.getElementById('s6Svg');
+    if (!svg) return;
+    const caption = document.getElementById('build-caption');
+
+    // Highlight the clicked step
+    const el = document.getElementById('build-step' + n);
+    if (el) { el.style.opacity = '1'; el.style.transition = 'opacity 0.4s'; }
+
+    if (n === 2) {
+      // Dim the book
+      const book = document.getElementById('s6book');
+      const bookLabel = document.getElementById('s6booklabel');
+      if (book) { book.style.transition = 'opacity 0.6s'; book.style.opacity = '0.12'; }
+      if (bookLabel) { bookLabel.style.transition = 'opacity 0.6s'; bookLabel.style.opacity = '0.12'; }
+      if (caption) caption.textContent = 'LLM 正在识别知识实体……';
+
+      // Pop nodes one by one — use direct cx/cy (avoid CSS transform vs SVG transform conflict)
+      S6N.forEach((nd, i) => {
+        setTimeout(() => {
+          const c = makeSvgElem('circle', {
+            cx:nd.x, cy:nd.y, r:22,
+            class:'kg-node-circle', 'data-ni':i
           });
-        }
-        g.appendChild(c); g.appendChild(t);
-        svg.appendChild(g);
-      }, 400 + i * 180);
-    });
+          c.style.opacity = '0';
+          svg.appendChild(c);
+          setTimeout(() => { c.style.transition='opacity 0.3s ease'; c.style.opacity='1'; }, 16);
 
-    const edgeStart = 400 + SN.length * 180;
+          const label = NODES[i].short.split('\n');
+          const t = makeSvgElem('text', {x:nd.x, y:nd.y, class:'kg-node-text'});
+          if (label.length === 1) {
+            t.setAttribute('dominant-baseline','middle');
+            t.textContent = label[0];
+          } else {
+            label.forEach((l, li) => {
+              const ts = makeSvgElem('tspan', {x:nd.x, dy: li===0?'-6':'13'});
+              ts.textContent = l;
+              t.appendChild(ts);
+            });
+          }
+          t.style.opacity = '0';
+          svg.appendChild(t);
+          setTimeout(() => { t.style.transition='opacity 0.3s ease'; t.style.opacity='1'; }, 16);
 
-    // Phase 3: redraw edges with stroke animation
-    setTimeout(() => {
-      updateStep(2);
-      svg.querySelectorAll('.edge-faint').forEach(l => l.remove());
-      EDGES.forEach(([a,b], i) => {
+          if (i === S6N.length - 1 && caption) {
+            setTimeout(() => { caption.textContent = '✓ 识别出 ' + S6N.length + ' 个知识实体，点击步骤 3 建立关联'; }, 350);
+          }
+        }, i * 160);
+      });
+
+    } else if (n === 3) {
+      if (caption) caption.textContent = '正在建立知识点关联……';
+
+      EDGES.forEach(([a, b], i) => {
         const line = makeSvgElem('line', {
-          x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
+          x1:S6N[a].x, y1:S6N[a].y, x2:S6N[b].x, y2:S6N[b].y,
           stroke:'rgba(0,212,255,0.45)', 'stroke-width':1.8,
           'marker-end':'url(#arr6)',
           'stroke-dasharray':'300', 'stroke-dashoffset':'300'
         });
-        // Insert before first g element so edges are below nodes
-        const firstG = svg.querySelector('g');
-        if (firstG) svg.insertBefore(line, firstG);
+        // Insert before first node circle so edges render below nodes
+        const firstC = svg.querySelector('circle[data-ni]');
+        if (firstC) svg.insertBefore(line, firstC);
         else svg.appendChild(line);
         setTimeout(() => {
-          line.style.transition = 'stroke-dashoffset 0.65s ease';
+          line.style.transition = 'stroke-dashoffset 0.55s ease';
           line.setAttribute('stroke-dashoffset','0');
-        }, i * 120);
+        }, 30 + i * 100);
       });
-    }, edgeStart);
 
-    // Phase 4: caption + path highlight
-    setTimeout(() => {
-      updateStep(3);
-      const caption = document.getElementById('build-caption');
-      if (caption) caption.textContent = '✓ 课程知识图谱构建完成！节点 = 知识点，边 = 前置依赖';
-      // Highlight path: 变量(0)→数据类型(1)→条件语句(3)→函数(5)→列表(6)→面向对象(8)
-      const pathEdges = [[0,1],[1,3],[3,5],[5,6],[6,8]];
-      svg.querySelectorAll('line').forEach(l => {
-        l.setAttribute('stroke','rgba(0,212,255,0.12)');
-        l.setAttribute('stroke-width','1.2');
-        l.setAttribute('marker-end','url(#arr6)');
-      });
-      pathEdges.forEach(([a,b], i) => {
-        setTimeout(() => {
-          svg.querySelectorAll('line').forEach(l => {
-            if (+l.getAttribute('x1') === SN[a].x && +l.getAttribute('y1') === SN[a].y) {
-              l.setAttribute('stroke','rgba(165,180,252,0.85)');
-              l.setAttribute('stroke-width','2.8');
-            }
+      setTimeout(() => {
+        if (caption) caption.textContent = '✓ 建立 ' + EDGES.length + ' 条知识关联，点击步骤 4 输出图谱';
+      }, 30 + EDGES.length * 100 + 600);
+
+    } else if (n === 4) {
+      if (caption) caption.textContent = '知识图谱正在输入 AI 系统……';
+
+      // Wrap all lines and node groups into a single group for animation
+      const netGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+      netGroup.id = 's6NetGroup';
+      const toMove = [];
+      svg.querySelectorAll('line, circle[data-ni], text.kg-node-text').forEach(el => toMove.push(el));
+      toMove.forEach(el => netGroup.appendChild(el));
+      svg.appendChild(netGroup);
+
+      // Animate: shrink + fade toward center (260, 118)
+      const cx = 260, cy = 118;
+      const start = performance.now();
+      const dur = 1100;
+
+      function tick(now) {
+        const raw = Math.min((now - start) / dur, 1);
+        const ease = raw < 0.5 ? 2*raw*raw : -1+(4-2*raw)*raw;
+        const scale = 1 - ease * 0.93;
+        const tx = cx * (1 - scale);
+        const ty = cy * (1 - scale);
+        netGroup.setAttribute('transform', `translate(${tx},${ty}) scale(${scale})`);
+        netGroup.style.opacity = String(1 - ease * 0.85);
+        if (raw < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          netGroup.style.opacity = '0';
+
+          // Cute SVG robot
+          const robotG = document.createElementNS('http://www.w3.org/2000/svg','g');
+          robotG.setAttribute('transform','translate(260,118)');
+          robotG.style.opacity = '0';
+          const _r = (tag, attrs) => { const e = makeSvgElem(tag, attrs); robotG.appendChild(e); return e; };
+          // Outer glow ring
+          _r('circle',{cx:0,cy:0,r:56,fill:'none',stroke:'rgba(52,211,153,0.35)','stroke-width':2.5});
+          // Antenna
+          _r('line',{x1:0,y1:-38,x2:0,y2:-55,stroke:'#34d399','stroke-width':2.5,'stroke-linecap':'round'});
+          _r('circle',{cx:0,cy:-60,r:6,fill:'#34d399',opacity:'0.95'});
+          // Head
+          _r('rect',{x:-36,y:-36,width:72,height:62,rx:14,fill:'rgba(15,118,110,0.55)',stroke:'#34d399','stroke-width':2});
+          // Ears
+          _r('rect',{x:-44,y:-16,width:10,height:18,rx:4,fill:'rgba(16,185,129,0.3)',stroke:'#34d399','stroke-width':1.5});
+          _r('rect',{x:34,y:-16,width:10,height:18,rx:4,fill:'rgba(16,185,129,0.3)',stroke:'#34d399','stroke-width':1.5});
+          // Eyes — white + pupil + sparkle
+          [-14,14].forEach(ex => {
+            _r('circle',{cx:ex,cy:-12,r:10,fill:'rgba(255,255,255,0.95)'});
+            _r('circle',{cx:ex,cy:-11,r:6,fill:'#0f2a22'});
+            _r('circle',{cx:ex+3,cy:-14,r:2.5,fill:'white',opacity:'0.9'});
           });
-          svg.querySelectorAll('g').forEach(g => {
-            const m = g.getAttribute('transform');
-            if (!m) return;
-            const match = m.match(/translate\(([^,]+),([^)]+)\)/);
-            if (match) {
-              const [,gx,gy] = match;
-              if (Math.abs(+gx - SN[b].x) < 1 && Math.abs(+gy - SN[b].y) < 1) {
-                const c = g.querySelector('circle');
-                if (c) {
-                  c.setAttribute('fill','rgba(165,180,252,0.22)');
-                  c.setAttribute('stroke','#a5b4fc');
-                  c.setAttribute('stroke-width','2.5');
-                }
-              }
-            }
+          // Nose dot
+          _r('circle',{cx:0,cy:-2,r:2,fill:'rgba(52,211,153,0.7)'});
+          // Blush cheeks
+          _r('ellipse',{cx:-20,cy:3,rx:7,ry:4,fill:'rgba(251,113,133,0.35)'});
+          _r('ellipse',{cx:20,cy:3,rx:7,ry:4,fill:'rgba(251,113,133,0.35)'});
+          // Smile
+          _r('path',{d:'M -14 8 Q 0 22 14 8',fill:'none',stroke:'#34d399','stroke-width':2.5,'stroke-linecap':'round'});
+          // Chin strip
+          _r('rect',{x:-18,y:26,width:36,height:6,rx:3,fill:'rgba(52,211,153,0.25)',stroke:'rgba(52,211,153,0.5)','stroke-width':1});
+          svg.appendChild(robotG);
+
+          const doneLabel = makeSvgElem('text', {
+            x:260, y:196,
+            fill:'#34d399', 'font-size':'13.5', 'text-anchor':'middle', 'font-weight':'600'
           });
-        }, i * 280);
-      });
-    }, edgeStart + EDGES.length * 120 + 500);
+          doneLabel.textContent = '✓ 课程知识图谱构建完成！';
+          doneLabel.style.opacity = '0';
+          svg.appendChild(doneLabel);
+
+          setTimeout(() => {
+            robotG.style.transition = 'opacity 0.45s';
+            robotG.style.opacity = '1';
+            doneLabel.style.transition = 'opacity 0.5s 0.35s';
+            doneLabel.style.opacity = '1';
+            if (caption) caption.textContent = '✓ 知识图谱已导入 AI 系统，以三元组形式存储';
+          }, 80);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
   }
 
   /* ════════════════════════════════════════
-     SLIDE 7: Benefits Animation
+     SLIDE s_quiz: 答题 → 实时知识画像
   ════════════════════════════════════════ */
-  function animS7Benefits() {
-    const svg = document.getElementById('s7Svg');
+  const QUIZ_Qs = [
+    { text:'下列哪个是合法的 Python 变量名？',
+      opts:['A. 2name','B. name_2','C. name-2','D. class'],
+      nodes:[0,1] },
+    { text:'执行 x=[1,2,3]; y=x; y.append(4) 后，x 的值是？',
+      opts:['A. [1,2,3]','B. [1,2,3,4]','C. 报错','D. None'],
+      nodes:[6,0] },
+    { text:'以下哪个循环会造成死循环？',
+      opts:['A. for i in range(5)','B. while True: break','C. while 1==1: pass','D. for i in []'],
+      nodes:[4,3] },
+    { text:'def add(a,b=10): return a+b，调用 add(5) 的结果是？',
+      opts:['A. 报错','B. 5','C. 15','D. 10'],
+      nodes:[5] },
+    { text:'关于 Python 字典，以下说法正确的是？',
+      opts:['A. 键可以是列表','B. 键必须唯一','C. 值必须是字符串','D. 无序不可迭代'],
+      nodes:[7,1] },
+    { text:'try/except 语句的作用是？',
+      opts:['A. 定义函数','B. 捕获并处理异常','C. 创建类','D. 导入模块'],
+      nodes:[9] },
+  ];
+  let quizState = [];
+
+  function initQuizSlide() {
+    quizState = new Array(QUIZ_Qs.length).fill(0); // 0=未答 1=正确 2=错误
+    renderQuizList();
+    renderQuizGraph();
+  }
+
+  function renderQuizList() {
+    const container = document.getElementById('quiz-list');
+    if (!container) return;
+    container.innerHTML = '';
+    QUIZ_Qs.forEach((q, qi) => {
+      const st = quizState[qi];
+      const bdr = st===1 ? 'rgba(16,185,129,0.55)' : st===2 ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)';
+      const bg  = st===1 ? 'rgba(16,185,129,0.07)' : st===2 ? 'rgba(239,68,68,0.07)' : 'rgba(255,255,255,0.025)';
+
+      const card = document.createElement('div');
+      card.style.cssText = `padding:9px 12px; background:${bg}; border:1px solid ${bdr};
+        border-radius:10px; cursor:pointer; display:flex; align-items:flex-start; gap:10px;
+        transition:border-color .25s,background .25s;`;
+      card.title = '点击切换：未答 → 正确 → 错误';
+      card.onclick = () => { quizState[qi] = (quizState[qi]+1)%3; renderQuizList(); renderQuizGraph(); };
+
+      // Content
+      const body = document.createElement('div');
+      body.style.flex = '1';
+      body.innerHTML = `
+        <div style="font-size:.83rem;color:rgba(255,255,255,.88);font-weight:500;margin-bottom:4px;">${qi+1}. ${q.text}</div>
+        <div style="font-size:.74rem;color:rgba(255,255,255,.38);line-height:1.65;">${q.opts.join('　')}</div>
+        <div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;">
+          ${q.nodes.map(ni=>`<span style="padding:2px 7px;border-radius:100px;font-size:.66rem;
+            background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.28);color:#22d3ee;">
+            ${NODES[ni].label}</span>`).join('')}
+        </div>`;
+      card.appendChild(body);
+
+      // Indicator badge
+      const badge = document.createElement('div');
+      badge.style.cssText = `width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
+        justify-content:center;flex-shrink:0;margin-top:1px;font-size:.95rem;font-weight:700;transition:all .25s;`;
+      if (st===1) { badge.style.background='rgba(16,185,129,0.22)'; badge.style.color='#10b981'; badge.textContent='✓'; }
+      else if (st===2) { badge.style.background='rgba(239,68,68,0.22)'; badge.style.color='#ef4444'; badge.textContent='✗'; }
+      else { badge.style.background='rgba(255,255,255,0.05)'; badge.style.color='rgba(255,255,255,.2)'; badge.textContent='?'; }
+      card.appendChild(badge);
+
+      container.appendChild(card);
+    });
+  }
+
+  const QN = [
+    {x:46,y:131},{x:129,y:70},{x:129,y:191},
+    {x:220,y:52},{x:220,y:174},{x:311,y:113},
+    {x:388,y:52},{x:388,y:174},{x:471,y:113},
+    {x:480,y:222}
+  ];
+
+  function renderQuizGraph() {
+    const svg = document.getElementById('quizSvg');
     if (!svg) return;
+    svg.innerHTML = '';
 
-    const SN = [
-      {id:0,x:46,y:131},{id:1,x:129,y:70},{id:2,x:129,y:191},
-      {id:3,x:220,y:52},{id:4,x:220,y:174},{id:5,x:311,y:113},
-      {id:6,x:388,y:52},{id:7,x:388,y:174},{id:8,x:471,y:113},
-      {id:9,x:517,y:226}
-    ];
-
-    const beneSteps = ['bene-step1','bene-step2'];
-    beneSteps.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.opacity = '0.4';
+    // Compute each node's state from quiz answers
+    const ns = new Array(NODES.length).fill(0); // 0=untouched 1=correct 2=wrong
+    QUIZ_Qs.forEach((q, qi) => {
+      if (quizState[qi] === 0) return;
+      q.nodes.forEach(ni => {
+        if (quizState[qi] === 2) ns[ni] = 2;      // wrong overrides
+        else if (ns[ni] !== 2) ns[ni] = 1;         // correct only if not wrong
+      });
     });
 
-    function drawFullGraph(nodeClassFn) {
-      svg.innerHTML = '';
-      const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
-      defs.innerHTML = `<marker id="arr7" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="rgba(0,212,255,0.4)"/></marker>`;
-      svg.appendChild(defs);
-      EDGES.forEach(([a,b]) => {
-        svg.appendChild(makeSvgElem('line', {
-          x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
-          stroke:'rgba(0,212,255,0.22)', 'stroke-width':1.5,
-          'marker-end':'url(#arr7)', class:'s7edge',
-          'data-from':a, 'data-to':b
-        }));
-      });
-      SN.forEach((n, i) => {
-        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('transform', `translate(${n.x},${n.y})`);
-        g.setAttribute('data-nid', i);
-        const cls = nodeClassFn(i);
-        const c = makeSvgElem('circle', {cx:0, cy:0, r:22, class:`kg-node-circle ${cls}`});
-        const label = NODES[i].short.split('\n');
-        const t = makeSvgElem('text', {x:0, y:0, class:`kg-node-text${cls==='unknown'?' dim':''}`});
-        if (label.length === 1) {
-          t.setAttribute('y','0');
-          t.textContent = label[0];
-        } else {
-          label.forEach((l, li) => {
-            const ts = makeSvgElem('tspan', {x:0, dy: li===0?'-6':'13'});
-            ts.textContent = l;
-            t.appendChild(ts);
-          });
-        }
-        g.appendChild(c); g.appendChild(t);
-        svg.appendChild(g);
-      });
-    }
+    // Arrow marker
+    const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.innerHTML = `<marker id="arrQ" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="rgba(100,116,139,0.4)"/></marker>
+      <marker id="arrQg" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="rgba(16,185,129,0.6)"/></marker>
+      <marker id="arrQr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="rgba(239,68,68,0.5)"/></marker>`;
+    svg.appendChild(defs);
 
-    const caption = document.getElementById('benefit-caption');
+    // Edges
+    EDGES.forEach(([a,b]) => {
+      const sa = ns[a], sb = ns[b];
+      let stroke = 'rgba(100,116,139,0.18)', sw = 1.4, marker = 'url(#arrQ)';
+      if (sa===1 && sb===1) { stroke='rgba(16,185,129,0.45)'; sw=1.8; marker='url(#arrQg)'; }
+      else if (sa===2 || sb===2) { stroke='rgba(239,68,68,0.3)'; sw=1.5; marker='url(#arrQr)'; }
+      svg.appendChild(makeSvgElem('line', {
+        x1:QN[a].x, y1:QN[a].y, x2:QN[b].x, y2:QN[b].y,
+        stroke, 'stroke-width':sw, 'marker-end':marker
+      }));
+    });
 
-    // Phase 1: all mastered (0ms)
-    drawFullGraph(() => 'mastered pulse');
-    if (caption) caption.textContent = '课程知识图谱——所有知识点均已掌握';
+    // Nodes
+    QN.forEach((n, i) => {
+      const s = ns[i];
+      let fill='rgba(100,116,139,0.1)', stroke='rgba(100,116,139,0.28)', txtFill='rgba(255,255,255,0.3)', sw=1.5;
+      if (s===1) { fill='rgba(16,185,129,0.22)'; stroke='#10b981'; txtFill='rgba(255,255,255,0.92)'; sw=2; }
+      if (s===2) { fill='rgba(239,68,68,0.18)';  stroke='#ef4444'; txtFill='rgba(255,255,255,0.92)'; sw=2; }
 
-    // Phase 2: node 8 "forgotten" (800ms)
-    setTimeout(() => {
-      if (caption) caption.textContent = '⚠ 某个知识点遗忘了…（面向对象）';
-      const el = document.getElementById('bene-step1');
-      if (el) el.style.opacity = '1';
-      svg.querySelectorAll('g[data-nid="8"] circle').forEach(c => {
-        c.setAttribute('class','kg-node-circle unknown');
-      });
-      svg.querySelectorAll('g[data-nid="8"] text').forEach(t => t.setAttribute('class','kg-node-text dim'));
-    }, 800);
-
-    // Phase 3: neighbors 5,9 glow (1800ms)
-    setTimeout(() => {
-      if (caption) caption.textContent = '💡 相邻知识点（函数、异常处理）可帮助恢复记忆';
-      const el = document.getElementById('bene-step2');
-      if (el) el.style.opacity = '1';
-      [5,9].forEach(nid => {
-        svg.querySelectorAll(`g[data-nid="${nid}"] circle`).forEach(c => {
-          c.setAttribute('class','kg-node-circle recovery');
-          c.setAttribute('stroke','#f59e0b');
-          c.setAttribute('fill','rgba(245,158,11,0.18)');
+      // Glow ring for answered nodes
+      if (s!==0) {
+        const glow = makeSvgElem('circle', {
+          cx:n.x, cy:n.y, r:28,
+          fill:'none', stroke: s===1?'rgba(16,185,129,0.18)':'rgba(239,68,68,0.15)', 'stroke-width':5
         });
-      });
-    }, 1800);
+        svg.appendChild(glow);
+      }
 
-    // Phase 4: reasoning path 0→1→3→5 (3000ms)
-    setTimeout(() => {
-      if (caption) caption.textContent = '🔍 推理路径：沿依赖关系快速找到解题路径';
-      const pathPairs = [[0,1],[1,3],[3,5]];
-      svg.querySelectorAll('.s7edge').forEach(l => {
-        l.setAttribute('stroke','rgba(0,212,255,0.1)');
-        l.setAttribute('stroke-width','1.2');
+      svg.appendChild(makeSvgElem('circle', {cx:n.x, cy:n.y, r:23, fill, stroke, 'stroke-width':sw}));
+
+      // ✓ / ✗ icon at top-right of node
+      if (s!==0) {
+        const icon = makeSvgElem('text', {
+          x:n.x+17, y:n.y-14, 'font-size':'12', 'text-anchor':'middle',
+          fill: s===1?'#10b981':'#ef4444', 'font-weight':'700'
+        });
+        icon.textContent = s===1 ? '✓' : '✗';
+        svg.appendChild(icon);
+      }
+
+      // Label
+      const label = NODES[i].short.split('\n');
+      const t = makeSvgElem('text', {
+        x:n.x, y:n.y, 'text-anchor':'middle', 'dominant-baseline':'middle',
+        fill:txtFill, 'font-size':'11', 'font-weight':'600'
       });
-      pathPairs.forEach(([a,b], i) => {
-        setTimeout(() => {
-          svg.querySelectorAll('.s7edge').forEach(l => {
-            if (+l.getAttribute('data-from') === a && +l.getAttribute('data-to') === b) {
-              l.setAttribute('stroke','rgba(165,180,252,0.9)');
-              l.setAttribute('stroke-width','3');
-            }
-          });
-          svg.querySelectorAll(`g[data-nid="${b}"] circle`).forEach(c => {
-            c.setAttribute('fill','rgba(165,180,252,0.22)');
-            c.setAttribute('stroke','#a5b4fc');
-            c.setAttribute('stroke-width','2.5');
-            c.setAttribute('class','kg-node-circle');
-          });
-        }, i * 400);
-      });
-    }, 3000);
+      if (label.length===1) {
+        t.textContent = label[0];
+      } else {
+        label.forEach((l,li) => {
+          const ts = makeSvgElem('tspan', {x:n.x, dy: li===0?'-6':'13'});
+          ts.textContent = l; t.appendChild(ts);
+        });
+      }
+      svg.appendChild(t);
+    });
+
+    // Caption
+    const answered = quizState.filter(s=>s>0).length;
+    const correct  = quizState.filter(s=>s===1).length;
+    const wrong    = quizState.filter(s=>s===2).length;
+    const cap = document.getElementById('quiz-caption');
+    if (cap) {
+      if (answered===0) cap.textContent = '点击左侧题目作答，图谱随之更新';
+      else cap.textContent = `已答 ${answered}/${QUIZ_Qs.length} 题 · 正确 ${correct} 题（绿）· 错误 ${wrong} 题（红）`;
+    }
   }
 
   /* ════════════════════════════════════════
@@ -1801,91 +2072,6 @@
   /* ════════════════════════════════════════
      SLIDE 9: Interactive Quiz
   ════════════════════════════════════════ */
-  let s9NodeState = {};
-
-  function initS9Quiz() {
-    s9NodeState = {};
-    const list = document.getElementById('s9ExList');
-    if (!list) return;
-    list.innerHTML = '';
-    EXERCISES.forEach((ex, i) => {
-      const card = document.createElement('div');
-      card.className = 'ex-card';
-      card.id = 's9card' + i;
-      card.innerHTML = `<div style="font-size:11px;line-height:1.55;margin-bottom:6px">${ex.q.replace(/\n/g,'<br>')}</div>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">${ex.tags.map(t=>`<span class="ex-tag">${t}</span>`).join('')}</div>
-        <div id="s9res${i}" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;opacity:0;transition:opacity 0.3s">${ex.correct?'✅':'❌'}</div>`;
-      card.onclick = () => answerS9(i);
-      list.appendChild(card);
-      setTimeout(() => card.classList.add('show'), i * 200 + 400);
-    });
-    drawS9Graph();
-  }
-
-  function answerS9(i) {
-    const card = document.getElementById('s9card' + i);
-    if (!card || card.classList.contains('answered')) return;
-    card.classList.add('answered');
-    const ex = EXERCISES[i];
-    card.classList.add(ex.correct ? 'ans-ok' : 'ans-bad');
-    const res = document.getElementById('s9res' + i);
-    if (res) res.style.opacity = '1';
-    ex.nodeIds.forEach(nid => {
-      s9NodeState[nid] = ex.correct ? 'mastered' : 'weak';
-    });
-    drawS9Graph();
-  }
-
-  function drawS9Graph() {
-    const svg = document.getElementById('s9Svg');
-    if (!svg) return;
-    const SN = [
-      {id:0,x:27,y:110},{id:1,x:76,y:66},{id:2,x:76,y:154},
-      {id:3,x:135,y:44},{id:4,x:135,y:132},{id:5,x:190,y:92},
-      {id:6,x:245,y:44},{id:7,x:245,y:140},{id:8,x:294,y:92},
-      {id:9,x:294,y:188}
-    ];
-    svg.innerHTML = '';
-    const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
-    defs.innerHTML = `<marker id="arr9" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="rgba(0,212,255,0.35)"/></marker>`;
-    svg.appendChild(defs);
-    EDGES.forEach(([a,b]) => {
-      svg.appendChild(makeSvgElem('line', {
-        x1:SN[a].x, y1:SN[a].y, x2:SN[b].x, y2:SN[b].y,
-        stroke:'rgba(0,212,255,0.18)', 'stroke-width':1.2, 'marker-end':'url(#arr9)'
-      }));
-    });
-    SN.forEach((n, i) => {
-      const state = s9NodeState[i] || 'unknown';
-      let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.22)';
-      if (state === 'mastered') { fill = 'rgba(16,185,129,0.2)'; stroke = '#10b981'; }
-      if (state === 'weak')     { fill = 'rgba(239,68,68,0.18)'; stroke = '#ef4444'; }
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-      g.setAttribute('transform', `translate(${n.x},${n.y})`);
-      g.appendChild(makeSvgElem('circle', {
-        cx:0, cy:0, r:18, fill, stroke,
-        'stroke-width': state === 'unknown' ? 1 : 1.8
-      }));
-      const label = ['变量','类型','算符','条件','循环','函数','列表','字典','OOP','异常'][i];
-      const t = makeSvgElem('text', {
-        x:0, y:0,
-        fill: state === 'unknown' ? '#64748b' : '#e2e8f0',
-        'font-size':'9', 'text-anchor':'middle', 'dominant-baseline':'middle'
-      });
-      t.textContent = label;
-      g.appendChild(t);
-      if (state !== 'unknown') {
-        const icon = makeSvgElem('text', {
-          x:12, y:-12,
-          fill: state === 'mastered' ? '#10b981' : '#ef4444',
-          'font-size':'11'
-        });
-        icon.textContent = state === 'mastered' ? '✓' : '✗';
-        g.appendChild(icon);
-      }
-      svg.appendChild(g);
-    });
-  }
 
   /* ════════════════════════════════════════
      INIT
