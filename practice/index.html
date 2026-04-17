@@ -7,187 +7,463 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
-      background: #0d0f1a;
-      color: #e8eaf6;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #131624;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6;
+      --muted: rgba(255,255,255,0.45);
+      --green: #34d399;
+      --indigo: #818cf8;
+      --amber: #fbbf24;
+      --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
     }
 
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav ── */
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 28px;
       height: 52px;
       background: rgba(13,15,26,0.95);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
       flex-shrink: 0;
-      z-index: 50;
     }
-
-    nav a {
-      color: rgba(255,255,255,0.5);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    nav a:hover { color: #e8eaf6; }
-
+    nav a.back { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a.back:hover { color: var(--text); }
     .nav-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e8eaf6;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
     }
-
     .nav-badge {
       padding: 2px 10px;
       background: rgba(52,211,153,0.12);
       border: 1px solid rgba(52,211,153,0.25);
       border-radius: 100px;
-      font-size: 0.68rem;
-      color: #34d399;
-      letter-spacing: 1px;
+      font-size: 0.68rem; color: var(--green); letter-spacing: 1px;
     }
-
-    .open-btn {
-      padding: 5px 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px;
-      background: transparent;
-      color: rgba(255,255,255,0.45);
-      font-size: 0.78rem;
-      cursor: pointer;
-      text-decoration: none;
+    .src-link {
+      font-size: 0.78rem; color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px;
       transition: all 0.2s;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 5px;
     }
-    .open-btn:hover {
-      border-color: rgba(52,211,153,0.4);
-      color: #34d399;
-    }
+    .src-link:hover { border-color: rgba(52,211,153,0.35); color: var(--green); }
 
-    .iframe-wrap {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-    }
-
-    iframe {
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
       width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-      background: #fff;
     }
 
-    /* fallback when iframe blocked */
-    .fallback {
-      display: none;
-      position: absolute;
-      inset: 0;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      background: #0d0f1a;
-      text-align: center;
-      padding: 40px;
+    /* ── Page header ── */
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
     }
-    .fallback.show { display: flex; }
-
-    .fallback-icon { font-size: 3rem; }
-    .fallback h2 { font-size: 1.2rem; color: rgba(255,255,255,0.8); }
-    .fallback p { font-size: 0.88rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 420px; }
-    .fallback a.go-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 28px;
-      background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(99,102,241,0.15));
-      border: 1px solid rgba(52,211,153,0.35);
+    .page-header .tag {
+      display: inline-block;
+      padding: 3px 12px;
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.2);
       border-radius: 100px;
-      color: #6ee7b7;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.25s;
+      font-size: 0.72rem; color: var(--green);
+      letter-spacing: 2px; margin-bottom: 16px;
+      text-transform: uppercase;
     }
-    .fallback a.go-btn:hover {
-      background: linear-gradient(135deg, rgba(52,211,153,0.25), rgba(99,102,241,0.25));
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(52,211,153,0.15);
+    .page-header h1 {
+      font-size: 2rem; font-weight: 700; line-height: 1.3;
+      background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #818cf8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .page-header .meta {
+      font-size: 0.8rem; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .page-header .meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 52px;
+    }
+    .section-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--text);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title .num {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(129,140,248,0.2));
+      border: 1px solid rgba(52,211,153,0.3);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; color: var(--green); flex-shrink: 0;
+    }
+
+    /* ── Steps ── */
+    .steps { display: flex; flex-direction: column; gap: 20px; }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      position: relative;
+    }
+    .step-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .step-num {
+      width: 24px; height: 24px;
+      background: rgba(129,140,248,0.15);
+      border: 1px solid rgba(129,140,248,0.3);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: var(--indigo); flex-shrink: 0;
+    }
+    .step h3 {
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+    }
+    .step p {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .step p:last-child { margin-bottom: 0; }
+
+    /* ── Images ── */
+    .img-wrap {
+      margin: 14px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+    .img-wrap img {
+      width: 100%; height: auto; display: block;
+      max-height: 420px; object-fit: contain;
+    }
+    .img-caption {
+      font-size: 0.75rem; color: rgba(255,255,255,0.3);
+      text-align: center; padding: 6px 12px;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.15);
+    }
+
+    /* ── Download links ── */
+    .downloads { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+    .dl-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      background: rgba(251,191,36,0.05);
+      border: 1px solid rgba(251,191,36,0.18);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.86rem;
+      transition: all 0.2s;
+    }
+    .dl-link:hover {
+      background: rgba(251,191,36,0.1);
+      border-color: rgba(251,191,36,0.35);
+      color: var(--amber);
+      transform: translateX(3px);
+    }
+    .dl-link .dl-icon { font-size: 1rem; flex-shrink: 0; }
+    .dl-link .dl-ext {
+      margin-left: auto;
+      font-size: 0.7rem; color: var(--muted);
+      padding: 2px 7px; border: 1px solid var(--border); border-radius: 4px;
+    }
+
+    /* ── External link ── */
+    .ext-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 100px;
+      color: var(--green); text-decoration: none;
+      font-size: 0.84rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .ext-link:hover {
+      background: rgba(52,211,153,0.15);
+      border-color: rgba(52,211,153,0.4);
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: rgba(129,140,248,0.07);
+      border: 1px solid rgba(129,140,248,0.2);
+      border-left: 3px solid var(--indigo);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 0.86rem; color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin: 10px 0;
+    }
+    .info-box strong { color: var(--indigo); }
+
+    /* ── Code inline ── */
+    code {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.84em;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      color: #a5b4fc;
+    }
+
+    /* ── Tip label ── */
+    .tip {
+      display: inline-block;
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      color: var(--green);
+      margin-left: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 28px 16px 60px; }
+      .page-header h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
+
   <nav>
-    <a href="../index.html">← 返回首页</a>
+    <a class="back" href="../index.html">← 返回首页</a>
     <div class="nav-title">
       实操内容
       <span class="nav-badge">PRACTICE</span>
     </div>
-    <a class="open-btn" href="https://docs.z-xin.net/teachbook/kgandnlp/AI%E8%B5%8B%E8%83%BD%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%99%E5%AD%A6.html" target="_blank">
-      在新标签页打开 ↗
-    </a>
+    <a class="src-link" href="https://docs.z-xin.net/teachbook/kgandnlp/AI%E8%B5%8B%E8%83%BD%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%99%E5%AD%A6.html" target="_blank">原始文档 ↗</a>
   </nav>
 
-  <div class="iframe-wrap">
-    <iframe
-      id="contentFrame"
-      src="https://docs.z-xin.net/teachbook/kgandnlp/AI%E8%B5%8B%E8%83%BD%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%99%E5%AD%A6.html"
-      title="AI 赋能个性化教学实操指南"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-    ></iframe>
+  <div class="container">
 
-    <div class="fallback" id="fallback">
-      <div class="fallback-icon">📖</div>
-      <h2>实操内容</h2>
-      <p>
-        AI 赋能个性化教学操作指南<br>
-        使用 Workbuddy 平台，通过知识图谱提取、AI 模型配置，<br>
-        实现从课程资料到个性化教学的完整工作流。
-      </p>
-      <a class="go-btn"
-         href="https://docs.z-xin.net/teachbook/kgandnlp/AI%E8%B5%8B%E8%83%BD%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%99%E5%AD%A6.html"
-         target="_blank">
-        打开实操指南 →
-      </a>
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="tag">Practice Guide</div>
+      <h1>AI 赋能个性化教学</h1>
+      <div class="meta">
+        <span>✍️ 周子力</span>
+        <span>📅 2026-04-17</span>
+        <span>🏷 AI技术 · 教学文档</span>
+      </div>
     </div>
+
+    <!-- Part I -->
+    <div class="section">
+      <div class="section-title">
+        <div class="num">一</div>
+        下载、安装和登录 Workbuddy
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h3>Workbuddy 简介</h3>
+          </div>
+          <p>Workbuddy 是一个集成 AI 能力的本地工作平台，支持添加自定义技能（Skills）和接入 MCP 服务，适合在教学场景中完成知识图谱提取、个性化辅导等 AI 增强工作流。</p>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h3>为什么用 Workbuddy？</h3>
+          </div>
+          <p>可以添加技能（Skills），可以接 MCP 服务，将 AI 模型能力灵活扩展到教学任务中。</p>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h3>下载网址</h3>
+          </div>
+          <p>前往腾讯 Copilot 官网下载 Workbuddy：</p>
+          <a class="ext-link" href="https://copilot.tencent.com/work/" target="_blank">
+            🔗 copilot.tencent.com/work/ ↗
+          </a>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <h3>安装 Workbuddy</h3>
+          </div>
+          <p>下载安装包后按照系统提示完成安装，支持 Windows 和 macOS。</p>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">5</div>
+            <h3>登录</h3>
+          </div>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/0df0e7cce9b1b354f906bfbfca88844787fe603252c8f0f4a73fa6317ec6a5e7-BjEelYHe.png" alt="Workbuddy 登录界面" loading="lazy" />
+            <div class="img-caption">Workbuddy 启动后的登录界面</div>
+          </div>
+          <p>点击登录后，打开一个网页，选择一种登录方式，比如：用微信扫码：</p>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/95f57f468a843f75c5d61aa5ef55b26c73ffc1816a5704c6a00743a7780857c5-CRd3Yu2V.png" alt="微信扫码登录" loading="lazy" />
+            <div class="img-caption">微信扫码登录</div>
+          </div>
+          <p>扫码成功后表示已登录，出现以下主界面：</p>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/a1b5170eaffe4297cab9816b644220026f56753f34e59697ee9ff74dd8d6055e-stdzi2mj.png" alt="登录成功主界面" loading="lazy" />
+            <div class="img-caption">登录成功后的 Workbuddy 主界面</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Part II -->
+    <div class="section">
+      <div class="section-title">
+        <div class="num">二</div>
+        AI 赋能个性化实操
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h3>建立一个工作空间</h3>
+          </div>
+          <p>（1）先在本地建一个文件夹；<br>
+             （2）把鼠标移到 Workbuddy 工作空间菜单处，点击出现的右侧按钮，弹出窗口后选择刚才建好的文件夹即可。</p>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/2c73cf77132ad5d70c6a9ac5d95fe3557c6fc5759c1148b852d63c54bbf149b8-BmpRoNVq.gif" alt="建立工作空间演示" loading="lazy" />
+            <div class="img-caption">建立工作空间操作演示</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h3>将资源都放到这个文件夹中</h3>
+          </div>
+          <p>将课程相关资源（教学大纲、试卷、成绩单）放入工作文件夹，可从以下链接下载测试用资源：</p>
+
+          <div class="downloads">
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/700e1cf9-d7c5-4066-ba41-3869145aec77.docx" target="_blank">
+              <span class="dl-icon">📄</span>
+              课程教学大纲（测试用）
+              <span class="dl-ext">DOCX</span>
+            </a>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/15e7a7fd-9a4c-4edd-84e9-5e32efdaec50.docx" target="_blank">
+              <span class="dl-icon">📄</span>
+              课程试卷（测试用）
+              <span class="dl-ext">DOCX</span>
+            </a>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/4aafd579-9998-4c3c-a425-2a549beea962.csv" target="_blank">
+              <span class="dl-icon">📊</span>
+              课程成绩单 + 总分（测试用）
+              <span class="dl-ext">CSV</span>
+            </a>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/e72fca39-9e59-4cc0-b27a-a3497a0687fc.csv" target="_blank">
+              <span class="dl-icon">📊</span>
+              课程成绩单 + 大题分 + 总分（测试用）
+              <span class="dl-ext">CSV</span>
+            </a>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/cfb54cf3-0a22-4ff6-ba43-d0bdb9d9db7d.csv" target="_blank">
+              <span class="dl-icon">📊</span>
+              课程成绩单 + 小题分 + 总分（测试用）
+              <span class="dl-ext">CSV</span>
+            </a>
+          </div>
+
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/88706a8df324ba65a572338d2e801ccb36ffcf49ab7a50ca8e3e265ee309d631-fwWz4PEU.png" alt="工作文件夹" loading="lazy" />
+            <div class="img-caption">准备好资源后的工作文件夹结构</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h3>添加技能</h3>
+          </div>
+          <p>从技能库下载所需技能包，然后在 Workbuddy 中添加：</p>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/2abb2d2189065480e1bb97d990370a9294341ece32a934778bb1409cb6e15989-B9g6G7st.gif" alt="添加技能演示" loading="lazy" />
+            <div class="img-caption">在 Workbuddy 中添加技能操作演示</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <h3>选择模型</h3>
+          </div>
+          <p>建议选择 <strong>MiniMax-M2.7</strong> 模型，效果更佳。<span class="tip">推荐</span></p>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/f42b43d05904579e49fce510696654185bfda840c5491d9dfce8c080ffcaf926-DqvmUwA_.gif" alt="选择模型演示" loading="lazy" />
+            <div class="img-caption">选择 AI 模型操作演示</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">5</div>
+            <h3>课程知识图谱抽取</h3>
+          </div>
+          <div class="img-wrap">
+            <img src="https://docs.z-xin.net/assets/28237378dbfadb2e20fb24fdd177b2f12329c7c417ef16d795d91b7da623cbad-gH48nURn.gif" alt="知识图谱抽取演示" loading="lazy" />
+            <div class="img-caption">课程知识图谱抽取操作演示</div>
+          </div>
+          <p>抽取完成后，将在工作文件夹中生成以下两个 CSV 文件：</p>
+          <div class="info-box">
+            📁 <code>knowledge_graph_triples.csv</code> — 知识图谱三元组（关系边）<br>
+            📁 <code>knowledge_nodes.csv</code> — 知识图谱节点列表
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">6</div>
+            <h3>课程知识图谱展示</h3>
+          </div>
+          <p>使用图谱展示技能，将生成的 CSV 文件可视化为课程知识图谱，输出为一个 <code>.html</code> 文件，可在浏览器中直接查看完整的知识网络。</p>
+          <p>至此，我们已经得到了课程知识图谱，接下来要做的事就是部署作业。</p>
+        </div>
+
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">7</div>
+            <h3>部署作业</h3>
+          </div>
+          <p>获取作业的知识图谱表示，将课程知识图谱与学生作业进行关联，实现 AI 赋能的个性化作业部署，为每位学生定制针对性的学习任务。</p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
-  <script>
-    // If iframe fails to load (X-Frame-Options / CSP blocked), show fallback
-    const frame = document.getElementById('contentFrame');
-    const fallback = document.getElementById('fallback');
-
-    let loaded = false;
-    frame.addEventListener('load', () => { loaded = true; });
-
-    setTimeout(() => {
-      if (!loaded) {
-        frame.style.display = 'none';
-        fallback.classList.add('show');
-      }
-    }, 5000);
-
-    frame.addEventListener('error', () => {
-      frame.style.display = 'none';
-      fallback.classList.add('show');
-    });
-  </script>
 </body>
 </html>
