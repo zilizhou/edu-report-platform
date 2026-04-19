@@ -17,6 +17,8 @@
       --green: #34d399;
       --indigo: #818cf8;
       --amber: #fbbf24;
+      --red: #f87171;
+      --cyan: #67e8f9;
       --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
     }
 
@@ -31,220 +33,126 @@
 
     /* ── Nav ── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-      height: 52px;
-      background: rgba(13,15,26,0.95);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 52px;
+      background: rgba(13,15,26,0.97);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 50;
-      flex-shrink: 0;
+      position: sticky; top: 0; z-index: 50; flex-shrink: 0;
     }
-    nav a.back { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a.back { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color .2s; }
     nav a.back:hover { color: var(--text); }
-    .nav-title {
-      font-size: 0.9rem; font-weight: 600; color: var(--text);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .nav-badge {
-      padding: 2px 10px;
-      background: rgba(52,211,153,0.12);
-      border: 1px solid rgba(52,211,153,0.25);
-      border-radius: 100px;
-      font-size: 0.68rem; color: var(--green); letter-spacing: 1px;
-    }
-    .src-link {
-      font-size: 0.78rem; color: var(--muted); text-decoration: none;
-      border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px;
-      transition: all 0.2s;
-    }
-    .src-link:hover { border-color: rgba(52,211,153,0.35); color: var(--green); }
+    .nav-title { font-size: .9rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .nav-badge { padding: 2px 10px; background: rgba(52,211,153,.12); border: 1px solid rgba(52,211,153,.25); border-radius: 100px; font-size: .68rem; color: var(--green); letter-spacing: 1px; }
+    .src-link { font-size: .78rem; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; transition: all .2s; }
+    .src-link:hover { border-color: rgba(52,211,153,.35); color: var(--green); }
 
-    /* ── Layout ── */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 48px 32px 80px;
-      width: 100%;
+    /* ── TOC sidebar ── */
+    .layout { display: flex; flex: 1; }
+
+    .toc {
+      width: 220px; flex-shrink: 0;
+      padding: 32px 0 60px 24px;
+      position: sticky; top: 52px;
+      height: calc(100vh - 52px);
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
     }
+    .toc-title { font-size: .7rem; letter-spacing: 2px; color: rgba(255,255,255,.25); text-transform: uppercase; margin-bottom: 14px; }
+    .toc a { display: block; font-size: .8rem; color: var(--muted); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid transparent; line-height: 1.5; transition: all .2s; }
+    .toc a:hover, .toc a.active { color: var(--green); border-left-color: var(--green); }
+    .toc a.sub { padding-left: 20px; font-size: .75rem; }
+
+    /* ── Main content ── */
+    .container { flex: 1; max-width: 800px; padding: 48px 40px 100px; }
 
     /* ── Page header ── */
-    .page-header {
-      margin-bottom: 48px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
-    }
-    .page-header .tag {
-      display: inline-block;
-      padding: 3px 12px;
-      background: rgba(52,211,153,0.1);
-      border: 1px solid rgba(52,211,153,0.2);
-      border-radius: 100px;
-      font-size: 0.72rem; color: var(--green);
-      letter-spacing: 2px; margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-    .page-header h1 {
-      font-size: 2rem; font-weight: 700; line-height: 1.3;
-      background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #818cf8 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-    }
-    .page-header .meta {
-      font-size: 0.8rem; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;
-    }
-    .page-header .meta span { display: flex; align-items: center; gap: 5px; }
+    .page-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .page-header .tag { display: inline-block; padding: 3px 12px; background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2); border-radius: 100px; font-size: .72rem; color: var(--green); letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg,#6ee7b7,#34d399 50%,#818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+    .meta { font-size: .8rem; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta span { display: flex; align-items: center; gap: 5px; }
 
-    /* ── Section ── */
-    .section {
-      margin-bottom: 52px;
-    }
-    .section-title {
-      font-size: 1.25rem; font-weight: 700; color: var(--text);
-      margin-bottom: 24px;
+    /* ── Chapter heading ── */
+    .chapter { margin: 52px 0 24px; }
+    .chapter-title {
+      font-size: 1.2rem; font-weight: 700; color: var(--text);
       display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 12px 12px 0;
     }
-    .section-title .num {
-      width: 28px; height: 28px;
-      background: linear-gradient(135deg, rgba(52,211,153,0.2), rgba(129,140,248,0.2));
-      border: 1px solid rgba(52,211,153,0.3);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; font-weight: 700; color: var(--green); flex-shrink: 0;
+    .chapter-title .ch-num {
+      font-size: .72rem; font-weight: 700; color: var(--green);
+      background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2);
+      border-radius: 6px; padding: 2px 8px; flex-shrink: 0;
     }
 
-    /* ── Steps ── */
+    /* ── Step card ── */
     .steps { display: flex; flex-direction: column; gap: 20px; }
-    .step {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 24px;
-      position: relative;
-    }
-    .step-header {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-    }
-    .step-num {
-      width: 24px; height: 24px;
-      background: rgba(129,140,248,0.15);
-      border: 1px solid rgba(129,140,248,0.3);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.72rem; font-weight: 700; color: var(--indigo); flex-shrink: 0;
-    }
-    .step h3 {
-      font-size: 0.95rem; font-weight: 600; color: var(--text);
-    }
-    .step p {
-      font-size: 0.88rem; color: var(--muted); line-height: 1.75;
-      margin-bottom: 12px;
-    }
+    .step { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+    .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .step-num { width: 26px; height: 26px; background: rgba(129,140,248,.15); border: 1px solid rgba(129,140,248,.3); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; color: var(--indigo); flex-shrink: 0; }
+    .step h3 { font-size: .98rem; font-weight: 600; color: var(--text); }
+    .step p { font-size: .87rem; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
     .step p:last-child { margin-bottom: 0; }
+    .step strong { color: rgba(255,255,255,.8); }
+
+    /* ── Feature bullets ── */
+    .feat-list { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+    .feat-item { display: flex; gap: 10px; padding: 10px 14px; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; font-size: .86rem; color: var(--muted); line-height: 1.65; }
+    .feat-item .fi { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .feat-item strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+    /* ── Sub-step (for numbered sub-items) ── */
+    .substeps { display: flex; flex-direction: column; gap: 12px; margin: 12px 0; }
+    .substep { display: flex; gap: 12px; }
+    .substep-num { width: 22px; height: 22px; background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+    .substep-body { font-size: .86rem; color: var(--muted); line-height: 1.75; }
+    .substep-body strong { color: rgba(255,255,255,.75); }
 
     /* ── Images ── */
-    .img-wrap {
-      margin: 14px 0;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-    }
-    .img-wrap img {
-      width: 100%; height: auto; display: block;
-      max-height: 420px; object-fit: contain;
-    }
-    .img-caption {
-      font-size: 0.75rem; color: rgba(255,255,255,0.3);
-      text-align: center; padding: 6px 12px;
-      border-top: 1px solid var(--border);
-      background: rgba(0,0,0,0.15);
-    }
+    .img-wrap { margin: 14px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: rgba(255,255,255,.03); }
+    .img-wrap img { width: 100%; height: auto; display: block; max-height: 460px; object-fit: contain; }
+    .img-caption { font-size: .73rem; color: rgba(255,255,255,.28); text-align: center; padding: 6px 12px; border-top: 1px solid var(--border); background: rgba(0,0,0,.12); }
+    .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
 
     /* ── Download links ── */
     .downloads { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
-    .dl-link {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px;
-      background: rgba(251,191,36,0.05);
-      border: 1px solid rgba(251,191,36,0.18);
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.86rem;
-      transition: all 0.2s;
-    }
-    .dl-link:hover {
-      background: rgba(251,191,36,0.1);
-      border-color: rgba(251,191,36,0.35);
-      color: var(--amber);
-      transform: translateX(3px);
-    }
+    .dl-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(251,191,36,.05); border: 1px solid rgba(251,191,36,.18); border-radius: 10px; text-decoration: none; color: var(--text); font-size: .86rem; transition: all .2s; }
+    .dl-link:hover { background: rgba(251,191,36,.1); border-color: rgba(251,191,36,.35); color: var(--amber); transform: translateX(3px); }
     .dl-link .dl-icon { font-size: 1rem; flex-shrink: 0; }
-    .dl-link .dl-ext {
-      margin-left: auto;
-      font-size: 0.7rem; color: var(--muted);
-      padding: 2px 7px; border: 1px solid var(--border); border-radius: 4px;
-    }
+    .dl-link .dl-ext { margin-left: auto; font-size: .7rem; color: var(--muted); padding: 2px 7px; border: 1px solid var(--border); border-radius: 4px; }
 
     /* ── External link ── */
-    .ext-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 16px;
-      background: rgba(52,211,153,0.08);
-      border: 1px solid rgba(52,211,153,0.2);
-      border-radius: 100px;
-      color: var(--green); text-decoration: none;
-      font-size: 0.84rem; font-weight: 500;
-      transition: all 0.2s;
-    }
-    .ext-link:hover {
-      background: rgba(52,211,153,0.15);
-      border-color: rgba(52,211,153,0.4);
-    }
+    .ext-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.2); border-radius: 100px; color: var(--green); text-decoration: none; font-size: .84rem; font-weight: 500; transition: all .2s; }
+    .ext-link:hover { background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.4); }
 
-    /* ── Info box ── */
-    .info-box {
-      background: rgba(129,140,248,0.07);
-      border: 1px solid rgba(129,140,248,0.2);
-      border-left: 3px solid var(--indigo);
-      border-radius: 0 10px 10px 0;
-      padding: 12px 16px;
-      font-size: 0.86rem; color: rgba(255,255,255,0.6);
-      line-height: 1.7;
-      margin: 10px 0;
-    }
+    /* ── Info / output box ── */
+    .info-box { background: rgba(129,140,248,.07); border: 1px solid rgba(129,140,248,.2); border-left: 3px solid var(--indigo); border-radius: 0 10px 10px 0; padding: 12px 16px; font-size: .86rem; color: rgba(255,255,255,.6); line-height: 1.8; margin: 10px 0; }
     .info-box strong { color: var(--indigo); }
+    .output-box { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.18); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 12px 16px; font-size: .86rem; color: rgba(255,255,255,.6); line-height: 1.9; margin: 10px 0; }
+    .output-box strong { color: var(--green); }
 
-    /* ── Code inline ── */
-    code {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-size: 0.84em;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      color: #a5b4fc;
-    }
+    code { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); border-radius: 4px; padding: 1px 6px; font-size: .84em; font-family: 'JetBrains Mono','Fira Code',monospace; color: #a5b4fc; }
 
-    /* ── Tip label ── */
-    .tip {
-      display: inline-block;
-      background: rgba(52,211,153,0.1);
-      border: 1px solid rgba(52,211,153,0.2);
-      border-radius: 6px;
-      padding: 2px 8px;
-      font-size: 0.75rem;
-      color: var(--green);
-      margin-left: 6px;
-    }
+    .tip { display: inline-block; background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2); border-radius: 6px; padding: 2px 8px; font-size: .73rem; color: var(--green); margin-left: 6px; }
 
-    @media (max-width: 600px) {
-      .container { padding: 28px 16px 60px; }
-      .page-header h1 { font-size: 1.5rem; }
+    /* ── Framework diagram section ── */
+    .framework-card { background: rgba(99,102,241,.06); border: 1px solid rgba(99,102,241,.2); border-radius: 16px; padding: 22px 24px; margin-bottom: 28px; }
+    .framework-card h3 { font-size: .95rem; font-weight: 600; color: #a5b4fc; margin-bottom: 14px; }
+
+    /* ── Flow diagram (text-based) ── */
+    .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 12px 0; }
+    .flow-box { background: rgba(255,255,255,.05); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: .8rem; color: rgba(255,255,255,.7); white-space: nowrap; }
+    .flow-arrow { color: rgba(255,255,255,.2); padding: 0 6px; font-size: 1rem; }
+
+    @media (max-width: 900px) {
+      .toc { display: none; }
+      .container { padding: 28px 20px 60px; }
+      .img-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -252,218 +160,441 @@
 
   <nav>
     <a class="back" href="../index.html">← 返回首页</a>
-    <div class="nav-title">
-      实操内容
-      <span class="nav-badge">PRACTICE</span>
-    </div>
+    <div class="nav-title">实操内容 <span class="nav-badge">PRACTICE</span></div>
     <a class="src-link" href="https://docs.z-xin.net/teachbook/kgandnlp/AI%E8%B5%8B%E8%83%BD%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%99%E5%AD%A6.html" target="_blank">原始文档 ↗</a>
   </nav>
 
-  <div class="container">
+  <div class="layout">
 
-    <!-- Page header -->
-    <div class="page-header">
-      <div class="tag">Practice Guide</div>
-      <h1>AI 赋能个性化教学</h1>
-      <div class="meta">
-        <span>✍️ 周子力</span>
-        <span>📅 2026-04-17</span>
-        <span>🏷 AI技术 · 教学文档</span>
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-title">目录</div>
+      <a href="#framework">实操框架示意图</a>
+      <a href="#install">一、下载安装与登录</a>
+      <a href="#s1-1" class="sub">1. Workbuddy 简介</a>
+      <a href="#s1-2" class="sub">2. 为什么用 Workbuddy</a>
+      <a href="#s1-3" class="sub">3. 下载网址</a>
+      <a href="#s1-4" class="sub">4. 安装</a>
+      <a href="#s1-5" class="sub">5. 登录</a>
+      <a href="#skills">二、技能操作</a>
+      <a href="#s2-1" class="sub">1. 技能简介</a>
+      <a href="#s2-2" class="sub">2. 技能创建</a>
+      <a href="#s2-3" class="sub">3. 技能添加</a>
+      <a href="#s2-4" class="sub">4. 技能删除</a>
+      <a href="#s2-5" class="sub">5. 技能下载</a>
+      <a href="#practice">三、AI 赋能个性化实操</a>
+      <a href="#s3-1" class="sub">1. 建立工作空间</a>
+      <a href="#s3-2" class="sub">2. 放入资源</a>
+      <a href="#s3-3" class="sub">3. 选择模型</a>
+      <a href="#s3-5" class="sub">5. 知识图谱抽取</a>
+      <a href="#s3-6" class="sub">6. 图谱展示</a>
+      <a href="#s3-7" class="sub">7. 学生知识画像</a>
+      <a href="#s3-8" class="sub">8. 个性化作业推荐</a>
+      <a href="#s3-9" class="sub">9. 个性化资源推荐</a>
+      <a href="#s3-10" class="sub">10. AI 助教生成</a>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <div class="tag">Practice Guide</div>
+        <h1>AI 赋能个性化教学</h1>
+        <div class="meta">
+          <span>✍️ 周子力</span>
+          <span>📅 2026-04-17</span>
+          <span>🏷 AI技术 · 教学文档</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Part I -->
-    <div class="section">
-      <div class="section-title">
-        <div class="num">一</div>
-        下载、安装和登录 Workbuddy
+      <!-- ══ 框架示意图 ══ -->
+      <div id="framework" class="chapter">
+        <div class="chapter-title">
+          <span class="ch-num">框架</span>
+          实操框架示意图
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <h3>智能体核心处理框架</h3>
+        <p style="font-size:.86rem;color:var(--muted);line-height:1.75;margin-bottom:16px;">
+          本次实操基于「智能体核心处理框架」展开，通过两类核心资源驱动整个智能服务流程。
+        </p>
+        <div class="img-wrap">
+          <img src="https://oss.docs.z-xin.net/89b7fc31e75b731f06d3b47e7bfba986888c5e1bbf36d8eab1e3b57ce75b1958.png" alt="实操框架示意图" loading="lazy" />
+          <div class="img-caption">智能体核心处理框架总览</div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <p style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:10px;">所需资源</p>
+          <div class="feat-list">
+            <div class="feat-item">
+              <span class="fi">📚</span>
+              <div>
+                <strong>课程教学资源</strong>
+                作为知识输入来源，经由「知识抽取技能」处理后，自动构建<strong style="color:var(--green)">课程知识图谱</strong>，形成结构化的学科知识网络。
+              </div>
+            </div>
+            <div class="feat-item">
+              <span class="fi">📊</span>
+              <div>
+                <strong>学生作业成绩单</strong>
+                作为学情数据来源，经由「知识画像技能」分析后，生成每位学生的<strong style="color:var(--indigo)">个人知识画像</strong>，精准定位掌握情况与薄弱环节。
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:.85rem;color:var(--muted);line-height:1.75;margin-top:14px;">
+            两类数据在「知识建模与融合」层交汇后，驱动三大智能服务技能——<strong style="color:var(--amber)">个性化作业生成、个性化资源推荐、AI 助教</strong>——最终向终端用户交付个性化作业、个性化学习资源与 AI 私人助教三项服务。
+          </p>
+        </div>
+
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+          <p style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:8px;">所需工具（WorkBuddy）</p>
+          <p style="font-size:.86rem;color:var(--muted);line-height:1.75;">全流程基于 <strong style="color:var(--cyan)">WorkBuddy</strong> 实现。借助其内置技能包与 MCP 协议扩展能力，无需编写代码，即可完成从资源上传、知识抽取、画像分析到智能服务生成的全链路自动化操作，真正做到开箱即用。</p>
+        </div>
+      </div>
+
+      <!-- ══ 第一章 ══ -->
+      <div id="install" class="chapter">
+        <div class="chapter-title">
+          <span class="ch-num">一</span>
+          下载、安装和登录 Workbuddy
+        </div>
       </div>
 
       <div class="steps">
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">1</div>
-            <h3>Workbuddy 简介</h3>
-          </div>
-          <p>Workbuddy 是一个集成 AI 能力的本地工作平台，支持添加自定义技能（Skills）和接入 MCP 服务，适合在教学场景中完成知识图谱提取、个性化辅导等 AI 增强工作流。</p>
+        <div id="s1-1" class="step">
+          <div class="step-header"><div class="step-num">1</div><h3>Workbuddy 简介</h3></div>
+          <p>WorkBuddy 是腾讯云代码助手推出的 <strong>AI Agent 办公工具</strong>，定位为全场景职场 AI 智能体桌面工作台。与传统 AI 聊天工具不同，WorkBuddy 能够理解用户的自然语言指令，在电脑上自主思考、拆解任务、规划执行步骤，最终交付可直接验收的工作成果——它不是在与用户对话，而是真正在帮用户干活。</p>
+          <p>该产品于 2026 年 1 月开启内部内测，同年 3 月 9 日正式全量上线，内置超 <strong>20 种 Skills 技能包</strong>与 MCP 协议，覆盖海报生成、自动化报表、数据处理、文档生成等多类办公场景，并支持 DeepSeek、GLM、Kimi、MiniMax 等主流大模型的一键切换。</p>
+          <p>WorkBuddy 采用「零代码、免部署、自然语言交互」的设计思路，让不懂编程的普通职场人无需复杂配置即可快速上手，真正实现「AI 办公平民化」。支持 <strong>Windows x64、macOS Intel 及 macOS Apple Silicon</strong> 平台。</p>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">2</div>
-            <h3>为什么用 Workbuddy？</h3>
+        <div id="s1-2" class="step">
+          <div class="step-header"><div class="step-num">2</div><h3>为什么用 Workbuddy？</h3></div>
+          <div class="feat-list">
+            <div class="feat-item">
+              <span class="fi">🚀</span>
+              <div>
+                <strong>零门槛上手</strong>
+                采用自然语言交互设计，无需编程基础，无需复杂配置，下载即用，普通用户一分钟即可上手，真正做到「AI 办公平民化」。
+              </div>
+            </div>
+            <div class="feat-item">
+              <span class="fi">🧩</span>
+              <div>
+                <strong>灵活扩展技能</strong>
+                内置超 20 种 Skills 技能包，覆盖海报生成、数据报表、文档创作等常见办公场景。用户还可按需自定义创建或导入技能，让 WorkBuddy 随业务需求持续「成长」。
+              </div>
+            </div>
+            <div class="feat-item">
+              <span class="fi">🔗</span>
+              <div>
+                <strong>无缝接入 MCP 服务</strong>
+                支持 MCP 协议，可轻松对接企业微信、飞书、钉钉、QQ 等主流办公平台，用户甚至可以在手机上远程发出指令，让电脑端自动完成任务。
+              </div>
+            </div>
+            <div class="feat-item">
+              <span class="fi">🔒</span>
+              <div>
+                <strong>数据安全留本地</strong>
+                所有文件操作均在本地授权范围内完成，敏感数据不上传云端，从源头保障企业数据隐私与安全合规。
+              </div>
+            </div>
           </div>
-          <p>可以添加技能（Skills），可以接 MCP 服务，将 AI 模型能力灵活扩展到教学任务中。</p>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">3</div>
-            <h3>下载网址</h3>
-          </div>
+        <div id="s1-3" class="step">
+          <div class="step-header"><div class="step-num">3</div><h3>下载网址</h3></div>
           <p>前往腾讯 Copilot 官网下载 Workbuddy：</p>
-          <a class="ext-link" href="https://copilot.tencent.com/work/" target="_blank">
-            🔗 copilot.tencent.com/work/ ↗
-          </a>
+          <a class="ext-link" href="https://copilot.tencent.com/work/" target="_blank">🔗 copilot.tencent.com/work/ ↗</a>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">4</div>
-            <h3>安装 Workbuddy</h3>
-          </div>
-          <p>下载安装包后按照系统提示完成安装，支持 Windows 和 macOS。</p>
-        </div>
-
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">5</div>
-            <h3>登录</h3>
-          </div>
-          <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/0df0e7cce9b1b354f906bfbfca88844787fe603252c8f0f4a73fa6317ec6a5e7-BjEelYHe.png" alt="Workbuddy 登录界面" loading="lazy" />
-            <div class="img-caption">Workbuddy 启动后的登录界面</div>
-          </div>
-          <p>点击登录后，打开一个网页，选择一种登录方式，比如：用微信扫码：</p>
-          <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/95f57f468a843f75c5d61aa5ef55b26c73ffc1816a5704c6a00743a7780857c5-CRd3Yu2V.png" alt="微信扫码登录" loading="lazy" />
-            <div class="img-caption">微信扫码登录</div>
-          </div>
-          <p>扫码成功后表示已登录，出现以下主界面：</p>
-          <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/a1b5170eaffe4297cab9816b644220026f56753f34e59697ee9ff74dd8d6055e-stdzi2mj.png" alt="登录成功主界面" loading="lazy" />
-            <div class="img-caption">登录成功后的 Workbuddy 主界面</div>
+        <div id="s1-4" class="step">
+          <div class="step-header"><div class="step-num">4</div><h3>安装 Workbuddy</h3></div>
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-num">1</div>
+              <div class="substep-body"><strong>运行安装程序</strong>：双击下载的 <code>WorkBuddySetup.exe</code> 文件，若弹出 UAC 权限提示，点击「是」允许运行。</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">2</div>
+              <div class="substep-body"><strong>按向导完成安装</strong>：选择安装路径（默认 <code>C:\Program Files\WorkBuddy</code>），点击「立即安装」，等待进度条完成。</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">3</div>
+              <div class="substep-body"><strong>自动启动</strong>：安装完成后程序自动启动，同时在桌面和开始菜单创建快捷方式。</div>
+            </div>
           </div>
         </div>
 
-      </div>
-    </div>
+        <div id="s1-5" class="step">
+          <div class="step-header"><div class="step-num">5</div><h3>登录</h3></div>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/0df0e7cce9b1b354f906bfbfca88844787fe603252c8f0f4a73fa6317ec6a5e7.png" alt="Workbuddy 登录界面" loading="lazy" />
+            <div class="img-caption">Workbuddy 启动后的登录界面，点击「登录」按钮</div>
+          </div>
+          <p>点击登录后，自动打开一个网页，选择一种登录方式，例如：用微信扫码。</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/95f57f468a843f75c5d61aa5ef55b26c73ffc1816a5704c6a00743a7780857c5.png" alt="微信扫码登录" loading="lazy" />
+            <div class="img-caption">使用微信扫描二维码完成身份验证</div>
+          </div>
+          <p>扫码成功后返回应用，表示已登录，并出现以下主工作台界面：</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/a1b5170eaffe4297cab9816b644220026f56753f34e59697ee9ff74dd8d6055e.png" alt="登录成功主界面" loading="lazy" />
+            <div class="img-caption">登录成功后的 Workbuddy 主工作台界面，左侧为工作空间列表，右侧为对话区</div>
+          </div>
+        </div>
 
-    <!-- Part II -->
-    <div class="section">
-      <div class="section-title">
-        <div class="num">二</div>
-        AI 赋能个性化实操
+      </div><!-- /steps -->
+
+      <!-- ══ 第二章 ══ -->
+      <div id="skills" class="chapter">
+        <div class="chapter-title">
+          <span class="ch-num">二</span>
+          技能操作
+        </div>
       </div>
 
       <div class="steps">
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">1</div>
-            <h3>建立一个工作空间</h3>
-          </div>
-          <p>（1）先在本地建一个文件夹；<br>
-             （2）把鼠标移到 Workbuddy 工作空间菜单处，点击出现的右侧按钮，弹出窗口后选择刚才建好的文件夹即可。</p>
+        <div id="s2-1" class="step">
+          <div class="step-header"><div class="step-num">1</div><h3>技能简介</h3></div>
+          <p><strong>技能（Skills）</strong> 是智能体中可调用的功能模块，相当于给 AI 装上的「工具插件」。</p>
+          <p>每个技能负责完成一项具体任务——例如本次实操中的<strong>知识抽取技能</strong>，能自动从课程资料中提取知识点；<strong>知识画像技能</strong>，能根据学生成绩分析学习状态。</p>
+          <p>用户无需编写代码，直接通过<strong>自然语言指令</strong>调用技能，智能体便会自动执行对应操作并交付结果。</p>
+        </div>
+
+        <div id="s2-2" class="step">
+          <div class="step-header"><div class="step-num">2</div><h3>技能创建</h3></div>
+          <p>在 WorkBuddy 技能管理界面点击「新建技能」，填写技能名称与功能描述，上传技能配置文件（<code>.skill</code> 格式）。创建完成后，该技能即可在当前工作空间中通过自然语言指令被调用。下方演示了完整的技能创建操作流程：</p>
           <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/2c73cf77132ad5d70c6a9ac5d95fe3557c6fc5759c1148b852d63c54bbf149b8-BmpRoNVq.gif" alt="建立工作空间演示" loading="lazy" />
-            <div class="img-caption">建立工作空间操作演示</div>
+            <img src="https://oss.docs.z-xin.net/bede2efad45272138e21fa1b71e6f2d3777915bcec5c9d1d6c708171aa24b279.gif" alt="技能创建演示" loading="lazy" />
+            <div class="img-caption">技能创建操作演示：从新建到完成配置的全流程</div>
           </div>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">2</div>
-            <h3>将资源都放到这个文件夹中</h3>
+        <div id="s2-3" class="step">
+          <div class="step-header"><div class="step-num">3</div><h3>技能添加</h3></div>
+          <p>若已有现成的技能文件（如从技能库或他人处获取的 <code>.skill</code> 包），可直接在技能管理界面点击「添加技能」，选择本地文件导入。技能加载完成后，即刻生效，可在当前工作空间中通过对话直接调用。下方演示了技能添加的完整步骤：</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/6451c900857e2e6c0533feab9e198874a4c9749a2f441b6d1c69edba20e60183.gif" alt="技能添加演示" loading="lazy" />
+            <div class="img-caption">技能添加操作演示：选择本地技能文件并导入到工作空间</div>
           </div>
-          <p>将课程相关资源（教学大纲、试卷、成绩单）放入工作文件夹，可从以下链接下载测试用资源：</p>
+        </div>
 
+        <div id="s2-4" class="step">
+          <div class="step-header"><div class="step-num">4</div><h3>技能删除</h3></div>
+          <p>当某个技能不再需要时，可在技能管理列表中找到目标技能，点击右侧「删除」按钮，确认操作后该技能将从当前工作空间中移除，不影响其他工作空间或技能文件本身。下方演示了删除操作的步骤：</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/6451c900857e2e6c0533feab9e198874a4c9749a2f441b6d1c69edba20e60183.gif" alt="技能删除演示" loading="lazy" />
+            <div class="img-caption">技能删除操作演示：在技能列表中定位并移除指定技能</div>
+          </div>
+        </div>
+
+        <div id="s2-5" class="step">
+          <div class="step-header"><div class="step-num">5</div><h3>技能下载</h3></div>
+          <p>本次 AI 赋能汇报实操所需要的技能包可在此处下载，分理工科和文科两个版本：</p>
           <div class="downloads">
-            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/700e1cf9-d7c5-4066-ba41-3869145aec77.docx" target="_blank">
-              <span class="dl-icon">📄</span>
-              课程教学大纲（测试用）
-              <span class="dl-ext">DOCX</span>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/1a38e2cf-8407-4658-b547-6267d3d73965.rar" target="_blank">
+              <span class="dl-icon">⚙️</span>
+              理工科 AI 赋能技能包
+              <span class="dl-ext">RAR</span>
             </a>
-            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/15e7a7fd-9a4c-4edd-84e9-5e32efdaec50.docx" target="_blank">
-              <span class="dl-icon">📄</span>
-              课程试卷（测试用）
-              <span class="dl-ext">DOCX</span>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/5d6a13f3-fe28-4b86-b99c-12a30fdebeb7.rar" target="_blank">
+              <span class="dl-icon">⚙️</span>
+              文科 AI 赋能技能包
+              <span class="dl-ext">RAR</span>
             </a>
-            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/4aafd579-9998-4c3c-a425-2a549beea962.csv" target="_blank">
-              <span class="dl-icon">📊</span>
-              课程成绩单 + 总分（测试用）
-              <span class="dl-ext">CSV</span>
-            </a>
-            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/e72fca39-9e59-4cc0-b27a-a3497a0687fc.csv" target="_blank">
-              <span class="dl-icon">📊</span>
-              课程成绩单 + 大题分 + 总分（测试用）
-              <span class="dl-ext">CSV</span>
-            </a>
-            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/cfb54cf3-0a22-4ff6-ba43-d0bdb9d9db7d.csv" target="_blank">
-              <span class="dl-icon">📊</span>
-              课程成绩单 + 小题分 + 总分（测试用）
-              <span class="dl-ext">CSV</span>
-            </a>
-          </div>
-
-          <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/88706a8df324ba65a572338d2e801ccb36ffcf49ab7a50ca8e3e265ee309d631-fwWz4PEU.png" alt="工作文件夹" loading="lazy" />
-            <div class="img-caption">准备好资源后的工作文件夹结构</div>
           </div>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">3</div>
-            <h3>添加技能</h3>
+      </div><!-- /steps -->
+
+      <!-- ══ 第三章 ══ -->
+      <div id="practice" class="chapter">
+        <div class="chapter-title">
+          <span class="ch-num">三</span>
+          AI 赋能个性化实操
+        </div>
+      </div>
+
+      <div class="steps">
+
+        <div id="s3-1" class="step">
+          <div class="step-header"><div class="step-num">1</div><h3>建立一个工作空间</h3></div>
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-num">1</div>
+              <div class="substep-body">先在本地新建一个文件夹，作为本次实操的工作目录。</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">2</div>
+              <div class="substep-body">将鼠标移至 WorkBuddy <strong>工作空间</strong>菜单处，点击出现的右侧「+」按钮，弹出文件夹选择窗口后，选择刚才新建的文件夹即可完成工作空间关联。</div>
+            </div>
           </div>
-          <p>从技能库下载所需技能包，然后在 Workbuddy 中添加：</p>
           <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/2abb2d2189065480e1bb97d990370a9294341ece32a934778bb1409cb6e15989-B9g6G7st.gif" alt="添加技能演示" loading="lazy" />
-            <div class="img-caption">在 Workbuddy 中添加技能操作演示</div>
+            <img src="https://oss.docs.z-xin.net/2c73cf77132ad5d70c6a9ac5d95fe3557c6fc5759c1148b852d63c54bbf149b8.gif" alt="建立工作空间演示" loading="lazy" />
+            <div class="img-caption">新建本地文件夹并将其关联为 WorkBuddy 工作空间的完整操作演示</div>
           </div>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">4</div>
-            <h3>选择模型</h3>
+        <div id="s3-2" class="step">
+          <div class="step-header"><div class="step-num">2</div><h3>将资源都放到这个文件夹中</h3></div>
+          <p>将课程相关资源（教学大纲、试卷、成绩单）放入工作文件夹。可从以下链接下载测试用课程资源：</p>
+          <div class="downloads">
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/88c42ba7-9cf4-45e3-982b-a1e5d0489654.rar" target="_blank">
+              <span class="dl-icon">📦</span>
+              理工科课程测试资源
+              <span class="dl-ext">RAR</span>
+            </a>
+            <a class="dl-link" href="https://d.zxin.confnew.com/zxnext1959826806593634305/a136cee5-a90a-44ff-9b8c-7c97cf4f35e0.rar" target="_blank">
+              <span class="dl-icon">📦</span>
+              文科课程测试资源
+              <span class="dl-ext">RAR</span>
+            </a>
           </div>
-          <p>建议选择 <strong>MiniMax-M2.7</strong> 模型，效果更佳。<span class="tip">推荐</span></p>
+          <p>将下载后的测试资源解压到刚建立的文件夹中，文件夹结构示意如下：</p>
           <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/f42b43d05904579e49fce510696654185bfda840c5491d9dfce8c080ffcaf926-DqvmUwA_.gif" alt="选择模型演示" loading="lazy" />
-            <div class="img-caption">选择 AI 模型操作演示</div>
+            <img src="https://oss.docs.z-xin.net/88706a8df324ba65a572338d2e801ccb36ffcf49ab7a50ca8e3e265ee309d631.png" alt="工作文件夹结构" loading="lazy" />
+            <div class="img-caption">准备好资源后的工作文件夹结构：包含教学大纲、试卷及成绩单等文件</div>
           </div>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">5</div>
-            <h3>课程知识图谱抽取</h3>
-          </div>
+        <div id="s3-3" class="step">
+          <div class="step-header"><div class="step-num">3</div><h3>选择模型</h3></div>
+          <p>推荐选择 <strong>MiniMax-M2.7</strong> 模型，在知识抽取与画像分析任务中效果更佳。<span class="tip">推荐</span></p>
+          <p>也可自定义配置其他模型，如千问系列、DeepSeek 等，根据实际需求和账号权限灵活选择。</p>
           <div class="img-wrap">
-            <img src="https://docs.z-xin.net/assets/28237378dbfadb2e20fb24fdd177b2f12329c7c417ef16d795d91b7da623cbad-gH48nURn.gif" alt="知识图谱抽取演示" loading="lazy" />
-            <div class="img-caption">课程知识图谱抽取操作演示</div>
+            <img src="https://oss.docs.z-xin.net/f42b43d05904579e49fce510696654185bfda840c5491d9dfce8c080ffcaf926.gif" alt="选择模型演示" loading="lazy" />
+            <div class="img-caption">在 WorkBuddy 设置面板中切换 AI 模型的操作演示</div>
+          </div>
+        </div>
+
+        <div id="s3-5" class="step">
+          <div class="step-header"><div class="step-num">5</div><h3>课程知识图谱抽取</h3></div>
+          <p>在工作空间对话框中，调用<strong>知识抽取技能</strong>，输入自然语言指令（如「请从教学大纲中抽取知识图谱」）。WorkBuddy 将自动分析课程资料，提取知识点及其关联关系，并生成结构化输出文件。</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/28237378dbfadb2e20fb24fdd177b2f12329c7c417ef16d795d91b7da623cbad.gif" alt="知识图谱抽取演示" loading="lazy" />
+            <div class="img-caption">课程知识图谱抽取操作演示：AI 自动从教学大纲中提取知识结构</div>
           </div>
           <p>抽取完成后，将在工作文件夹中生成以下两个 CSV 文件：</p>
-          <div class="info-box">
-            📁 <code>knowledge_graph_triples.csv</code> — 知识图谱三元组（关系边）<br>
-            📁 <code>knowledge_nodes.csv</code> — 知识图谱节点列表
+          <div class="output-box">
+            📄 <code>knowledge_graph_triples.csv</code> — 知识图谱三元组（知识点之间的关系边）<br>
+            📄 <code>knowledge_nodes.csv</code> — 知识图谱节点列表（所有知识点）
           </div>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">6</div>
-            <h3>课程知识图谱展示</h3>
+        <div id="s3-6" class="step">
+          <div class="step-header"><div class="step-num">6</div><h3>课程知识图谱展示</h3></div>
+          <p>使用<strong>图谱展示技能</strong>，将上一步生成的两个 CSV 文件可视化为课程知识图谱网络图，系统将自动输出一个 <code>.html</code> 文件，在浏览器中可查看完整的知识网络结构，节点代表知识点，连线代表知识点之间的依赖或关联关系。</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/1c9fa26a4e14d7d907139d0d012c007c51aae876bf7878070fedc96f3b343b88.png" alt="课程知识图谱可视化" loading="lazy" />
+            <div class="img-caption">课程知识图谱的图形化展示效果：节点为知识点，连线表示知识间的关联关系</div>
           </div>
-          <p>使用图谱展示技能，将生成的 CSV 文件可视化为课程知识图谱，输出为一个 <code>.html</code> 文件，可在浏览器中直接查看完整的知识网络。</p>
-          <p>至此，我们已经得到了课程知识图谱，接下来要做的事就是部署作业。</p>
+          <p>至此，我们已得到完整的课程知识图谱。接下来将进入学生个性化分析环节。</p>
         </div>
 
-        <div class="step">
-          <div class="step-header">
-            <div class="step-num">7</div>
-            <h3>部署作业</h3>
+        <div id="s3-7" class="step">
+          <div class="step-header"><div class="step-num">7</div><h3>学生知识画像生成</h3></div>
+
+          <p style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:8px;">（1）生成作业知识图谱</p>
+          <p>调用<strong>知识画像技能</strong>，输入作业数据，AI 自动分析每道题目涉及的知识点，生成以下文件：</p>
+          <div class="output-box">
+            📄 <code>question_knowledge_tags.csv</code> — 题目与知识点对应标注表<br>
+            📄 <code>knowledge_point_statistics.csv</code> — 知识点统计表（各知识点的出题频率与难度分布）
           </div>
-          <p>获取作业的知识图谱表示，将课程知识图谱与学生作业进行关联，实现 AI 赋能的个性化作业部署，为每位学生定制针对性的学习任务。</p>
+          <p>同时生成作业的知识图谱可视化表示，将每道题目映射到对应的知识节点：</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/0e066dfc8dc651e8a5d4cd20d6c605414237474dad862a755daf5f8bf57ad685.png" alt="作业知识图谱" loading="lazy" />
+            <div class="img-caption">作业知识图谱：将试题映射到对应知识点，直观呈现考查分布</div>
+          </div>
+
+          <p style="font-size:.88rem;font-weight:600;color:rgba(255,255,255,.75);margin:14px 0 8px;">（2）生成学生知识画像</p>
+          <p>将学生的作业成绩单输入系统，AI 结合课程知识图谱与作业知识标注，自动生成以下三份数据文件：</p>
+          <div class="output-box">
+            📄 <code>student_knowledge_profile.csv</code> — 学生 × 知识点掌握度明细表（每位学生对每个知识点的掌握情况）<br>
+            📄 <code>student_summary_profile.csv</code> — 学生综合画像摘要表（整体学情概述与薄弱点标注）<br>
+            📄 <code>class_knowledge_heatmap.csv</code> — 班级知识点热力图数据（全班在各知识点的掌握分布）
+          </div>
+          <p>以及以下学生知识画像可视化图表：</p>
+          <div class="img-row">
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/cd949d3f8ab6c654f0d0d497b115f96756c69ae043496c5980c0970a529c1d99.png" alt="学生知识画像图表一" loading="lazy" />
+              <div class="img-caption">学生知识掌握度雷达图：各知识模块掌握情况一目了然</div>
+            </div>
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/df4884c27651d42a83a2057b23dc3bc7928ee7053469783ed6f741d2fab73f1a.png" alt="学生知识画像图表二" loading="lazy" />
+              <div class="img-caption">班级知识点热力图：识别全班共性薄弱环节</div>
+            </div>
+          </div>
         </div>
 
-      </div>
-    </div>
+        <div id="s3-8" class="step">
+          <div class="step-header"><div class="step-num">8</div><h3>个性化作业推荐</h3></div>
+          <p>基于学生知识画像，调用<strong>个性化作业生成技能</strong>，系统自动为每位学生匹配薄弱知识点，从题库中筛选针对性练习题目，并以可读报告形式输出个性化作业清单。教师可直接将生成结果发布给对应学生，无需手动逐一整理。</p>
+          <div class="img-row">
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/8708c05159186d5660f45be6eca6d0095124dec11b123fa1cca04f3bf06a228f.png" alt="个性化作业推荐示例一" loading="lazy" />
+              <div class="img-caption">个性化作业推荐结果：针对学生薄弱知识点生成定制化练习题</div>
+            </div>
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/ebabb2dfce3e8f60432a9d94d8e91593078774126bc9bc0f903d2f0e0ebc2118.png" alt="个性化作业推荐示例二" loading="lazy" />
+              <div class="img-caption">作业推荐报告详情：每道题目均附有对应知识点标注与难度说明</div>
+            </div>
+          </div>
+        </div>
 
-  </div>
+        <div id="s3-9" class="step">
+          <div class="step-header"><div class="step-num">9</div><h3>个性化学习资源推荐</h3></div>
+          <p>根据学生的知识掌握度分布，调用<strong>个性化资源推荐技能</strong>，系统从已有资源库中筛选与薄弱知识点高度匹配的学习材料（视频、文档、例题等），自动生成个性化资源清单，助力学生精准补短、高效提升。</p>
+          <div class="img-row">
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/ad82a8a5ab5b40be41923bb35bb16aebcde5c27d6f7864445cf41b81ada62a96.png" alt="个性化资源推荐示例一" loading="lazy" />
+              <div class="img-caption">个性化学习资源推荐列表：按知识点匹配度排序的学习材料清单</div>
+            </div>
+            <div class="img-wrap" style="margin:0;">
+              <img src="https://oss.docs.z-xin.net/68364da23c02500348dfc971780655842c690c963be987700727fcaa9a828586.png" alt="个性化资源推荐示例二" loading="lazy" />
+              <div class="img-caption">资源推荐详情页：每项资源附有知识点对应关系与推荐理由说明</div>
+            </div>
+          </div>
+        </div>
 
+        <div id="s3-10" class="step">
+          <div class="step-header"><div class="step-num">10</div><h3>AI 助教技能生成</h3></div>
+          <p>基于课程知识图谱与学生个人知识画像，调用 <strong>AI 助教技能生成</strong>功能，系统将自动为每位学生构建一个专属 AI 助教。学生可随时通过自然语言向 AI 助教提问，获得与自身学情深度匹配的针对性解答、知识点讲解与学习引导，真正实现「一对一」的个性化辅导。</p>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/83bab56b707aea73a28915b651d39987471a16a18d67dd051c4f0ea85ccbd1f4.gif" alt="AI 助教生成演示一" loading="lazy" />
+            <div class="img-caption">AI 助教技能生成演示：系统根据课程图谱自动构建专属助教技能包</div>
+          </div>
+          <div class="img-wrap">
+            <img src="https://oss.docs.z-xin.net/950fb7408c36a270ccdb8fe8ddc800c88e6a0cd0bda076e5b7679e495d8eef7c.gif" alt="AI 助教生成演示二" loading="lazy" />
+            <div class="img-caption">AI 助教实际使用演示：学生提问后助教结合个人知识画像给出针对性解答</div>
+          </div>
+        </div>
+
+      </div><!-- /steps -->
+
+    </div><!-- /container -->
+  </div><!-- /layout -->
+
+  <script>
+    // Highlight active TOC item on scroll
+    const sections = document.querySelectorAll('[id]');
+    const tocLinks = document.querySelectorAll('.toc a');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => obs.observe(s));
+  </script>
 </body>
 </html>
