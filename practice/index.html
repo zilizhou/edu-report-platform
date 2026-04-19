@@ -47,24 +47,26 @@
     .src-link { font-size: .78rem; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; transition: all .2s; }
     .src-link:hover { border-color: rgba(52,211,153,.35); color: var(--green); }
 
-    /* ── TOC sidebar ── */
+    /* ── Layout ── */
     .layout { display: flex; flex: 1; }
 
+    /* ── TOC sidebar ── */
     .toc {
-      width: 220px; flex-shrink: 0;
-      padding: 32px 0 60px 24px;
+      width: 200px; flex-shrink: 0;
+      padding: 28px 12px 60px 20px;
       position: sticky; top: 52px;
       height: calc(100vh - 52px);
       overflow-y: auto;
       border-right: 1px solid var(--border);
     }
-    .toc-title { font-size: .7rem; letter-spacing: 2px; color: rgba(255,255,255,.25); text-transform: uppercase; margin-bottom: 14px; }
-    .toc a { display: block; font-size: .8rem; color: var(--muted); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid transparent; line-height: 1.5; transition: all .2s; }
+    .toc-title { font-size: .68rem; letter-spacing: 2px; color: rgba(255,255,255,.25); text-transform: uppercase; margin-bottom: 14px; }
+    .toc a { display: block; font-size: .78rem; color: var(--muted); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid transparent; line-height: 1.55; transition: all .2s; white-space: normal; }
     .toc a:hover, .toc a.active { color: var(--green); border-left-color: var(--green); }
-    .toc a.sub { padding-left: 20px; font-size: .75rem; }
+    .toc a.sub { padding-left: 20px; font-size: .73rem; }
 
     /* ── Main content ── */
-    .container { flex: 1; max-width: 800px; padding: 48px 40px 100px; }
+    .main-wrap { flex: 1; display: flex; justify-content: center; min-width: 0; }
+    .container { width: 100%; max-width: 920px; padding: 48px 48px 100px; }
 
     /* ── Page header ── */
     .page-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
@@ -150,7 +152,7 @@
     .flow-arrow { color: rgba(255,255,255,.2); padding: 0 6px; font-size: 1rem; }
 
     @media (max-width: 900px) {
-      .toc { display: none; }
+      .toc { display: none !important; }
       .container { padding: 28px 20px 60px; }
       .img-row { grid-template-columns: 1fr; }
     }
@@ -167,7 +169,7 @@
   <div class="layout">
 
     <!-- TOC -->
-    <nav class="toc">
+    <div class="toc">
       <div class="toc-title">目录</div>
       <a href="#framework">实操框架示意图</a>
       <a href="#install">一、下载安装与登录</a>
@@ -192,9 +194,10 @@
       <a href="#s3-8" class="sub">8. 个性化作业推荐</a>
       <a href="#s3-9" class="sub">9. 个性化资源推荐</a>
       <a href="#s3-10" class="sub">10. AI 助教生成</a>
-    </nav>
+    </div><!-- /toc -->
 
     <!-- Content -->
+    <div class="main-wrap">
     <div class="container">
 
       <!-- Page header -->
@@ -579,6 +582,7 @@
       </div><!-- /steps -->
 
     </div><!-- /container -->
+    </div><!-- /main-wrap -->
   </div><!-- /layout -->
 
   <script>
