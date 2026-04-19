@@ -505,7 +505,8 @@
       document.body.style.overflow = 'hidden';
 
       try {
-        const resp = await fetch(path);
+        const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+        const resp = await fetch(encodedPath);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         let md = await resp.text();
         // Strip YAML front-matter
