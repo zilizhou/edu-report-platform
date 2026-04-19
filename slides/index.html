@@ -1938,11 +1938,17 @@
     const svg = document.getElementById('s5IntroSvg');
     if (!svg) return;
     svg.innerHTML = '';
+    const d = isDay();
+    const edgeColor   = d ? 'rgba(6,182,212,0.65)'  : 'rgba(6,182,212,0.38)';
+    const arrowColor  = d ? 'rgba(6,182,212,0.9)'   : 'rgba(6,182,212,0.6)';
+    const nodeFill    = d ? 'rgba(6,182,212,0.18)'  : 'rgba(6,182,212,0.14)';
+    const nodeStroke  = d ? '#0891b2'                : '#22d3ee';
+    const textColor   = d ? '#0c4a6e'                : svgTxt();
 
     // Arrowhead marker
     const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
     defs.innerHTML = `<marker id="arr5" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
-      <polygon points="0 0,6 2,0 4" fill="rgba(6,182,212,0.6)"/>
+      <polygon points="0 0,6 2,0 4" fill="${arrowColor}"/>
     </marker>`;
     svg.appendChild(defs);
 
@@ -1951,7 +1957,7 @@
       const a = KG_RICH.nodes[f], b = KG_RICH.nodes[t];
       svg.appendChild(makeSvgElem('line', {
         x1:a.x, y1:a.y, x2:b.x, y2:b.y,
-        stroke:'rgba(6,182,212,0.38)', 'stroke-width':1.3,
+        stroke:edgeColor, 'stroke-width':1.3,
         'marker-end':'url(#arr5)'
       }));
     });
@@ -1961,15 +1967,16 @@
       setTimeout(() => {
         const c = makeSvgElem('circle', {
           cx:n.x, cy:n.y, r:14,
-          fill:'rgba(6,182,212,0.14)', stroke:'#22d3ee', 'stroke-width':1.8
+          fill:nodeFill, stroke:nodeStroke, 'stroke-width':1.8
         });
         c.style.opacity = '0';
         svg.appendChild(c);
         setTimeout(() => { c.style.transition='opacity 0.3s'; c.style.opacity='1'; }, 16);
 
         const t = makeSvgElem('text', {
-          x:n.x, y:n.y, fill:svgTxt(),
+          x:n.x, y:n.y, fill:textColor,
           'font-size': n.label.length > 3 ? '7' : '8',
+          'font-weight': d ? '600' : '400',
           'text-anchor':'middle', 'dominant-baseline':'middle'
         });
         t.textContent = n.label;
@@ -2630,7 +2637,7 @@
       // 重绘当前页SVG（主题切换后颜色需重新渲染）
       const activeId = document.querySelector('.slide.active')?.id;
       if (activeId === 's4') animS4Page();
-      else if (activeId === 's5') animS5Intro();
+      else if (activeId === 's5') drawIntroGraph();
       else if (activeId === 's6') animS6Graph();
       else if (activeId === 's_quiz') initQuizSlide();
       else if (activeId === 's8') animS8Profiles();
