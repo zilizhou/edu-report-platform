@@ -1774,6 +1774,20 @@
     return el;
   }
 
+  /* ── 主题感知：SVG文字颜色 ── */
+  function isDay() { return document.body.classList.contains('day-mode'); }
+  function svgTxt(opacity)  { return isDay() ? `rgba(15,23,42,${opacity||0.82})` : `rgba(232,234,246,${opacity||0.9})`; }
+  function svgTxtDim()      { return isDay() ? '#475569' : '#64748b'; }
+  function svgNodeFill(type) {
+    /* type: 'course'|'mastered'|'partial'|'unknown'|'weak' */
+    if (type==='course')   return isDay() ? 'rgba(16,185,129,0.22)' : 'rgba(16,185,129,0.18)';
+    if (type==='mastered') return isDay() ? 'rgba(16,185,129,0.22)' : 'rgba(16,185,129,0.22)';
+    if (type==='partial')  return isDay() ? 'rgba(245,158,11,0.22)' : 'rgba(245,158,11,0.2)';
+    if (type==='unknown')  return isDay() ? 'rgba(100,116,139,0.12)' : 'rgba(100,116,139,0.1)';
+    if (type==='weak')     return isDay() ? 'rgba(239,68,68,0.18)'  : 'rgba(239,68,68,0.18)';
+    return 'rgba(100,116,139,0.1)';
+  }
+
   /* ════════════════════════════════════════
      CANVAS INTRO GRAPH (Slide 5, kept as Canvas)
   ════════════════════════════════════════ */
@@ -1836,7 +1850,7 @@
         setTimeout(() => { c.style.transition='opacity 0.3s'; c.style.opacity='1'; }, 16);
 
         const t = makeSvgElem('text', {
-          x:n.x, y:n.y, fill:'#e2e8f0',
+          x:n.x, y:n.y, fill:svgTxt(),
           'font-size': n.label.length > 3 ? '7' : '8',
           'text-anchor':'middle', 'dominant-baseline':'middle'
         });
@@ -1914,14 +1928,14 @@
           const label = NODES[i].short.split('\n');
           if (label.length === 1) {
             const t = makeSvgElem('text', {
-              x:n.x, y:n.y, fill:'#e2e8f0',
+              x:n.x, y:n.y, fill:svgTxt(),
               'font-size':'8.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             t.textContent = label[0];
             cSvg.appendChild(t);
           } else {
             const t = makeSvgElem('text', {
-              x:n.x, fill:'#e2e8f0',
+              x:n.x, fill:svgTxt(),
               'font-size':'8', 'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             label.forEach((l, li) => {
@@ -1962,9 +1976,9 @@
       // Nodes — direct cx/cy, with label text
       M_NODES.forEach((n,i) => {
         const m = STUDENTS_MASTERY[si][i];
-        let fill = 'rgba(100,116,139,0.1)', stroke = 'rgba(100,116,139,0.3)', txtFill = '#64748b';
-        if (m === 2) { fill = 'rgba(16,185,129,0.22)'; stroke = '#10b981'; txtFill = '#e2e8f0'; }
-        else if (m === 1) { fill = 'rgba(245,158,11,0.2)'; stroke = '#f59e0b'; txtFill = '#e2e8f0'; }
+        let fill = svgNodeFill('unknown'), stroke = 'rgba(100,116,139,0.3)', txtFill = svgTxtDim();
+        if (m === 2) { fill = svgNodeFill('mastered'); stroke = '#10b981'; txtFill = svgTxt(); }
+        else if (m === 1) { fill = svgNodeFill('partial'); stroke = '#f59e0b'; txtFill = svgTxt(); }
         svg.appendChild(makeSvgElem('circle', {
           cx:n.x, cy:n.y, r:9, fill, stroke, 'stroke-width':1.5
         }));
@@ -2055,7 +2069,7 @@
 
     const bookLabel = makeSvgElem('text', {
       id:'s6booklabel', x:260, y:200,
-      fill:'rgba(255,255,255,0.5)', 'font-size':'13', 'text-anchor':'middle'
+      fill:svgTxt(0.55), 'font-size':'13', 'text-anchor':'middle'
     });
     bookLabel.textContent = '教学资源（大纲 · 教材 · 试卷）';
     svg.appendChild(bookLabel);
@@ -2341,9 +2355,9 @@
     // Nodes
     QN.forEach((n, i) => {
       const s = ns[i];
-      let fill='rgba(100,116,139,0.1)', stroke='rgba(100,116,139,0.28)', txtFill='rgba(255,255,255,0.3)', sw=1.5;
-      if (s===1) { fill='rgba(16,185,129,0.22)'; stroke='#10b981'; txtFill='rgba(255,255,255,0.92)'; sw=2; }
-      if (s===2) { fill='rgba(239,68,68,0.18)';  stroke='#ef4444'; txtFill='rgba(255,255,255,0.92)'; sw=2; }
+      let fill=svgNodeFill('unknown'), stroke='rgba(100,116,139,0.28)', txtFill=svgTxt(0.35), sw=1.5;
+      if (s===1) { fill=svgNodeFill('mastered'); stroke='#10b981'; txtFill=svgTxt(0.92); sw=2; }
+      if (s===2) { fill=svgNodeFill('weak');     stroke='#ef4444'; txtFill=svgTxt(0.92); sw=2; }
 
       // Glow ring for answered nodes
       if (s!==0) {
@@ -2485,6 +2499,13 @@
         btn.textContent = '🌙 夜间';
         localStorage.setItem('edu-theme', 'day');
       }
+      // 重绘当前页SVG（主题切换后颜色需重新渲染）
+      const activeId = document.querySelector('.slide.active')?.id;
+      if (activeId === 's4') animS4Page();
+      else if (activeId === 's5') animS5Intro();
+      else if (activeId === 's6') animS6Graph();
+      else if (activeId === 's_quiz') initQuiz();
+      else if (activeId === 's8') animS8Profiles();
     });
   })();
 </script>
