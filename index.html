@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x5-fullscreen" content="true">
+  <meta name="x5-page-mode" content="app">
   <title>AI 赋能个性化教学 · 汇报演示系统</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,7 +24,7 @@
     body::before {
       content: '';
       position: fixed;
-      inset: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background:
         radial-gradient(ellipse at 15% 50%, rgba(120, 80, 255, 0.18) 0%, transparent 55%),
         radial-gradient(ellipse at 85% 20%, rgba(40, 150, 255, 0.18) 0%, transparent 50%),
@@ -54,6 +57,7 @@
       font-size: 2.8rem;
       font-weight: 700;
       line-height: 1.25;
+      color: #a5b4fc; /* fallback for WeChat WebView */
       background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 45%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -86,7 +90,8 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.055);
+      background: rgba(30, 32, 55, 0.85); /* solid fallback for WeChat */
+      -webkit-backdrop-filter: blur(20px);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 18px;
