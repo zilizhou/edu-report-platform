@@ -2270,10 +2270,16 @@
     const container = document.getElementById('quiz-list');
     if (!container) return;
     container.innerHTML = '';
+    const d = isDay();
+    const cTxt   = d ? 'rgba(15,23,42,0.85)' : 'rgba(255,255,255,.88)';
+    const cSub   = d ? 'rgba(15,23,42,0.52)' : 'rgba(255,255,255,.38)';
+    const bgNone = d ? 'rgba(15,23,42,0.04)'  : 'rgba(255,255,255,0.025)';
+    const brNone = d ? 'rgba(15,23,42,0.12)'  : 'rgba(255,255,255,0.08)';
+
     QUIZ_Qs.forEach((q, qi) => {
       const st = quizState[qi];
-      const bdr = st===1 ? 'rgba(16,185,129,0.55)' : st===2 ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)';
-      const bg  = st===1 ? 'rgba(16,185,129,0.07)' : st===2 ? 'rgba(239,68,68,0.07)' : 'rgba(255,255,255,0.025)';
+      const bdr = st===1 ? 'rgba(16,185,129,0.55)' : st===2 ? 'rgba(239,68,68,0.5)' : brNone;
+      const bg  = st===1 ? 'rgba(16,185,129,0.07)' : st===2 ? 'rgba(239,68,68,0.07)' : bgNone;
 
       const card = document.createElement('div');
       card.style.cssText = `padding:9px 12px; background:${bg}; border:1px solid ${bdr};
@@ -2286,11 +2292,11 @@
       const body = document.createElement('div');
       body.style.flex = '1';
       body.innerHTML = `
-        <div style="font-size:.83rem;color:rgba(255,255,255,.88);font-weight:500;margin-bottom:4px;">${qi+1}. ${q.text}</div>
-        <div style="font-size:.74rem;color:rgba(255,255,255,.38);line-height:1.65;">${q.opts.join('　')}</div>
+        <div style="font-size:.83rem;color:${cTxt};font-weight:500;margin-bottom:4px;">${qi+1}. ${q.text}</div>
+        <div style="font-size:.74rem;color:${cSub};line-height:1.65;">${q.opts.join('　')}</div>
         <div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;">
           ${q.nodes.map(ni=>`<span style="padding:2px 7px;border-radius:100px;font-size:.66rem;
-            background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.28);color:#22d3ee;">
+            background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.28);color:${d?'#0891b2':'#22d3ee'};">
             ${NODES[ni].label}</span>`).join('')}
         </div>`;
       card.appendChild(body);
@@ -2299,9 +2305,13 @@
       const badge = document.createElement('div');
       badge.style.cssText = `width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
         justify-content:center;flex-shrink:0;margin-top:1px;font-size:.95rem;font-weight:700;transition:all .25s;`;
-      if (st===1) { badge.style.background='rgba(16,185,129,0.22)'; badge.style.color='#10b981'; badge.textContent='✓'; }
+      if (st===1) { badge.style.background='rgba(16,185,129,0.22)'; badge.style.color='#059669'; badge.textContent='✓'; }
       else if (st===2) { badge.style.background='rgba(239,68,68,0.22)'; badge.style.color='#ef4444'; badge.textContent='✗'; }
-      else { badge.style.background='rgba(255,255,255,0.05)'; badge.style.color='rgba(255,255,255,.2)'; badge.textContent='?'; }
+      else {
+        badge.style.background = d ? 'rgba(15,23,42,0.07)' : 'rgba(255,255,255,0.05)';
+        badge.style.color = d ? 'rgba(15,23,42,0.3)' : 'rgba(255,255,255,.2)';
+        badge.textContent = '?';
+      }
       card.appendChild(badge);
 
       container.appendChild(card);
@@ -2448,7 +2458,7 @@
         g.appendChild(makeSvgElem('circle', {cx:0, cy:0, r:14, fill, stroke, 'stroke-width':1.5}));
         const t = makeSvgElem('text', {
           x:0, y:0,
-          fill: m === 0 ? '#64748b' : '#e2e8f0',
+          fill: m === 0 ? svgTxtDim() : svgTxt(),
           'font-size':'8.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
         });
         t.textContent = labels[i];
@@ -2504,7 +2514,7 @@
       if (activeId === 's4') animS4Page();
       else if (activeId === 's5') animS5Intro();
       else if (activeId === 's6') animS6Graph();
-      else if (activeId === 's_quiz') initQuiz();
+      else if (activeId === 's_quiz') initQuizSlide();
       else if (activeId === 's8') animS8Profiles();
     });
   })();
