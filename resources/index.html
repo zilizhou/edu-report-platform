@@ -43,7 +43,7 @@
     .stem .badge { background: rgba(96,165,250,.15); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
     .arts .badge { background: rgba(244,114,182,.15); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
     .subject-title .course { font-size: .82rem; color: var(--muted); }
-    .dl-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: .82rem; font-weight: 600; text-decoration: none; transition: all .2s; white-space: nowrap; }
+    .dl-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: .82rem; font-weight: 600; text-decoration: none; transition: all .2s; white-space: nowrap; cursor: pointer; font-family: var(--font); }
     .stem .dl-btn { background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
     .stem .dl-btn:hover { background: rgba(96,165,250,.22); box-shadow: 0 4px 16px rgba(96,165,250,.2); }
     .arts .dl-btn { background: rgba(244,114,182,.12); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
@@ -120,9 +120,9 @@
           </div>
           <span class="badge">STEM</span>
         </div>
-        <a class="dl-btn" href="https://d.zxin.confnew.com/zxnext1959826806593634305/88c42ba7-9cf4-45e3-982b-a1e5d0489654.rar" target="_blank">
-          📦 下载全部资源 ↗
-        </a>
+        <button class="dl-btn" onclick="downloadFile('https://d.zxin.confnew.com/zxnext1959826806593634305/88c42ba7-9cf4-45e3-982b-a1e5d0489654.rar', '理工科课程测试资源.rar', this)">
+          📦 下载全部资源
+        </button>
       </div>
 
       <div class="file-grid">
@@ -235,9 +235,9 @@
           </div>
           <span class="badge">ARTS</span>
         </div>
-        <a class="dl-btn" href="https://d.zxin.confnew.com/zxnext1959826806593634305/a136cee5-a90a-44ff-9b8c-7c97cf4f35e0.rar" target="_blank">
-          📦 下载全部资源 ↗
-        </a>
+        <button class="dl-btn" onclick="downloadFile('https://d.zxin.confnew.com/zxnext1959826806593634305/a136cee5-a90a-44ff-9b8c-7c97cf4f35e0.rar', '文科课程测试资源.rar', this)">
+          📦 下载全部资源
+        </button>
       </div>
 
       <div class="file-grid">
@@ -390,6 +390,34 @@
       let text = dec.decode(buf);
       if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
       return text;
+    }
+
+    // ── 自定义文件名下载 ──
+    async function downloadFile(url, filename, btn) {
+      const origText = btn.innerHTML;
+      btn.innerHTML = '⏳ 下载中…';
+      btn.disabled = true;
+
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const blob = await resp.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+        btn.innerHTML = '✅ 下载完成';
+        setTimeout(() => { btn.innerHTML = origText; btn.disabled = false; }, 2500);
+      } catch (e) {
+        // CORS 不允许时直接跳转（浏览器原生下载，文件名由服务器决定）
+        btn.innerHTML = origText;
+        btn.disabled = false;
+        window.open(url, '_blank');
+      }
     }
 
     async function toggleCsv(toggleEl, path, encoding) {
