@@ -64,7 +64,7 @@
     body.day-mode .slide [style*="color: #fff"] { color: rgba(15,23,42,0.82) !important; }
 
     /* ── 幻灯片径向渐变背景 → 去除，白底更清晰 ── */
-    body.day-mode #s1,body.day-mode #s2,body.day-mode #s3,body.day-mode #s4,
+    body.day-mode #s1,body.day-mode #s_confucius,body.day-mode #s2,body.day-mode #s3,body.day-mode #s4,
     body.day-mode #s5,body.day-mode #s6,body.day-mode #s_quiz,body.day-mode #s8,
     body.day-mode #s9,body.day-mode #s10,body.day-mode #s11,
     body.day-mode #s12,body.day-mode #s13,body.day-mode #s14 { background: none !important; }
@@ -799,6 +799,7 @@
 
     /* ── SLIDE BACKGROUNDS ── */
     #s1  { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
+    #s_confucius { background: radial-gradient(ellipse at 20% 55%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(99,102,241,0.1) 0%, transparent 50%); }
     #s2  { background: radial-gradient(ellipse at 35% 40%, rgba(99,102,241,0.2) 0%, transparent 55%), radial-gradient(ellipse at 75% 65%, rgba(248,113,113,0.12) 0%, transparent 50%); }
     #s3  { background: radial-gradient(ellipse at 25% 60%, rgba(96,40,10,0.2) 0%, transparent 55%), radial-gradient(ellipse at 75% 35%, rgba(30,60,140,0.18) 0%, transparent 50%); }
     #s4  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(16,185,129,0.1) 0%, transparent 50%); }
@@ -991,6 +992,75 @@
       <span>👤 周子力</span>
       <span>🏫 网络空间安全学院</span>
       <span>📅 2026 年 4 月 22 日</span>
+    </div>
+  </section>
+
+  <!-- ══ Slide 1b: 因材施教 · 思想介绍 ══ -->
+  <section class="slide" id="s_confucius">
+    <div style="width:100%; max-width:960px; display:flex; flex-direction:column; gap:18px;">
+
+      <!-- 标题 -->
+      <h2 class="anim" style="font-size:1.85rem; font-weight:800; color:rgba(255,255,255,0.92);
+          -webkit-text-fill-color:rgba(255,255,255,0.92); text-align:left; line-height:1.2; margin:0;">
+        2500 年的教育理想：因材施教
+      </h2>
+
+      <!-- 两列：左图 + 右卡片 -->
+      <div class="anim" style="display:flex; gap:22px; align-items:stretch; animation-delay:.2s;">
+
+        <!-- 左：图片 -->
+        <div style="flex:0 0 300px; border-radius:16px; overflow:hidden;
+             background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+             display:flex; align-items:center; justify-content:center;">
+          <img src="https://d.zxin.confnew.com/zxnext1959826806593634305/96929948-8982-4cbd-9ee0-7ae36d1c7abd.png"
+               alt="孔子讲学图" loading="lazy"
+               style="width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+
+        <!-- 右：三张内容卡片 -->
+        <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
+
+          <!-- 卡片1：核心思想 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+               border-left:3px solid #34d399; border-radius:0 12px 12px 0; padding:14px 18px; flex:1;">
+            <div style="font-size:0.88rem; font-weight:700; color:#34d399; margin-bottom:7px; letter-spacing:0.5px;">
+              核心思想 · Core Idea
+            </div>
+            <div style="font-size:0.82rem; color:rgba(255,255,255,0.78); line-height:1.72; margin-bottom:5px;">
+              根据每个人的性格、志趣与能力特点，给予差异化的教导与培养。
+            </div>
+            <div style="font-size:0.74rem; color:rgba(255,255,255,0.35); font-style:italic;">
+              —— 孔子（Confucius，公元前 551 年 - 公元前 479 年）
+            </div>
+          </div>
+
+          <!-- 卡片2：践行方法 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+               border-left:3px solid #34d399; border-radius:0 12px 12px 0; padding:14px 18px; flex:1;">
+            <div style="font-size:0.88rem; font-weight:700; color:#34d399; margin-bottom:7px; letter-spacing:0.5px;">
+              践行方法 · Methodology
+            </div>
+            <div style="font-size:0.84rem; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:5px; font-style:italic;">
+              「视其所以，观其所由，察其所安」
+            </div>
+            <div style="font-size:0.79rem; color:rgba(255,255,255,0.55); line-height:1.68;">
+              在日常生活中全方位观察，深入了解每一位学生的行为动机与内心所安。
+            </div>
+          </div>
+
+          <!-- 卡片3：教育洞见 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+               border-left:3px solid #34d399; border-radius:0 12px 12px 0; padding:14px 18px; flex:1;">
+            <div style="font-size:0.88rem; font-weight:700; color:#34d399; margin-bottom:7px; letter-spacing:0.5px;">
+              教育洞见 · Insight
+            </div>
+            <div style="font-size:0.8rem; color:rgba(255,255,255,0.65); line-height:1.72;">
+              每个学生都值得被「真正」了解。因材施教不仅是教育的终极理想，也是现代教育中个性化发展的核心基石。
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1780,12 +1850,17 @@
   function svgTxtDim()      { return isDay() ? '#475569' : '#64748b'; }
   function svgNodeFill(type) {
     /* type: 'course'|'mastered'|'partial'|'unknown'|'weak' */
-    if (type==='course')   return isDay() ? 'rgba(16,185,129,0.22)' : 'rgba(16,185,129,0.18)';
-    if (type==='mastered') return isDay() ? 'rgba(16,185,129,0.22)' : 'rgba(16,185,129,0.22)';
-    if (type==='partial')  return isDay() ? 'rgba(245,158,11,0.22)' : 'rgba(245,158,11,0.2)';
-    if (type==='unknown')  return isDay() ? 'rgba(100,116,139,0.12)' : 'rgba(100,116,139,0.1)';
-    if (type==='weak')     return isDay() ? 'rgba(239,68,68,0.18)'  : 'rgba(239,68,68,0.18)';
-    return 'rgba(100,116,139,0.1)';
+    if (type==='course')   return isDay() ? 'rgba(16,185,129,0.18)' : 'rgba(16,185,129,0.18)';
+    if (type==='mastered') return isDay() ? 'rgba(16,185,129,0.18)' : 'rgba(16,185,129,0.22)';
+    if (type==='partial')  return isDay() ? 'rgba(245,158,11,0.18)' : 'rgba(245,158,11,0.2)';
+    if (type==='unknown')  return isDay() ? '#f8fafc'               : 'rgba(100,116,139,0.1)';
+    if (type==='weak')     return isDay() ? 'rgba(239,68,68,0.15)'  : 'rgba(239,68,68,0.18)';
+    return isDay() ? '#f8fafc' : 'rgba(100,116,139,0.1)';
+  }
+  function svgStroke(type) {
+    if (type==='unknown') return isDay() ? 'rgba(100,116,139,0.55)' : 'rgba(100,116,139,0.28)';
+    if (type==='edge')    return isDay() ? 'rgba(100,116,139,0.4)'  : 'rgba(100,116,139,0.18)';
+    return isDay() ? 'rgba(100,116,139,0.55)' : 'rgba(100,116,139,0.25)';
   }
 
   /* ════════════════════════════════════════
@@ -2353,9 +2428,9 @@
     // Edges
     EDGES.forEach(([a,b]) => {
       const sa = ns[a], sb = ns[b];
-      let stroke = 'rgba(100,116,139,0.18)', sw = 1.4, marker = 'url(#arrQ)';
-      if (sa===1 && sb===1) { stroke='rgba(16,185,129,0.45)'; sw=1.8; marker='url(#arrQg)'; }
-      else if (sa===2 || sb===2) { stroke='rgba(239,68,68,0.3)'; sw=1.5; marker='url(#arrQr)'; }
+      let stroke = svgStroke('edge'), sw = 1.4, marker = 'url(#arrQ)';
+      if (sa===1 && sb===1) { stroke='rgba(16,185,129,0.55)'; sw=1.8; marker='url(#arrQg)'; }
+      else if (sa===2 || sb===2) { stroke='rgba(239,68,68,0.4)'; sw=1.5; marker='url(#arrQr)'; }
       svg.appendChild(makeSvgElem('line', {
         x1:QN[a].x, y1:QN[a].y, x2:QN[b].x, y2:QN[b].y,
         stroke, 'stroke-width':sw, 'marker-end':marker
@@ -2365,7 +2440,7 @@
     // Nodes
     QN.forEach((n, i) => {
       const s = ns[i];
-      let fill=svgNodeFill('unknown'), stroke='rgba(100,116,139,0.28)', txtFill=svgTxt(0.35), sw=1.5;
+      let fill=svgNodeFill('unknown'), stroke=svgStroke('unknown'), txtFill=svgTxt(0.65), sw=1.8;
       if (s===1) { fill=svgNodeFill('mastered'); stroke='#10b981'; txtFill=svgTxt(0.92); sw=2; }
       if (s===2) { fill=svgNodeFill('weak');     stroke='#ef4444'; txtFill=svgTxt(0.92); sw=2; }
 
