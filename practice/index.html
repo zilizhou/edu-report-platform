@@ -173,8 +173,11 @@ body.day-mode .theme-btn {
 }
 body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
     body.day-mode { background: #f0f4ff !important; color: #0f172a !important; }
-body.day-mode .topbar { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
-body.day-mode .topbar a, body.day-mode .topbar span { color: rgba(15,23,42,0.55) !important; }
+/* nav（页面实际用 <nav> 标签，非 .topbar） */
+body.day-mode nav { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode nav a, body.day-mode .nav-title { color: rgba(15,23,42,0.7) !important; -webkit-text-fill-color: rgba(15,23,42,0.7) !important; }
+body.day-mode .src-link { color: rgba(15,23,42,0.5) !important; border-color: rgba(0,0,0,0.12) !important; }
+body.day-mode .nav-badge { color: #059669 !important; background: rgba(5,150,105,0.1) !important; border-color: rgba(5,150,105,0.2) !important; }
 body.day-mode .layout { background: #f0f4ff !important; }
 body.day-mode .toc { background: #f8faff !important; border-right-color: rgba(0,0,0,0.08) !important; }
 body.day-mode .toc a { color: rgba(15,23,42,0.5) !important; }
@@ -184,15 +187,57 @@ body.day-mode .container { color: #0f172a !important; }
 body.day-mode h1, body.day-mode h2, body.day-mode h3 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; background: none !important; }
 body.day-mode p, body.day-mode li { color: rgba(15,23,42,0.7) !important; }
 body.day-mode .chapter { border-color: rgba(0,0,0,0.08) !important; }
-body.day-mode .chapter-title { background: rgba(0,0,0,0.02) !important; }
+body.day-mode .chapter-title { background: rgba(0,0,0,0.02) !important; color: #0f172a !important; border-left-color: #1d4ed8 !important; }
+body.day-mode .chapter-title .ch-num { color: #1d4ed8 !important; background: rgba(29,78,216,0.08) !important; border-color: rgba(29,78,216,0.15) !important; }
 body.day-mode .step { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.08) !important; }
 body.day-mode .step-header { background: rgba(0,0,0,0.02) !important; }
 body.day-mode .step-num { color: #1d4ed8 !important; background: rgba(29,78,216,0.1) !important; }
-body.day-mode .img-wrap { background: #f8faff !important; border-color: rgba(0,0,0,0.08) !important; }
-body.day-mode .img-caption { color: rgba(15,23,42,0.45) !important; }
+/* feat-item（"为什么用 Workbuddy" 等功能列表） */
+body.day-mode .feat-item { color: rgba(15,23,42,0.65) !important; background: rgba(15,23,42,0.03) !important; border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .feat-item strong { color: #0f172a !important; }
+/* substep */
+body.day-mode .substep-body { color: rgba(15,23,42,0.65) !important; }
+body.day-mode .substep-body strong { color: #0f172a !important; }
 body.day-mode .substep-num { background: rgba(29,78,216,0.12) !important; color: #1d4ed8 !important; }
-body.day-mode code { background: rgba(0,0,0,0.06) !important; color: #1d4ed8 !important; }
+/* info / output boxes */
+body.day-mode .info-box { color: rgba(15,23,42,0.68) !important; background: rgba(99,102,241,0.06) !important; border-color: rgba(99,102,241,0.18) !important; }
+body.day-mode .info-box strong { color: #3730a3 !important; }
+body.day-mode .output-box { color: rgba(15,23,42,0.68) !important; background: rgba(5,150,105,0.06) !important; border-color: rgba(5,150,105,0.18) !important; }
+body.day-mode .output-box strong { color: #059669 !important; }
+/* flow diagram */
+body.day-mode .flow-box { color: rgba(15,23,42,0.7) !important; background: rgba(15,23,42,0.04) !important; border-color: rgba(0,0,0,0.1) !important; }
+body.day-mode .flow-arrow { color: rgba(15,23,42,0.25) !important; }
+/* download links */
+body.day-mode .dl-link { color: rgba(15,23,42,0.75) !important; background: rgba(245,158,11,0.04) !important; border-color: rgba(245,158,11,0.2) !important; }
+body.day-mode .dl-link .dl-ext { color: rgba(15,23,42,0.4) !important; border-color: rgba(0,0,0,0.1) !important; }
+/* ext link */
+body.day-mode .ext-link { color: #059669 !important; background: rgba(5,150,105,0.07) !important; border-color: rgba(5,150,105,0.2) !important; }
+/* framework card */
+body.day-mode .framework-card { background: rgba(99,102,241,0.05) !important; border-color: rgba(99,102,241,0.18) !important; }
+body.day-mode .framework-card h3 { color: #3730a3 !important; }
+/* tip chip */
+body.day-mode .tip { color: #059669 !important; background: rgba(5,150,105,0.1) !important; border-color: rgba(5,150,105,0.2) !important; }
+/* page header */
+body.day-mode .page-header { border-bottom-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .page-header .tag { color: #059669 !important; background: rgba(5,150,105,0.08) !important; border-color: rgba(5,150,105,0.18) !important; }
+body.day-mode .meta { color: rgba(15,23,42,0.5) !important; }
+/* img */
+body.day-mode .img-wrap { background: #f8faff !important; border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .img-caption { color: rgba(15,23,42,0.45) !important; background: rgba(0,0,0,0.02) !important; border-top-color: rgba(0,0,0,0.06) !important; }
+/* step strong */
+body.day-mode .step strong { color: #0f172a !important; }
+body.day-mode code { background: rgba(0,0,0,0.06) !important; color: #1d4ed8 !important; border-color: rgba(0,0,0,0.1) !important; }
 body.day-mode strong { color: #0f172a !important; }
+/* 内联白色文字 → 深色 */
+body.day-mode [style*="color:rgba(255,255,255"],
+body.day-mode [style*="color: rgba(255,255,255"] { color: rgba(15,23,42,0.7) !important; }
+body.day-mode [style*="color:#fff"],
+body.day-mode [style*="color: #fff"] { color: rgba(15,23,42,0.82) !important; }
+/* 内联半透明白色背景 → 浅灰 */
+body.day-mode [style*="background:rgba(255,255,255,0.0"],
+body.day-mode [style*="background: rgba(255,255,255,0.0"] { background: rgba(15,23,42,0.03) !important; }
+body.day-mode [style*="border-top:1px solid var(--border)"],
+body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgba(0,0,0,0.08) !important; }
   </style>
 </head>
 <body>

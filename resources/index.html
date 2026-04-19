@@ -108,18 +108,40 @@ body.day-mode .theme-btn {
 }
 body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
     body.day-mode { background: #f0f4ff !important; color: #0f172a !important; }
-body.day-mode .topbar { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
-body.day-mode .topbar a, body.day-mode .topbar span { color: rgba(15,23,42,0.55) !important; }
+/* nav（<nav> 标签，非 .topbar） */
+body.day-mode nav { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode nav a { color: rgba(15,23,42,0.55) !important; }
+body.day-mode .nav-title { color: rgba(15,23,42,0.8) !important; }
+body.day-mode .nav-badge { color: #92400e !important; background: rgba(245,158,11,0.1) !important; border-color: rgba(245,158,11,0.2) !important; }
 body.day-mode h1, body.day-mode h2 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; background: none !important; }
-body.day-mode .section-header { color: rgba(15,23,42,0.35) !important; }
-body.day-mode .file-card { background: rgba(255,255,255,0.92) !important; border-color: rgba(0,0,0,0.1) !important; color: #0f172a !important; }
-body.day-mode .file-card h3, body.day-mode .file-name { color: #0f172a !important; }
-body.day-mode .file-desc, body.day-mode .file-meta { color: rgba(15,23,42,0.55) !important; }
-body.day-mode .file-tag { background: rgba(0,0,0,0.06) !important; color: rgba(15,23,42,0.55) !important; }
-body.day-mode .preview-table { background: rgba(255,255,255,0.95) !important; border-color: rgba(0,0,0,0.1) !important; }
-body.day-mode .preview-table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
-body.day-mode .preview-table td { border-color: rgba(0,0,0,0.07) !important; color: rgba(15,23,42,0.7) !important; }
-body.day-mode .download-bar { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode p { color: rgba(15,23,42,0.7) !important; }
+/* page header */
+body.day-mode .page-header { border-bottom-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .page-tag { color: #92400e !important; background: rgba(245,158,11,0.08) !important; border-color: rgba(245,158,11,0.18) !important; }
+/* subject headers */
+body.day-mode .subject-header.stem { background: rgba(96,165,250,0.06) !important; border-color: rgba(96,165,250,0.2) !important; }
+body.day-mode .subject-header.arts { background: rgba(244,114,182,0.06) !important; border-color: rgba(244,114,182,0.2) !important; }
+body.day-mode .subject-title .course { color: rgba(15,23,42,0.5) !important; }
+/* file card */
+body.day-mode .file-card { background: rgba(255,255,255,0.92) !important; border-color: rgba(0,0,0,0.1) !important; }
+body.day-mode .file-card:hover { border-color: rgba(0,0,0,0.18) !important; }
+body.day-mode .file-name { color: #0f172a !important; }
+body.day-mode .file-desc { color: rgba(15,23,42,0.58) !important; }
+body.day-mode .meta-tag { color: rgba(15,23,42,0.45) !important; background: rgba(15,23,42,0.05) !important; border-color: rgba(0,0,0,0.1) !important; }
+/* csv toggle */
+body.day-mode .csv-toggle { background: rgba(0,0,0,0.02) !important; border-top-color: rgba(0,0,0,0.07) !important; }
+body.day-mode .csv-toggle:hover { background: rgba(0,0,0,0.04) !important; }
+body.day-mode .csv-toggle span { color: #3730a3 !important; }
+/* csv preview / table */
+body.day-mode .csv-preview { background: rgba(99,102,241,0.03) !important; border-top-color: rgba(99,102,241,0.12) !important; }
+body.day-mode .csv-loading { color: rgba(15,23,42,0.45) !important; }
+body.day-mode .csv-note { color: rgba(15,23,42,0.3) !important; }
+body.day-mode thead tr { background: rgba(99,102,241,0.08) !important; }
+body.day-mode th { color: #3730a3 !important; border-bottom-color: rgba(99,102,241,0.15) !important; }
+body.day-mode td { color: rgba(15,23,42,0.7) !important; border-bottom-color: rgba(0,0,0,0.05) !important; }
+body.day-mode tbody tr:hover td { background: rgba(15,23,42,0.03) !important; color: rgba(15,23,42,0.85) !important; }
+/* section divider */
+body.day-mode .section-divider { background: linear-gradient(90deg,transparent,rgba(15,23,42,0.1),transparent) !important; }
   </style>
 </head>
 <body>
