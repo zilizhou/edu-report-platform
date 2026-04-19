@@ -822,7 +822,11 @@
     .hl-a { color: #fbbf24; -webkit-text-fill-color: #fbbf24; }
 
     /* ── SLIDE BACKGROUNDS ── */
-    #s1  { background: radial-gradient(ellipse at 30% 40%, rgba(120,80,255,0.2) 0%, transparent 60%), radial-gradient(ellipse at 75% 65%, rgba(40,120,255,0.15) 0%, transparent 55%); }
+    #s1  {
+      background:
+        linear-gradient(rgba(13,15,26,0.62), rgba(13,15,26,0.62)),
+        url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat;
+    }
     #s_confucius { background: radial-gradient(ellipse at 20% 55%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(99,102,241,0.1) 0%, transparent 50%); }
     #s3  { background: radial-gradient(ellipse at 25% 60%, rgba(96,40,10,0.2) 0%, transparent 55%), radial-gradient(ellipse at 75% 35%, rgba(30,60,140,0.18) 0%, transparent 50%); }
     #s4  { background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(16,185,129,0.1) 0%, transparent 50%); }
@@ -1001,24 +1005,18 @@
 <div class="stage" id="stage">
 
   <!-- ══ Slide 1: Cover ══ -->
-  <section class="slide active" id="s1" style="overflow:hidden;">
-    <!-- 背景图（绝对定位，不影响 flex 布局） -->
-    <div style="position:absolute; inset:0; z-index:0;
-         background-image:url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png');
-         background-size:cover; background-position:center;
-         filter:blur(3px) brightness(0.35) saturate(0.85);
-         transform:scale(1.08); pointer-events:none;"></div>
-    <!-- 内容层（相对定位提升层级，不破坏 flex） -->
-    <div class="tag anim" style="--tag-color: #a5b4fc; position:relative; z-index:1; font-size:0.9rem;">因材施教 · AI Practice · 2026</div>
-    <h1 class="slide-title anim" style="font-size:3.2rem; max-width:900px; position:relative; z-index:1;">
+  <section class="slide active" id="s1">
+    <!-- 内容层（背景已移至 CSS，无需额外 div） -->
+    <div class="tag anim" style="--tag-color: #a5b4fc; font-size:0.9rem;">因材施教 · AI Practice · 2026</div>
+    <h1 class="slide-title anim" style="font-size:3.2rem; max-width:900px;">
       因材施教的 AI 实践<br>
       <span style="font-size:2.2rem;">从知识图谱到个性化教学的探索之路</span>
     </h1>
-    <div class="cover-divider anim" style="position:relative; z-index:1;"></div>
-    <p class="cover-quote anim" style="position:relative; z-index:1; font-size:1.18rem;">
+    <div class="cover-divider anim"></div>
+    <p class="cover-quote anim" style="font-size:1.18rem;">
       让 AI 与孔子「因材施教」思想相结合，从圣人故里发扬光大
     </p>
-    <div class="cover-meta anim" style="position:relative; z-index:1; font-size:1.05rem;">
+    <div class="cover-meta anim" style="font-size:1.05rem;">
       <span>👤 周子力</span>
       <span>🏫 网络空间安全学院</span>
       <span>📅 2026 年 4 月 22 日</span>
