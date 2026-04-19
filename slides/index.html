@@ -69,12 +69,13 @@
     body.day-mode #s9,body.day-mode #s10,body.day-mode #s11,
     body.day-mode #s12,body.day-mode #s13,body.day-mode #s14 { background: none !important; }
 
-    /* ── 幻灯片标题渐变 → 深蓝 ── */
+    /* ── 幻灯片标题 → 深蓝纯色 ── */
     body.day-mode .slide .slide-title {
-      background: linear-gradient(135deg, #1e3a8a, #3730a3) !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+      -webkit-text-fill-color: #1e3a8a !important;
+      color: #1e3a8a !important;
     }
 
     /* ── Cover 元素 ── */
@@ -998,7 +999,7 @@
 
     <!-- 标题行 -->
     <div class="tag anim" style="--tag-color:#a5b4fc; margin-bottom:6px;">理想与现实 · The Gap</div>
-    <h2 class="slide-title anim" style="--title-grad:linear-gradient(135deg,#a5b4fc,#f87171); font-size:1.9rem; margin-bottom:16px;">
+    <h2 class="slide-title anim" style="background:none; -webkit-text-fill-color:#c7d2fe; color:#c7d2fe; font-size:1.9rem; margin-bottom:16px;">
       2500年的教育理想，为何今天难以落地？
     </h2>
 
@@ -1013,10 +1014,10 @@
         </div>
 
         <div class="char-reveal" style="margin:0;">
-          <span class="char-big" style="font-size:3.2rem; background:linear-gradient(150deg,#e0e7ff,#a5b4fc,#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 20px rgba(129,140,248,0.3))">因</span>
-          <span class="char-big" style="font-size:3.2rem; background:linear-gradient(150deg,#e0e7ff,#a5b4fc,#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 20px rgba(129,140,248,0.3))">材</span>
-          <span class="char-big" style="font-size:3.2rem; background:linear-gradient(150deg,#e0e7ff,#a5b4fc,#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 20px rgba(129,140,248,0.3))">施</span>
-          <span class="char-big" style="font-size:3.2rem; background:linear-gradient(150deg,#e0e7ff,#a5b4fc,#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 20px rgba(129,140,248,0.3))">教</span>
+          <span class="char-big" style="font-size:3.2rem; background:none; -webkit-text-fill-color:#a5b4fc; color:#a5b4fc; filter:drop-shadow(0 0 20px rgba(129,140,248,0.35))">因</span>
+          <span class="char-big" style="font-size:3.2rem; background:none; -webkit-text-fill-color:#a5b4fc; color:#a5b4fc; filter:drop-shadow(0 0 20px rgba(129,140,248,0.35))">材</span>
+          <span class="char-big" style="font-size:3.2rem; background:none; -webkit-text-fill-color:#a5b4fc; color:#a5b4fc; filter:drop-shadow(0 0 20px rgba(129,140,248,0.35))">施</span>
+          <span class="char-big" style="font-size:3.2rem; background:none; -webkit-text-fill-color:#a5b4fc; color:#a5b4fc; filter:drop-shadow(0 0 20px rgba(129,140,248,0.35))">教</span>
         </div>
 
         <div style="font-size:0.78rem; color:rgba(165,180,252,0.65); letter-spacing:1.5px; padding:4px 14px; border:1px solid rgba(129,140,248,0.22); border-radius:20px; align-self:flex-start;">
