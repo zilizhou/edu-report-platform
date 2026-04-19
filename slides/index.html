@@ -32,12 +32,8 @@
     body.day-mode .slide-counter { color: rgba(15,23,42,0.4) !important; }
     body.day-mode .stage { background: #eef1f8 !important; }
     body.day-mode .slide { background: #ffffff !important; color: #0f172a !important; }
-    body.day-mode #s1 {
-      background:
-        linear-gradient(rgba(240,244,255,0.72), rgba(240,244,255,0.72)),
-        url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat !important;
-      color: #0f172a !important;
-    }
+    body.day-mode #s1 { background: rgba(240,244,255,0.72) !important; color: #0f172a !important; }
+    body.day-mode #s1::before { filter: blur(4px) brightness(1.05); }
     body.day-mode .slide-subtitle { color: rgba(15,23,42,0.55) !important; }
     /* 内联白色文字 → 深色 */
     body.day-mode .slide [style*="color:rgba(255,255,255"],
@@ -828,10 +824,14 @@
     .hl-a { color: #fbbf24; -webkit-text-fill-color: #fbbf24; }
 
     /* ── SLIDE BACKGROUNDS ── */
-    #s1  {
-      background:
-        linear-gradient(rgba(13,15,26,0.62), rgba(13,15,26,0.62)),
-        url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat;
+    #s1  { background: rgba(13,15,26,0.62); overflow: hidden; }
+    #s1::before {
+      content: '';
+      position: absolute;
+      inset: -12px;   /* 留余量防虚化边缘露白 */
+      background: url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat;
+      filter: blur(4px);
+      z-index: 0;
     }
     #s_confucius { background: radial-gradient(ellipse at 20% 55%, rgba(52,211,153,0.14) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(99,102,241,0.1) 0%, transparent 50%); }
     #s3  { background: radial-gradient(ellipse at 25% 60%, rgba(96,40,10,0.2) 0%, transparent 55%), radial-gradient(ellipse at 75% 35%, rgba(30,60,140,0.18) 0%, transparent 50%); }
@@ -1012,20 +1012,22 @@
 
   <!-- ══ Slide 1: Cover ══ -->
   <section class="slide active" id="s1">
-    <!-- 内容层（背景已移至 CSS，无需额外 div） -->
-    <div class="tag anim" style="--tag-color: #a5b4fc; font-size:0.9rem;">因材施教 · AI Practice · 2026</div>
-    <h1 class="slide-title anim" style="font-size:3.2rem; max-width:900px;">
-      因材施教的 AI 实践<br>
-      <span style="font-size:2.2rem;">从知识图谱到个性化教学的探索之路</span>
-    </h1>
-    <div class="cover-divider anim"></div>
-    <p class="cover-quote anim" style="font-size:1.18rem;">
-      让 AI 与孔子「因材施教」思想相结合，从圣人故里发扬光大
-    </p>
-    <div class="cover-meta anim" style="font-size:1.05rem;">
-      <span>👤 周子力</span>
-      <span>🏫 网络空间安全学院</span>
-      <span>📅 2026 年 4 月 22 日</span>
+    <!-- 内容层（z-index:1 浮于 ::before 背景之上） -->
+    <div style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:24px; width:100%;">
+      <div class="tag anim" style="--tag-color: #a5b4fc; font-size:0.9rem;">因材施教 · AI Practice · 2026</div>
+      <h1 class="slide-title anim" style="font-size:3.2rem; max-width:900px;">
+        因材施教的 AI 实践<br>
+        <span style="font-size:2.2rem;">从知识图谱到个性化教学的探索之路</span>
+      </h1>
+      <div class="cover-divider anim"></div>
+      <p class="cover-quote anim" style="font-size:1.18rem;">
+        让 AI 与孔子「因材施教」思想相结合，从圣人故里发扬光大
+      </p>
+      <div class="cover-meta anim" style="font-size:1.05rem;">
+        <span>👤 周子力</span>
+        <span>🏫 网络空间安全学院</span>
+        <span>📅 2026 年 4 月 22 日</span>
+      </div>
     </div>
   </section>
 
