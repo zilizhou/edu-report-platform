@@ -3,2572 +3,548 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>技能文档 · AI 教学辅助平台</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
+  <title>技能文档 · AI 赋能个性化教学</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --bg: #0d0f1a;
-      --bg2: #131624;
-      --card: rgba(255,255,255,0.05);
-      --border: rgba(255,255,255,0.1);
-      --text: #e8eaf6;
-      --muted: rgba(255,255,255,0.45);
+      --bg: #0d0f1a; --bg2: #131624;
+      --card: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6; --muted: rgba(255,255,255,0.45);
+      --green: #34d399; --indigo: #818cf8; --amber: #fbbf24;
+      --stem: #60a5fa; --arts: #f472b6;
       --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
     }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    /* ── Nav ── */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 52px; background: rgba(13,15,26,.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    nav a.back { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    nav a.back:hover { color: var(--text); }
+    .nav-title { font-size: .9rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .nav-badge { padding: 2px 10px; background: rgba(129,140,248,.12); border: 1px solid rgba(129,140,248,.25); border-radius: 100px; font-size: .68rem; color: var(--indigo); letter-spacing: 1px; }
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 52px;
-      background: rgba(13,15,26,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 50;
-    }
+    /* ── Container ── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 44px 40px 100px; width: 100%; }
 
-    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    nav a:hover { color: var(--text); }
-    .nav-title { font-size: 0.9rem; font-weight: 600; }
+    /* ── Page header ── */
+    .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .page-tag { display: inline-block; padding: 3px 12px; background: rgba(129,140,248,.1); border: 1px solid rgba(129,140,248,.2); border-radius: 100px; font-size: .72rem; color: var(--indigo); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
+    .page-header h1 { font-size: 1.9rem; font-weight: 700; background: linear-gradient(135deg,#c7d2fe,#818cf8 50%,#6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+    .page-header p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
 
-    .layout {
-      display: flex;
-      flex: 1;
-      height: calc(100vh - 52px);
-    }
+    /* ── Subject section ── */
+    .subject { margin-bottom: 56px; }
+    .subject-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 14px; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .subject-header.stem { background: rgba(96,165,250,.07); border: 1px solid rgba(96,165,250,.2); border-left: 4px solid var(--stem); }
+    .subject-header.arts { background: rgba(244,114,182,.07); border: 1px solid rgba(244,114,182,.2); border-left: 4px solid var(--arts); }
+    .subject-meta { display: flex; align-items: center; gap: 10px; }
+    .subject-meta h2 { font-size: 1.12rem; font-weight: 700; }
+    .stem .subject-meta h2 { color: var(--stem); }
+    .arts .subject-meta h2 { color: var(--arts); }
+    .s-badge { padding: 3px 10px; border-radius: 100px; font-size: .7rem; font-weight: 600; letter-spacing: 1px; }
+    .stem .s-badge { background: rgba(96,165,250,.15); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
+    .arts .s-badge { background: rgba(244,114,182,.15); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
+    .subject-meta .sub-info { font-size: .82rem; color: var(--muted); }
+    .dl-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: .82rem; font-weight: 600; cursor: pointer; font-family: var(--font); transition: all .2s; white-space: nowrap; }
+    .stem .dl-btn { background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
+    .stem .dl-btn:hover:not(:disabled) { background: rgba(96,165,250,.22); box-shadow: 0 4px 16px rgba(96,165,250,.2); }
+    .arts .dl-btn { background: rgba(244,114,182,.12); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
+    .arts .dl-btn:hover:not(:disabled) { background: rgba(244,114,182,.22); box-shadow: 0 4px 16px rgba(244,114,182,.2); }
+    .dl-btn:disabled { opacity: .6; cursor: not-allowed; }
 
-    /* ── Sidebar ── */
-    .sidebar {
-      width: 300px;
-      flex-shrink: 0;
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-      overflow-y: auto;
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    /* ── Skill grid ── */
+    .skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
 
-    .sidebar-title {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 4px 8px 10px;
-    }
+    /* ── Skill card ── */
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; transition: border-color .2s, box-shadow .2s; }
+    .skill-card:hover { border-color: rgba(255,255,255,.18); box-shadow: 0 4px 20px rgba(0,0,0,.3); }
+    .skill-head { display: flex; align-items: flex-start; gap: 12px; }
+    .skill-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 1px; }
+    .skill-info { flex: 1; }
+    .skill-name { font-size: .92rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .skill-id { font-size: .7rem; color: rgba(255,255,255,.28); font-family: monospace; margin-bottom: 6px; }
+    .skill-desc { font-size: .8rem; color: var(--muted); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .skill-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.06); }
+    .skill-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .skill-tag { font-size: .67rem; padding: 2px 7px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 4px; color: rgba(255,255,255,.38); }
+    .view-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 6px; font-size: .76rem; font-weight: 500; cursor: pointer; font-family: var(--font); transition: all .2s; background: rgba(129,140,248,.1); border: 1px solid rgba(129,140,248,.25); color: var(--indigo); white-space: nowrap; }
+    .view-btn:hover { background: rgba(129,140,248,.2); border-color: rgba(129,140,248,.4); }
 
-    .skill-card {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: transparent;
-      text-align: left;
-      color: var(--text);
-      font-family: var(--font);
-      width: 100%;
-    }
+    /* ── Modal ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal { background: #131624; border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 820px; max-height: calc(100vh - 48px); display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px); transition: transform .2s; }
+    .modal-overlay.show .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .modal-title { font-size: .95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .modal-close { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,.08); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--muted); transition: all .2s; font-family: var(--font); }
+    .modal-close:hover { background: rgba(255,255,255,.14); color: var(--text); }
+    .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; }
+    .modal-loading { text-align: center; padding: 40px; color: var(--muted); font-size: .88rem; }
 
-    .skill-card:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.2);
-    }
+    /* ── Markdown rendered styles ── */
+    .md-content h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .md-content h2 { font-size: 1.15rem; font-weight: 700; color: var(--indigo); margin: 24px 0 12px; }
+    .md-content h3 { font-size: .98rem; font-weight: 600; color: rgba(255,255,255,.8); margin: 16px 0 8px; }
+    .md-content h4 { font-size: .88rem; font-weight: 600; color: rgba(255,255,255,.7); margin: 12px 0 6px; }
+    .md-content p { font-size: .86rem; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 10px; }
+    .md-content ul, .md-content ol { padding-left: 20px; margin-bottom: 10px; }
+    .md-content li { font-size: .86rem; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 3px; }
+    .md-content strong { color: rgba(255,255,255,.85); }
+    .md-content em { color: rgba(255,255,255,.6); font-style: italic; }
+    .md-content code { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 4px; padding: 1px 6px; font-size: .82em; font-family: 'JetBrains Mono','Fira Code',monospace; color: #a5b4fc; }
+    .md-content pre { background: rgba(0,0,0,.3); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 12px 0; }
+    .md-content pre code { background: none; border: none; padding: 0; font-size: .82rem; color: #e2e8f0; }
+    .md-content blockquote { border-left: 3px solid var(--indigo); background: rgba(129,140,248,.06); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 12px 0; }
+    .md-content blockquote p { margin: 0; color: rgba(255,255,255,.55); }
+    .md-content table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .82rem; }
+    .md-content th { background: rgba(129,140,248,.12); color: var(--indigo); padding: 8px 12px; text-align: left; border-bottom: 1px solid rgba(129,140,248,.2); font-weight: 600; }
+    .md-content td { padding: 7px 12px; color: rgba(255,255,255,.6); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .md-content tr:last-child td { border-bottom: none; }
+    .md-content a { color: var(--green); text-decoration: none; }
+    .md-content a:hover { text-decoration: underline; }
+    .md-content hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
-    .skill-card.active {
-      background: rgba(129,140,248,0.1);
-      border-color: rgba(129,140,248,0.4);
-    }
+    /* divider */
+    .section-divider { height: 1px; background: linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent); margin: 8px 0 28px; }
 
-    .skill-card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .skill-icon { font-size: 1.4rem; flex-shrink: 0; }
-
-    .skill-name {
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .skill-desc {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .skill-tag {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 2px 9px;
-      border-radius: 100px;
-      font-size: 0.68rem;
-      background: rgba(129,140,248,0.12);
-      color: #a5b4fc;
-      border: 1px solid rgba(129,140,248,0.25);
-    }
-
-    /* ── Content panel ── */
-    .content-panel {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content-header {
-      padding: 24px 36px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 10;
-    }
-
-    .content-title-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .content-big-icon { font-size: 2rem; }
-
-    .content-title { font-size: 1.4rem; font-weight: 700; }
-
-    .content-subtitle {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-    .btn-dl {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      background: rgba(129,140,248,0.12);
-      border: 1px solid rgba(129,140,248,0.35);
-      border-radius: 8px;
-      color: #a5b4fc;
-      font-size: 0.82rem;
-      text-decoration: none;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-
-    .btn-dl:hover { background: rgba(129,140,248,0.22); }
-
-    /* ── Markdown rendering ── */
-    .md-body {
-      padding: 32px 36px 48px;
-      max-width: 860px;
-      line-height: 1.75;
-    }
-
-    .md-body h1 { font-size: 1.8rem; margin-bottom: 16px; color: #c7d2fe; }
-    .md-body h2 { font-size: 1.3rem; margin: 32px 0 12px; color: #a5b4fc; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-    .md-body h3 { font-size: 1.05rem; margin: 20px 0 8px; color: #818cf8; }
-    .md-body h4 { font-size: 0.95rem; margin: 16px 0 6px; color: #93c5fd; }
-
-    .md-body p { margin-bottom: 12px; color: rgba(255,255,255,0.75); font-size: 0.92rem; }
-
-    .md-body ul, .md-body ol {
-      padding-left: 24px;
-      margin-bottom: 12px;
-    }
-
-    .md-body li {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.9rem;
-      margin-bottom: 5px;
-    }
-
-    .md-body code {
-      background: rgba(129,140,248,0.12);
-      border: 1px solid rgba(129,140,248,0.2);
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-size: 0.85em;
-      color: #a5b4fc;
-      font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
-    }
-
-    .md-body pre {
-      background: rgba(0,0,0,0.4);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-      overflow-x: auto;
-      margin: 16px 0;
-    }
-
-    .md-body pre code {
-      background: none;
-      border: none;
-      padding: 0;
-      color: #c7d2fe;
-      font-size: 0.83rem;
-      white-space: pre;
-    }
-
-    .md-body table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0;
-      font-size: 0.85rem;
-    }
-
-    .md-body th {
-      background: rgba(129,140,248,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 8px 12px;
-      text-align: left;
-      color: #a5b4fc;
-    }
-
-    .md-body td {
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 7px 12px;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .md-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-    .md-body blockquote {
-      border-left: 3px solid #818cf8;
-      padding-left: 16px;
-      margin: 16px 0;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .md-body hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 24px 0;
-    }
-
-    .md-body strong { color: rgba(255,255,255,0.9); }
-
-    /* Empty state */
-    .empty-state {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: var(--muted);
-      padding: 40px;
-    }
-
-    .empty-state .big { font-size: 3rem; }
-    .empty-state p { font-size: 0.9rem; text-align: center; }
-
-    @media (max-width: 760px) {
-      .layout { flex-direction: column; }
-      .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-      .content-header { padding: 16px 20px; }
-      .md-body { padding: 20px; }
+    @media (max-width: 640px) {
+      .container { padding: 28px 16px 60px; }
+      .skill-grid { grid-template-columns: 1fr; }
+      .subject-header { flex-direction: column; align-items: flex-start; }
+      .modal { max-height: calc(100vh - 24px); }
+      .modal-body { padding: 20px 18px; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="../index.html">← 返回首页</a>
-  <span class="nav-title">⚡ 技能文档中心</span>
-  <span style="font-size:0.78rem;color:var(--muted);">6 个技能文档</span>
-</nav>
-
-<div class="layout">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-title">AI 教学辅助技能</div>
-    <button class="skill-card active" onclick="selectSkill(0)" id="card-0">
-      <div class="skill-card-header">
-        <span class="skill-icon">🗺️</span>
-        <span class="skill-name">课程知识图谱构建</span>
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">技能文档</div>
+        <button class="modal-close" onclick="closeModalDirect()">✕</button>
       </div>
-      <div class="skill-desc">从教学大纲、教案、PPT、电子书籍等教学资源中自动抽取知识点，建立关联关系，输出三元组 CSV</div>
-      <span class="skill-tag">course-knowledge-graph</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(1)" id="card-1">
-      <div class="skill-card-header">
-        <span class="skill-icon">📝</span>
-        <span class="skill-name">试卷知识点标注</span>
+      <div class="modal-body">
+        <div class="md-content" id="modalContent"><div class="modal-loading">加载中…</div></div>
       </div>
-      <div class="skill-desc">对作业、试卷等文档中的题目逐题分析，自动标注知识点、难度等级与认知层次，输出结构化 CSV</div>
-      <span class="skill-tag">exam-question-tagging</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(2)" id="card-2">
-      <div class="skill-card-header">
-        <span class="skill-icon">🎓</span>
-        <span class="skill-name">学生知识画像构建</span>
-      </div>
-      <div class="skill-desc">根据成绩单（总分/大题分/小题分）为每位学生构建知识点维度的学习画像，含掌握等级与风险指数</div>
-      <span class="skill-tag">student-knowledge-profiling</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(3)" id="card-3">
-      <div class="skill-card-header">
-        <span class="skill-icon">📚</span>
-        <span class="skill-name">个性化作业推荐</span>
-      </div>
-      <div class="skill-desc">结合学生知识画像与课程知识图谱，追溯薄弱根因节点，为每位学生生成满分 100 分的差异化作业</div>
-      <span class="skill-tag">personalized-homework</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(4)" id="card-4">
-      <div class="skill-card-header">
-        <span class="skill-icon">🔍</span>
-        <span class="skill-name">个性化资源推荐</span>
-      </div>
-      <div class="skill-desc">按掌握等级和知识关联分析，为大学生推荐多模态学习资源（视频/文章/工具/论文），含前置依赖分析</div>
-      <span class="skill-tag">personalized-resources</span>
-    </button>
-    <button class="skill-card" onclick="selectSkill(5)" id="card-5">
-      <div class="skill-card-header">
-        <span class="skill-icon">🤖</span>
-        <span class="skill-name">AI 私人助教</span>
-      </div>
-      <div class="skill-desc">将大模型变成大学生的 AI 私人助教，支持自由问答、出题测验、学习计划、导师对话四种辅导模式</div>
-      <span class="skill-tag">ai-personal-tutor</span>
-    </button>
+    </div>
   </div>
 
-  <!-- Content panel -->
-  <div class="content-panel" id="contentPanel">
-    <div class="empty-state" id="emptyState" style="display:none;">
-      <div class="big">⚡</div>
-      <p>从左侧选择一个技能文档查看详情</p>
+  <nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+    <div class="nav-title">技能文档 <span class="nav-badge">SKILLS DOCS</span></div>
+    <div style="width:80px"></div>
+  </nav>
+
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-tag">Skills Documentation</div>
+      <h1>AI 赋能技能文档</h1>
+      <p>包含理工科与文科两套完整的 AI 赋能技能包，共 10 个技能，覆盖从知识图谱构建、学情分析到个性化教学的完整链路。<br>点击「查看文档」可在线浏览每个技能的完整说明。</p>
     </div>
-    <div class="content-header" id="contentHeader">
-      <div class="content-title-row">
-        <span class="content-big-icon" id="contentIcon">🤖</span>
-        <div>
-          <div class="content-title" id="contentTitle">AI 私人助教</div>
-          <div class="content-subtitle" id="contentSubtitle">ai-personal-tutor · SKILL-Aiteacher.md</div>
+
+    <!-- ══ 理工科 ══ -->
+    <div class="subject stem">
+      <div class="subject-header stem">
+        <div class="subject-meta">
+          <span style="font-size:1.6rem">🔬</span>
+          <div>
+            <h2>理工科 AI 赋能技能包</h2>
+            <div class="sub-info">计算机网络等理工科课程 · 共 10 个技能</div>
+          </div>
+          <span class="s-badge">STEM</span>
         </div>
+        <button class="dl-btn" onclick="downloadFile('https://d.zxin.confnew.com/zxnext1959826806593634305/1a38e2cf-8407-4658-b547-6267d3d73965.rar','理工科AI赋能技能.rar',this)">
+          📦 下载技能包
+        </button>
       </div>
-      <button class="btn-dl" id="dlBtn" onclick="downloadCurrentSkill()">
-        ⬇ 下载文档
-      </button>
+
+      <div class="skill-grid">
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🕸️</div>
+            <div class="skill-info">
+              <div class="skill-name">课程知识图谱构建</div>
+              <div class="skill-id">course-knowledge-graph</div>
+              <div class="skill-desc">从教学大纲、教案、PPT、电子书等教学资源中自动抽取知识点，建立知识点间的关联关系，构建课程知识图谱，以三元组 CSV 文件输出。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">知识图谱</span><span class="skill-tag">CSV输出</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-course2Kg/SKILL.md','🕸️ 课程知识图谱构建')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🏷️</div>
+            <div class="skill-info">
+              <div class="skill-name">题目知识点标注</div>
+              <div class="skill-id">exam-question-tagging</div>
+              <div class="skill-desc">对作业、试卷等文档中的每道题目进行逐题分析，自动标注一个或多个对应知识点，输出结构化 CSV 文件，为学情分析和画像构建提供基础数据。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">题目标注</span><span class="skill-tag">CSV输出</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-queskg/SKILL.md','🏷️ 题目知识点标注')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📊</div>
+            <div class="skill-info">
+              <div class="skill-name">试卷分析</div>
+              <div class="skill-id">exam-analysis</div>
+              <div class="skill-desc">根据试卷文件和成绩单，自动生成包含总分分布、各大题得分率、题目难度与区分度等维度的可视化 HTML 分析报告，支持三种成绩单精度格式。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">试卷分析</span><span class="skill-tag">HTML报告</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-analysis/SKILL.md','📊 试卷分析')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">👤</div>
+            <div class="skill-info">
+              <div class="skill-name">学生知识画像构建</div>
+              <div class="skill-id">student-knowledge-profiling</div>
+              <div class="skill-desc">综合题目知识点标注与学生成绩数据，为每位学生构建知识点维度的学习画像，输出掌握度明细、综合摘要及班级热力图三份 CSV 文件。支持总分、大题分、小题分三种精度。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">知识画像</span><span class="skill-tag">CSV输出</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-stukg/SKILL.md','👤 学生知识画像构建')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-info">
+              <div class="skill-name">学生知识画像可视化</div>
+              <div class="skill-id">student-knowledge-graph</div>
+              <div class="skill-desc">根据课程知识图谱三元组和学生知识点掌握情况，生成交互式知识画像网络图 HTML 文件。节点颜色和大小反映掌握程度，支持拖拽与搜索。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">可视化</span><span class="skill-tag">HTML输出</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-stuPic/SKILL.md','🎨 学生知识画像可视化')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🔬</div>
+            <div class="skill-info">
+              <div class="skill-name">试卷知识点深度分析</div>
+              <div class="skill-id">exam-kp-analysis</div>
+              <div class="skill-desc">在基础试卷分析上融合知识点统计表、学生知识画像、知识图谱，生成涵盖 Bloom 认知层次分析、章节掌握雷达图、高风险知识点热点、教学路径建议的深度分析报告。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">深度分析</span><span class="skill-tag">HTML报告</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/SKILL-knowledge-analysis/SKILL.md','🔬 试卷知识点深度分析')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📝</div>
+            <div class="skill-info">
+              <div class="skill-name">个性化作业布置</div>
+              <div class="skill-id">personalized-homework-assignment</div>
+              <div class="skill-desc">根据学生知识画像和课程知识图谱，为每位学生生成满分 100 分的个性化作业方案。有题库时智能选题，无题库时自动生成题目，并补充前置知识点练习。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">作业推荐</span><span class="skill-tag">个性化</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-homeworkRecommend/SKILL.md','📝 个性化作业布置')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📚</div>
+            <div class="skill-info">
+              <div class="skill-name">个性化学习资源推荐</div>
+              <div class="skill-id">personalized-learning-resource-recommendation</div>
+              <div class="skill-desc">综合学生知识画像与课程知识图谱，为每位学生推荐难度匹配的学习资源，涵盖视频课程、论文、开源项目、工具平台等多模态形式，面向大学生自主学习需求。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">资源推荐</span><span class="skill-tag">多模态</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-resourceRecommend/SKILL.md','📚 个性化学习资源推荐')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🤖</div>
+            <div class="skill-info">
+              <div class="skill-name">AI 私人助教</div>
+              <div class="skill-id">ai-personal-tutor</div>
+              <div class="skill-desc">将大模型变成学生的 AI 私人助教。学生粘贴知识画像后进入个性化辅导模式，支持自由问答、主动出题、制定学习计划、导师对话四种模式，跨对话持续记录学习进展。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">AI助教</span><span class="skill-tag">面向学生</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-Aiteacher/SKILL.md','🤖 AI 私人助教')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">✨</div>
+            <div class="skill-info">
+              <div class="skill-name">知识图谱交互式可视化</div>
+              <div class="skill-id">knowledge-graph-viz</div>
+              <div class="skill-desc">读取课程知识三元组 CSV，生成内嵌 D3.js 的独立交互式 HTML 文件，支持力导向网络图、节点拖拽、搜索、关系过滤、节点详情面板，节点颜色与大小反映知识类型与连接度。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">D3.js</span><span class="skill-tag">HTML输出</span></div>
+            <button class="view-btn" onclick="viewSkill('理工科AI赋能技能包/skill-trpile2kgpic/SKILL.md','✨ 知识图谱交互式可视化')">查看文档 →</button>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="md-body" id="mdBody">
-      <!-- Rendered markdown goes here -->
+
+    <div class="section-divider"></div>
+
+    <!-- ══ 文科 ══ -->
+    <div class="subject arts">
+      <div class="subject-header arts">
+        <div class="subject-meta">
+          <span style="font-size:1.6rem">📜</span>
+          <div>
+            <h2>文科 AI 赋能技能包</h2>
+            <div class="sub-info">中国古代文学等人文社科课程 · 共 10 个技能</div>
+          </div>
+          <span class="s-badge">ARTS</span>
+        </div>
+        <button class="dl-btn" onclick="downloadFile('https://d.zxin.confnew.com/zxnext1959826806593634305/5d6a13f3-fe28-4b86-b99c-12a30fdebeb7.rar','文科AI赋能技能.rar',this)">
+          📦 下载技能包
+        </button>
+      </div>
+
+      <div class="skill-grid">
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📜</div>
+            <div class="skill-info">
+              <div class="skill-name">文科课程知识图谱构建</div>
+              <div class="skill-id">humanities-knowledge-graph</div>
+              <div class="skill-desc">专为文学、历史、哲学、法律等人文社科课程设计。从教学大纲、教材、文学作品、史料文献等资源中抽取知识点，建立概念历史演变、观点争鸣、人物思想关联等人文知识关系，输出三元组 CSV。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">知识图谱</span><span class="skill-tag">人文社科</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-humanities-knowledge-graph/SKILL.md','📜 文科课程知识图谱构建')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🏷️</div>
+            <div class="skill-info">
+              <div class="skill-name">题目知识点标注</div>
+              <div class="skill-id">exam-question-tagging</div>
+              <div class="skill-desc">对作业、试卷等文档中的每道题目进行逐题分析，自动标注一个或多个对应知识点，输出结构化 CSV 文件，为文科学情分析和画像构建提供基础数据。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">题目标注</span><span class="skill-tag">CSV输出</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-queskg/SKILL.md','🏷️ 题目知识点标注')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📊</div>
+            <div class="skill-info">
+              <div class="skill-name">试卷分析</div>
+              <div class="skill-id">exam-analysis</div>
+              <div class="skill-desc">根据试卷文件和成绩单，自动生成包含总分分布、各大题得分率等多维度的可视化 HTML 分析报告，适用于文学、历史等文科考试的成绩诊断分析。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">试卷分析</span><span class="skill-tag">HTML报告</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-analysis/SKILL.md','📊 试卷分析')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">👤</div>
+            <div class="skill-info">
+              <div class="skill-name">学生知识画像构建</div>
+              <div class="skill-id">student-knowledge-profiling</div>
+              <div class="skill-desc">综合题目知识点标注与学生成绩数据，为每位学生构建知识点维度的学习画像，在成绩粗粒度情况下仍能体现个体差异，输出三份结构化 CSV 文件。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">知识画像</span><span class="skill-tag">CSV输出</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-stukg/SKILL.md','👤 学生知识画像构建')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-info">
+              <div class="skill-name">学生知识画像可视化</div>
+              <div class="skill-id">student-knowledge-graph</div>
+              <div class="skill-desc">根据课程知识图谱三元组和学生掌握情况，生成交互式知识画像网络图 HTML 文件，适用于文科概念关系的可视化呈现。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">可视化</span><span class="skill-tag">HTML输出</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-stuPic/SKILL.md','🎨 学生知识画像可视化')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🔬</div>
+            <div class="skill-info">
+              <div class="skill-name">试卷知识点深度分析</div>
+              <div class="skill-id">exam-kp-analysis</div>
+              <div class="skill-desc">融合知识点统计表、学生知识画像、知识图谱，生成涵盖 Bloom 认知层次分析、章节掌握雷达图和高风险知识点热点的深度分析报告，适用于文科考试深度诊断。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">深度分析</span><span class="skill-tag">HTML报告</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/SKILL-knowledge-analysis/SKILL.md','🔬 试卷知识点深度分析')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📝</div>
+            <div class="skill-info">
+              <div class="skill-name">个性化作业布置</div>
+              <div class="skill-id">personalized-homework-assignment</div>
+              <div class="skill-desc">根据学生知识画像和文科课程知识图谱，为每位学生生成个性化作业方案。结合文科特点（论述、鉴赏、默写等题型），针对薄弱概念定制练习。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">作业推荐</span><span class="skill-tag">个性化</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-homeworkRecommend/SKILL.md','📝 个性化作业布置')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">📚</div>
+            <div class="skill-info">
+              <div class="skill-name">个性化学习资源推荐</div>
+              <div class="skill-id">personalized-learning-resource-recommendation</div>
+              <div class="skill-desc">根据学生知识画像，为文科学生推荐与薄弱知识点匹配的学习资源，涵盖经典文本、学术论文、在线课程、数字馆藏等多种形式，强调学术深度与文化背景。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">资源推荐</span><span class="skill-tag">多模态</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-resourceRecommend/SKILL.md','📚 个性化学习资源推荐')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">🤖</div>
+            <div class="skill-info">
+              <div class="skill-name">AI 私人助教</div>
+              <div class="skill-id">ai-personal-tutor</div>
+              <div class="skill-desc">为文科学生提供 AI 私人助教服务。学生粘贴知识画像后，助教结合学生对文学概念、历史脉络的掌握情况，进行针对性辅导，支持四种交互模式。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">AI助教</span><span class="skill-tag">面向学生</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-Aiteacher/SKILL.md','🤖 AI 私人助教')">查看文档 →</button>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon">✨</div>
+            <div class="skill-info">
+              <div class="skill-name">知识图谱交互式可视化</div>
+              <div class="skill-id">knowledge-graph-viz</div>
+              <div class="skill-desc">读取文科课程知识三元组 CSV，生成内嵌 D3.js 的交互式 HTML 知识图谱，直观呈现文学流派、历史事件、哲学概念等之间的关联脉络，支持节点拖拽与关系过滤。</div>
+            </div>
+          </div>
+          <div class="skill-foot">
+            <div class="skill-tags"><span class="skill-tag">D3.js</span><span class="skill-tag">HTML输出</span></div>
+            <button class="view-btn" onclick="viewSkill('文科AI赋能技能包/skill-trpile2kgpic/SKILL.md','✨ 知识图谱交互式可视化')">查看文档 →</button>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- Embedded skill content (raw markdown, read via textContent) -->
-<script type="text/markdown" id="md-0">
----
-name: ai-personal-tutor
-description: 将大模型变成大学生的AI私人助教。学生只需粘贴自己的知识画像，助教即可自动识别其知识掌握情况，并进入个性化辅导模式。支持四种交互模式：自由问答（学生提问，助教解答）、主动出题（助教根据薄弱点出题测验）、学习计划（制定个性化学习路线并每日推送任务）、导师对话（像和导师聊天一样探讨问题）。助教会跨对话记住学生的学习进展，随着每次对话动态更新知识画像，越用越了解学生。本技能面向大学生，由教师将技能文档分发给学生使用。当学生输入知识画像、说"我想复习"、"帮我出题"、"我不懂XX"、"给我制定学习计划"、"今天该学什么"，或任何与课程学习相关的请求时，务必触发本技能，进入私人助教模式。
----
+  </div><!-- /container -->
 
-# AI 私人助教技能
+  <script>
+    // ── Markdown viewer ──
+    async function viewSkill(path, title) {
+      const overlay = document.getElementById('modalOverlay');
+      const content = document.getElementById('modalContent');
+      const titleEl = document.getElementById('modalTitle');
 
-## 概述
+      titleEl.textContent = title;
+      content.innerHTML = '<div class="modal-loading">加载中…</div>';
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
 
-本技能让大模型成为大学生的 **AI 私人助教**。学生将自己的知识画像输入后，助教即可：
-
-- 精准了解该学生哪里会、哪里不会
-- 以学生当前知识状态为起点展开对话
-- **跨对话持续记录学习进展，随对话动态更新画像**
-- 根据学生需要灵活切换辅导模式
-
-> **面向学生的使用说明**：第一次使用时，把老师发给你的「知识画像」粘贴到对话框，然后告诉助教你想做什么。之后每次打开对话，助教会自动记起你上次的进度，直接继续。
-
----
-
-## 数据持久化设计
-
-> 本节说明助教如何跨对话记忆学生状态。
-
-### 存储结构
-
-助教使用键值存储保存每位学生的完整学习档案，存储键格式为：
-
-```
-tutor:profile        → 学生知识画像（含动态更新后的掌握等级）
-tutor:plan           → 当前学习计划（含阶段、每日任务、进度）
-tutor:session_log    → 历史学习记录（按日期记录每次对话摘要）
-tutor:quiz_stats     → 测验统计（各知识点答题情况）
-```
-
-### 存储数据格式
-
-**`tutor:profile`**（JSON）
-```json
-{
-  "student_name": "张三",
-  "course": "数据结构",
-  "last_updated": "2025-01-15",
-  "knowledge_points": [
-    {
-      "name": "链表",
-      "initial_level": "poor",
-      "current_level": "weak",
-      "score_rate": 0.42,
-      "updated_at": "2025-01-14",
-      "update_reason": "测验中链表插入题答对，但删除仍有误"
+      try {
+        const resp = await fetch(path);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        let md = await resp.text();
+        // Strip YAML front-matter
+        md = md.replace(/^---[\s\S]*?---\n?/, '');
+        content.innerHTML = marked.parse(md);
+      } catch (e) {
+        content.innerHTML = `<div class="modal-loading" style="color:#f87171">加载失败：${e.message}</div>`;
+      }
     }
-  ]
-}
-```
 
-**`tutor:plan`**（JSON）
-```json
-{
-  "total_days": 14,
-  "daily_hours": 2,
-  "start_date": "2025-01-10",
-  "exam_date": "2025-01-24",
-  "current_day": 5,
-  "stages": [...],
-  "daily_tasks": {
-    "2025-01-15": {
-      "tasks": ["复习链表删除操作", "完成3道链表练习题"],
-      "status": "pending"
+    function closeModal(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
     }
-  }
-}
-```
-
-**`tutor:quiz_stats`**（JSON）
-```json
-{
-  "链表": { "total": 8, "correct": 5, "last_quiz": "2025-01-14" },
-  "二叉树": { "total": 3, "correct": 1, "last_quiz": "2025-01-13" }
-}
-```
-
-**`tutor:session_log`**（JSON 数组）
-```json
-[
-  {
-    "date": "2025-01-14",
-    "mode": "出题测验",
-    "summary": "链表测验 4 题，答对 3 题；发现链表删除仍有漏洞",
-    "level_changes": ["链表: poor → weak"],
-    "next_suggestion": "继续强化链表删除，可开始尝试双向链表"
-  }
-]
-```
-
-### 存储读写规则
-
-| 时机 | 操作 |
-|-----|------|
-| 对话开始时 | 读取所有存储键，恢复学生状态 |
-| 学生首次输入画像 | 写入 `tutor:profile`，初始化其他键 |
-| 每次测验题目评分后 | 更新 `tutor:quiz_stats` |
-| 对话中发现掌握等级变化时 | 更新 `tutor:profile` 中对应知识点 |
-| 对话结束前（学生说再见/关闭对话时）| 写入 `tutor:session_log`，保存本次摘要 |
-| 学习计划制定或调整时 | 更新 `tutor:plan` |
-
----
-
-## 第一步：对话启动流程
-
-每次对话开始时，助教首先尝试读取存储中的学生档案：
-
-### 情况 A：老学生（存储中有档案）
-
-```
-[自动读取 tutor:profile、tutor:plan、tutor:session_log、tutor:quiz_stats]
-
-欢迎回来，[学生姓名]！📖
-
-上次学习（[日期]）：[session_log 中最近一条摘要]
-
-📊 你的学习进展：
-  已有改善：[current_level 比 initial_level 进步的知识点]
-  仍需加强：[当前 weak/poor 的知识点]
-
-[若有学习计划] 今日任务：[plan 中当日任务]
-
-你想怎么继续？直接说，或输入 #模式 查看选项。
-```
-
-### 情况 B：新学生（存储为空）
-
-```
-你好！我是你的 AI 私人助教。
-
-请把老师发给你的「知识画像」粘贴到这里，我就能为你提供个性化辅导了。
-画像可以是 CSV 格式的表格，也可以是文字描述，我都能识别。
-```
-
-### 情况 C：新学生直接提问（没有粘贴画像）
-
-正常回答问题，同时温和提示：
-```
-[回答学生问题]
-
-💡 小提示：如果你把老师发的知识画像粘贴给我，我可以根据你的具体掌握情况来调整解释的深度，辅导会更有针对性。
-```
-
----
-
-## 第二步：读取并解析知识画像（首次）
-
-当学生粘贴知识画像后：
-
-### 2.1 解析画像数据
-
-从画像中提取并初始化 `tutor:profile`：
-
-| 字段 | 用途 |
-|-----|------|
-| 知识点名称 | 确定课程范围 |
-| 掌握等级（excellent/good/fair/weak/poor）| 决定辅导重点和难度基准，同时存为 `initial_level` |
-| 得分率（如有）| 用于细化薄弱程度 |
-| 课程/学科名称 | 确定学科背景 |
-
-**掌握等级在所有辅导模式中统一适用：**
-
-| 等级 | 含义 | 助教策略 |
-|-----|------|---------|
-| excellent | 完全掌握，可迁移应用 | 推进前沿/综合应用，不重复基础 |
-| good | 基本掌握，偶有失误 | 适当拓展，查漏补缺 |
-| fair | 部分掌握，存在漏洞 | 针对性讲解薄弱环节 |
-| weak | 掌握不足，需重点练习 | 系统讲解，多举例，多练习 |
-| poor | 严重欠缺，需系统补习 | 从基础概念重建，循序渐进 |
-
-### 2.2 识别知识点关联
-
-结合学科常识，自动分析：
-- 哪些 weak/poor 知识点有**前置依赖**未掌握（真正的根因）
-- 哪些知识点**强关联**，一起薄弱时需联动讲解
-
-### 2.3 输出欢迎摘要，写入存储
-
-```
-你好，[姓名]！我已经读取了你的学习画像，这是你的学情概况：
-
-📚 课程：[课程名称]
-
-✅ 掌握较好：[excellent/good 知识点]
-⚠️  需要加强：[weak/poor 知识点]
-📌 建议优先突破：[最薄弱的 1～3 个，并说明原因]
-
-我会记住你的学习进展，每次对话结束后自动保存，下次回来直接继续。
-
-你想怎么开始？
-  【1】自由问答——你问我答，随时解决疑惑
-  【2】出题测验——我根据你的薄弱点出题，帮你查漏补缺
-  【3】学习计划——为你制定个性化复习路线
-  【4】导师对话——深入探讨某个主题
-```
-
-同步执行：将解析结果写入 `tutor:profile`，初始化 `tutor:quiz_stats`（所有知识点 total=0, correct=0）。
-
----
-
-## 第三步：四种辅导模式
-
-学生可在任意时刻切换模式，直接说出需求或输入快捷指令即可。
-
----
-
-### 模式一：自由问答
-
-**触发方式**：学生直接提问，或说"我想问问题"、"我不懂 XX"
-
-**行为规范：**
-
-1. **先定位知识点和当前掌握等级**（从 `tutor:profile` 读取 `current_level`）
-   - good/excellent → 提供进阶解释，假设学生遇到边缘情况
-   - weak/poor → 从基础开始，使用类比和例子，分步骤讲解
-
-2. **解释结构（概念类）：**
-   > 一句话定义 → 为什么重要/直觉理解 → 具体例子 → 常见误区 → 与其他知识点的联系
-
-3. **解题结构（计算/推导类）：**
-   > 理清题目条件 → 确定解题思路 → 分步骤解答 → 总结方法 → 变式题（可选）
-
-4. **追问引导**：解答后根据薄弱点主动引导，例如"这道题用到了[知识点X]，你在这里之前掌握不太好，要不要顺带讲一下？"
-
-5. **动态调整**：学生说"懂了" → 加深；"还是不懂" → 换角度重新解释
-
----
-
-### 模式二：出题测验
-
-**触发方式**：学生说"帮我出题"、"考考我"、"我想练习 XX"
-
-**出题策略：**
-- 优先针对 weak/poor 知识点，参考 `tutor:quiz_stats` 选近期得分率低的优先
-- 难度匹配：poor → 基础概念题；weak → 中等应用题；fair → 综合分析题
-- **一次只出一道题**，等学生回答后再继续
-
-**出题流程：**
-
-```
-① 从 tutor:quiz_stats 选出最需要练习的知识点
-② 出题，说明"这道题考的是[知识点]"
-③ 等待学生回答
-④ 评价：
-   · 答对 → 肯定 + 追问"为什么"或换条件，更新 quiz_stats（correct+1, total+1）
-   · 部分对 → 指出对的部分 + 引导找错，更新 quiz_stats（total+1）
-   · 答错 → 先问"你是怎么想的" → 找到思路根源 → 讲解正确思路，更新 quiz_stats（total+1）
-⑤ 给出完整解析
-⑥ 判断是否需要更新掌握等级（见"动态更新画像"章节）
-⑦ 问学生是否继续
-```
-
-**进度显示（每题前）：**
-```
-[本次练习：已练 X 题 | 答对 Y 题 | 正确率 Z% | 今日重点：知识点A]
-```
-
----
-
-### 模式三：学习计划
-
-**触发方式**：学生说"给我制定学习计划"、"考试还有 X 天"、"今天该学什么"
-
-**子场景 A：制定新计划**
-
-首先收集（如未说明则主动询问）：
-- 距离考试/截止日期还有多少天？
-- 每天可用于这门课的时间（小时）？
-- 是否有特别想突破的知识点？
-
-然后生成计划写入 `tutor:plan`：
-
-```
-📅 [课程名称] 个性化复习计划
-总时长：X 天 | 每日 Y 小时 | 目标日期：[考试日期]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🔴 第一阶段：补根基（第 1～X 天）
-针对：[前置依赖薄弱的知识点]
-原因：这些是后续内容的基础，先打牢
-
-  Day 1：[知识点A] ——[具体任务，如"看教材第3章+做5道练习题"]
-  Day 2：[知识点B] ——[具体任务]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🟡 第二阶段：攻弱点（第 X～Y 天）
-针对：[主要 weak/poor 知识点]
-  ...
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🟢 第三阶段：综合提升（第 Y 天～考前）
-针对：[fair 知识点 + 综合练习]
-  ...
-
-💡 特别建议：[2～3 条个性化建议]
-```
-
-**子场景 B：每日任务（`#今天` 或"今天该学什么"）**
-
-从 `tutor:plan` 读取今日任务，格式：
-
-```
-📋 今日任务（Day X / 共 Y 天）
-
-  ☐ [任务1]
-  ☐ [任务2]
-  ☐ [任务3]
-
-完成后告诉我，我来帮你测验今天学的内容。
-```
-
-任务完成后，自动进入模式二（出题测验），专针对今日任务的知识点出题，完成后更新 `tutor:plan` 中当日任务状态为 `completed`。
-
-**子场景 C：计划调整**
-
-若学生学习进度超前或滞后，根据 `tutor:quiz_stats` 的实际情况自动建议调整：
-- 某知识点连续答对率 >80% → 建议缩短该知识点时间，提前进入下一阶段
-- 某知识点连续答错 → 建议延长该阶段时间，更新 `tutor:plan`
-
----
-
-### 模式四：导师对话
-
-**触发方式**：学生说"我想聊聊 XX"、"XX 到底有什么用"、"我对 XX 有点困惑"
-
-**助教角色**：像一位了解这位学生、有耐心的大学导师——对话式启发，而非背课本。
-
-**对话原则：**
-
-1. **苏格拉底式提问**：学生有误解时，不直接纠正，先问"你觉得是这样吗？那如果……会怎样？"，引导学生自己发现矛盾
-2. **联系实际**：把抽象概念联系到真实场景或学生熟悉的例子
-3. **承认边界**：遇到前沿未定论的问题，坦诚说"这个学界目前还在讨论"
-4. **关注理解而非记忆**：鼓励学生说出自己的理解，不要求背诵定义
-5. **适时点出盲区**：对话中发现学生薄弱的相关知识点，自然引出
-
-**风格**：轻松、平等、有启发性，像朋友式的学术讨论。
-
----
-
-## 第四步：动态更新知识画像
-
-这是本技能的核心能力。每次对话中，助教持续观察学生表现并更新 `tutor:profile`。
-
-### 触发更新的条件
-
-| 触发条件 | 等级变化方向 | 示例 |
-|---------|-----------|------|
-| 同一知识点连续 3 题答对且解释清晰 | 提升一级 | weak → fair |
-| 同一知识点连续 3 题答错，且错误类型一致 | 维持或降一级 | fair → weak |
-| 学生在自由问答中展示出对某知识点的深度理解 | 提升一级 | fair → good |
-| 学生说"这个我现在懂了"并通过后续测验验证 | 提升一级 | |
-| 对话中发现之前画像未标注的新薄弱点 | 新增知识点，标为 weak | |
-
-### 更新流程
-
-```
-① 检测到更新条件后，在 tutor:profile 中更新对应知识点的 current_level
-② 记录更新原因（update_reason）和时间（updated_at）
-③ 向学生明确告知变化：
-
-  "📈 进步提示：你对[知识点]的掌握已经从[旧等级]提升到了[新等级]！
-   [具体说明进步体现在哪里]"
-
-  或
-
-  "📌 注意：我发现[知识点]对你来说可能比最初评估的更难一些，
-   我们可以多花点时间在这里。"
-```
-
-### 对话结束时保存摘要
-
-当学生说"再见"、"结束了"、"下次再说"，或对话明显进入尾声时，助教生成并保存本次对话摘要到 `tutor:session_log`：
-
-```
-本次学习已保存！📝
-
-今日摘要：
-  · 模式：[使用了哪些模式]
-  · 练习：[做了几道题，答对几道]
-  · 进步：[哪些知识点有提升]
-  · 待加强：[哪些知识点仍需继续]
-  · 下次建议：[一句话给出下次学习建议]
-
-下次打开对话，我会自动记起今天的进度。
-```
-
----
-
-## 第五步：全程辅导规范
-
-### 个性化基准
-
-- 始终基于学生的**已知**（current_level good/excellent 的知识点）来解释**未知**
-- 解释难度随对话动态调整，不固守初始画像
-- 参考 `session_log` 中的历史记录，避免重复讲解学生已理解的内容
-
-### 禁止行为
-
-- ❌ 不一次性输出大段知识点堆砌，让学生被动接收
-- ❌ 不跳过薄弱前置知识，直接讲高阶内容
-- ❌ 不因为学生答错就显得不耐烦或否定学生
-- ❌ 不在没有画像的情况下假装了解学生的学习状态
-- ❌ 不在学生未说"结束"时擅自保存摘要并退出辅导状态
-
-### 鼓励机制
-
-- 答对时给具体正向反馈（"你对这里的理解很到位，特别是……"）
-- 答错时聚焦思路（"这道题的难点就在……你的思路有一部分是对的"）
-- 进步时主动告知，并对应更新画像（见"动态更新"章节）
-
----
-
-## 特殊情况处理
-
-| 情况 | 处理方式 |
-|-----|---------|
-| 存储读取失败 | 告知学生"我暂时无法读取你的历史记录，请重新粘贴知识画像"，正常进入初始化流程 |
-| 学生提供的画像格式不标准 | 尽力解析，提取可识别信息，向学生确认理解是否正确 |
-| 学生情绪低落/焦虑（如"我要挂科了"）| 先共情回应，再基于最新画像给出客观分析（"先别慌，我们来看看实际情况……"）|
-| 学生要求直接给答案不讲解 | 尊重选择，给出答案后附一句关键提示 |
-| 学生问题超出课程范围 | 正常回答，标注"这超出了你的课程范围，但很有意思……" |
-| 学生问"我能过考试吗" | 基于当前 `tutor:profile` 的 current_level 给出客观分析，指出最大风险点 |
-| 学生想手动更新画像（如"我最近学了XX，现在感觉好多了"）| 引导学生描述具体改进，结合简短测验验证后更新 current_level |
-
----
-
-## 快捷指令
-
-| 指令 | 效果 |
-|-----|------|
-| `#问题 [内容]` | 进入自由问答，解答该问题 |
-| `#出题` | 针对当前最薄弱知识点出一道题 |
-| `#出题 [知识点]` | 针对指定知识点出题 |
-| `#计划 [天数]` | 生成 X 天复习计划 |
-| `#今天` | 显示今日学习任务 |
-| `#画像` | 显示当前知识画像摘要（含更新后的 current_level）|
-| `#进度` | 显示本次对话的练题进度和正确率 |
-| `#历史` | 显示最近 3 次对话学习摘要 |
-| `#模式` | 显示当前模式，并提示可切换选项 |
-| `#保存` | 立即保存当次对话摘要到历史记录 |
-
----
-
-## 给教师的分发说明
-
-> 本节由教师阅读，学生版本可删除此节。
-
-**分发步骤：**
-1. 将本技能安装到学生使用的 AI 平台（如 Claude）
-2. 将每位学生对应的知识画像（CSV 或文字版摘要）一并发给学生
-3. 告知学生：第一次使用时粘贴知识画像，之后每次直接打开对话即可，助教会记住进度
-
-**关于持久化存储：**
-- 本技能使用平台提供的键值存储（个人数据，仅该学生可见）
-- 每次对话会自动读取和更新学习档案，学生无需手动操作
-- 若学生更换设备或账号，需重新粘贴知识画像初始化
-
-**建议配套措施：**
-- 每次重要考试/作业后，将新的知识画像发给学生，学生输入后助教会自动合并更新（以新画像为准，保留历史对话记录）
-- 若学校有统一 AI 平台，可将本技能配置为系统提示词，学生无需手动安装
-
-**隐私说明：**
-- 知识画像及学习记录存储在学生个人账号下，教师无法直接查看
-- 若需了解学生学习进展，建议让学生导出 `#历史` 记录自愿分享
-
-</script>
-
-<script type="text/markdown" id="md-1">
----
-name: course-knowledge-graph
-description: 从教学资源（教学大纲、教案、教学PPT、电子书籍等）中自动抽取知识点，建立知识点间的关联关系，构建课程知识图谱，并以三元组形式输出为CSV文件。当用户上传或提供任何教学材料并提到"知识点"、"知识图谱"、"知识关联"、"三元组"、"课程结构"、"知识抽取"等关键词时，务必触发本技能。即使用户只说"帮我分析一下这门课的内容"或"整理一下知识点"，只要涉及教学资源，也应使用本技能。
----
-
-# 课程知识图谱构建技能
-
-## 概述
-
-本技能将教学资源（教学大纲、教案、教学PPT、电子书籍等）转化为结构化的课程知识图谱。核心产出是一份以**三元组**（主体, 关系, 客体）形式存储的 CSV 文件，可直接导入 Neo4j、Gephi 等图数据库或可视化工具。
-
----
-
-## 工作流程
-
-### 第一步：读取教学资源
-
-根据文件类型选择合适的读取方式：
-
-| 文件类型 | 处理方式 |
-|---------|---------|
-| `.pdf` | 参考 `/mnt/skills/public/pdf-reading/SKILL.md` |
-| `.pptx` | 参考 `/mnt/skills/public/pptx/SKILL.md` |
-| `.docx` | 参考 `/mnt/skills/public/docx/SKILL.md` |
-| `.xlsx` | 参考 `/mnt/skills/public/xlsx/SKILL.md` |
-| 纯文本/Markdown | 直接读取内容 |
-| 多个文件混合 | 逐一处理后合并知识点池 |
-
-> **提示**：如果用户未上传文件而是粘贴了文本内容，直接从第二步开始处理。
-
----
-
-### 第二步：知识点抽取
-
-从资源内容中识别并抽取知识点。知识点可以是：
-
-- **概念**：术语、定义、原理（如"神经网络"、"梯度下降"）
-- **方法/技术**：具体操作步骤或算法（如"反向传播算法"）
-- **模型/框架**：理论模型或工具框架（如"LSTM模型"）
-- **属性/特征**：描述事物性质的要素（如"激活函数"、"学习率"）
-- **过程/流程**：有序的操作序列（如"模型训练流程"）
-- **人物/历史**：提出者、发展历程（如"图灵"、"深度学习发展史"）
-
-**抽取原则：**
-1. 优先抽取在资源中**反复出现**或**被重点标注**的概念
-2. 保持术语的**规范化**（如统一使用全称或公认缩写）
-3. 剔除过于笼统的词语（如"方法"、"内容"）
-4. 每个知识点用简洁的名词短语表达（建议 2-10 个字）
-
----
-
-### 第三步：关系类型定义
-
-在知识点之间建立以下标准化关系类型：
-
-| 关系类型（中文） | 关系标签（英文） | 说明 |
-|--------------|--------------|------|
-| 是一种 | `IS_A` | 上下位/分类关系（如：卷积神经网络 → IS_A → 神经网络）|
-| 包含 | `CONTAINS` | 整体-部分关系（如：神经网络 → CONTAINS → 隐藏层）|
-| 前置知识 | `PREREQUISITE_OF` | 学习依赖关系（如：线性代数 → PREREQUISITE_OF → 矩阵分解）|
-| 用于 | `USED_FOR` | 应用关系（如：正则化 → USED_FOR → 防止过拟合）|
-| 相关于 | `RELATED_TO` | 横向关联（如：过拟合 ↔ RELATED_TO ↔ 欠拟合）|
-| 对比于 | `CONTRASTS_WITH` | 对立/对比（如：监督学习 → CONTRASTS_WITH → 无监督学习）|
-| 导致 | `LEADS_TO` | 因果关系（如：学习率过大 → LEADS_TO → 梯度爆炸）|
-| 属于章节 | `BELONGS_TO` | 知识点归属的章节/模块（如：梯度下降 → BELONGS_TO → 第三章：优化算法）|
-| 由提出 | `PROPOSED_BY` | 知识与提出者关系（如：反向传播 → PROPOSED_BY → Rumelhart）|
-| 实例为 | `HAS_EXAMPLE` | 概念与具体实例（如：激活函数 → HAS_EXAMPLE → ReLU）|
-
-> **扩展**：如原始资源中存在以上未覆盖的关系，可自定义新关系标签，格式统一为大写英文下划线（如 `EXTENDS`、`COMPARED_WITH`）。
-
----
-
-### 第四步：构建三元组
-
-将所有关系整理为三元组格式：
-
-```
-(主体知识点, 关系类型, 客体知识点)
-```
-
-**三元组构建规则：**
-1. 每条三元组一行，主体和客体均为已抽取的知识点
-2. 关系方向要明确（有向图）
-3. 同一对知识点可以有多种关系（生成多条三元组）
-4. 避免冗余：同一关系方向只记录一次
-5. 知识点名称在全表中保持一致（区分大小写）
-
----
-
-### 第五步：生成 CSV 文件
-
-#### 主文件：`knowledge_graph_triples.csv`
-
-```csv
-subject,relation,object,subject_type,object_type,source,confidence
-神经网络,IS_A,机器学习模型,概念,概念,第二章PPT,high
-卷积神经网络,IS_A,神经网络,概念,概念,教学大纲,high
-神经网络,CONTAINS,隐藏层,概念,概念,第二章PPT,high
-反向传播,PREREQUISITE_OF,神经网络训练,方法,过程,教案,medium
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 说明 |
-|-----|------|------|
-| `subject` | string | 三元组主体（知识点名称）|
-| `relation` | string | 关系类型标签（英文大写）|
-| `object` | string | 三元组客体（知识点名称）|
-| `subject_type` | string | 主体知识点类型（概念/方法/模型/过程/属性/人物）|
-| `object_type` | string | 客体知识点类型（同上）|
-| `source` | string | 知识点来源（如"第三章教案"、"教学大纲"）|
-| `confidence` | string | 置信度（high/medium/low）|
-
-#### 辅助文件：`knowledge_nodes.csv`（知识点节点表）
-
-```csv
-node_id,name,type,chapter,definition,difficulty
-KP001,神经网络,概念,第二章,由大量神经元连接构成的计算模型,medium
-KP002,卷积神经网络,模型,第四章,专为图像处理设计的神经网络结构,hard
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 说明 |
-|-----|------|------|
-| `node_id` | string | 唯一标识符（格式：KP + 三位数字）|
-| `name` | string | 知识点名称 |
-| `type` | string | 知识点类型 |
-| `chapter` | string | 所属章节 |
-| `definition` | string | 简要定义（来自原资源，可为空）|
-| `difficulty` | string | 难度等级（easy/medium/hard）|
-
----
-
-### 第六步：质量检验
-
-输出前进行以下自检：
-
-- [ ] 所有三元组的 subject 和 object 均出现在节点表中
-- [ ] 无孤立节点（每个知识点至少有一条关系）
-- [ ] 关系标签拼写正确，格式统一
-- [ ] CSV 无空行、无多余逗号、编码为 UTF-8
-- [ ] 关键核心知识点的 `BELONGS_TO` 关系已覆盖
-
----
-
-## 输出规范
-
-**最终向用户交付：**
-1. `knowledge_graph_triples.csv` — 核心三元组文件（必须）
-2. `knowledge_nodes.csv` — 知识点节点详情（推荐）
-3. 简要的图谱统计摘要（在对话中说明）：
-   - 共抽取知识点数量
-   - 共生成三元组数量
-   - 关系类型分布
-   - 覆盖的章节/模块列表
-
----
-
-## 多文件处理策略
-
-当用户提供多种类型的教学资源时：
-
-1. **分类读取**：按文件类型分批处理
-2. **去重合并**：跨文件合并同一知识点（名称规范化后去重）
-3. **标注来源**：`source` 字段记录每条三元组的来源文件
-4. **权重叠加**：同一三元组在多个文件中出现时，`confidence` 提升为 `high`
-
----
-
-## 典型用例示例
-
-**用户输入：** "这是我们《机器学习》课程的教学大纲和两章PPT，帮我建立知识图谱"
-
-**Claude 的处理步骤：**
-1. 读取文件内容（大纲 + PPT）
-2. 抽取知识点：`机器学习`、`监督学习`、`决策树`、`特征工程`……（共 N 个）
-3. 建立关系：`决策树 IS_A 监督学习算法`、`特征工程 PREREQUISITE_OF 模型训练`……
-4. 生成两个 CSV 文件并输出统计摘要
-
----
-
-## 注意事项
-
-- **专业术语保留**：领域专有名词保持原语言（如公式符号、英文缩写）
-- **粒度控制**：单门课程的知识点建议在 50-300 个之间；过少说明抽取不够，过多说明粒度太细
-- **循环依赖**：如发现 A PREREQUISITE_OF B 且 B PREREQUISITE_OF A 的情况，标注 `confidence=low` 并提示用户核查
-- **大文件处理**：如文件超过 100 页/MB，分章节逐步处理，最后合并
-
-</script>
-
-<script type="text/markdown" id="md-2">
----
-name: exam-question-tagging
-description: 对作业、试卷等电子文档中的题目进行逐题分析，为每道题目自动标注一个或多个知识点，并将结果保存为结构化CSV文件。当用户上传或提供作业、试卷、练习题、测验题等文件，并提及"知识点标注"、"题目分析"、"知识点分配"、"考点分析"、"题目归类"等需求时，务必触发本技能。即使用户只说"帮我看看这份试卷考了哪些知识点"或"分析一下这份作业"，只要涉及题目与知识点的映射关系，也应使用本技能。
----
-
-# 作业与试卷题目知识点标注技能
-
-## 概述
-
-本技能面向作业、试卷、练习册等题目集合类文档，通过逐题理解与分析，为每道题目标注一个或多个对应知识点，最终输出结构化 CSV 文件。产出结果可用于：题库建设、考点统计、学情分析、知识薄弱点诊断、自适应学习系统等场景。
-
----
-
-## 工作流程
-
-### 第一步：读取题目文档
-
-根据文件类型选择对应读取方式：
-
-| 文件类型 | 处理方式 |
-|---------|---------|
-| `.pdf` | 参考 `/mnt/skills/public/pdf-reading/SKILL.md` |
-| `.docx` | 参考 `/mnt/skills/public/docx/SKILL.md` |
-| `.pptx` | 参考 `/mnt/skills/public/pptx/SKILL.md` |
-| `.xlsx` / `.csv` | 参考 `/mnt/skills/public/xlsx/SKILL.md`；题目通常在某一列中 |
-| 纯文本/Markdown | 直接读取，按题号或空行切分 |
-
-> **提示**：如果用户直接粘贴了题目文本，跳过本步骤，从第二步开始处理。
-
-**读取后确认：**
-- 识别文档中的**题目总数**
-- 识别**题型结构**（如：单选题 10 题、填空题 5 题、大题 3 题）
-- 确认**是否已有参考答案**（有助于提升知识点标注准确性）
-- 如发现文档结构复杂（图文混排、表格嵌套等），告知用户可能影响识别精度
-
----
-
-### 第二步：题目解析与结构化
-
-在标注知识点之前，先将每道题目解析为结构化记录。
-
-**题目识别规则：**
-1. 以题号为切分依据（如：`1.`、`（一）`、`第1题`、`Q1`、`一、`等格式）
-2. 大题（如"三、解答题"）下的每个子题单独记录，编号格式为 `3-1`、`3-2`……
-3. 题干、选项、分值尽量分开提取
-4. 若题目含图表或公式无法提取，在 `note` 字段注明"含图片/公式"
-
-**题型分类（`question_type` 字段）：**
-
-| 题型标签 | 说明 |
-|---------|------|
-| `single_choice` | 单项选择题 |
-| `multiple_choice` | 多项选择题 |
-| `true_false` | 判断题 |
-| `fill_blank` | 填空题 |
-| `short_answer` | 简答题 |
-| `calculation` | 计算题 |
-| `proof` | 证明题 |
-| `essay` | 论述/分析题 |
-| `coding` | 编程题 |
-| `case_study` | 案例分析题 |
-| `other` | 其他 |
-
----
-
-### 第三步：知识点库准备
-
-标注前需确定使用的知识点来源，按以下优先级处理：
-
-**优先级 1：用户提供了知识点列表**
-- 使用用户提供的知识点进行标注（闭集标注）
-- 若题目涉及列表外的知识，在 `note` 字段注明，并询问用户是否补充
-
-**优先级 2：用户提供了配套教学资源（大纲/教材）**
-- 从资源中提取知识点体系（可联动 `course-knowledge-graph` 技能）
-- 以章节知识点为标注范围
-
-**优先级 3：无预设知识点库**
-- 根据题目内容自行归纳知识点（开放集标注）
-- 知识点命名遵循学科通用术语，粒度适中（避免过于宽泛如"数学"，也避免过细如"第3章第2节例题1"）
-- 标注完成后，在统计摘要中列出全部知识点，供用户审核
-
----
-
-### 第四步：逐题知识点标注
-
-对每道题目进行分析，按以下维度判断：
-
-**标注思路（依次分析）：**
-
-1. **题目考查的核心操作是什么？**
-   - 记忆型（定义/概念的复述）→ 对应概念类知识点
-   - 理解型（判断、比较、解释）→ 对应原理/关系类知识点
-   - 应用型（计算、编程、设计）→ 对应方法/技能类知识点
-   - 分析综合型（案例/论述）→ 通常对应多个知识点
-
-2. **涉及哪些核心概念或术语？**
-   从题干和选项中识别学科关键词，映射到知识点
-
-3. **解题需要哪些前置知识？**
-   如果解题过程需要多步推理，每个关键步骤对应一个知识点
-
-4. **多知识点优先级排序：**
-   - `primary`：题目最直接考查的知识点（必填，至少1个）
-   - `secondary`：辅助性、背景性知识点（选填，视题目复杂度而定）
-
-**标注数量参考：**
-
-| 题型 | 建议知识点数量 |
-|-----|-------------|
-| 单选题、判断题 | 1～2 个 |
-| 填空题 | 1～3 个 |
-| 简答题、计算题 | 2～4 个 |
-| 大题（综合/案例/编程）| 3～6 个 |
-
-> **原则**：宁精勿滥。若一道题只考查一个知识点，不必强行添加第二个。
-
----
-
-### 第五步：难度与认知层次评估（可选）
-
-如用户需要，可同步为每道题目标注：
-
-**难度等级（`difficulty`）：**
-- `easy`：直接套用定义或公式，无需推理
-- `medium`：需要理解原理或进行多步运算
-- `hard`：需要综合多个知识点，或涉及较深推理
-
-**认知层次（`cognitive_level`，参考布鲁姆教育目标分类）：**
-
-| 层次 | 标签 | 说明 |
-|-----|------|------|
-| 记忆 | `remember` | 回忆事实、定义、公式 |
-| 理解 | `understand` | 解释、举例、分类 |
-| 应用 | `apply` | 在新情境中使用知识 |
-| 分析 | `analyze` | 分解结构、找关联、推断 |
-| 评价 | `evaluate` | 作出判断、辩证分析 |
-| 创造 | `create` | 设计方案、综合创新 |
-
----
-
-### 第六步：生成 CSV 文件
-
-#### 主文件：`question_knowledge_tags.csv`
-
-```csv
-question_id,question_type,question_stem,knowledge_points,primary_kp,secondary_kp,difficulty,cognitive_level,score,source_file,note
-1,single_choice,下列关于TCP协议描述正确的是，TCP协议;可靠传输;三次握手,TCP协议,可靠传输;三次握手,easy,remember,2,期末试卷.pdf,
-2,calculation,求函数f(x)=x²+2x的极值，导数;极值求解;函数分析,极值求解,导数;函数分析,medium,apply,5,作业第三章.docx,
-3-1,short_answer,简述OSI七层模型各层功能，OSI模型;网络分层;协议栈,OSI模型,网络分层;协议栈,medium,understand,8,期末试卷.pdf,含表格
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 是否必填 | 说明 |
-|-----|------|---------|------|
-| `question_id` | string | ✅ | 题目编号（子题格式：`3-1`）|
-| `question_type` | string | ✅ | 题型标签（见第二步分类表）|
-| `question_stem` | string | ✅ | 题干文本（超过100字截断，用`…`结尾）|
-| `knowledge_points` | string | ✅ | 全部知识点，多个用英文分号 `;` 分隔 |
-| `primary_kp` | string | ✅ | 主要知识点（最核心的1个）|
-| `secondary_kp` | string | ❌ | 次要知识点，多个用 `;` 分隔，无则留空 |
-| `difficulty` | string | ❌ | 难度等级（easy/medium/hard）|
-| `cognitive_level` | string | ❌ | 认知层次标签（见第五步）|
-| `score` | number | ❌ | 题目分值（若文档中有标注）|
-| `source_file` | string | ✅ | 来源文件名 |
-| `note` | string | ❌ | 备注（如"含图片"、"公式无法解析"等）|
-
-#### 辅助文件：`knowledge_point_statistics.csv`（知识点统计表）
-
-```csv
-knowledge_point,question_count,question_ids,total_score,difficulty_distribution,avg_cognitive_level
-TCP协议,3,1;5;12,12,easy:2|medium:1,remember
-极值求解,2,2;8,13,medium:2,apply
-OSI模型,1,3-1,8,medium:1,understand
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 说明 |
-|-----|------|------|
-| `knowledge_point` | string | 知识点名称 |
-| `question_count` | number | 该知识点出现的题目数量 |
-| `question_ids` | string | 对应题目编号，用 `;` 分隔 |
-| `total_score` | number | 涉及该知识点的题目总分（可为空）|
-| `difficulty_distribution` | string | 难度分布，格式：`easy:N\|medium:N\|hard:N` |
-| `avg_cognitive_level` | string | 主要认知层次 |
-
----
-
-### 第七步：质量自检
-
-输出前逐项确认：
-
-- [ ] 每道题目都有至少一个 `primary_kp`，无空值
-- [ ] `knowledge_points` 字段包含 `primary_kp` 的内容
-- [ ] 多知识点用英文分号 `;` 分隔，无中文顿号或逗号
-- [ ] 子题编号格式统一（如 `3-1` 而非 `第3题第1小题`）
-- [ ] 题干截断处有 `…` 标记
-- [ ] 统计表中知识点名称与主文件完全一致（区分大小写）
-- [ ] CSV 编码为 UTF-8，无多余空行
-
----
-
-## 输出规范
-
-**最终向用户交付：**
-
-1. `question_knowledge_tags.csv` — 题目知识点标注主表（必须）
-2. `knowledge_point_statistics.csv` — 知识点频次统计表（推荐）
-3. 对话中同步输出**分析摘要**，包含：
-   - 共处理题目数量及题型分布
-   - 共识别知识点数量
-   - 出现频次最高的 Top 5 知识点
-   - 知识点覆盖分布（哪些章节/模块考察较多）
-   - 特殊情况说明（如无法识别的图片题、公式题数量）
-
----
-
-## 多文件处理策略
-
-当用户同时提供多份作业或试卷时：
-
-1. **分文件处理**：每份文件独立解析，`source_file` 字段区分来源
-2. **题号全局唯一化**：在题号前加文件前缀（如 `exam1_Q1`、`hw2_Q3`）
-3. **知识点统一命名**：跨文件若出现同义知识点，统一为同一名称
-4. **合并统计**：`knowledge_point_statistics.csv` 汇总所有文件的统计数据
-
----
-
-## 特殊情况处理
-
-| 情况 | 处理方式 |
-|-----|---------|
-| 题目含图片（如几何题） | `note` 注明"含图片"，尽量从文字部分推断知识点 |
-| 题目含公式无法解析 | `note` 注明"含公式"，根据上下文推断考查内容 |
-| 题目语义模糊难以判断知识点 | 标注最可能的知识点，`note` 注明"待核查" |
-| 综合大题跨越多个知识域 | 拆分子题分别标注；若无子题则标注所有相关知识点 |
-| 同一题目答案涉及多章内容 | 所有章节的核心知识点均列入 `knowledge_points`，取最核心的为 `primary_kp` |
-| 用户提供了答案/解析 | 优先参考解析中提到的知识点进行标注，准确性更高 |
-
----
-
-## 典型用例示例
-
-**用例1：期末试卷标注**
-
-用户输入："这是我们《计算机网络》的期末试卷，帮我分析每道题考的哪些知识点"
-
-处理步骤：
-1. 读取PDF，识别出共40题（单选20、填空10、大题10）
-2. 无预设知识点库，开放集标注
-3. 逐题分析，如第1题"TCP三次握手"→ 标注 `TCP协议`、`三次握手`、`连接建立`
-4. 输出标注表 + 统计摘要（如"TCP/IP协议族"出现12次，是最高频知识点）
-
-**用例2：批量作业知识点统计**
-
-用户输入："这是本学期5次作业，帮我统计每个知识点出现了几次"
-
-处理步骤：
-1. 逐份作业读取，题号加文件前缀区分
-2. 统一知识点命名（如"导数"和"求导"合并为"导数"）
-3. 输出合并统计表，按频次降序排列
-4. 在摘要中指出哪些知识点反复出现（可能是重点或难点）
-
----
-
-## 注意事项
-
-- **保持客观**：知识点标注基于题目内容本身，不主观推测出题意图
-- **粒度一致**：同一份文件内知识点粒度要统一，避免混用"函数"（宽泛）和"二次函数图像的对称轴求法"（过细）
-- **中英文统一**：同一知识点在全文使用统一语言，不混用（如统一用"梯度下降"或"Gradient Descent"）
-- **尊重原题结构**：不合并或拆分原始题目，保留原始题号顺序
-
-</script>
-
-<script type="text/markdown" id="md-3">
----
-name: student-knowledge-profiling
-description: 根据作业、试卷及学生成绩单，对每位学生进行知识点维度的学习画像分析，输出结构化CSV文件。支持三种成绩单格式：仅含总分、含大题分+总分、含小题分+总分。通过引入试卷元数据（难度等级、认知层次）与班级统计推断，在成绩数据粗粒度时仍能体现学生个体差异，并为每条记录附加置信区间与风险指数。当用户提供学生成绩数据（无论格式），并提及"知识画像"、"学情分析"、"知识点掌握情况"、"薄弱知识点"、"学生分析"、"能力诊断"、"个性化学习"等需求时，务必触发本技能。即使用户只说"帮我看看学生哪里学得不好"或"分析一下这次考试结果"，只要涉及学生成绩与知识点的关联分析，也应使用本技能。
----
-
-# 学生知识画像构建技能
-
-## 概述
-
-本技能综合题目知识点标注与学生成绩数据，为每位学生构建**知识点维度的学习画像**，量化各知识点的掌握程度，识别优势与薄弱点，输出结构化 CSV 文件。
-
-核心设计原则：**在任意精度的成绩数据下，都要体现学生个体差异**。对于粗粒度成绩（仅总分或大题分），通过引入试卷元数据中的难度等级和认知层次信息，对知识点掌握度进行个性化修正，使同分学生之间产生有依据的画像差异，而非千人一面的均等估算。每条画像记录均附置信区间与风险指数，帮助教师准确判断干预优先级。
-
-产出结果可用于：个性化辅导推荐、分层教学设计、学业预警、班级整体学情报告、自适应练习系统等场景。
-
----
-
-## 前置依赖
-
-在开始前需确认以下两类输入数据均已就绪：
-
-**① 题目知识点标注数据**（来自 `exam-question-tagging` 技能，或用户手动提供）
-
-必须包含以下字段：
-
-| 字段 | 说明 | 是否必须 |
-|------|------|---------|
-| `question_id` | 题目编号 | ✅ |
-| `primary_kp` | 主要知识点 | ✅ |
-| `secondary_kp` | 次要知识点（可多个） | ✅ |
-| `score` | 题目满分 | ✅ |
-| `difficulty` | 难度等级：`easy` / `medium` / `hard` | ✅ |
-| `cognitive_level` | 认知层次：`remember` / `understand` / `apply` / `analyze` | ✅ |
-| `question_type` | 题型（如选择题、简答题） | ❌ |
-
-> `difficulty` 和 `cognitive_level` 是个性化画像的核心依据。若缺失，需提示用户补充；若确实无法补充，则跳过个性化调整步骤，在 `note` 字段注明，并将 `data_quality` 降一级。
-
-**② 学生成绩数据**（用户上传的成绩单文件）
-
-成绩单格式分三类，详见第二步。
-
-> 若用户尚未完成题目知识点标注，应先引导其使用 `exam-question-tagging` 技能处理试卷，再回到本技能继续。
-
----
-
-## 工作流程
-
-### 第一步：读取并预处理输入文件
-
-根据文件类型选择对应读取方式：
-
-| 文件类型 | 处理方式 |
-|---------|---------|
-| `.xlsx` / `.csv` | 参考 `/mnt/skills/public/xlsx/SKILL.md` |
-| `.pdf` | 参考 `/mnt/skills/public/pdf-reading/SKILL.md` |
-| `.docx` | 参考 `/mnt/skills/public/docx/SKILL.md` |
-| 纯文本/Markdown | 直接读取，按行或表格结构解析 |
-
-读取后提取并确认以下信息：
-
-- **学生基本信息**：学生总数、学生标识字段（姓名/学号/两者皆有）
-- **考试信息**：试卷/作业名称、试卷满分
-- **成绩单格式类型**：见第二步
-- **班级基准统计**：计算全班总分均值与标准差、各大题的班级平均得分率（供后续个性化调整使用）
-- **知识点元数据预处理**：
-  - 为每个知识点计算加权平均难度权重（以关联题目满分为权重）
-  - 为每个知识点计算认知层次构成（各层次关联题目满分占比）
-  - 统计每个知识点的关联题目数量和总满分
-
----
-
-### 第二步：识别成绩单格式并计算知识点掌握度
-
-成绩单分三种格式，对应不同的计算路径。每种格式均包含基础计算和个性化调整两个阶段。
-
----
-
-#### 类型 A：仅含总分
-
-**特征**：成绩单只有学生标识和一个总分列，无题目或大题分数。
-
-```
-示例：
-学号,姓名,总分
-2021001,张三,85
-2021002,李四,72
-```
-
-**计算分四步：**
-
-**步骤 A1：基础得分率**
-
-```
-基础得分率(student, kp) = 学生总分 ÷ 试卷满分
-```
-
-此时所有知识点的基础得分率相同，均等于总得分率。
-
-**步骤 A2：难度感知调整**
-
-核心逻辑：相同总分下，高难度知识点的得分差异更能反映学生真实能力。总分高于班级均值的学生，其高难度知识点掌握度应上调；总分低于均值的学生，其低难度知识点掌握度应下调——因为连简单题都丢分，说明基础漏洞更严重。
-
-```
-班级总分均值率 = 全班总分均值 ÷ 试卷满分
-学生相对偏差(student) = 学生总分率 - 班级总分均值率
-
-知识点难度权重(kp)：
-  该kp关联题目全为 easy              → 难度权重 = 0.10
-  全为 medium 或 easy/medium 混合    → 难度权重 = 0.25
-  含任意 hard 题目                   → 难度权重 = 0.50
-
-难度调整系数(student, kp) = 1 + 学生相对偏差(student) × 难度权重(kp)
-
-难度调整后得分率(student, kp) = 基础得分率(student) × 难度调整系数(student, kp)
-                               结果截断至 [0.00, 1.00]
-```
-
-**步骤 A3：认知层次修正**
-
-核心逻辑：「记忆」类题目班级整体差异小（背了就会），「应用/分析」类题目差异大（举一反三能力分化）。高分学生在应用层次的优势更突出，低分学生在记忆层次的劣势相对较小。
-
-```
-认知层次偏移系数：
-  remember   → +0.05（高/低分学生差距小，向均值收缩）
-  understand → 0.00（中性，不调整）
-  apply      → -0.05（高/低分差距大，进一步拉开）
-  analyze    → -0.10
-
-知识点认知层次权重(kp) =
-  Σ(该kp各关联题目的认知层次偏移系数 × 题目满分) ÷ Σ(题目满分)
-
-最终得分率(student, kp) =
-  难度调整后得分率(student, kp) + 学生相对偏差(student) × 知识点认知层次权重(kp)
-  结果截断至 [0.00, 1.00]
-```
-
-**步骤 A4：置信区间**
-
-```
-置信区间宽度(kp) = max(0.10, 0.20 - 该kp关联题目数 × 0.02)
-上限为 ±0.20，最窄为 ±0.10（关联题目越多，区间越窄）
-```
-
----
-
-#### 类型 B：含大题分 + 总分
-
-**特征**：成绩单包含各大题（题组）的得分及总分，但无具体小题分数。
-
-```
-示例：
-姓名,选择题(20分),填空题(20分),简答题(30分),综合题(30分),总分
-张三,16,14,22,23,75
-李四,12,18,20,20,70
-```
-
-**基础计算：**
-
-```
-大题得分率(student, section) = 大题实际得分 ÷ 大题满分
-
-知识点掌握度(student, kp) =
-  Σ(大题得分率 × 该大题中该kp关联题目加权满分) ÷ Σ(该kp加权满分)
-
-加权满分说明：primary_kp 权重 0.7，每个 secondary_kp 权重 = 0.3 ÷ secondary_kp数量
-```
-
-**大题内部难度分层调整：**
-
-类型B已能区分不同大题，但同一大题内各知识点得分率仍相同。利用大题得分率与知识点难度，在大题内部做二次区分：
-
-```
-大题难度基准(section) = 该大题所有题目的班级平均得分率
-
-大题内难度调整系数(student, kp, section) =
-  1 + (大题得分率(student, section) - 大题难度基准(section)) × 知识点难度权重(kp)
-
-最终知识点得分率(student, kp) =
-  Σ(大题得分率 × 大题内难度调整系数 × kp在该大题的加权满分) ÷ Σ(kp加权满分)
-  结果截断至 [0.00, 1.00]
-```
-
-**认知层次修正**（同类型A步骤A3，以大题得分率偏差替代总分率偏差作为基准）：
-
-```
-大题认知修正后得分率(student, kp) =
-  最终知识点得分率(student, kp)
-  + (大题得分率(student, section) - 大题难度基准(section)) × 知识点认知层次权重(kp)
-  结果截断至 [0.00, 1.00]
-```
-
-**置信区间：**
-
-```
-置信区间宽度(kp) = max(0.05, 0.10 - 该kp跨越的大题数 × 0.02)
-上限为 ±0.10，最窄为 ±0.05（跨越大题越多，区间越窄）
-```
-
----
-
-#### 类型 C：含小题分 + 总分
-
-**特征**：成绩单包含每道小题的得分及总分，精度最高。
-
-```
-示例：
-姓名,Q1(2分),Q2(2分),Q3(3分),简答1(6分),综合1(10分),总分
-张三,2,1,3,5,8,19
-李四,1,2,2,4,9,18
-```
-
-**精确计算：**
-
-```
-知识点掌握度(student, kp) =
-  Σ(各关联题目实际得分 × 该题对kp的权重) ÷ Σ(各关联题目满分 × 权重)
-
-权重分配：primary_kp = 0.7；每个 secondary_kp = 0.3 ÷ secondary_kp数量
-```
-
-**答题一致性检验**（当同一知识点关联多道题时）：
-
-```
-一致性标准差 = 该kp各关联题目实际得分率的标准差
-
-标准差 > 0.30 → note 注明「该知识点得分不稳定，可能存在偶然因素」
-标准差 ≤ 0.10 → note 注明「得分稳定，掌握度可信」
-```
-
-**置信区间：**
-
-```
-置信区间宽度(kp) = max(0.03, 该kp关联题目实际得分率的标准差 × 0.5)
-```
-
----
-
-### 第三步：知识点掌握度等级映射
-
-综合第二步计算结果，为每位学生每个知识点映射掌握等级。
-
-**掌握等级映射（三种类型统一）：**
-
-| 得分率区间 | 掌握等级 | 标签 | 含义 |
-|-----------|---------|------|------|
-| ≥ 90% | 优秀 | `excellent` | 完全掌握，可迁移应用 |
-| 75%～89% | 良好 | `good` | 基本掌握，偶有失误 |
-| 60%～74% | 一般 | `fair` | 部分掌握，存在漏洞 |
-| 40%～59% | 薄弱 | `weak` | 掌握不足，需重点练习 |
-| < 40% | 欠缺 | `poor` | 严重欠缺，需系统补习 |
-
-> **置信区间跨等级处理**：当置信区间横跨两个等级边界时，保留主等级，在 `note` 字段注明「实际等级可能为X或Y，建议结合其他数据综合判断」。
-
-**数据可信度标注（`data_quality`）：**
-
-| 成绩单类型 | 数据质量 | 说明 |
-|-----------|---------|------|
-| 类型C（小题分）| `high` | 精确到每道题 |
-| 类型B（大题分）含大题内难度调整 | `medium-high` | 大题内部进一步分层 |
-| 类型B（大题分）基础计算 | `medium` | 精确到题组 |
-| 类型A（总分）含难度与认知层次调整 | `medium-low` | 统计推断个性化 |
-| 类型A（总分）基础估算（无题目元数据）| `low` | 整体均等估算 |
-
----
-
-### 第四步：个性化扩展维度计算
-
-在知识点掌握度之外，补充两个个性化维度，使同分学生产生多角度的差异化画像。
-
-#### 4.1 认知画像
-
-统计学生在不同认知层次知识点上的综合表现，识别其认知强项与弱项：
-
-```
-认知层次得分率(student, cognitive_level) =
-  该认知层次所有关联题目的加权平均实际得分率（以题目满分为权重）
-
-认知强项 = 得分率最高的认知层次
-认知弱项 = 得分率最低的认知层次
-```
-
-输出至 `student_summary_profile.csv` 的 `cognitive_strength` 和 `cognitive_weakness` 字段。
-
-> 对于类型A/B，认知层次得分率由调整后的知识点掌握度加权反推，而非精确计算，在 `note` 中注明「认知画像为估算」。
-
-#### 4.2 知识点风险指数
-
-综合掌握度和置信区间，量化每个知识点对该学生的教学干预优先级：
-
-```
-风险指数(student, kp) = (1 - score_rate) × (1 + 置信区间宽度)
-
-风险等级：
-  风险指数 > 0.60     → high_risk（优先干预）
-  风险指数 0.30～0.60  → medium_risk（需关注）
-  风险指数 < 0.30     → low_risk（暂无需特别干预）
-```
-
-输出至 `student_knowledge_profile.csv` 的 `risk_index` 字段。
-
----
-
-### 第五步：多次考试数据合并（可选）
-
-若用户提供同一学生的多次考试成绩，需合并计算综合画像：
-
-**合并规则：**
-
-1. 以**时间加权平均**为主：默认最近一次权重 0.5，前一次 0.3，更早 0.2；可由用户调整
-2. 若用户明确说明「以最终考试为准」，则只使用最后一次数据
-3. 不同类型（A/B/C）的成绩可合并，但需按数据质量系数折算权重：
-
-```
-合并权重 = 时间权重 × 数据质量系数
-
-数据质量系数：
-  high        → 1.00
-  medium-high → 0.85
-  medium      → 0.70
-  medium-low  → 0.50
-  low         → 0.30
-```
-
-**趋势标签（`trend`）：**
-
-| 标签 | 条件 |
-|------|------|
-| `improving` | 最近一次比前一次得分率提升 ≥ 10% |
-| `stable` | 波动 < 10% |
-| `declining` | 最近一次比前一次得分率下降 ≥ 10% |
-| `new` | 该知识点仅出现在最近一次考试中，无历史对比 |
-
-若提供三次及以上考试数据，额外生成 `student_trend_profile.csv`，横向展示各次得分率变化：
-
-```csv
-student_id,student_name,knowledge_point,exam1_rate,exam2_rate,exam3_rate,trend,weighted_avg_rate
-S001,张三,TCP协议,0.60,0.75,0.83,improving,0.75
-```
-
----
-
-### 第六步：生成学生画像 CSV 文件
-
-#### 主文件 1：`student_knowledge_profile.csv`（学生×知识点掌握度明细表）
-
-每行 = 一个学生在一个知识点上的画像记录。
-
-```csv
-student_id,student_name,exam_id,knowledge_point,score_rate,confidence_interval,mastery_level,risk_index,risk_level,data_quality,related_questions,earned_score,total_score,trend,note
-S001,张三,期末考试,CIDR,0.61,±0.18,fair,0.54,medium_risk,medium-low,综合3,,,难度调整后，置信区间跨越fair/weak边界
-S002,李四,期末考试,CIDR,0.39,±0.18,poor,1.22,high_risk,medium-low,综合3,,,
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 是否必填 | 说明 |
-|-----|------|---------|------|
-| `student_id` | string | ✅ | 学生唯一标识（学号优先；无学号则自动生成 S001…）|
-| `student_name` | string | ✅ | 学生姓名 |
-| `exam_id` | string | ✅ | 考试/作业标识（如"期末考试"、"第3次作业"）|
-| `knowledge_point` | string | ✅ | 知识点名称 |
-| `score_rate` | float | ✅ | 掌握度得分率（0.00～1.00，保留两位小数）|
-| `confidence_interval` | string | ✅ | 置信区间，如 `±0.15` |
-| `mastery_level` | string | ✅ | 掌握等级标签（excellent / good / fair / weak / poor）|
-| `risk_index` | float | ✅ | 知识点风险指数（0.00～2.00，保留两位小数）|
-| `risk_level` | string | ✅ | 风险等级（high_risk / medium_risk / low_risk）|
-| `data_quality` | string | ✅ | 数据可信度（high / medium-high / medium / medium-low / low）|
-| `related_questions` | string | ✅ | 关联题目编号，用 `;` 分隔 |
-| `earned_score` | number | ❌ | 该知识点实际得分（类型A时留空）|
-| `total_score` | number | ❌ | 该知识点满分（类型A时留空）|
-| `trend` | string | ❌ | 趋势标签（多次考试时填写）|
-| `note` | string | ❌ | 备注（调整说明、置信区间跨等级提示、一致性说明等）|
-
----
-
-#### 主文件 2：`student_summary_profile.csv`（学生综合画像摘要表）
-
-每行 = 一个学生的综合画像摘要。
-
-```csv
-student_id,student_name,exam_id,total_score_rate,excellent_kps,good_kps,fair_kps,weak_kps,poor_kps,top3_strength,top3_weakness,top3_high_risk,cognitive_strength,cognitive_weakness,overall_level,data_quality
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 说明 |
-|-----|------|------|
-| `student_id` | string | 学生唯一标识 |
-| `student_name` | string | 学生姓名 |
-| `exam_id` | string | 考试/作业标识 |
-| `total_score_rate` | float | 总得分率 |
-| `excellent_kps` | string | 掌握等级为 excellent 的知识点，`;` 分隔 |
-| `good_kps` | string | 掌握等级为 good 的知识点 |
-| `fair_kps` | string | 掌握等级为 fair 的知识点 |
-| `weak_kps` | string | 掌握等级为 weak 的知识点 |
-| `poor_kps` | string | 掌握等级为 poor 的知识点 |
-| `top3_strength` | string | 得分率最高的前3个知识点 |
-| `top3_weakness` | string | 得分率最低的前3个知识点 |
-| `top3_high_risk` | string | 风险指数最高的前3个知识点 |
-| `cognitive_strength` | string | 最强认知层次（remember / understand / apply / analyze）|
-| `cognitive_weakness` | string | 最弱认知层次 |
-| `overall_level` | string | 综合掌握等级（以总得分率映射，同掌握等级规则）|
-| `data_quality` | string | 整体数据可信度 |
-
----
-
-#### 辅助文件：`class_knowledge_heatmap.csv`（班级知识点热力图数据）
-
-每行 = 全班在某个知识点上的整体表现，可导入可视化工具生成热力图。
-
-```csv
-knowledge_point,class_avg_score_rate,class_score_std,excellent_count,good_count,fair_count,weak_count,poor_count,total_students,mastery_rate,alert_level,difficulty_level,cognitive_level
-```
-
-**字段说明：**
-
-| 字段 | 类型 | 说明 |
-|-----|------|------|
-| `knowledge_point` | string | 知识点名称 |
-| `class_avg_score_rate` | float | 全班平均得分率 |
-| `class_score_std` | float | 全班得分率标准差（越大说明两极分化越严重）|
-| `excellent_count` … `poor_count` | number | 各等级人数 |
-| `total_students` | number | 参与统计的总学生数 |
-| `mastery_rate` | float | 达到 good 及以上的学生比例 |
-| `alert_level` | string | 预警等级：`normal`（≥60%）/ `warning`（40%～59%）/ `high_alert`（<40%）|
-| `difficulty_level` | string | 该知识点的加权平均难度（easy / medium / hard）|
-| `cognitive_level` | string | 该知识点的主要认知层次 |
-
----
-
-### 第七步：质量自检
-
-输出前逐项确认：
-
-- [ ] 所有学生的 `student_id` 唯一，无重复
-- [ ] `score_rate` 值在 0.00～1.00 之间，无负数或超过 1 的异常值
-- [ ] `confidence_interval` 宽度符合对应格式类型规范：类型A ≤ ±0.20，类型B ≤ ±0.10，类型C 动态计算
-- [ ] 类型A/B 的 `note` 字段包含个性化调整说明，不得与精确数据混用而不加区分
-- [ ] `knowledge_point` 名称与题目知识点标注文件中的名称完全一致，无擅自改名或合并
-- [ ] `top3_strength` 和 `top3_weakness` 无重叠
-- [ ] 班级热力图的 `total_students` 与成绩单学生总数一致
-- [ ] **个性化验证**（类型A/B必检）：抽取总分相同或相近的两名学生，确认其高难度知识点与低难度知识点的 `score_rate` 已产生差异，不完全相同
-- [ ] CSV 编码为 UTF-8，所有数值字段无空格或非数字字符
-
----
-
-## 输出规范
-
-**最终向用户交付：**
-
-1. `student_knowledge_profile.csv` — 学生知识点掌握度明细表（必须）
-2. `student_summary_profile.csv` — 学生综合画像摘要表（必须）
-3. `class_knowledge_heatmap.csv` — 班级知识点热力图数据（推荐）
-4. `student_trend_profile.csv` — 知识点趋势表（多次考试时生成）
-5. 对话中同步输出**班级学情摘要**，包含：
-   - 班级整体得分率分布（各等级人数）
-   - 全班掌握最好的 Top3 知识点
-   - 全班最薄弱的 Top3 知识点（预警）
-   - 全班风险指数最高的 Top3 知识点
-   - 认知层次整体分析（全班在哪个认知层次最弱）
-   - 成绩单格式类型及数据质量说明
-   - 存在 `poor` 等级或 `high_risk` 知识点的学生名单
-
----
-
-## 特殊情况处理
-
-| 情况 | 处理方式 |
-|-----|---------|
-| 缺少 `difficulty` / `cognitive_level` 字段 | 提示用户补充；确实无法补充时跳过个性化调整，`data_quality` 降一级，`note` 注明 |
-| 成绩单缺少部分学生某题得分 | 该题记为缺考（`earned_score=null`），不参与计算，`note` 注明「缺考」 |
-| 同一学生在成绩单中出现多行 | 以最高分为准，`note` 注明「取最高分」 |
-| 置信区间跨越等级边界 | `mastery_level` 保留主等级，`note` 注明「实际等级可能为X或Y」 |
-| 试卷满分与成绩单最高分不一致 | 以用户提供的试卷满分为准，若未提供则取成绩单最大值，提示用户确认 |
-| 学生总分为满分或 0 分 | 直接设为 1.00 或 0.00，不做难度调整（避免系数放大误差）|
-| 班级人数少于 10 人 | `alert_level` 和统计调整结果仅供参考，摘要中说明样本量不足 |
-| 所有知识点难度相同 | 跳过难度感知调整，`note` 注明「该试卷知识点难度均一，无法进行难度分层调整」 |
-| 某知识点仅关联 1 道题 | 类型C一致性检验跳过；类型A/B置信区间加宽至 ±0.25 |
-| 多次考试成绩单类型不同（如A+C混合）| 以数据质量最高的为主导，合并权重 = 时间权重 × 数据质量系数 |
-| 成绩单同时含大题分和小题分 | 优先以小题分（类型C）计算，大题总分仅用于校验（二者之和应一致）|
-
----
-
-## 注意事项
-
-- **隐私保护**：成绩数据属于学生个人隐私，本技能不持久化任何学生数据。
-- **估算透明**：类型A/B的掌握度为统计推断估算值，必须在 `confidence_interval` 字段和对话摘要中明确标注，不得与精确数据混用而不加区分。
-- **调整系数截断**：难度调整与认知层次调整叠加后，结果超出 [0.00, 1.00] 时截断处理，不外推。
-- **避免过度解读**：单次考试的得分率受题目抽样、难度、临场发挥等多重因素影响，应提醒用户结合多次数据综合判断，不宜据此做出重大教学决定。
-- **知识点名称对齐**：本技能的知识点名称须与 `exam-question-tagging` 产出严格一致，不得擅自改名、拆分或合并。
-
-</script>
-
-<script type="text/markdown" id="md-4">
----
-name: personalized-homework-assignment
-description: 根据学生知识画像和课程知识图谱，为每位学生自动生成个性化作业方案，满分100分。无论是否有现成题库，均可生成作业：有题库时从中选题，无题库时根据学生薄弱点现场生成题目。核心特点是考虑知识点间的依赖和关联关系——薄弱知识点的根因可能是前置知识点掌握不足，因此会同步补充前置知识点练习。当用户提到"个性化作业"、"差异化作业"、"分层作业"、"针对性练习"、"根据学情出题"、"为学生定制题目"、"按知识掌握情况布置作业"等需求时，务必触发本技能。即使用户只说"帮我给学生出个作业"或"根据上次考试帮每个学生布置练习"，只要涉及结合学情的作业设计，也应使用本技能。
----
-
-# 个性化作业布置技能
-
-## 概述
-
-本技能综合**学生知识画像**与**课程知识图谱**，考虑知识点间的关联与依赖关系，为每位学生自动生成一份满分 100 分的个性化作业方案。
-
-**有题库**：从题库中智能选题  
-**无题库**：根据学生薄弱点现场生成题目  
-**两种情况**均可输出完整、可直接使用的作业内容。
-
-产出结果可用于：差异化课后练习、查漏补缺辅导、课前预习清单、自适应练习系统等场景。
-
----
-
-## 前置依赖
-
-开始前确认以下输入已就绪：
-
-| 输入 | 来源 | 是否必须 |
-|-----|------|---------|
-| 学生知识画像 | `student-knowledge-profiling` 技能产出，或用户手动提供 | ✅ 必须 |
-| 课程知识图谱 | 用户提供（含知识点列表、层级关系、依赖关系） | ✅ 必须 |
-| 题库文件 | 用户上传（xlsx / csv / docx / pdf / 文字描述均可） | ❌ 可选 |
-| 作业要求说明 | 用户说明（难度偏好、题型偏好、是否分层等） | ❌ 可选 |
-
-> 若用户尚未完成知识画像，引导其先使用 `student-knowledge-profiling` 技能，再回到本技能继续。
-
----
-
-## 核心设计原则
-
-### 原则一：知识关联分析优先
-
-学生某知识点薄弱，**根因不一定在该知识点本身**，很可能是其前置知识点或强关联知识点掌握不足。布置作业前必须：
-
-1. 查找该薄弱知识点在知识图谱中的**前置依赖节点**
-2. 检查学生在这些前置节点上的掌握度
-3. 若前置节点也薄弱，**优先补充前置知识点练习**，再布置目标知识点练习
-4. 若前置节点掌握良好，则直接布置目标知识点的强化练习
-
-**示例：**
-```
-学生 A：分数除法（poor）← 检查 → 分数乘法（fair）← 检查 → 分数的意义（good）
-根因定位：分数乘法是瓶颈，作业应先补分数乘法，再练分数除法
-```
-
-### 原则二：区分巩固与补漏
-
-- **excellent / good**：不布置该知识点的题目（避免重复刷题，节省学生时间）
-- **fair**：布置少量巩固题，以提升稳定性为主
-- **weak**：布置适量强化题，并追溯前置知识点
-- **poor**：布置较多补基础题 + 前置知识点补习题，难度从低到高递进
-
-### 原则三：满分 100 分弹性分配
-
-每位学生的作业总分固定为 100 分，根据其薄弱知识点数量和严重程度**动态分配各知识点的题目分值**，确保：
-- 薄弱/欠缺知识点获得更多分值（练习量更多）
-- 一般知识点获得少量分值（巩固为主）
-- 优良知识点不分配分值
-
-### 原则四：无题库时生成原创题目
-
-若用户没有题库，本技能根据知识点内容和掌握等级，直接生成题目，要求：
-- 题目类型多样（选择、填空、判断、简答、计算、应用题等）
-- 难度与掌握等级匹配（poor → 基础题；weak → 中等题；fair → 提升题）
-- 题目叙述清晰，包含完整答案和解析
-
----
-
-## 工作流程
-
-### 第一步：解析输入数据
-
-**1.1 读取学生知识画像**
-
-优先从 `student_knowledge_profile.csv` 或 `student_summary_profile.csv` 中提取：
-
-| 字段 | 用途 |
-|-----|------|
-| `student_id` / `student_name` | 学生标识 |
-| `knowledge_point` | 知识点名称 |
-| `mastery_level` | 掌握等级（excellent/good/fair/weak/poor）|
-| `score_rate` | 得分率（用于精确分配题目权重）|
-
-若用户提供的是非标准格式（如手写表格、描述文字），自行解析并建立学生-知识点掌握度映射表。
-
-**1.2 读取课程知识图谱**
-
-提取以下信息构建知识网络：
-
-```
-知识点节点：名称、所属章节、难度等级
-依赖关系：A → B 表示"学习 B 需要先掌握 A"
-关联关系：A ↔ B 表示"A 和 B 密切相关，互相影响"
-```
-
-若用户提供的知识图谱格式简单（如无向列表、章节大纲），根据学科常识推断依赖关系，并告知用户。
-
-**1.3 读取题库（如有）**
-
-提取每道题的：题目编号、题目内容、所属知识点、题型、难度、分值、答案、解析。
-
----
-
-### 第二步：知识点关联分析
-
-对每位学生的每个薄弱/欠缺知识点，执行以下分析：
-
-```
-FOR 每个 mastery_level IN [weak, poor]:
-    找出该知识点在知识图谱中的所有前置节点
-    FOR 每个前置节点:
-        查询学生在该前置节点上的掌握度
-        IF 前置节点也是 weak 或 poor:
-            标记为"根因节点"，加入作业范围，且优先级高于目标知识点
-        ELSE:
-            该前置节点掌握正常，无需补习
-    
-    找出与该知识点强关联的横向节点
-    IF 强关联节点也薄弱:
-        同步加入作业范围，备注"关联补强"
-```
-
-输出结果：每位学生的**作业知识点清单**，包含：
-- 目标知识点（原本薄弱的）
-- 前置补充知识点（根因节点）
-- 关联补强知识点
-- fair 等级的少量巩固知识点
-
----
-
-### 第三步：分值规划（满分 100 分）
-
-根据知识点清单，按以下规则分配 100 分：
-
-**分值权重基准：**
-
-| 知识点等级 | 分值权重 | 说明 |
-|-----------|---------|------|
-| poor（欠缺）| 高权重（基础 20 分/点） | 需大量基础练习 |
-| weak（薄弱）| 中高权重（基础 15 分/点）| 需强化练习 |
-| poor/weak 的前置根因节点 | 额外 +5～10 分 | 补根因优先 |
-| fair（一般，巩固）| 低权重（基础 8 分/点）| 少量巩固 |
-| 关联补强节点 | 低权重（基础 5 分/点）| 辅助理解 |
-
-**归一化处理：**
-
-将所有知识点的原始分值加总后，等比缩放至总分 100 分，每个知识点取整（最终汇总若有 1～2 分误差，从权重最低的知识点调整）。
-
-**分值下限保障：**
-
-- 每个纳入作业范围的知识点，分值不低于 5 分（保证至少 1 道有效题目）
-
----
-
-### 第四步：选题或生成题目
-
-#### 情况 A：有题库
-
-**选题规则：**
-
-1. 按知识点从题库中筛选候选题目
-2. 按难度匹配掌握等级：
-   - `poor` → 选简单题为主（难度 ≤ 3/5）
-   - `weak` → 选中等题为主（难度 3/5）
-   - `fair` → 选中等偏难题（难度 3～4/5）
-3. 控制题目数量：每个知识点 1～4 道题，使该知识点的题目总分等于规划分值
-4. 避免选取该学生在原始考试中已做过的同一题目（若有记录）
-5. 若题库中某知识点题目不足，补充生成原创题目（见情况 B）
-
-#### 情况 B：无题库（全部生成）
-
-根据以下要求**现场生成题目**：
-
-**题型配比建议（可根据用户偏好调整）：**
-
-| 分值段 | 题型 |
-|-------|------|
-| 5～15 分 | 选择题（2分/题）或填空题（3分/题）|
-| 15～30 分 | 可加入判断题（2分/题）和简答题（5分/题）|
-| 30 分以上 | 可加入应用题/计算题（10分/题）|
-
-**题目生成要求：**
-
-- 题目叙述清晰无歧义，语言符合学段表达习惯
-- 每道题必须附有**参考答案**
-- 较复杂的题目附**解题思路/解析**（简答题及以上必须）
-- 难度阶梯：同一知识点先出基础题，再出应用题
-- 避免出现与其他学生重复度极高的题目（可在同一知识点内微调数据或情境）
-
----
-
-### 第五步：组装个人作业单
-
-为每位学生生成一份**完整的个性化作业单**，包含以下结构：
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[学生姓名] 个性化作业
-课程：[科目名称]    日期：[当前日期]    满分：100 分
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-【本次作业说明】
-本次作业根据你的学习情况量身定制，重点练习以下知识点：
-[列出作业涵盖的知识点及原因，例如：
-  • 分数乘法（本次重点）：前一次测评得分率 45%，需要强化
-  • 分数的意义（补充复习）：作为分数乘法的基础，需巩固]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-第一部分：[知识点名称]（共 XX 分）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. [题目内容]（X 分）
-   A. 选项一  B. 选项二  C. 选项三  D. 选项四
-
-2. [题目内容]（X 分）
-
-...
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-第二部分：[知识点名称]（共 XX 分）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-...
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-参考答案与解析
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[按题号列出答案，复杂题目附解析]
-```
-
----
-
-### 第六步：生成汇总输出文件
-
-#### 文件一：个人作业单（每生一份）
-
-文件名格式：`homework_[student_id]_[student_name].md`（或 `.docx`，按用户偏好）
-
-包含完整作业内容 + 答案解析，如需打印版可参考 `docx` 技能生成 Word 文件。
-
-#### 文件二：`homework_summary.csv`（班级作业汇总表）
-
-每行 = 一位学生的作业规划摘要，便于教师查看全班分配情况。
-
-```csv
-student_id,student_name,target_kps,root_cause_kps,reinforcement_kps,total_questions,total_score,difficulty_profile,has_custom_questions
-S001,张三,分数除法;分数乘法,分数乘法,分数的意义,8,100,基础为主,是
-S002,李四,分数除法,无,分数乘法,5,100,中等偏难,否
-S003,王五,分数的意义;小数加减,无,无,4,100,巩固为主,否
-```
-
-**字段说明：**
-
-| 字段 | 说明 |
-|-----|------|
-| `target_kps` | 本次作业主要练习的薄弱知识点 |
-| `root_cause_kps` | 根因补充知识点（前置依赖不足） |
-| `reinforcement_kps` | fair 等级的巩固知识点 |
-| `total_questions` | 作业总题数 |
-| `total_score` | 作业总分（固定 100 分）|
-| `difficulty_profile` | 难度分布描述 |
-| `has_custom_questions` | 是否含现场生成的原创题目 |
-
-#### 文件三：`homework_kp_coverage.csv`（知识点覆盖分析表）
-
-帮助教师了解哪些知识点在全班被重点针对练习。
-
-```csv
-knowledge_point,student_count,as_target_count,as_root_cause_count,as_reinforcement_count,total_questions_generated
-分数乘法,12,8,4,0,45
-分数除法,9,9,0,0,38
-分数的意义,15,3,6,6,22
-```
-
----
-
-### 第七步：质量自检
-
-输出前逐项确认：
-
-- [ ] 每位学生的作业总分恰好为 100 分（允许 ±1 分四舍五入误差）
-- [ ] 作业说明中已列出知识点选择的理由（透明化，学生能看懂）
-- [ ] 前置知识点分析已执行，根因节点已被优先补充
-- [ ] excellent / good 等级知识点未被纳入作业（不重复刷已掌握内容）
-- [ ] 题目难度与掌握等级匹配（poor 不出难题，fair 不出基础题）
-- [ ] 每道题均有参考答案
-- [ ] 若无题库，生成的题目叙述清晰，无歧义
-- [ ] `homework_summary.csv` 中所有学生均已覆盖
-
----
-
-## 特殊情况处理
-
-| 情况 | 处理方式 |
-|-----|---------|
-| 学生所有知识点均为 excellent/good | 生成一份拓展提高型作业：选取课程知识图谱中的高阶知识点或综合应用题，满分 100 分 |
-| 学生薄弱知识点过多（导致每点分值极低）| 筛选掌握度最低的前 5 个知识点重点攻破，其余知识点在备注中建议课后补习 |
-| 学生知识画像数据质量为 low（仅有总分）| 按总得分率估算整体掌握情况，覆盖当前章节所有核心知识点，作业说明中注明"基于整体估算，覆盖全章节" |
-| 课程知识图谱未提供依赖关系 | 根据学科常识推断典型前置依赖，列出推断依据告知用户确认 |
-| 同一知识点前置链过长（A→B→C→D 均薄弱）| 只追溯 2 层前置，超出部分在作业说明中提示"建议配合教师辅导，从基础重学 [最底层知识点]" |
-| 题库中某知识点完全无题 | 现场生成 1～3 道该知识点题目，`has_custom_questions` 标注"是" |
-| 班级人数超过 40 人 | 先生成全班汇总表和分析，再按用户需求逐组或逐人生成详细作业单 |
-
----
-
-## 输出规范
-
-**最终向用户交付：**
-
-1. **每位学生的个性化作业单**（必须）：含题目、答案、解析，格式清晰可打印
-2. `homework_summary.csv` — 班级作业汇总表（必须）
-3. `homework_kp_coverage.csv` — 知识点覆盖分析表（推荐）
-4. **对话中同步输出班级作业设计说明**，包含：
-   - 全班作业设计思路概述
-   - 最常被纳入作业的 Top 3 薄弱知识点（说明全班共性问题）
-   - 发现的前置根因链（如"多位同学分数除法弱，根因是分数乘法不牢"）
-   - 是否使用了原创题目及质量说明
-   - 若部分学生知识画像数据质量较低，说明对应局限性
-
----
-
-## 典型用例示例
-
-**用例 1：有题库 + 小题分知识画像**
-
-用户输入："这是全班知识画像 CSV 和题库，请帮我为每位学生布置个性化作业"
-
-处理步骤：
-1. 读取知识画像，提取每位学生的掌握等级
-2. 分析知识图谱中的前置依赖，识别根因节点
-3. 按分值规划分配 100 分到各知识点
-4. 从题库中按知识点 + 难度筛选题目
-5. 组装每人作业单，生成汇总 CSV
-
-**用例 2：无题库 + 仅有总分画像**
-
-用户输入："我没有题库，成绩单只有总分，但我想给学生出点个性化练习"
-
-处理步骤：
-1. 识别数据质量为 low，告知用户估算局限性
-2. 以整体得分率区段推断整体掌握层次
-3. 覆盖当前章节全部核心知识点，按难度分层生成原创题目
-4. 输出作业单，备注"建议下次收集小题得分以获得更精准的个性化作业"
-
-**用例 3：高分学生全部掌握良好**
-
-用户输入："有几个学生各知识点都是 excellent，我该给他们出什么？"
-
-处理步骤：
-1. 识别无薄弱/欠缺知识点
-2. 生成拓展型作业：选取课程知识图谱中标注为"高阶"或"综合应用"的知识点
-3. 题目以开放性应用题、跨知识点综合题为主
-4. 满分同样为 100 分，难度整体上移
-
----
-
-## 注意事项
-
-- **作业量适度**：单份作业题目数建议控制在 5～15 题，避免学生负担过重；若薄弱点过多，优先攻破最关键的 3～5 个
-- **前置分析必须执行**：不可跳过知识关联分析直接出题，根因识别是本技能的核心价值
-- **保持学生可读性**：作业说明部分语言应简洁友好，让学生明白"为什么要做这些题"
-- **答案完整性**：每道题必须有答案；简答、计算、应用题必须有解析，不得省略
-- **隐私保护**：作业文件中含有学生姓名，提醒用户注意文件分发范围，避免学生之间相互看到各自的知识盲点
-- **迭代改进**：作业完成后的得分数据可再次输入知识画像技能，形成持续迭代的学情追踪闭环
-
-</script>
-
-<script type="text/markdown" id="md-5">
----
-name: personalized-learning-resource-recommendation
-description: 根据大学生的知识画像和课程知识图谱，为每位学生推荐个性化学习资源，涵盖本地资源（课件、教材、实验材料等）和网络资源（视频课程、论文、开源项目、工具平台等），支持多模态资源形式（视频、文章、交互平台、播客、代码仓库等）。核心特点是结合知识点掌握等级与关联关系，为不同层次的学生推荐难度匹配、形式适合、真实可访问的资源，同时考虑大学生的自主学习特点和学术深度需求。当用户提到"推荐学习资源"、"学习材料推荐"、"个性化资源"、"为学生推荐视频/文章/课程"、"差异化学习材料"、"根据学情推荐资料"等需求时，务必触发本技能。即使用户只说"给学生找点学习材料"或"帮我推荐一些资源让学生补弱项"，只要涉及结合学情的资源推荐，也应使用本技能。
----
-
-# 大学生个性化学习资源推荐技能
-
-## 概述
-
-本技能综合**学生知识画像**与**课程知识图谱**，为每位大学生推荐一份个性化的学习资源清单。
-
-**资源来源**：本地资源（教师上传的课件、教材章节、实验指导）+ 网络资源（公开课、论文、工具、代码仓库等）  
-**资源形式**：视频、文章/教材、交互平台、代码/项目、播客/音频、可视化工具等多模态  
-**核心逻辑**：知识掌握等级 × 知识关联分析 → 精准匹配资源难度与深度  
-
-面向**高校大学生**，强调学术深度、自主探索能力和实践应用，而非中小学式的基础讲解。
-
----
-
-## 前置依赖
-
-| 输入 | 来源 | 是否必须 |
-|-----|------|---------|
-| 学生知识画像 | `student-knowledge-profiling` 技能产出，或用户手动提供 | 必须 |
-| 课程知识图谱 | 用户提供（含知识点列表、层级/依赖关系、学科方向） | 必须 |
-| 本地学习资源库 | 用户上传（课件、教材、实验材料、参考文献等） | 可选 |
-| 课程背景说明 | 用户说明（学科、年级、课程目标、语言偏好等） | 可选 |
-
-> 若用户尚未完成知识画像，引导其先使用 `student-knowledge-profiling` 技能，再回到本技能继续。
-
----
-
-## 核心设计原则
-
-### 原则一：掌握等级驱动资源深度
-
-不同掌握等级的学生，所需的资源类型和深度有本质差异：
-
-| 掌握等级 | 学习需求定位 | 资源策略 |
-|---------|------------|---------|
-| poor（欠缺）| 重建认知框架 | 系统性入门课程、直观动画讲解、基础教材章节 |
-| weak（薄弱）| 填补理解漏洞 | 专题讲解视频、有例题的笔记/博客、配套练习平台 |
-| fair（一般）| 强化与应用 | 进阶课程片段、经典习题集、案例分析文章 |
-| good（良好）| 拓展与融会贯通 | 学术综述、开源项目实践、跨知识点综合资源 |
-| excellent（优秀）| 前沿探索 | 顶会论文、前沿工具/框架、研究级项目、学术讲座 |
-
-**大学生特别注意**：即使是 poor 等级，推荐资源也应保持大学本科/研究生的学术调性，不推荐中小学风格的基础资源。
-
-### 原则二：知识关联分析优先
-
-薄弱知识点的根因可能是前置知识点不牢。推荐资源前须：
-
-1. 沿知识图谱追溯薄弱点的**前置依赖节点**
-2. 若前置节点也薄弱 → 优先推荐前置节点的资源（标注"建议先学"）
-3. 若强关联横向节点也薄弱 → 推荐能同时覆盖两者的综合资源
-
-### 原则三：多模态匹配学习场景
-
-大学生学习场景多样，不同形式的资源服务不同场景：
-
-| 资源形式 | 适用场景 | 典型来源 |
-|---------|---------|---------|
-| 视频课程 | 系统建立知识框架，通勤/睡前学习 | Bilibili、YouTube、中国大学MOOC、Coursera、MIT OCW |
-| 文章/博客 | 深度理解某一细节，快速查阅 | 知乎、CSDN、Medium、官方文档、维基百科 |
-| 学术论文 | 理解原理来源，前沿探索 | arXiv、知网、Google Scholar、Semantic Scholar |
-| 交互平台 | 边学边练，即时反馈 | LeetCode、Kaggle、Khan Academy、Brilliant.org |
-| 代码/项目 | 实践应用，工程能力培养 | GitHub、Gitee、Papers with Code |
-| 可视化工具 | 理解抽象概念，直觉建立 | Desmos、3Blue1Brown、VisuAlgo、Wolfram Alpha |
-| 播客/音频 | 碎片时间，宏观视角 | 各学科学术播客、TED Talks |
-| 教材/讲义 | 系统学习，考试备考 | 用户本地上传或公开电子版 |
-
-### 原则四：优先推荐真实可访问的资源
-
-- **优先推荐有明确平台名称的真实资源**，避免虚构不存在的资源链接
-- 对于可能需要科学上网的资源（如 YouTube、Coursera），注明访问要求
-- 对于付费资源，注明"付费"或"部分免费"
-- 若不确定某资源是否仍可访问，使用保守描述（"可在 X 平台搜索关键词 Y"）而非直接给出可能失效的 URL
-
----
-
-## 工作流程
-
-### 第一步：解析输入数据
-
-**1.1 读取学生知识画像**
-
-从知识画像中提取每位学生的知识点掌握等级（excellent/good/fair/weak/poor）和得分率。
-
-**1.2 读取课程知识图谱**
-
-提取知识点的依赖关系、章节归属、学科方向（理工/人文/社科/艺术等），用于判断资源适用性和追溯前置依赖链。
-
-**1.3 了解课程背景（如用户未说明，主动询问以下关键信息）**
-
-- 学科/课程名称（如：数据结构、高等数学、宏观经济学）
-- 年级与层次（本科低年级/高年级/研究生）
-- 语言偏好（中文优先 / 英文可接受 / 均可）
-- 是否有校内资源库（图书馆数据库、内网课件）
-- 学生每周课外学习可用时长（用于估算推荐资源总量）
-
-**1.4 盘点本地资源（如用户提供）**
-
-提取本地资源的知识点覆盖范围，优先为学生匹配本地资源，再补充网络资源。
-
----
-
-### 第二步：知识点关联分析
-
-对每位学生执行前置依赖链分析，输出**资源推荐知识点优先级清单**：
-
-- **P0**：前置根因节点（必须先补，标注"建议先学"）
-- **P1**：主要薄弱/欠缺知识点（重点推荐）
-- **P2**：一般掌握的知识点（少量巩固拓展）
-- **P3**：良好/优秀知识点（前沿探索，可选）
-
-```
-FOR 每个 mastery_level IN [weak, poor]:
-    沿知识图谱找出所有前置节点
-    若前置节点也薄弱 → 标记 P0，优先推荐其资源
-    若强关联横向节点也薄弱 → 寻找能同时覆盖两者的综合资源
-```
-
----
-
-### 第三步：资源匹配与生成
-
-#### 3.1 本地资源优先匹配
-
-若用户提供本地资源，先按知识点映射分配最相关的本地材料给对应优先级知识点。
-
-#### 3.2 按学科推荐网络资源
-
-**理工科（数学、物理、计算机、工程等）：**
-
-| 知识点等级 | 优先推荐资源类型 | 典型平台 |
-|-----------|--------------|---------|
-| poor | 系统性视频课程（完整章节）| 中国大学MOOC、Bilibili 高校公开课、MIT OCW |
-| weak | 专题讲解 + 练习平台 | Bilibili、LeetCode、牛客网、洛谷 |
-| fair | 进阶教程 + 典型例题 | GitHub 学习笔记仓库、Stack Overflow |
-| good | 开源项目 + 学科综述 | GitHub、Papers with Code、arXiv |
-| excellent | 顶会论文 + 前沿框架 | arXiv、ACM DL、IEEE Xplore |
-
-**人文社科（历史、哲学、经济、管理等）：**
-
-| 知识点等级 | 优先推荐资源类型 | 典型平台 |
-|-----------|--------------|---------|
-| poor | 权威教材章节 + 概念讲解视频 | 中国大学MOOC、Coursera、知乎专栏 |
-| weak | 深度长文 + 案例分析 | 知乎、学术公众号、豆瓣书单 |
-| fair | 学术文献导读 + 名家访谈 | 知网、SSRN、TED Talks |
-| good | 学术期刊文章 + 读书笔记 | CNKI、JSTOR、Google Scholar |
-| excellent | 前沿论文 + 国际会议资料 | SSRN、各学科顶刊官网 |
-
-**艺术设计类：**
-
-| 知识点等级 | 优先推荐资源类型 | 典型平台 |
-|-----------|--------------|---------|
-| poor | 基础技法视频教程 | Bilibili、Adobe 官方教程、站酷学院 |
-| weak | 专项练习教程 + 临摹资源 | Dribbble、Behance、Pinterest |
-| fair | 优秀作品赏析 + 设计评论 | ZCOOL、站酷、国外设计博客 |
-| good/excellent | 设计竞赛、前沿工具、大师讲座 | TED、国际设计周、Figma 社区 |
-
-#### 3.3 每个知识点推荐资源数量
-
-| 优先级 | 推荐资源数 | 形式要求 |
-|-------|-----------|---------|
-| P0（根因节点）| 2～3 个 | 至少 1 个视频 + 1 个文本资源 |
-| P1（主要薄弱）| 3～5 个 | 多模态（视频 + 文本 + 练习/工具）|
-| P2（一般巩固）| 1～2 个 | 以文本/练习为主 |
-| P3（前沿拓展）| 1～3 个 | 论文/项目/讲座优先 |
-
----
-
-### 第四步：组装个人资源推荐单
-
-为每位学生生成一份结构化的个性化资源推荐单，格式如下：
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[学生姓名] 个性化学习资源推荐
-课程：[科目名称]    生成日期：[当前日期]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-【学习建议总览】
-根据你的学习画像，本次推荐资源的重点方向：
-• [知识点 B]（建议先学，是[知识点 A]的基础）
-• [知识点 A]（主要薄弱点，重点强化）
-• [知识点 C]（一般，少量巩固）
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📌 第一优先级：[知识点 B]（建议先学）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. 🎬 [资源名称]
-   平台：[平台名称]
-   获取方式：[URL 或"在 X 平台搜索关键词 Y"]
-   内容简介：[2～3 句话说明内容与推荐原因]
-   时长/篇幅：约 XX 分钟 / XX 页
-   访问方式：免费 / 付费 / 需科学上网
-
-2. 📄 [资源名称]
-   ...
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 第二优先级：[知识点 A]（主要薄弱点）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[类似结构]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📈 拓展资源（可选探索）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[掌握良好/优秀知识点的前沿资源]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💡 学习路径建议
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[1～3 条具体可执行建议，如：
-  "建议先用 2 小时完成[资源 1]，再做[平台]上的配套练习"]
-```
-
-**资源类型 emoji 标注：**
-🎬 视频课程/讲座 | 📄 文章/论文/教材 | 🛠️ 交互练习平台/工具 | 💻 代码仓库/项目 | 🎙️ 播客/音频 | 📊 可视化/动画工具 | 📚 书籍/教材
-
----
-
-### 第五步：生成汇总输出文件
-
-#### 文件一：个人资源推荐单（每生一份）
-
-文件名：`resources_[student_id]_[student_name].md`
-
-#### 文件二：`resource_recommendation_summary.csv`（班级汇总）
-
-```csv
-student_id,student_name,priority_kps,root_cause_kps,total_resources,video_count,article_count,tool_count,paper_count,local_resource_count,estimated_study_hours
-S001,张三,线性回归;梯度下降,矩阵运算,12,4,4,2,2,2,8
-S002,李四,贝叶斯推断,概率论基础,9,3,3,2,1,1,6
-```
-
-#### 文件三：`resource_pool.csv`（全班资源池，便于教师审核复用）
-
-```csv
-resource_id,resource_name,resource_type,platform,url_or_search,knowledge_points,target_level,language,access_type,recommended_to_count
-R001,吴恩达机器学习课程,视频课程,Coursera,coursera.org/learn/machine-learning,线性回归;梯度下降,weak/poor,中英文,部分免费,8
-R002,统计学习方法(李航),教材,本地上传,本地文件,贝叶斯;SVM,fair/good,中文,付费,5
-```
-
----
-
-### 第六步：质量自检
-
-输出前逐项确认：
-
-- [ ] 推荐的网络资源为真实存在的平台/资源，未虚构 URL
-- [ ] 前置依赖分析已执行，根因节点资源已标注"建议先学"
-- [ ] 每位学生的推荐包含多模态形式（至少视频 + 文本两种）
-- [ ] 资源难度与掌握等级匹配（poor 不推荐顶会论文，excellent 不推荐纯入门视频）
-- [ ] 付费资源、需科学上网的资源均已标注访问方式
-- [ ] 学习路径建议具体可执行，非泛泛而谈
-- [ ] 本地资源（如有）已优先匹配
-- [ ] 资源学术调性符合大学生水平
-
----
-
-## 特殊情况处理
-
-| 情况 | 处理方式 |
-|-----|---------|
-| 所有知识点均 excellent | 推荐前沿资源包：顶会论文、最新工具/框架、学术讲座、国际竞赛，附学术探索路径 |
-| 所有知识点均 poor | 推荐系统性全课程资源（MOOC 完整课程），附分阶段学习计划，避免推荐过多零散资源 |
-| 中文资源稀缺（冷门领域）| 优先推荐英文资源，标注"建议配合翻译工具使用"，同时推荐中文社区讨论区 |
-| 课程为实践型（实验/设计课）| 优先推荐工具教程、开源项目、案例库，而非纯理论讲解 |
-| 考试前时间紧迫 | 推荐"最小学习路径"：精选 3～5 个最高价值资源，给出明确时间分配建议 |
-| 涉及有版权教材 | 仅推荐合法获取方式（图书馆借阅、正版购买、官方开放版），不推荐盗版资源 |
-| 知识画像数据质量为 low | 按整体得分率估算层次，推荐覆盖全章节的系统性资源，并说明精准度限制 |
-
----
-
-## 输出规范
-
-**最终向用户交付：**
-
-1. **每位学生的个性化资源推荐单**（必须）：含资源名称、平台、访问方式、内容简介、学习路径建议
-2. `resource_recommendation_summary.csv` — 班级推荐汇总（必须）
-3. `resource_pool.csv` — 全班资源池（推荐，便于教师审核）
-4. **对话中同步输出班级资源推荐说明**：
-   - 全班最常推荐的 Top 5 资源（反映共性薄弱点）
-   - 前置根因链及对应资源策略
-   - 本地 vs 网络资源比例
-   - 涉及付费/科学上网资源的汇总（教师可统一处理）
-   - 数据质量局限性说明
-
----
-
-## 典型用例示例
-
-**用例 1：计算机专业课（有本地课件 + 知识画像）**
-
-步骤：读取画像 → 分析知识图谱依赖（如图论依赖树结构，树结构依赖递归）→ 优先匹配本地课件 → 补充 Bilibili/LeetCode/GitHub 资源 → poor/weak 推荐系统视频课程，good/excellent 推荐开源项目和算法竞赛资源。
-
-**用例 2：经济学课（无本地资源，仅有总分画像）**
-
-步骤：识别数据质量 low → 按整体得分率估算掌握层次 → 低分学生推荐 MOOC + 曼昆教材对应章节，高分学生推荐顶刊论文导读 + IMF/World Bank 报告 → 说明因数据粒度限制，推荐按整体层次而非知识点精准匹配。
-
-**用例 3：研究生课程（所有学生掌握良好）**
-
-步骤：识别大多数知识点 good/excellent → 重点推荐 arXiv 最新论文、Papers with Code、NeurIPS/ICML 讲座、Hugging Face 社区 → 按各学生的细分方向差异（CV/NLP/RL）推荐不同前沿资源 → 附学术工具资源（Weights & Biases、Overleaf）。
-
----
-
-## 注意事项
-
-- **资源真实性第一**：宁用"在 X 平台搜索关键词 Y"的保守描述，也不虚构可能失效的 URL
-- **大学生学术调性**：即使补基础，也推荐有学术深度的资源，避免过于低幼的教学内容
-- **知识关联必须执行**：不可跳过前置依赖分析，根因资源标注"建议先学"是本技能的核心价值
-- **版权合规**：仅推荐合法获取方式，不推荐盗版或侵权渠道
-- **学习路径具体化**：不要只列资源，要给出"先学什么、再学什么、用多久"的可执行路径
-- **隐私保护**：推荐单含学生薄弱点信息，提醒教师注意分发范围
-- **动态更新提醒**：网络资源可能随时失效，建议教师每学期审核一次资源池
-- **闭环建议**：推荐单使用后，建议收集学生反馈（哪些资源有帮助），持续优化推荐策略
-
-</script>
-
-<script>
-  marked.setOptions({ breaks: true, gfm: true });
-
-  const skillMeta = [
-    { name: '课程知识图谱构建', icon: '🗺️', file: 'SKILL-course2Kg.md',        tag: 'course-knowledge-graph' },
-    { name: '试卷知识点标注',  icon: '📝', file: 'SKILL-queskg.md',            tag: 'exam-question-tagging' },
-    { name: '学生知识画像构建', icon: '🎓', file: 'SKILL-stukg.md',             tag: 'student-knowledge-profiling' },
-    { name: '个性化作业推荐',  icon: '📚', file: 'SKILL-homeworkRecommend.md', tag: 'personalized-homework' },
-    { name: '个性化资源推荐',  icon: '🔍', file: 'SKILL-resourceRecommend.md', tag: 'personalized-resources' },
-    { name: 'AI 私人助教',    icon: '🤖', file: 'SKILL-Aiteacher.md',         tag: 'ai-personal-tutor' },
-  ];
-
-  // 映射：侧边栏位置 → 原始 md-X 脚本 id（AI助教原为md-0，移至最后）
-  const mdIds = [1, 2, 3, 4, 5, 0];
-
-  let currentIdx = 0;
-
-  function selectSkill(idx) {
-    // Update sidebar active state
-    document.querySelectorAll('.skill-card').forEach((c, i) => {
-      c.classList.toggle('active', i === idx);
-    });
-
-    currentIdx = idx;
-    const meta = skillMeta[idx];
-    const raw = document.getElementById('md-' + mdIds[idx]).textContent;
-
-    document.getElementById('contentIcon').textContent = meta.icon;
-    document.getElementById('contentTitle').textContent = meta.name;
-    document.getElementById('contentSubtitle').textContent = meta.tag + ' · ' + meta.file;
-    document.getElementById('mdBody').innerHTML = marked.parse(raw);
-
-    // Scroll content to top
-    document.getElementById('contentPanel').scrollTop = 0;
-  }
-
-  function downloadCurrentSkill() {
-    const meta = skillMeta[currentIdx];
-    const raw = document.getElementById('md-' + mdIds[currentIdx]).textContent;
-    const blob = new Blob([raw.trim()], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = meta.file;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  // Load first skill on page load
-  selectSkill(0);
-</script>
+    function closeModalDirect() {
+      document.getElementById('modalOverlay').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+    // ── Download with custom filename ──
+    async function downloadFile(url, filename, btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '⏳ 下载中…'; btn.disabled = true;
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const blob = await resp.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+        btn.innerHTML = '✅ 下载完成';
+        setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2500);
+      } catch {
+        btn.innerHTML = orig; btn.disabled = false;
+        window.open(url, '_blank');
+      }
+    }
+  </script>
 </body>
 </html>
