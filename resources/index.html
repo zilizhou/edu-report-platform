@@ -3,535 +3,420 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>测试资源 · AI 教学辅助平台</title>
+  <title>测试资源 · AI 赋能个性化教学</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --bg: #0d0f1a;
-      --bg2: #131624;
-      --card: rgba(255,255,255,0.05);
-      --border: rgba(255,255,255,0.1);
-      --text: #e8eaf6;
-      --muted: rgba(255,255,255,0.45);
+      --bg: #0d0f1a; --bg2: #131624;
+      --card: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1);
+      --text: #e8eaf6; --muted: rgba(255,255,255,0.45);
+      --green: #34d399; --indigo: #818cf8; --amber: #fbbf24; --cyan: #67e8f9;
+      --stem: #60a5fa; --arts: #f472b6;
       --font: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;
     }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    /* Nav */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 52px; background: rgba(13,15,26,.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+    nav a.back { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    nav a.back:hover { color: var(--text); }
+    .nav-title { font-size: .9rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .nav-badge { padding: 2px 10px; background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.25); border-radius: 100px; font-size: .68rem; color: var(--amber); letter-spacing: 1px; }
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 52px;
-      background: rgba(13,15,26,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 50;
-    }
+    /* Layout */
+    .container { max-width: 1080px; margin: 0 auto; padding: 44px 40px 100px; width: 100%; }
 
-    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    nav a:hover { color: var(--text); }
-    .nav-title { font-size: 0.9rem; font-weight: 600; }
+    /* Page header */
+    .page-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .page-tag { display: inline-block; padding: 3px 12px; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.2); border-radius: 100px; font-size: .72rem; color: var(--amber); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
+    .page-header h1 { font-size: 1.9rem; font-weight: 700; background: linear-gradient(135deg,#fde68a,#fbbf24 50%,#f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+    .page-header p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
 
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 36px 24px 60px;
-    }
+    /* Subject section */
+    .subject { margin-bottom: 56px; }
+    .subject-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; padding: 16px 20px; border-radius: 14px; flex-wrap: wrap; gap: 12px; }
+    .subject-header.stem { background: rgba(96,165,250,.07); border: 1px solid rgba(96,165,250,.2); border-left: 4px solid var(--stem); }
+    .subject-header.arts { background: rgba(244,114,182,.07); border: 1px solid rgba(244,114,182,.2); border-left: 4px solid var(--arts); }
+    .subject-title { display: flex; align-items: center; gap: 10px; }
+    .subject-title h2 { font-size: 1.15rem; font-weight: 700; }
+    .subject-title .badge { padding: 3px 10px; border-radius: 100px; font-size: .7rem; font-weight: 600; letter-spacing: 1px; }
+    .stem .badge { background: rgba(96,165,250,.15); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
+    .arts .badge { background: rgba(244,114,182,.15); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
+    .subject-title .course { font-size: .82rem; color: var(--muted); }
+    .dl-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: .82rem; font-weight: 600; text-decoration: none; transition: all .2s; white-space: nowrap; }
+    .stem .dl-btn { background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3); color: var(--stem); }
+    .stem .dl-btn:hover { background: rgba(96,165,250,.22); box-shadow: 0 4px 16px rgba(96,165,250,.2); }
+    .arts .dl-btn { background: rgba(244,114,182,.12); border: 1px solid rgba(244,114,182,.3); color: var(--arts); }
+    .arts .dl-btn:hover { background: rgba(244,114,182,.22); box-shadow: 0 4px 16px rgba(244,114,182,.2); }
 
-    .page-header {
-      margin-bottom: 32px;
-    }
+    /* File grid */
+    .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
 
-    .page-header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .page-header p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* Usage guide */
-    .usage-guide {
-      background: rgba(129,140,248,0.07);
-      border: 1px solid rgba(129,140,248,0.25);
-      border-radius: 12px;
-      padding: 18px 22px;
-      margin-bottom: 36px;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.7;
-    }
-
-    .usage-guide strong { color: #a5b4fc; }
-
-    .usage-flow {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .uf-step {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 5px 12px;
-      font-size: 0.78rem;
-    }
-
-    .uf-arrow { color: rgba(255,255,255,0.25); font-size: 1rem; }
-
-    /* Section label */
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    /* Cards grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .res-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .res-card:hover {
-      border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .card-top {
-      padding: 20px 22px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .file-icon { font-size: 2.4rem; flex-shrink: 0; margin-top: 2px; }
-
+    /* File card */
+    .file-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color .2s; }
+    .file-card:hover { border-color: rgba(255,255,255,.18); }
+    .file-card-head { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px 14px; }
+    .file-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 1px; }
     .file-info { flex: 1; min-width: 0; }
+    .file-name { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-desc { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+    .file-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+    .meta-tag { font-size: .68rem; padding: 2px 7px; background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 4px; color: rgba(255,255,255,.4); }
 
-    .file-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      word-break: break-all;
-      margin-bottom: 5px;
-    }
+    /* CSV preview toggle */
+    .csv-toggle { display: flex; align-items: center; justify-content: space-between; padding: 9px 18px; border-top: 1px solid var(--border); background: rgba(0,0,0,.1); cursor: pointer; user-select: none; transition: background .2s; }
+    .csv-toggle:hover { background: rgba(255,255,255,.04); }
+    .csv-toggle span { font-size: .76rem; color: var(--indigo); font-weight: 500; display: flex; align-items: center; gap: 5px; }
+    .csv-toggle .arrow { transition: transform .25s; display: inline-block; }
+    .csv-toggle.open .arrow { transform: rotate(180deg); }
 
-    .file-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
+    /* CSV table */
+    .csv-preview { display: none; padding: 0 0 4px; border-top: 1px solid rgba(99,102,241,.15); background: rgba(99,102,241,.03); overflow: hidden; }
+    .csv-preview.show { display: block; }
+    .csv-loading { text-align: center; padding: 16px; font-size: .78rem; color: var(--muted); }
+    .table-scroll { overflow-x: auto; padding: 0 4px 8px; }
+    table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: .74rem; }
+    thead tr { background: rgba(99,102,241,.1); }
+    th { padding: 7px 12px; text-align: left; font-weight: 600; color: var(--indigo); border-bottom: 1px solid rgba(99,102,241,.2); white-space: nowrap; }
+    td { padding: 6px 12px; color: rgba(255,255,255,.65); border-bottom: 1px solid rgba(255,255,255,.05); white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(255,255,255,.03); color: rgba(255,255,255,.85); }
+    .csv-note { font-size: .72rem; color: rgba(255,255,255,.25); text-align: right; padding: 4px 14px 10px; }
 
-    .badge {
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: 100px;
-      font-size: 0.68rem;
-      font-weight: 500;
-    }
+    /* Divider */
+    .section-divider { height: 1px; background: linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent); margin: 8px 0 28px; }
 
-    .badge-docx { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
-    .badge-csv  { background: rgba(52,211,153,0.15); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
-    .badge-typeA { background: rgba(251,191,36,0.15); color: #fde68a; border: 1px solid rgba(251,191,36,0.25); }
-    .badge-typeB { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.25); }
-    .badge-typeC { background: rgba(129,140,248,0.15); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.25); }
-
-    .file-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    /* Actions */
-    .card-actions {
-      padding: 12px 22px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-dl {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 16px;
-      border-radius: 7px;
-      font-size: 0.82rem;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      font-family: var(--font);
-      border: none;
-    }
-
-    .btn-primary {
-      background: rgba(129,140,248,0.15);
-      border: 1px solid rgba(129,140,248,0.35);
-      color: #a5b4fc;
-    }
-
-    .btn-primary:hover { background: rgba(129,140,248,0.25); }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .btn-secondary:hover { background: rgba(255,255,255,0.08); color: var(--text); }
-
-    /* Preview table */
-    .card-preview {
-      border-top: 1px dashed rgba(255,255,255,0.06);
-      padding: 0 22px 16px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
-    }
-
-    .card-preview.open {
-      max-height: 400px;
-      padding: 16px 22px;
-      overflow-x: auto;
-    }
-
-    .preview-label {
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .preview-table {
-      border-collapse: collapse;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      width: 100%;
-    }
-
-    .preview-table th {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 5px 10px;
-      color: #a5b4fc;
-      text-align: left;
-    }
-
-    .preview-table td {
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 4px 10px;
-      color: rgba(255,255,255,0.65);
-    }
-
-    .preview-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-    /* Skill mapping hint */
-    .skill-map {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 22px;
-    }
-
-    .skill-map h3 {
-      font-size: 0.85rem;
-      margin-bottom: 14px;
-      color: var(--muted);
-    }
-
-    .map-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      font-size: 0.82rem;
-    }
-
-    .map-row:last-child { border-bottom: none; }
-
-    .map-files { color: #6ee7b7; flex: 1; }
-    .map-arrow { color: rgba(255,255,255,0.2); }
-    .map-skill { color: #a5b4fc; flex: 2; }
-
-    @media (max-width: 680px) {
-      .cards-grid { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+      .container { padding: 28px 16px 60px; }
+      .file-grid { grid-template-columns: 1fr; }
+      .subject-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="../index.html">← 返回首页</a>
-  <span class="nav-title">📁 测试资源下载</span>
-  <span style="font-size:0.78rem;color:var(--muted);">5 个文件</span>
-</nav>
+  <nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+    <div class="nav-title">测试资源 <span class="nav-badge">TEST DATA</span></div>
+    <div style="width:80px"></div>
+  </nav>
 
-<main>
-  <div class="page-header">
-    <h1>测试资源</h1>
-    <p>以下资源用于演示和测试 AI 教学辅助平台的各项技能功能。<br>
-       数据来自《计算机网络》课程，30 名学生，包含一份教学大纲、一份试卷与三种不同精度的成绩单。</p>
-  </div>
+  <div class="container">
 
-  <!-- Usage guide -->
-  <div class="usage-guide">
-    <strong>推荐使用流程</strong>
-    <div class="usage-flow">
-      <div class="uf-step">① 下载教学大纲</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">② 「课程知识图谱构建」</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">③ 下载试卷</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">④ 「试卷知识点标注」</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">⑤ 选择成绩单精度</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">⑥ 「学生知识画像」</div>
-      <div class="uf-arrow">→</div>
-      <div class="uf-step">⑦ 个性化作业 / 资源推荐</div>
+    <div class="page-header">
+      <div class="page-tag">Test Resources</div>
+      <h1>课程测试资源</h1>
+      <p>包含理工科（计算机网络）与文科（中国古代文学）两套完整的测试资源，<br>含教学大纲、期末试卷及多种精度的学生成绩单，供各技能功能演示使用。</p>
     </div>
-  </div>
 
-  <!-- File cards -->
-  <div class="section-label">📄 文件列表</div>
-  <div class="cards-grid">
-
-    <!-- Syllabus -->
-    <div class="res-card">
-      <div class="card-top">
-        <div class="file-icon">📘</div>
-        <div class="file-info">
-          <div class="file-name">计算机网络大纲 (1).docx</div>
-          <div class="file-badges">
-            <span class="badge badge-docx">Word · DOCX</span>
+    <!-- ══ 理工科 ══ -->
+    <div class="subject">
+      <div class="subject-header stem">
+        <div class="subject-title">
+          <span style="font-size:1.6rem">🔬</span>
+          <div>
+            <h2 style="color:var(--stem)">理工科课程测试资源</h2>
+            <div class="course">计算机网络 · 共 6 个文件</div>
           </div>
-          <div class="file-desc">
-            《计算机网络》课程教学大纲，涵盖课程目标、知识模块划分、各章节知识点与学时安排。<br>
-            搭配「课程知识图谱构建」技能使用，可自动抽取知识点并生成课程三元组图谱。
+          <span class="badge">STEM</span>
+        </div>
+        <a class="dl-btn" href="https://d.zxin.confnew.com/zxnext1959826806593634305/88c42ba7-9cf4-45e3-982b-a1e5d0489654.rar" target="_blank">
+          📦 下载全部资源 ↗
+        </a>
+      </div>
+
+      <div class="file-grid">
+
+        <!-- 大纲 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📘</div>
+            <div class="file-info">
+              <div class="file-name">计算机网络大纲.docx</div>
+              <div class="file-desc">课程教学大纲，包含课程目标、知识单元划分、重难点说明，用于知识图谱抽取的基础输入文档。</div>
+              <div class="file-meta"><span class="meta-tag">DOCX</span><span class="meta-tag">教学大纲</span></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-actions">
-        <a class="btn-dl btn-primary" href="计算机网络大纲 (1).docx" download="计算机网络大纲.docx">⬇ 下载大纲</a>
-      </div>
-    </div>
 
-    <!-- Exam paper -->
-    <div class="res-card">
-      <div class="card-top">
-        <div class="file-icon">📋</div>
-        <div class="file-info">
-          <div class="file-name">计算机网络期末试卷（测试用）.docx</div>
-          <div class="file-badges">
-            <span class="badge badge-docx">Word · DOCX</span>
-          </div>
-          <div class="file-desc">
-            《计算机网络》期末考试试卷，含选择题 20 道、判断题 10 道、填空题 5 道、简答题 5 道、综合题 3 道，满分 100 分。<br>
-            搭配「试卷知识点标注」技能使用，生成题目-知识点映射表。
+        <!-- 试卷 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <div class="file-name">计算机网络期末试卷.docx</div>
+              <div class="file-desc">期末考试卷，含选择题、判断题、填空题、简答题与综合题，与成绩单字段一一对应。</div>
+              <div class="file-meta"><span class="meta-tag">DOCX</span><span class="meta-tag">期末试卷</span></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-actions">
-        <a class="btn-dl btn-primary" href="计算机网络期末试卷（测试用）.docx" download>⬇ 下载试卷</a>
+
+        <!-- 成绩单1 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单1_仅总分.csv</div>
+              <div class="file-desc">最简成绩单，仅含学号、姓名与期末总分，适用于整体成绩分布分析。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">3 列</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '理工科测试资源/成绩单1_仅总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
+        <!-- 成绩单2 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单2_大题分+总分.csv</div>
+              <div class="file-desc">按大题分类的成绩单，含选择题、判断题、填空题、简答题、综合题各大题得分及总分，适用于题型维度分析。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">8 列</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '理工科测试资源/成绩单2_大题分+总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
+        <!-- 成绩单3 -->
+        <div class="file-card" style="grid-column: 1 / -1;">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单3_小题分+总分.csv</div>
+              <div class="file-desc">最细粒度成绩单，包含每道小题的得分（选择题×20、判断题×10、填空题×5、简答题×5、综合题×3）及总分，适用于知识点级别的掌握度分析。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">46 列</span><span class="meta-tag">小题粒度</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '理工科测试资源/成绩单3_小题分+总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行（列较多，可横向滚动）</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
+        <!-- 学生信息 -->
+        <div class="file-card" style="grid-column: 1 / -1;">
+          <div class="file-card-head">
+            <div class="file-icon">👤</div>
+            <div class="file-info">
+              <div class="file-name">学生星座性格及爱好.csv</div>
+              <div class="file-desc">学生个人画像数据，包含星座、性格特点、兴趣爱好与座右铭，可辅助个性化学习资源推荐与 AI 助教的个性化对话风格调整。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">6 列</span><span class="meta-tag">个人画像</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '理工科测试资源/学生星座性格及爱好.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Grade sheet 1 -->
-    <div class="res-card">
-      <div class="card-top">
-        <div class="file-icon">📊</div>
-        <div class="file-info">
-          <div class="file-name">成绩单1_仅总分.csv</div>
-          <div class="file-badges">
-            <span class="badge badge-csv">CSV</span>
-            <span class="badge badge-typeA">类型 A · 仅总分</span>
+    <div class="section-divider"></div>
+
+    <!-- ══ 文科 ══ -->
+    <div class="subject">
+      <div class="subject-header arts">
+        <div class="subject-title">
+          <span style="font-size:1.6rem">📜</span>
+          <div>
+            <h2 style="color:var(--arts)">文科课程测试资源</h2>
+            <div class="course">中国古代文学 · 共 6 个文件</div>
           </div>
-          <div class="file-desc">
-            30 名学生的总分成绩单（满分 100 分），仅含学号、姓名、总分三列。<br>
-            对应知识画像技能「类型 A」处理路径，数据质量为 medium-low，含难度感知调整。
+          <span class="badge">ARTS</span>
+        </div>
+        <a class="dl-btn" href="https://d.zxin.confnew.com/zxnext1959826806593634305/a136cee5-a90a-44ff-9b8c-7c97cf4f35e0.rar" target="_blank">
+          📦 下载全部资源 ↗
+        </a>
+      </div>
+
+      <div class="file-grid">
+
+        <!-- 大纲 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📗</div>
+            <div class="file-info">
+              <div class="file-name">中国古代文学教学大纲.docx</div>
+              <div class="file-desc">文学课程教学大纲，涵盖诗词、散文、小说等各文学体裁的知识单元，用于知识图谱抽取。</div>
+              <div class="file-meta"><span class="meta-tag">DOCX</span><span class="meta-tag">教学大纲</span></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-actions">
-        <a class="btn-dl btn-primary" href="成绩单1_仅总分.csv" download>⬇ 下载</a>
-        <button class="btn-dl btn-secondary" onclick="togglePreview('prev1', this)">👁 预览数据</button>
-      </div>
-      <div class="card-preview" id="prev1">
-        <div class="preview-label">前 5 行数据预览</div>
-        <table class="preview-table">
-          <thead><tr><th>学号</th><th>姓名</th><th>总分(100分)</th></tr></thead>
-          <tbody>
-            <tr><td>202200001</td><td>张伟</td><td>77</td></tr>
-            <tr><td>202200002</td><td>王芳</td><td>70</td></tr>
-            <tr><td>202200003</td><td>李娜</td><td>79</td></tr>
-            <tr><td>202200004</td><td>赵磊</td><td>90</td></tr>
-            <tr><td>202200005</td><td>陈静</td><td>69</td></tr>
-            <tr><td colspan="3" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <!-- Grade sheet 2 -->
-    <div class="res-card">
-      <div class="card-top">
-        <div class="file-icon">📊</div>
-        <div class="file-info">
-          <div class="file-name">成绩单2_大题分+总分 (1).csv</div>
-          <div class="file-badges">
-            <span class="badge badge-csv">CSV</span>
-            <span class="badge badge-typeB">类型 B · 大题分</span>
-          </div>
-          <div class="file-desc">
-            30 名学生各大题得分及总分，含选择题(20)、判断题(10)、填空题(10)、简答题(30)、综合题(30) 五个维度。<br>
-            对应知识画像技能「类型 B」，数据质量 medium-high，支持大题内部二次分层。
+        <!-- 试卷 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📝</div>
+            <div class="file-info">
+              <div class="file-name">中国古代文学期末试卷.docx</div>
+              <div class="file-desc">期末考试卷，含五大题型（填空、选择、名句默写、鉴赏分析、论述题），与成绩单字段对应。</div>
+              <div class="file-meta"><span class="meta-tag">DOCX</span><span class="meta-tag">期末试卷</span></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-actions">
-        <a class="btn-dl btn-primary" href="成绩单2_大题分+总分 (1).csv" download="成绩单2_大题分+总分.csv">⬇ 下载</a>
-        <button class="btn-dl btn-secondary" onclick="togglePreview('prev2', this)">👁 预览数据</button>
-      </div>
-      <div class="card-preview" id="prev2">
-        <div class="preview-label">前 5 行数据预览</div>
-        <table class="preview-table">
-          <thead><tr><th>学号</th><th>姓名</th><th>选择题</th><th>判断题</th><th>填空题</th><th>简答题</th><th>综合题</th><th>总分</th></tr></thead>
-          <tbody>
-            <tr><td>202200001</td><td>张伟</td><td>14</td><td>9</td><td>7</td><td>20</td><td>27</td><td>77</td></tr>
-            <tr><td>202200002</td><td>王芳</td><td>15</td><td>5</td><td>7</td><td>16</td><td>27</td><td>70</td></tr>
-            <tr><td>202200003</td><td>李娜</td><td>13</td><td>8</td><td>8</td><td>24</td><td>26</td><td>79</td></tr>
-            <tr><td>202200004</td><td>赵磊</td><td>17</td><td>8</td><td>7</td><td>28</td><td>30</td><td>90</td></tr>
-            <tr><td>202200005</td><td>陈静</td><td>13</td><td>7</td><td>7</td><td>16</td><td>26</td><td>69</td></tr>
-            <tr><td colspan="8" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <!-- Grade sheet 3 -->
-    <div class="res-card">
-      <div class="card-top">
-        <div class="file-icon">📊</div>
-        <div class="file-info">
-          <div class="file-name">成绩单3_小题分+总分 (2).csv</div>
-          <div class="file-badges">
-            <span class="badge badge-csv">CSV</span>
-            <span class="badge badge-typeC">类型 C · 小题分</span>
+        <!-- 成绩单1 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单1_总分.csv</div>
+              <div class="file-desc">最简成绩单，仅含学号、姓名与期末总分，适用于整体成绩分布分析。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">3 列</span></div>
+            </div>
           </div>
-          <div class="file-desc">
-            30 名学生每道小题得分及总分，精确到每道题（43 个得分列 + 总分）。<br>
-            对应知识画像技能「类型 C」，数据质量最高（high），支持答题一致性检验，可生成最精准的个性化画像。
+          <div class="csv-toggle" onclick="toggleCsv(this, '文科测试资源/成绩单1_总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
           </div>
+          <div class="csv-preview"></div>
         </div>
+
+        <!-- 成绩单2 -->
+        <div class="file-card">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单2_大题分+总分.csv</div>
+              <div class="file-desc">按大题分类的成绩单，含五大题各大题得分及总分，适用于题型维度的学情分析。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">8 列</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '文科测试资源/成绩单2_大题分+总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
+        <!-- 成绩单3 -->
+        <div class="file-card" style="grid-column: 1 / -1;">
+          <div class="file-card-head">
+            <div class="file-icon">📊</div>
+            <div class="file-info">
+              <div class="file-name">成绩单3_小题分+总分.csv</div>
+              <div class="file-desc">最细粒度成绩单，包含五大题各小题的得分及总分，适用于知识点级别的掌握度分析与个性化作业生成。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">小题粒度</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '文科测试资源/成绩单3_小题分+总分.csv', 'utf-8-sig')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行（列较多，可横向滚动）</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
+        <!-- 学生信息 -->
+        <div class="file-card" style="grid-column: 1 / -1;">
+          <div class="file-card-head">
+            <div class="file-icon">👤</div>
+            <div class="file-info">
+              <div class="file-name">学生个人爱好兴趣.csv</div>
+              <div class="file-desc">学生个人画像数据，包含星座、兴趣爱好、MBTI 性格类型、血型、宠物与座右铭，可辅助 AI 助教的个性化对话风格调整与资源推荐。</div>
+              <div class="file-meta"><span class="meta-tag">CSV</span><span class="meta-tag">20 名学生</span><span class="meta-tag">8 列</span><span class="meta-tag">个人画像</span></div>
+            </div>
+          </div>
+          <div class="csv-toggle" onclick="toggleCsv(this, '文科测试资源/学生个人爱好兴趣.csv', 'gbk')">
+            <span>📋 浏览数据 <span class="arrow">▾</span></span>
+            <span style="color:rgba(255,255,255,.2);font-size:.7rem">前 5 行</span>
+          </div>
+          <div class="csv-preview"></div>
+        </div>
+
       </div>
-      <div class="card-actions">
-        <a class="btn-dl btn-primary" href="成绩单3_小题分+总分 (2).csv" download="成绩单3_小题分+总分.csv">⬇ 下载</a>
-        <button class="btn-dl btn-secondary" onclick="togglePreview('prev3', this)">👁 预览数据</button>
-      </div>
-      <div class="card-preview" id="prev3">
-        <div class="preview-label">前 3 行数据预览（列较多，横向滚动查看）</div>
-        <table class="preview-table">
-          <thead><tr>
-            <th>学号</th><th>姓名</th>
-            <th>一1</th><th>一2</th><th>一3</th><th>…</th>
-            <th>二1</th><th>…</th>
-            <th>三1</th><th>…</th>
-            <th>四1</th><th>…</th>
-            <th>五1</th><th>五2</th><th>五3</th>
-            <th>总分</th>
-          </tr></thead>
-          <tbody>
-            <tr><td>202200001</td><td>张伟</td><td>0</td><td>0</td><td>1</td><td>…</td><td>1</td><td>…</td><td>1</td><td>…</td><td>6</td><td>…</td><td>4</td><td>10</td><td>10</td><td>77</td></tr>
-            <tr><td>202200002</td><td>王芳</td><td>0</td><td>0</td><td>0</td><td>…</td><td>0</td><td>…</td><td>1</td><td>…</td><td>1</td><td>…</td><td>7</td><td>10</td><td>9</td><td>70</td></tr>
-            <tr><td>202200003</td><td>李娜</td><td>0</td><td>1</td><td>1</td><td>…</td><td>0</td><td>…</td><td>2</td><td>…</td><td>1</td><td>…</td><td>8</td><td>7</td><td>10</td><td>79</td></tr>
-            <tr><td colspan="16" style="color:rgba(255,255,255,0.25);text-align:center;padding:6px;">… 共 30 行 · 43 道题目得分列</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
 
-  </div><!-- /cards-grid -->
+  </div><!-- /container -->
 
-  <!-- Skill mapping -->
-  <div class="section-label">🔗 资源与技能对应关系</div>
-  <div class="skill-map">
-    <h3>下载后可搭配以下技能使用</h3>
-    <div class="map-row">
-      <div class="map-files">📘 教学大纲.docx</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ 课程知识图谱构建（SKILL-course2Kg.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">📋 期末试卷.docx</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ 试卷知识点标注（SKILL-queskg.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">📊 成绩单1 / 2 / 3 + 试卷标注结果</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ 学生知识画像构建（SKILL-stukg.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">🎓 学生知识画像 + 知识图谱</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ 个性化作业推荐（SKILL-homeworkRecommend.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">🎓 学生知识画像 + 知识图谱</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ 个性化资源推荐（SKILL-resourceRecommend.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">🎓 学生知识画像（CSV）</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">⚡ AI 私人助教（SKILL-Aiteacher.md）</div>
-    </div>
-    <div class="map-row">
-      <div class="map-files">📊 knowledge_graph_triples.csv（图谱输出）</div>
-      <div class="map-arrow">→</div>
-      <div class="map-skill">📊 数据可视化 · 知识图谱网络图</div>
-    </div>
-  </div>
+  <script>
+    // Parse a simple CSV string (handles quoted fields with commas)
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      return lines.map(line => {
+        const cells = [];
+        let cur = '', inQ = false;
+        for (let i = 0; i < line.length; i++) {
+          const c = line[i];
+          if (c === '"') { inQ = !inQ; }
+          else if (c === ',' && !inQ) { cells.push(cur); cur = ''; }
+          else { cur += c; }
+        }
+        cells.push(cur);
+        return cells;
+      });
+    }
 
-</main>
+    function renderTable(rows, maxRows = 5) {
+      if (!rows || rows.length < 2) return '<div class="csv-loading">数据为空或解析失败</div>';
+      const headers = rows[0];
+      const data = rows.slice(1, maxRows + 1);
+      const total = rows.length - 1;
 
-<script>
-  function togglePreview(id, btn) {
-    const el = document.getElementById(id);
-    const isOpen = el.classList.contains('open');
-    el.classList.toggle('open', !isOpen);
-    btn.textContent = isOpen ? '👁 预览数据' : '🙈 收起预览';
-  }
-</script>
+      let html = '<div class="table-scroll"><table><thead><tr>';
+      headers.forEach(h => { html += `<th>${escHtml(h)}</th>`; });
+      html += '</tr></thead><tbody>';
+      data.forEach(row => {
+        html += '<tr>';
+        row.forEach(cell => { html += `<td>${escHtml(cell)}</td>`; });
+        html += '</tr>';
+      });
+      html += `</tbody></table></div>`;
+      if (total > maxRows) {
+        html += `<div class="csv-note">显示前 ${maxRows} 行，共 ${total} 行数据</div>`;
+      }
+      return html;
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    async function loadCsv(path, encoding) {
+      const resp = await fetch(path);
+      const buf = await resp.arrayBuffer();
+      const dec = new TextDecoder(encoding === 'gbk' ? 'gbk' : 'utf-8');
+      // Strip BOM if present
+      let text = dec.decode(buf);
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+      return text;
+    }
+
+    async function toggleCsv(toggleEl, path, encoding) {
+      const previewEl = toggleEl.nextElementSibling;
+      const isOpen = toggleEl.classList.contains('open');
+
+      if (isOpen) {
+        toggleEl.classList.remove('open');
+        previewEl.classList.remove('show');
+        return;
+      }
+
+      toggleEl.classList.add('open');
+      previewEl.classList.add('show');
+
+      if (previewEl.dataset.loaded) return; // already loaded
+
+      previewEl.innerHTML = '<div class="csv-loading">加载中…</div>';
+      try {
+        const text = await loadCsv(path, encoding);
+        const rows = parseCsv(text);
+        previewEl.innerHTML = renderTable(rows, 5);
+        previewEl.dataset.loaded = '1';
+      } catch(e) {
+        previewEl.innerHTML = `<div class="csv-loading" style="color:#f87171">加载失败：${e.message}</div>`;
+      }
+    }
+  </script>
 </body>
 </html>
