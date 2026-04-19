@@ -784,93 +784,102 @@
     </div>
   </section>
 
-  <!-- ══ Slide 2: 因材施教 × 现实困境 ══ -->
+  <!-- ══ Slide 2a: 因材施教 · 千年理想 ══ -->
   <section class="slide" id="s2">
 
-    <!-- ── 第一行：双图并排（各自原始比例）── -->
-    <div class="anim" style="display:flex; align-items:flex-start; gap:12px; width:100%; max-width:900px; animation-delay:.05s">
-      <!-- 古代私塾图 -->
-      <div style="flex:1; border-radius:12px; overflow:hidden; background:rgba(40,28,5,0.8);">
-        <img src="images/ancientClassroot.png" alt="古代私塾"
-             style="width:100%; height:auto; display:block;"
-             onerror="this.style.display='none'" />
-      </div>
-      <!-- 现代课堂图 -->
-      <div style="flex:1; border-radius:12px; overflow:hidden; background:rgba(5,12,30,0.8);">
-        <img src="images/modernClassroom.png" alt="现代课堂"
-             style="width:100%; height:auto; display:block;"
-             onerror="this.style.display='none'" />
-      </div>
+    <!-- 古代私塾图（大图） -->
+    <div class="anim" style="width:100%; max-width:900px; border-radius:16px; overflow:hidden; animation-delay:.05s;">
+      <img src="images/ancientClassroot.png" alt="古代私塾"
+           style="width:100%; height:340px; object-fit:cover; object-position:center top; display:block;"
+           onerror="this.style.display='none'" />
     </div>
 
-    <!-- ── 第二行：因材施教 + 时间桥 + 今日困境 ── -->
-    <div class="anim" style="display:flex; align-items:center; gap:24px; width:100%; max-width:900px; margin-top:12px; animation-delay:.3s">
+    <!-- 因材施教 大字 + 引言 -->
+    <div class="anim" style="display:flex; align-items:center; gap:32px; width:100%; max-width:900px; margin-top:20px; animation-delay:.3s;">
 
-      <!-- 左：因材施教 -->
-      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:5px;">
-        <div style="font-size:0.6rem; letter-spacing:3px; color:rgba(251,191,36,0.5);">公元前551—479年 · 孔子</div>
-        <div class="char-reveal" style="margin:2px 0 3px;">
-          <span class="char-big" style="font-size:3rem">因</span>
-          <span class="char-big" style="font-size:3rem">材</span>
-          <span class="char-big" style="font-size:3rem">施</span>
-          <span class="char-big" style="font-size:3rem">教</span>
+      <!-- 左：大字 -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0;">
+        <div style="font-size:0.62rem; letter-spacing:3px; color:rgba(251,191,36,0.5);">公元前 551—479 年 · 孔子</div>
+        <div class="char-reveal" style="margin:4px 0;">
+          <span class="char-big" style="font-size:3.8rem">因</span>
+          <span class="char-big" style="font-size:3.8rem">材</span>
+          <span class="char-big" style="font-size:3.8rem">施</span>
+          <span class="char-big" style="font-size:3.8rem">教</span>
         </div>
-        <div style="font-size:0.7rem; color:rgba(251,191,36,0.6); letter-spacing:1.5px; text-align:center; padding:3px 12px; border:1px solid rgba(251,191,36,0.18); border-radius:20px;">
+        <div style="font-size:0.75rem; color:rgba(251,191,36,0.6); letter-spacing:2px; text-align:center; padding:4px 16px; border:1px solid rgba(251,191,36,0.2); border-radius:20px;">
           根据每人特点，给予不同的教导
         </div>
       </div>
 
-      <!-- 中：时间桥 -->
-      <div style="display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; padding:0 6px;">
-        <div style="width:1px; height:24px; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.12));"></div>
-        <div style="font-size:0.58rem; color:rgba(255,255,255,0.18); writing-mode:vertical-rl; letter-spacing:2px; white-space:nowrap;">─ 2500 年 ─</div>
-        <div style="width:1px; height:24px; background:linear-gradient(180deg,rgba(248,113,113,0.25),transparent);"></div>
-      </div>
+      <!-- 分隔线 -->
+      <div style="width:1px; height:100px; background:linear-gradient(180deg,transparent,rgba(251,191,36,0.25),transparent); flex-shrink:0;"></div>
 
-      <!-- 右：今日困境 -->
-      <div style="flex:1;">
-        <div style="font-size:0.62rem; letter-spacing:3px; color:rgba(248,113,113,0.6); margin-bottom:5px;">今天 · 现代课堂</div>
-        <div style="font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.88); line-height:1.45; margin-bottom:5px;">
-          这个千年理想，<br>在现代课堂遭遇了严峻挑战
+      <!-- 右：解读 -->
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="font-size:1.05rem; color:rgba(255,255,255,0.75); line-height:1.9; font-style:italic; border-left:3px solid rgba(251,191,36,0.4); padding-left:16px;">
+          「视其所以，观其所由，察其所安」<br>
+          <span style="font-size:0.82rem; color:rgba(255,255,255,0.38);">——了解每一位学生，是教育最古老、也最深刻的洞见</span>
         </div>
-        <div style="font-size:0.73rem; color:rgba(255,255,255,0.38); line-height:1.6;">
-          规模化教育使「了解每一位学生」几乎成为不可能
+        <div style="font-size:0.88rem; color:rgba(255,255,255,0.45); line-height:1.8;">
+          2500 年前，孔子用这四个字，<br>
+          道出了教育的终极理想——<br>
+          <span style="color:rgba(251,191,36,0.7); font-weight:600;">每个学生都值得被真正了解，然后因人而教。</span>
         </div>
       </div>
     </div>
 
-    <!-- ── 第二行：三张痛点卡 ── -->
-    <div class="anim" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; width:100%; max-width:900px; margin-top:16px; animation-delay:.5s">
+  </section>
 
-      <div style="background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.2); border-radius:14px; padding:18px 20px;">
-        <div style="font-size:2rem; margin-bottom:4px;">👥</div>
-        <div style="font-size:2rem; font-weight:800; color:#f87171; line-height:1; margin-bottom:6px;">1 : 50<span style="font-size:1.1rem">+</span></div>
-        <div style="font-size:0.8rem; font-weight:600; color:rgba(255,255,255,0.75); margin-bottom:4px;">规模困境</div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.38); line-height:1.6;">师生比悬殊，教师难以逐一了解每位学生的知识状态与特点</div>
-      </div>
+  <!-- ══ Slide 2b: 现实困境 · 难以落地 ══ -->
+  <section class="slide" id="s2b">
 
-      <div style="background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.2); border-radius:14px; padding:18px 20px;">
-        <div style="font-size:2rem; margin-bottom:4px;">⏳</div>
-        <div style="font-size:2rem; font-weight:800; color:#fbbf24; line-height:1; margin-bottom:6px;">60<span style="font-size:1.1rem">%</span></div>
-        <div style="font-size:0.8rem; font-weight:600; color:rgba(255,255,255,0.75); margin-bottom:4px;">时间消耗</div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.38); line-height:1.6;">教师大量时间用于批改作业试卷，无暇开展个性化辅导</div>
-      </div>
-
-      <div style="background:rgba(96,165,250,0.06); border:1px solid rgba(96,165,250,0.2); border-radius:14px; padding:18px 20px;">
-        <div style="font-size:2rem; margin-bottom:4px;">🌊</div>
-        <div style="font-size:2rem; font-weight:800; color:#60a5fa; line-height:1; margin-bottom:6px;">∞</div>
-        <div style="font-size:0.8rem; font-weight:600; color:rgba(255,255,255,0.75); margin-bottom:4px;">信息过载</div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.38); line-height:1.6;">学习资源铺天盖地，学生不知从哪里补起、该学什么</div>
+    <!-- 现代课堂图（大图） -->
+    <div class="anim" style="width:100%; max-width:900px; border-radius:16px; overflow:hidden; animation-delay:.05s; position:relative;">
+      <img src="images/modernClassroom.png" alt="现代课堂"
+           style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;"
+           onerror="this.style.display='none'" />
+      <!-- 图上叠加文字 -->
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:14px 20px;
+                  background:linear-gradient(transparent, rgba(0,0,0,0.85));">
+        <div style="font-size:0.65rem; letter-spacing:3px; color:rgba(248,113,113,0.8); margin-bottom:4px;">今天 · 现代课堂</div>
+        <div style="font-size:1.3rem; font-weight:700; color:#fff; line-height:1.4;">
+          这个千年理想，在现实中<span style="color:#f87171;">难以落地</span>
+        </div>
       </div>
     </div>
 
-    <!-- ── 第三行：急需解法 CTA ── -->
-    <div class="anim" style="margin-top:18px; display:flex; align-items:center; gap:16px; animation-delay:.82s">
+    <!-- 三张痛点卡（放大） -->
+    <div class="anim" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; width:100%; max-width:900px; margin-top:16px; animation-delay:.35s;">
+
+      <div style="background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.3); border-radius:16px; padding:22px 20px;">
+        <div style="font-size:2.2rem; margin-bottom:6px;">👥</div>
+        <div style="font-size:2.6rem; font-weight:900; color:#f87171; line-height:1; margin-bottom:8px;">1 : 50<span style="font-size:1.3rem">+</span></div>
+        <div style="font-size:0.95rem; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom:6px;">规模困境</div>
+        <div style="font-size:0.82rem; color:rgba(255,255,255,0.42); line-height:1.7;">一个老师面对几十个学生，根本没有精力逐一了解每个人</div>
+      </div>
+
+      <div style="background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.3); border-radius:16px; padding:22px 20px;">
+        <div style="font-size:2.2rem; margin-bottom:6px;">⏳</div>
+        <div style="font-size:2.6rem; font-weight:900; color:#fbbf24; line-height:1; margin-bottom:8px;">60<span style="font-size:1.3rem">%</span></div>
+        <div style="font-size:0.95rem; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom:6px;">时间被吃掉</div>
+        <div style="font-size:0.82rem; color:rgba(255,255,255,0.42); line-height:1.7;">大量时间花在批改试卷、整理成绩上，真正辅导学生的时间所剩无几</div>
+      </div>
+
+      <div style="background:rgba(96,165,250,0.08); border:1px solid rgba(96,165,250,0.3); border-radius:16px; padding:22px 20px;">
+        <div style="font-size:2.2rem; margin-bottom:6px;">🌊</div>
+        <div style="font-size:2.6rem; font-weight:900; color:#60a5fa; line-height:1; margin-bottom:8px;">∞</div>
+        <div style="font-size:0.95rem; font-weight:700; color:rgba(255,255,255,0.85); margin-bottom:6px;">信息过载</div>
+        <div style="font-size:0.82rem; color:rgba(255,255,255,0.42); line-height:1.7;">学习资源多如牛毛，学生不知该补哪里、从哪入手</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="anim" style="margin-top:20px; display:flex; align-items:center; gap:16px; width:100%; max-width:900px; animation-delay:.65s;">
       <div style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08));"></div>
-      <div style="font-size:0.88rem; color:rgba(255,255,255,0.55); white-space:nowrap;">
-        因材施教的千年理想，急需一种新的解法
+      <div style="font-size:0.95rem; color:rgba(255,255,255,0.5); white-space:nowrap;">
+        因材施教了 2500 年，我们还是做不到——直到 AI 出现
       </div>
-      <div style="padding:7px 20px; background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(99,102,241,0.15)); border:1px solid rgba(16,185,129,0.3); border-radius:100px; font-size:0.82rem; color:#6ee7b7; font-weight:600; white-space:nowrap;">
+      <div style="padding:8px 22px; background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(99,102,241,0.15)); border:1px solid rgba(16,185,129,0.3); border-radius:100px; font-size:0.88rem; color:#6ee7b7; font-weight:600; white-space:nowrap;">
         AI 是答案 →
       </div>
       <div style="flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent);"></div>
