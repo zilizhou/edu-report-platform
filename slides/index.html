@@ -59,6 +59,159 @@
     body.day-mode .dot { background: rgba(0,0,0,0.15) !important; }
     body.day-mode .dot.active { background: #4f46e5 !important; }
 
+    /* ── 内联 #fff 文字 → 深色 ── */
+    body.day-mode .slide [style*="color:#fff"],
+    body.day-mode .slide [style*="color: #fff"] { color: rgba(15,23,42,0.82) !important; }
+
+    /* ── 幻灯片径向渐变背景 → 去除，白底更清晰 ── */
+    body.day-mode #s1,body.day-mode #s2,body.day-mode #s3,body.day-mode #s4,
+    body.day-mode #s5,body.day-mode #s6,body.day-mode #s_quiz,body.day-mode #s8,
+    body.day-mode #s9,body.day-mode #s10,body.day-mode #s11,
+    body.day-mode #s12,body.day-mode #s13,body.day-mode #s14 { background: none !important; }
+
+    /* ── 幻灯片标题渐变 → 深蓝 ── */
+    body.day-mode .slide .slide-title {
+      background: linear-gradient(135deg, #1e3a8a, #3730a3) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+
+    /* ── Cover 元素 ── */
+    body.day-mode .slide .cover-quote { color: rgba(15,23,42,0.5) !important; }
+    body.day-mode .slide .cover-meta  { color: rgba(15,23,42,0.55) !important; }
+    body.day-mode .slide .cover-divider { background: linear-gradient(90deg,transparent,rgba(15,23,42,0.25),transparent) !important; }
+
+    /* ── Tag 标签 ── */
+    body.day-mode .slide .tag { background: rgba(15,23,42,0.06) !important; }
+
+    /* ── 内容卡片 ── */
+    body.day-mode .slide .content-card {
+      background: rgba(15,23,42,0.04) !important;
+      border-color: rgba(15,23,42,0.1) !important;
+    }
+    body.day-mode .slide .content-card p { color: rgba(15,23,42,0.6) !important; }
+
+    /* ── 孔子字幕 ── */
+    body.day-mode .slide .analects-src { color: rgba(15,23,42,0.35) !important; }
+    body.day-mode .slide .analects-quote { color: rgba(140,90,0,0.8) !important; border-color: rgba(140,90,0,0.25) !important; }
+    body.day-mode .slide .timeline-bar .tl-l { color: rgba(140,90,0,0.75) !important; }
+    body.day-mode .slide .timeline-bar .tl-r { color: rgba(67,56,202,0.7) !important; }
+
+    /* ── 痛点列表 ── */
+    body.day-mode .slide .pain-list li {
+      color: rgba(15,23,42,0.65) !important;
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.08) !important;
+    }
+
+    /* ── AI 桥接 ── */
+    body.day-mode .slide .bridge-row  { color: rgba(15,23,42,0.65) !important; }
+    body.day-mode .slide .bridge-arrow { color: rgba(67,56,202,0.45) !important; }
+    body.day-mode .slide .req-item {
+      color: rgba(15,23,42,0.7) !important;
+      background: rgba(99,102,241,0.06) !important;
+      border-color: rgba(99,102,241,0.18) !important;
+    }
+
+    /* ── 知识图谱定义块 ── */
+    body.day-mode .slide .def-step { color: rgba(15,23,42,0.7) !important; }
+    body.day-mode .slide .def-step.ds1 { background: rgba(16,185,129,0.07) !important; }
+    body.day-mode .slide .def-step.ds2 { background: rgba(6,182,212,0.07) !important; }
+    body.day-mode .slide .def-step.ds3 { background: rgba(99,102,241,0.07) !important; }
+    body.day-mode .slide .kg-def-right {
+      background: rgba(6,182,212,0.04) !important;
+      border-color: rgba(6,182,212,0.15) !important;
+    }
+
+    /* ── Canvas / SVG 容器 ── */
+    body.day-mode .slide .canvas-wrap {
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.08) !important;
+    }
+    body.day-mode .slide .canvas-caption { color: rgba(15,23,42,0.35) !important; }
+
+    /* ── S9 三步卡片 ── */
+    body.day-mode .slide .s9-card {
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.1) !important;
+    }
+    body.day-mode .slide .s9-card-num { background: rgba(15,23,42,0.04) !important; }
+    body.day-mode .slide .s9-card-title { color: rgba(15,23,42,0.85) !important; }
+    body.day-mode .slide .s9-card-desc  { color: rgba(15,23,42,0.58) !important; }
+    body.day-mode .slide .s9-card-tags span {
+      background: rgba(15,23,42,0.04) !important;
+      border-color: rgba(15,23,42,0.1) !important;
+      color: rgba(15,23,42,0.5) !important;
+    }
+    body.day-mode .slide .s9-arrow { color: rgba(15,23,42,0.2) !important; }
+    body.day-mode .slide .s9-flow-bar {
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.08) !important;
+      color: rgba(15,23,42,0.4) !important;
+    }
+    body.day-mode .slide .s9-flow-bar .fb-item { color: rgba(15,23,42,0.7) !important; }
+    body.day-mode .slide .s9-flow-bar .fb-arrow { color: rgba(15,23,42,0.2) !important; }
+
+    /* ── 步骤流 ── */
+    body.day-mode .slide .step-item {
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.08) !important;
+    }
+    body.day-mode .slide .step-body strong { color: rgba(15,23,42,0.82) !important; }
+    body.day-mode .slide .step-body span   { color: rgba(15,23,42,0.5) !important; }
+
+    /* ── Trio 三件套 ── */
+    body.day-mode .slide .trio-desc { color: rgba(15,23,42,0.6) !important; }
+    body.day-mode .slide .trio-ex {
+      color: rgba(15,23,42,0.5) !important;
+      background: rgba(15,23,42,0.04) !important;
+    }
+
+    /* ── Flow 卡片 ── */
+    body.day-mode .slide .flow-card {
+      background: rgba(15,23,42,0.04) !important;
+      border-color: rgba(15,23,42,0.09) !important;
+    }
+    body.day-mode .slide .fc-label { color: rgba(15,23,42,0.8) !important; }
+    body.day-mode .slide .fc-sub   { color: rgba(15,23,42,0.4) !important; }
+    body.day-mode .slide .fc-arrow { color: rgba(15,23,42,0.2) !important; }
+    body.day-mode .slide .fc-hl .fc-label { color: #059669 !important; }
+    body.day-mode .slide .fc-hl .fc-sub   { color: rgba(5,150,105,0.6) !important; }
+
+    /* ── Teacher scene ── */
+    body.day-mode .slide .teach-msg {
+      color: rgba(15,23,42,0.6) !important;
+      background: rgba(0,180,210,0.05) !important;
+      border-color: rgba(0,180,210,0.15) !important;
+    }
+    body.day-mode .slide .stu-mini-card {
+      background: rgba(15,23,42,0.03) !important;
+      border-color: rgba(15,23,42,0.09) !important;
+    }
+
+    /* ── 学生面板 ── */
+    body.day-mode .slide .s3-panel {
+      background: rgba(240,244,252,0.95) !important;
+      border-color: rgba(6,182,212,0.2) !important;
+    }
+    body.day-mode .slide .s3-panel.border-g { border-color: rgba(16,185,129,0.35) !important; }
+    body.day-mode .slide .s3-panel.border-o { border-color: rgba(245,158,11,0.35) !important; }
+    body.day-mode .slide .s3-panel.border-r { border-color: rgba(239,68,68,0.35) !important; }
+    body.day-mode .slide .s3-name  { color: #1e293b !important; }
+    body.day-mode .slide .s3-score { color: #64748b !important; }
+
+    /* ── KG SVG 节点文字 ── */
+    body.day-mode .slide .kg-node-text { fill: #334155 !important; }
+    body.day-mode .slide .kg-node-circle {
+      fill: rgba(241,245,249,0.92) !important;
+      stroke: rgba(0,150,200,0.45) !important;
+    }
+    body.day-mode .slide .kg-node-circle.mastered { fill: rgba(16,185,129,0.14) !important; }
+    body.day-mode .slide .kg-node-circle.partial  { fill: rgba(245,158,11,0.12) !important; }
+    body.day-mode .slide .kg-node-circle.weak     { fill: rgba(239,68,68,0.11) !important; }
+    body.day-mode .slide .kg-node-circle.unknown  { fill: rgba(100,116,139,0.07) !important; }
+
     /* ── 主题切换按钮 ── */
     .theme-toggle {
       display: flex; align-items: center; gap: 5px;
