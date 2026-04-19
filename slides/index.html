@@ -93,6 +93,30 @@
     }
     body.day-mode .slide .content-card p { color: rgba(15,23,42,0.6) !important; }
 
+    /* ── s_confucius / s3：图片+卡片布局 ── */
+    body.day-mode #s_confucius h2,
+    body.day-mode #s3 h2 { color: #1e3a8a !important; -webkit-text-fill-color: #1e3a8a !important; }
+    body.day-mode #s_confucius p,
+    body.day-mode #s3 p   { color: rgba(15,23,42,0.5) !important; }
+    /* 右侧卡片容器背景+边框 */
+    body.day-mode #s_confucius [style*="background:rgba(255,255,255,0.05)"],
+    body.day-mode #s3 [style*="background:rgba(255,255,255,0.05)"] {
+      background: rgba(15,23,42,0.04) !important;
+      border-color: rgba(15,23,42,0.1) !important;
+    }
+    /* 卡片标题(绿色保留，白色正文改深色) */
+    body.day-mode #s3 [style*="color:rgba(255,255,255,0.92)"] { color: rgba(15,23,42,0.88) !important; }
+    body.day-mode #s3 [style*="color:rgba(255,255,255,0.45)"] { color: rgba(15,23,42,0.48) !important; }
+    body.day-mode #s3 [style*="color:rgba(255,255,255,0.78)"] { color: rgba(15,23,42,0.75) !important; }
+    body.day-mode #s3 [style*="color:rgba(255,255,255,0.35)"] { color: rgba(15,23,42,0.35) !important; }
+    /* 图片容器 */
+    body.day-mode #s_confucius [style*="background:rgba(255,255,255,0.04)"],
+    body.day-mode #s3 [style*="background:rgba(255,255,255,0.04)"] {
+      background: rgba(15,23,42,0.04) !important;
+      border-color: rgba(15,23,42,0.1) !important;
+    }
+    /* s3 icon 圆圈背景保持绿色，不做覆盖 */
+
     /* ── 孔子字幕 ── */
     body.day-mode .slide .analects-src { color: rgba(15,23,42,0.35) !important; }
     body.day-mode .slide .analects-quote { color: rgba(140,90,0,0.8) !important; border-color: rgba(140,90,0,0.25) !important; }
@@ -1154,6 +1178,98 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ══ Slide 3: AI 的破局 ══ -->
+  <section class="slide" id="s3">
+    <div style="width:100%; max-width:960px; display:flex; flex-direction:column; gap:16px;">
+
+      <!-- 标题 -->
+      <div>
+        <div class="tag anim" style="--tag-color:#6ee7b7; margin-bottom:8px;">AI 破局 · The Breakthrough</div>
+        <h2 class="anim slide-title" style="font-size:1.85rem; font-weight:800; margin-bottom:6px; animation-delay:.1s;">
+          AI 如何填平这三道鸿沟？
+        </h2>
+        <p class="anim" style="font-size:0.88rem; color:rgba(255,255,255,0.45); letter-spacing:.5px; animation-delay:.15s; margin:0;">
+          AI 让教师从重复劳动中解放，将精力重新投入到真正的「因材施教」
+        </p>
+      </div>
+
+      <!-- 两列：左图 + 右卡片 -->
+      <div class="anim" style="display:flex; gap:22px; align-items:stretch; animation-delay:.22s;">
+
+        <!-- 左：图片 -->
+        <div style="flex:0 0 300px; border-radius:16px; overflow:hidden;
+             background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+             display:flex; align-items:center; justify-content:center; min-height:300px;">
+          <img src="https://d.zxin.confnew.com/zxnext1959826806593634305/d0536bd1-cea6-4149-a33b-adccf4612492.png"
+               alt="AI 赋能教学" loading="lazy"
+               style="width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+
+        <!-- 右：三张 icon 卡片 -->
+        <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
+
+          <!-- 卡片1：了解每一位学生 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
+               border-radius:14px; padding:16px 18px; flex:1; display:flex; gap:16px; align-items:center;">
+            <div style="flex:0 0 52px; height:52px; border-radius:50%;
+                 background:rgba(52,211,153,0.15); border:1px solid rgba(52,211,153,0.3);
+                 display:flex; align-items:center; justify-content:center; font-size:1.5rem;">👁️</div>
+            <div style="flex:1;">
+              <div style="font-size:0.9rem; font-weight:700; color:rgba(255,255,255,0.92); margin-bottom:5px;">
+                精准学情感知 <span style="font-size:0.72rem; font-weight:400; color:rgba(52,211,153,0.8); margin-left:6px;">Scale at 1:1</span>
+              </div>
+              <div style="font-size:0.83rem; font-weight:800; color:#34d399; margin-bottom:4px;">
+                突破 <span style="font-size:1.1rem;">1:50+</span> 的规模困境
+              </div>
+              <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); line-height:1.65;">
+                AI 同时分析每位学生的知识图谱与薄弱环节，让「了解每一个人」不再是奢望。
+              </div>
+            </div>
+          </div>
+
+          <!-- 卡片2：解放教师时间 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
+               border-radius:14px; padding:16px 18px; flex:1; display:flex; gap:16px; align-items:center;">
+            <div style="flex:0 0 52px; height:52px; border-radius:50%;
+                 background:rgba(52,211,153,0.15); border:1px solid rgba(52,211,153,0.3);
+                 display:flex; align-items:center; justify-content:center; font-size:1.5rem;">⏱️</div>
+            <div style="flex:1;">
+              <div style="font-size:0.9rem; font-weight:700; color:rgba(255,255,255,0.92); margin-bottom:5px;">
+                自动化批改分析 <span style="font-size:0.72rem; font-weight:400; color:rgba(52,211,153,0.8); margin-left:6px;">Time Erosion</span>
+              </div>
+              <div style="font-size:0.83rem; font-weight:800; color:#34d399; margin-bottom:4px;">
+                释放 <span style="font-size:1.1rem;">60%</span> 的教师时间
+              </div>
+              <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); line-height:1.65;">
+                试卷批改、错题归因、成绩分析全部由 AI 完成，教师精力回归教学与陪伴。
+              </div>
+            </div>
+          </div>
+
+          <!-- 卡片3：智能推送 -->
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
+               border-radius:14px; padding:16px 18px; flex:1; display:flex; gap:16px; align-items:center;">
+            <div style="flex:0 0 52px; height:52px; border-radius:50%;
+                 background:rgba(52,211,153,0.15); border:1px solid rgba(52,211,153,0.3);
+                 display:flex; align-items:center; justify-content:center; font-size:1.5rem;">🎯</div>
+            <div style="flex:1;">
+              <div style="font-size:0.9rem; font-weight:700; color:rgba(255,255,255,0.92); margin-bottom:5px;">
+                个性化路径推送 <span style="font-size:0.72rem; font-weight:400; color:rgba(52,211,153,0.8); margin-left:6px;">Info Overload</span>
+              </div>
+              <div style="font-size:0.83rem; font-weight:800; color:#34d399; margin-bottom:4px;">
+                化解 <span style="font-size:1.1rem;">∞</span> 碎片化资源困境
+              </div>
+              <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); line-height:1.65;">
+                AI 根据学情精准推荐练习与资料，每位学生获得专属学习路径，告别盲目刷题。
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ══ Slide 4: AI 是现代的解法 ══ -->
