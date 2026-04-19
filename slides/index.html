@@ -32,8 +32,13 @@
     body.day-mode .slide-counter { color: rgba(15,23,42,0.4) !important; }
     body.day-mode .stage { background: #eef1f8 !important; }
     body.day-mode .slide { background: #ffffff !important; color: #0f172a !important; }
-    body.day-mode #s1 { background: rgba(240,244,255,0.72) !important; color: #0f172a !important; }
-    body.day-mode #s1::before { filter: blur(4px) brightness(1.05); }
+    body.day-mode #s1 { background: transparent !important; color: #0f172a !important; }
+    body.day-mode #s1::before {
+      background:
+        linear-gradient(rgba(240,244,255,0.72), rgba(240,244,255,0.72)),
+        url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat !important;
+      filter: blur(4px);
+    }
     body.day-mode .slide-subtitle { color: rgba(15,23,42,0.55) !important; }
     /* 内联白色文字 → 深色 */
     body.day-mode .slide [style*="color:rgba(255,255,255"],
@@ -824,12 +829,14 @@
     .hl-a { color: #fbbf24; -webkit-text-fill-color: #fbbf24; }
 
     /* ── SLIDE BACKGROUNDS ── */
-    #s1  { background: rgba(13,15,26,0.88); overflow: hidden; }
+    #s1  { background: transparent; overflow: hidden; }
     #s1::before {
       content: '';
       position: absolute;
-      inset: -12px;   /* 留余量防虚化边缘露白 */
-      background: url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat;
+      inset: -12px;
+      background:
+        linear-gradient(rgba(13,15,26,0.82), rgba(13,15,26,0.82)),
+        url('https://d.zxin.confnew.com/zxnext1959826806593634305/b8e61d52-815e-4a7d-b80b-bf05bc81a65f.png') center/cover no-repeat;
       filter: blur(4px);
       z-index: 0;
     }
