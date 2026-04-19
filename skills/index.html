@@ -116,6 +116,46 @@
       .modal { max-height: calc(100vh - 24px); }
       .modal-body { padding: 20px 18px; }
     }
+    .theme-btn {
+  position: fixed; top: 16px; right: 20px; z-index: 9999;
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 15px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07); cursor: pointer;
+  font-size: 0.8rem; color: rgba(255,255,255,0.65);
+  transition: all 0.2s; white-space: nowrap;
+  outline: none; font-family: inherit;
+  backdrop-filter: blur(10px);
+}
+.theme-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+body.day-mode .theme-btn {
+  background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.12); color: rgba(15,23,42,0.65);
+}
+body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
+    body.day-mode { background: #f0f4ff !important; color: #0f172a !important; }
+body.day-mode .topbar { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode .topbar a, body.day-mode .topbar span { color: rgba(15,23,42,0.55) !important; }
+body.day-mode h1, body.day-mode h2 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; background: none !important; }
+body.day-mode .section-title { color: rgba(15,23,42,0.35) !important; }
+body.day-mode .skill-card { background: rgba(255,255,255,0.92) !important; border-color: rgba(0,0,0,0.1) !important; color: #0f172a !important; }
+body.day-mode .skill-card h3 { color: #0f172a !important; }
+body.day-mode .skill-card p, body.day-mode .skill-desc { color: rgba(15,23,42,0.55) !important; }
+body.day-mode .skill-id { color: rgba(15,23,42,0.4) !important; background: rgba(0,0,0,0.05) !important; }
+body.day-mode .skill-tag { background: rgba(0,0,0,0.06) !important; color: rgba(15,23,42,0.55) !important; }
+body.day-mode .modal-overlay { background: rgba(15,23,42,0.5) !important; }
+body.day-mode .modal-box { background: #ffffff !important; color: #0f172a !important; }
+body.day-mode .modal-header { border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode .modal-title { color: #0f172a !important; }
+body.day-mode .modal-close { color: rgba(15,23,42,0.5) !important; background: rgba(0,0,0,0.06) !important; }
+body.day-mode .modal-content { color: #0f172a !important; }
+body.day-mode .modal-content h1, body.day-mode .modal-content h2, body.day-mode .modal-content h3 { color: #0f172a !important; }
+body.day-mode .modal-content p, body.day-mode .modal-content li { color: rgba(15,23,42,0.7) !important; }
+body.day-mode .modal-content code { background: rgba(0,0,0,0.06) !important; color: #1d4ed8 !important; }
+body.day-mode .modal-content table { border-color: rgba(0,0,0,0.1) !important; }
+body.day-mode .modal-content th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+body.day-mode .modal-content td { border-color: rgba(0,0,0,0.07) !important; color: rgba(15,23,42,0.7) !important; }
+body.day-mode .modal-content blockquote { border-left-color: #1d4ed8 !important; background: rgba(29,78,216,0.05) !important; }
+body.day-mode .download-bar { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.08) !important; }
   </style>
 </head>
 <body>
@@ -550,5 +590,19 @@
       }
     }
   </script>
+<button class="theme-btn" id="themeToggle">🌞 白天</button>
+<script>
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('edu-theme') || 'night';
+    if (saved === 'day') { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; }
+    else { btn.textContent = '🌞 白天'; }
+    btn.addEventListener('click', function() {
+      const isDay = document.body.classList.contains('day-mode');
+      if (isDay) { document.body.classList.remove('day-mode'); btn.textContent = '🌞 白天'; localStorage.setItem('edu-theme', 'night'); }
+      else { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; localStorage.setItem('edu-theme', 'day'); }
+    });
+  })();
+</script>
 </body>
 </html>

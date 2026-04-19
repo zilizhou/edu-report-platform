@@ -156,6 +156,43 @@
       .container { padding: 28px 20px 60px; }
       .img-row { grid-template-columns: 1fr; }
     }
+    .theme-btn {
+  position: fixed; top: 16px; right: 20px; z-index: 9999;
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 15px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07); cursor: pointer;
+  font-size: 0.8rem; color: rgba(255,255,255,0.65);
+  transition: all 0.2s; white-space: nowrap;
+  outline: none; font-family: inherit;
+  backdrop-filter: blur(10px);
+}
+.theme-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+body.day-mode .theme-btn {
+  background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.12); color: rgba(15,23,42,0.65);
+}
+body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
+    body.day-mode { background: #f0f4ff !important; color: #0f172a !important; }
+body.day-mode .topbar { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode .topbar a, body.day-mode .topbar span { color: rgba(15,23,42,0.55) !important; }
+body.day-mode .layout { background: #f0f4ff !important; }
+body.day-mode .toc { background: #f8faff !important; border-right-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .toc a { color: rgba(15,23,42,0.5) !important; }
+body.day-mode .toc a:hover, body.day-mode .toc a.active { color: #1d4ed8 !important; border-left-color: #1d4ed8 !important; }
+body.day-mode .toc-title { color: rgba(15,23,42,0.3) !important; }
+body.day-mode .container { color: #0f172a !important; }
+body.day-mode h1, body.day-mode h2, body.day-mode h3 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; background: none !important; }
+body.day-mode p, body.day-mode li { color: rgba(15,23,42,0.7) !important; }
+body.day-mode .chapter { border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .chapter-title { background: rgba(0,0,0,0.02) !important; }
+body.day-mode .step { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .step-header { background: rgba(0,0,0,0.02) !important; }
+body.day-mode .step-num { color: #1d4ed8 !important; background: rgba(29,78,216,0.1) !important; }
+body.day-mode .img-wrap { background: #f8faff !important; border-color: rgba(0,0,0,0.08) !important; }
+body.day-mode .img-caption { color: rgba(15,23,42,0.45) !important; }
+body.day-mode .substep-num { background: rgba(29,78,216,0.12) !important; color: #1d4ed8 !important; }
+body.day-mode code { background: rgba(0,0,0,0.06) !important; color: #1d4ed8 !important; }
+body.day-mode strong { color: #0f172a !important; }
   </style>
 </head>
 <body>
@@ -610,5 +647,19 @@
     }, { rootMargin: '-20% 0px -70% 0px' });
     sections.forEach(s => obs.observe(s));
   </script>
+<button class="theme-btn" id="themeToggle">🌞 白天</button>
+<script>
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('edu-theme') || 'night';
+    if (saved === 'day') { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; }
+    else { btn.textContent = '🌞 白天'; }
+    btn.addEventListener('click', function() {
+      const isDay = document.body.classList.contains('day-mode');
+      if (isDay) { document.body.classList.remove('day-mode'); btn.textContent = '🌞 白天'; localStorage.setItem('edu-theme', 'night'); }
+      else { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; localStorage.setItem('edu-theme', 'day'); }
+    });
+  })();
+</script>
 </body>
 </html>

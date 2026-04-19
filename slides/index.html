@@ -20,6 +20,61 @@
       overflow: hidden;
     }
 
+    /* ══ 白天 / 投影模式 ══ */
+    body.day-mode { background: #eef1f8 !important; color: #0f172a !important; }
+    body.day-mode::before { opacity: 0 !important; }
+    body.day-mode .topnav {
+      background: rgba(255,255,255,0.97) !important;
+      border-bottom-color: rgba(0,0,0,0.09) !important;
+    }
+    body.day-mode .topnav a { color: rgba(15,23,42,0.55) !important; }
+    body.day-mode .topnav a:hover { color: #0f172a !important; }
+    body.day-mode .slide-counter { color: rgba(15,23,42,0.4) !important; }
+    body.day-mode .stage { background: #eef1f8 !important; }
+    body.day-mode .slide { background: #ffffff !important; color: #0f172a !important; }
+    body.day-mode .slide-subtitle { color: rgba(15,23,42,0.55) !important; }
+    /* 内联白色文字 → 深色 */
+    body.day-mode .slide [style*="color:rgba(255,255,255"],
+    body.day-mode .slide [style*="color: rgba(255,255,255"] { color: rgba(15,23,42,0.65) !important; }
+    /* 内联近透明白色背景 → 浅灰 */
+    body.day-mode .slide [style*="background:rgba(255,255,255,0.0"],
+    body.day-mode .slide [style*="background: rgba(255,255,255,0.0"],
+    body.day-mode .slide [style*="background:rgba(255,255,255,0.1"],
+    body.day-mode .slide [style*="background: rgba(255,255,255,0.1"] { background: rgba(15,23,42,0.04) !important; }
+    /* 深色 #0a0f1e 背景 → 浅色 */
+    body.day-mode .slide [style*="background:#0a0f1e"],
+    body.day-mode .slide [style*="background: #0a0f1e"] { background: #f0f3fa !important; }
+    /* 近黑 rgba(0,0,0,...) 背景 → 浅色 */
+    body.day-mode .slide [style*="background:rgba(0,0,0"],
+    body.day-mode .slide [style*="background: rgba(0,0,0"] { background: rgba(15,23,42,0.04) !important; }
+    body.day-mode .botnav {
+      background: rgba(255,255,255,0.97) !important;
+      border-top-color: rgba(0,0,0,0.09) !important;
+    }
+    body.day-mode .btn-nav {
+      background: rgba(0,0,0,0.05) !important;
+      border-color: rgba(0,0,0,0.12) !important;
+      color: rgba(0,0,0,0.45) !important;
+    }
+    body.day-mode .dot { background: rgba(0,0,0,0.15) !important; }
+    body.day-mode .dot.active { background: #4f46e5 !important; }
+
+    /* ── 主题切换按钮 ── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: 5px;
+      padding: 4px 13px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06); cursor: pointer;
+      font-size: 0.78rem; color: rgba(255,255,255,0.6);
+      transition: all 0.2s; white-space: nowrap;
+      outline: none; font-family: var(--font);
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9); }
+    body.day-mode .theme-toggle {
+      background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.14); color: rgba(15,23,42,0.6);
+    }
+    body.day-mode .theme-toggle:hover { background: rgba(0,0,0,0.1); color: #0f172a; }
+
     /* ── Top nav ── */
     .topnav {
       position: fixed;
@@ -760,6 +815,7 @@
 <!-- Top nav -->
 <div class="topnav">
   <a href="../index.html">← 返回首页</a>
+  <button class="theme-toggle" id="themeToggle">🌞 白天</button>
   <span class="slide-counter" id="counter">1 / 11</span>
 </div>
 
@@ -2251,6 +2307,32 @@
   ════════════════════════════════════════ */
   updateUI();
   onSlideEnter(0); // init first slide (s1 has no special animation)
+
+  /* ════════════════════════════════════════
+     THEME TOGGLE
+  ════════════════════════════════════════ */
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('edu-theme') || 'night';
+    if (saved === 'day') {
+      document.body.classList.add('day-mode');
+      btn.textContent = '🌙 夜间';
+    } else {
+      btn.textContent = '🌞 白天';
+    }
+    btn.addEventListener('click', function() {
+      const isDay = document.body.classList.contains('day-mode');
+      if (isDay) {
+        document.body.classList.remove('day-mode');
+        btn.textContent = '🌞 白天';
+        localStorage.setItem('edu-theme', 'night');
+      } else {
+        document.body.classList.add('day-mode');
+        btn.textContent = '🌙 夜间';
+        localStorage.setItem('edu-theme', 'day');
+      }
+    });
+  })();
 </script>
 </body>
 </html>

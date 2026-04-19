@@ -91,6 +91,35 @@
       .file-grid { grid-template-columns: 1fr; }
       .subject-header { flex-direction: column; align-items: flex-start; }
     }
+    .theme-btn {
+  position: fixed; top: 16px; right: 20px; z-index: 9999;
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 15px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07); cursor: pointer;
+  font-size: 0.8rem; color: rgba(255,255,255,0.65);
+  transition: all 0.2s; white-space: nowrap;
+  outline: none; font-family: inherit;
+  backdrop-filter: blur(10px);
+}
+.theme-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+body.day-mode .theme-btn {
+  background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.12); color: rgba(15,23,42,0.65);
+}
+body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
+    body.day-mode { background: #f0f4ff !important; color: #0f172a !important; }
+body.day-mode .topbar { background: rgba(255,255,255,0.97) !important; border-bottom-color: rgba(0,0,0,0.09) !important; }
+body.day-mode .topbar a, body.day-mode .topbar span { color: rgba(15,23,42,0.55) !important; }
+body.day-mode h1, body.day-mode h2 { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; background: none !important; }
+body.day-mode .section-header { color: rgba(15,23,42,0.35) !important; }
+body.day-mode .file-card { background: rgba(255,255,255,0.92) !important; border-color: rgba(0,0,0,0.1) !important; color: #0f172a !important; }
+body.day-mode .file-card h3, body.day-mode .file-name { color: #0f172a !important; }
+body.day-mode .file-desc, body.day-mode .file-meta { color: rgba(15,23,42,0.55) !important; }
+body.day-mode .file-tag { background: rgba(0,0,0,0.06) !important; color: rgba(15,23,42,0.55) !important; }
+body.day-mode .preview-table { background: rgba(255,255,255,0.95) !important; border-color: rgba(0,0,0,0.1) !important; }
+body.day-mode .preview-table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+body.day-mode .preview-table td { border-color: rgba(0,0,0,0.07) !important; color: rgba(15,23,42,0.7) !important; }
+body.day-mode .download-bar { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.08) !important; }
   </style>
 </head>
 <body>
@@ -446,5 +475,19 @@
       }
     }
   </script>
+<button class="theme-btn" id="themeToggle">🌞 白天</button>
+<script>
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('edu-theme') || 'night';
+    if (saved === 'day') { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; }
+    else { btn.textContent = '🌞 白天'; }
+    btn.addEventListener('click', function() {
+      const isDay = document.body.classList.contains('day-mode');
+      if (isDay) { document.body.classList.remove('day-mode'); btn.textContent = '🌞 白天'; localStorage.setItem('edu-theme', 'night'); }
+      else { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; localStorage.setItem('edu-theme', 'day'); }
+    });
+  })();
+</script>
 </body>
 </html>

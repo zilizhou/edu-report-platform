@@ -193,6 +193,38 @@
       h1 { font-size: 2rem; }
       main { padding: 20px 20px 40px; }
     }
+
+    /* ══ 白天模式 ══ */
+    body.day-mode { background: #eef1f8 !important; color: #0f172a !important; }
+    body.day-mode::before { opacity: 0 !important; }
+    body.day-mode h1 { color: #1e3a8a !important; -webkit-text-fill-color: #1e3a8a !important; background: none !important; }
+    body.day-mode .badge { background: rgba(30,58,138,0.1) !important; border-color: rgba(30,58,138,0.3) !important; color: #1e3a8a !important; }
+    body.day-mode .subtitle { color: rgba(15,23,42,0.45) !important; }
+    body.day-mode .card { background: rgba(255,255,255,0.9) !important; border-color: rgba(0,0,0,0.1) !important; color: #0f172a !important; }
+    body.day-mode .card h2 { color: #0f172a !important; }
+    body.day-mode .card p { color: rgba(15,23,42,0.55) !important; }
+    body.day-mode .card-footer { border-top-color: rgba(0,0,0,0.07) !important; }
+    body.day-mode .tag { color: rgba(15,23,42,0.35) !important; }
+    body.day-mode .arrow { color: rgba(15,23,42,0.35) !important; }
+    body.day-mode footer { color: rgba(15,23,42,0.3) !important; }
+
+    /* 主题切换按钮 */
+    .theme-btn {
+      position: fixed; top: 16px; right: 20px; z-index: 999;
+      display: flex; align-items: center; gap: 5px;
+      padding: 6px 15px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07); cursor: pointer;
+      font-size: 0.8rem; color: rgba(255,255,255,0.65);
+      transition: all 0.2s; white-space: nowrap;
+      outline: none; font-family: inherit;
+      backdrop-filter: blur(10px);
+    }
+    .theme-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    body.day-mode .theme-btn {
+      background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.12); color: rgba(15,23,42,0.65);
+    }
+    body.day-mode .theme-btn:hover { background: #fff; color: #0f172a; }
   </style>
 </head>
 <body>
@@ -247,5 +279,21 @@
   </main>
 
   <footer>AI 赋能个性化教学 · 2026 · 汇报演示系统</footer>
+
+  <button class="theme-btn" id="themeToggle">🌞 白天</button>
+
+  <script>
+    (function() {
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('edu-theme') || 'night';
+      if (saved === 'day') { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; }
+      else { btn.textContent = '🌞 白天'; }
+      btn.addEventListener('click', function() {
+        const isDay = document.body.classList.contains('day-mode');
+        if (isDay) { document.body.classList.remove('day-mode'); btn.textContent = '🌞 白天'; localStorage.setItem('edu-theme', 'night'); }
+        else { document.body.classList.add('day-mode'); btn.textContent = '🌙 夜间'; localStorage.setItem('edu-theme', 'day'); }
+      });
+    })();
+  </script>
 </body>
 </html>
