@@ -207,6 +207,41 @@
     body.day-mode .tag { color: rgba(15,23,42,0.35) !important; }
     body.day-mode .arrow { color: rgba(15,23,42,0.35) !important; }
     body.day-mode footer { color: rgba(15,23,42,0.3) !important; }
+
+    /* ── 二维码 ── */
+    #qrBox {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      padding: 10px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    #qrBox img {
+      width: 100px; height: 100px;
+      display: block;
+      border-radius: 8px;
+    }
+    #qrBox span {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
+    /* 手机端：取消绝对定位，变为 header 内居中的普通块 */
+    @media (max-width: 620px) {
+      #qrBox {
+        position: static;
+        margin: 0 auto 20px;
+        width: fit-content;
+      }
+    }
     body.day-mode #qrBox {
       background: rgba(255,255,255,0.88) !important;
       border-color: rgba(0,0,0,0.1) !important;
@@ -233,17 +268,13 @@
   </style>
 </head>
 <body>
-  <!-- 二维码（右上角，主题按钮下方） -->
-  <div id="qrBox" style="position:fixed; top:58px; right:20px; z-index:100;
-       background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
-       border-radius:14px; padding:10px; backdrop-filter:blur(12px);
-       display:flex; flex-direction:column; align-items:center; gap:6px;">
-    <img src="https://d.zxin.confnew.com/zxnext1959826806593634305/aabeff44-2c07-4732-b2f5-90e351ee7a93.png"
-         alt="二维码" style="width:100px; height:100px; display:block; border-radius:8px;" />
-    <span style="font-size:0.65rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">扫码访问</span>
-  </div>
-
   <header>
+    <!-- 二维码（桌面端：绝对定位在 header 右上角；手机端：随页面流排列） -->
+    <div id="qrBox">
+      <img src="https://d.zxin.confnew.com/zxnext1959826806593634305/aabeff44-2c07-4732-b2f5-90e351ee7a93.png"
+           alt="二维码" />
+      <span>扫码访问</span>
+    </div>
     <div class="badge">AI Teaching Platform</div>
     <h1>AI 赋能个性化教学<br>汇报演示系统</h1>
     <p class="subtitle">让 AI 与孔子「因材施教」思想相结合，从圣人故里发扬光大</p>
