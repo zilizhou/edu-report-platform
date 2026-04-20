@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --nav-h: 52px;
+      --nav-h: 44px;
       --font: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
       font-size: 17.5px; /* 投影友好：基础字号从16px提升至17.5px，所有rem等比放大 */
     }
@@ -25,8 +25,8 @@
     body.day-mode { background: #eef1f8 !important; color: #0f172a !important; }
     body.day-mode::before { opacity: 0 !important; }
     body.day-mode .topnav {
-      background: rgba(255,255,255,0.97) !important;
-      border-bottom-color: rgba(0,0,0,0.09) !important;
+      background: rgba(255,255,255,0.75) !important;
+      border-bottom-color: rgba(0,0,0,0.08) !important;
     }
     body.day-mode .topnav a { color: rgba(15,23,42,0.55) !important; }
     body.day-mode .topnav a:hover { color: #0f172a !important; }
@@ -56,8 +56,8 @@
     body.day-mode .slide [style*="background:rgba(0,0,0"],
     body.day-mode .slide [style*="background: rgba(0,0,0"] { background: rgba(15,23,42,0.04) !important; }
     body.day-mode .botnav {
-      background: rgba(255,255,255,0.97) !important;
-      border-top-color: rgba(0,0,0,0.09) !important;
+      background: rgba(255,255,255,0.75) !important;
+      border-top-color: rgba(0,0,0,0.08) !important;
     }
     body.day-mode .btn-nav {
       background: rgba(0,0,0,0.05) !important;
@@ -270,9 +270,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
-      background: rgba(6,10,20,0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(6,10,20,0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 100;
     }
 
@@ -293,9 +294,7 @@
     /* ── Slide container ── */
     .stage {
       position: fixed;
-      top: var(--nav-h);
-      left: 0; right: 0;
-      bottom: var(--nav-h);
+      inset: 0;          /* 铺满全屏，导航栏以浮层方式叠在上面 */
       overflow: hidden;
     }
 
@@ -306,7 +305,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 36px 72px;
+      /* 上下内边距留出导航栏高度，避免内容被遮挡 */
+      padding: calc(var(--nav-h) + 14px) 72px;
       opacity: 0;
       transform: translateX(60px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -348,9 +348,10 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
-      background: rgba(6,10,20,0.9);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(6,10,20,0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.06);
       z-index: 100;
     }
 
