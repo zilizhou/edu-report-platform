@@ -1214,7 +1214,7 @@
       <!-- 左：课程知识网络 -->
       <div style="flex:1.4; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:16px; padding:16px 18px;">
         <div style="font-size:0.82rem; font-weight:700; color:#34d399; margin-bottom:10px; letter-spacing:.5px;">📚 教学内容 = 课程知识网络</div>
-        <svg id="s4CourseGraph" width="100%" height="200" viewBox="0 0 320 200" style="display:block;"></svg>
+        <svg id="s4CourseGraph" width="100%" height="200" viewBox="-4 -4 328 208" style="display:block;"></svg>
         <div style="font-size:0.7rem; color:rgba(255,255,255,0.28); text-align:center; margin-top:6px; letter-spacing:.5px;">Python 课程 · 10 个知识节点</div>
       </div>
 
@@ -1223,15 +1223,15 @@
         <div style="font-size:0.82rem; font-weight:700; color:#a5b4fc; margin-bottom:4px; letter-spacing:.5px;">🧑‍🎓 每位学生 = 对知识网络的掌握</div>
         <div style="display:flex; align-items:center; gap:6px;">
           <span style="font-size:0.7rem; font-weight:600; color:#34d399; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 A</span>
-          <svg id="s4Stu0" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
+          <svg id="s4Stu0" width="100%" height="88" viewBox="-4 -4 218 90" style="flex:1;"></svg>
         </div>
         <div style="display:flex; align-items:center; gap:6px;">
           <span style="font-size:0.7rem; font-weight:600; color:#fbbf24; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 B</span>
-          <svg id="s4Stu1" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
+          <svg id="s4Stu1" width="100%" height="88" viewBox="-4 -4 218 90" style="flex:1;"></svg>
         </div>
         <div style="display:flex; align-items:center; gap:6px;">
           <span style="font-size:0.7rem; font-weight:600; color:#f87171; width:36px; flex-shrink:0; letter-spacing:.3px;">学生 C</span>
-          <svg id="s4Stu2" width="100%" height="80" viewBox="0 0 210 82" style="flex:1;"></svg>
+          <svg id="s4Stu2" width="100%" height="88" viewBox="-4 -4 218 90" style="flex:1;"></svg>
         </div>
         <div style="display:flex; gap:12px; font-size:0.66rem; color:rgba(255,255,255,0.32); margin-top:4px; align-items:center;">
           <span style="display:flex;align-items:center;gap:3px"><svg width="9" height="9"><circle cx="4.5" cy="4.5" r="3.5" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1"/></svg>已掌握</span>
@@ -2042,12 +2042,11 @@
         setTimeout(() => {
           // Use cx/cy directly — avoids CSS transform overriding SVG translate
           const c = makeSvgElem('circle', {
-            cx:n.x, cy:n.y, r:13,
-            fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':1.8
+            cx:n.x, cy:n.y, r:17,
+            fill:'rgba(16,185,129,0.18)', stroke:'#10b981', 'stroke-width':2
           });
           c.style.opacity = '0';
           cSvg.appendChild(c);
-          // Small delay so browser paints opacity:0 first, enabling the CSS transition
           setTimeout(() => {
             c.style.transition = 'opacity 0.35s ease';
             c.style.opacity = '1';
@@ -2056,17 +2055,19 @@
           if (label.length === 1) {
             const t = makeSvgElem('text', {
               x:n.x, y:n.y, fill:svgTxt(),
-              'font-size':'8.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
+              'font-size':'10', 'font-weight':'500',
+              'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             t.textContent = label[0];
             cSvg.appendChild(t);
           } else {
             const t = makeSvgElem('text', {
               x:n.x, fill:svgTxt(),
-              'font-size':'8', 'text-anchor':'middle', 'dominant-baseline':'middle'
+              'font-size':'9.5', 'font-weight':'500',
+              'text-anchor':'middle', 'dominant-baseline':'middle'
             });
             label.forEach((l, li) => {
-              const ts = makeSvgElem('tspan', {x:n.x, y: li===0 ? n.y-4 : n.y+5});
+              const ts = makeSvgElem('tspan', {x:n.x, y: li===0 ? n.y-5 : n.y+6});
               ts.textContent = l;
               t.appendChild(ts);
             });
@@ -2107,11 +2108,12 @@
         if (m === 2) { fill = svgNodeFill('mastered'); stroke = '#10b981'; txtFill = svgTxt(); }
         else if (m === 1) { fill = svgNodeFill('partial'); stroke = '#f59e0b'; txtFill = svgTxt(); }
         svg.appendChild(makeSvgElem('circle', {
-          cx:n.x, cy:n.y, r:9, fill, stroke, 'stroke-width':1.5
+          cx:n.x, cy:n.y, r:12, fill, stroke, 'stroke-width':1.8
         }));
         const t = makeSvgElem('text', {
           x:n.x, y:n.y, fill:txtFill,
-          'font-size':'6.5', 'text-anchor':'middle', 'dominant-baseline':'middle'
+          'font-size':'8.5', 'font-weight':'500',
+          'text-anchor':'middle', 'dominant-baseline':'middle'
         });
         t.textContent = M_LABELS[i];
         svg.appendChild(t);
