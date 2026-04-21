@@ -313,6 +313,9 @@ body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgb
       <a href="#q-core" class="sub">核心分析（1–10类）</a>
       <a href="#q-personality" class="sub">个性化拓展（11–15类）</a>
       <a href="#q-usage" class="sub">使用建议</a>
+      <a href="#mcp">五、知新 MCP 智能对话</a>
+      <a href="#mcp-questions" class="sub">10大类 · 30个问题</a>
+      <a href="#mcp-tips" class="sub">使用提示</a>
     </div><!-- /toc -->
 
     <!-- Content -->
@@ -923,6 +926,203 @@ body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgb
               <strong>教研使用场景</strong>
               用第 3 类分析试卷难度和区分度；用第 5 类完善课程知识图谱；用第 11–15 类研究性格特点与学习效果的关系。
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ 第五章 ══ -->
+      <div id="mcp" class="chapter">
+        <div class="chapter-title" style="border-left-color: var(--cyan);">
+          <span class="ch-num" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">五</span>
+          知新 MCP · 与教学平台智能对话
+        </div>
+      </div>
+
+      <!-- 介绍 + 二维码 -->
+      <div style="display:flex; gap:24px; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:240px;">
+          <p style="font-size:.88rem; color:var(--muted); line-height:1.85; margin-bottom:14px;">
+            知新教学平台提供专属 <strong style="color:var(--cyan);">MCP（Model Context Protocol）</strong> 接口，可与 WorkBuddy 等 AI 智能体无缝对接。配置完成后，教师和学生<strong style="color:rgba(255,255,255,.8);">无需打开浏览器</strong>，直接通过自然语言向智能体提问，即可实时操作课程、作业、学情数据等核心功能，真正实现「<strong style="color:var(--cyan);">对话即操作</strong>」。
+          </p>
+          <div class="output-box">
+            <strong>支持功能一览：</strong><br>
+            课程与课堂管理 · 学生查询与定位 · 学情分析与统计 · 作业管理与批改 · 知识点检索与题目生成 · 智能组卷与题库管理 · 消息通知与作业发布 · 学生个人学习轨迹 · 作业批改与重判 · 题集管理
+          </div>
+        </div>
+        <div style="flex-shrink:0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+          <img src="https://d.zxin.confnew.com/zxnext1959826806593634305/217008bc-a0f6-4f26-9b64-3a37e719aec8.png"
+               alt="知新 MCP 二维码"
+               style="width:130px; height:130px; border-radius:8px; display:block;" />
+          <span style="font-size:.7rem; color:rgba(255,255,255,.4); letter-spacing:1.5px;">扫码配置知新 MCP</span>
+        </div>
+      </div>
+
+      <!-- 统计 -->
+      <div class="q-stat-row">
+        <div class="q-stat"><div class="q-num" style="color:var(--cyan);">10</div><div class="q-lbl">问题大类</div></div>
+        <div class="q-stat"><div class="q-num" style="color:var(--cyan);">30</div><div class="q-lbl">具体问题</div></div>
+        <div class="q-stat"><div class="q-num" style="color:var(--cyan);">实时</div><div class="q-lbl">数据同步</div></div>
+        <div class="q-stat"><div class="q-num" style="color:var(--cyan);">零</div><div class="q-lbl">代码门槛</div></div>
+      </div>
+
+      <div id="mcp-questions" class="q-section-sep" style="--sep-color:var(--cyan);">10 大类 · 30 个可提问问题</div>
+
+      <div class="q-grid">
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第一类</span>
+            <span class="q-cat-name">📋 课程与课堂管理</span>
+          </div>
+          <div class="q-src-label">查询课程列表、课堂信息</div>
+          <div class="q-items">
+            <div class="q-item"><b>1.1</b> 我目前教授哪些课程？<span class="q-eg">例：我这学期教了几门课？列出所有课程名称和代码</span></div>
+            <div class="q-item"><b>1.2</b> 某门课程下有几个课堂？每个课堂多少人？<span class="q-eg">例：Python程序设计有几个班？每个班多少人？</span></div>
+            <div class="q-item"><b>1.3</b> 帮我查一下某门课程的课堂信息<span class="q-eg">例：帮我查一下"计算机网络"课堂有哪些？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第二类</span>
+            <span class="q-cat-name">👥 学生查询与定位</span>
+          </div>
+          <div class="q-src-label">查询学生班级、名单、作业完成情况</div>
+          <div class="q-items">
+            <div class="q-item"><b>2.1</b> 某位学生在哪个班？<span class="q-eg">例：张三是哪个班的？李四在哪个课堂？</span></div>
+            <div class="q-item"><b>2.2</b> 列出某个课堂的所有学生<span class="q-eg">例：帮我列出Python测试班级的所有学生名单</span></div>
+            <div class="q-item"><b>2.3</b> 某个学生的作业完成情况如何？<span class="q-eg">例：王五的作业完成率和平均分是多少？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第三类</span>
+            <span class="q-cat-name">📊 学情分析与统计</span>
+          </div>
+          <div class="q-src-label">分析成绩分布、薄弱知识点、作业提交</div>
+          <div class="q-items">
+            <div class="q-item"><b>3.1</b> 某门课堂的分数分布和平均分是多少？<span class="q-eg">例：数据挖掘课堂平均分是多少？分数分布如何？</span></div>
+            <div class="q-item"><b>3.2</b> 这门课学生最薄弱的知识点有哪些？<span class="q-eg">例：计算机网络哪些知识点学生掌握最差？Top 5薄弱点</span></div>
+            <div class="q-item"><b>3.3</b> 某次作业谁没交？哪道题错得最多？<span class="q-eg">例：第三次作业未交名单是谁？哪道题正答率最低？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第四类</span>
+            <span class="q-cat-name">📝 作业管理与批改</span>
+          </div>
+          <div class="q-src-label">查看作业详情、提交统计、学生答题情况</div>
+          <div class="q-items">
+            <div class="q-item"><b>4.1</b> 列出我最近发布的所有作业<span class="q-eg">例：查看Python课堂最近一个月的所有作业</span></div>
+            <div class="q-item"><b>4.2</b> 查看某次作业的详情和提交统计<span class="q-eg">例："测试-作业"的提交率是多少？班级平均分多少？</span></div>
+            <div class="q-item"><b>4.3</b> 某个学生在某次作业中每道题的答案和得分<span class="q-eg">例：安润鲁在第一次作业中每道题答得怎么样？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第五类</span>
+            <span class="q-cat-name">🎯 知识点检索与题目生成</span>
+          </div>
+          <div class="q-src-label">搜索知识点，AI 自动生成题目</div>
+          <div class="q-items">
+            <div class="q-item"><b>5.1</b> 帮我搜索某课程的相关知识点<span class="q-eg">例：帮我搜索"TCP协议"相关的知识点</span></div>
+            <div class="q-item"><b>5.2</b> 根据某个知识点自动生成题目<span class="q-eg">例：根据"链表"知识点生成5道单选题</span></div>
+            <div class="q-item"><b>5.3</b> 帮我出一套关于某主题的测验题<span class="q-eg">例：帮我出一套关于"数据挖掘"的测验题，包含填空和问答</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第六类</span>
+            <span class="q-cat-name">📄 智能组卷与题库管理</span>
+          </div>
+          <div class="q-src-label">组卷、批量创建题目、修改题库</div>
+          <div class="q-items">
+            <div class="q-item"><b>6.1</b> 帮我组一套指定分数和题量的试卷<span class="q-eg">例：帮我组一套100分的试卷，包含20道题</span></div>
+            <div class="q-item"><b>6.2</b> 批量创建题目到题库<span class="q-eg">例：把我写的10道Python选择题存入题库</span></div>
+            <div class="q-item"><b>6.3</b> 修改或删除题库中的某道题<span class="q-eg">例：修改题库中第5题的答案，删除那道错题</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第七类</span>
+            <span class="q-cat-name">📢 消息通知与作业发布</span>
+          </div>
+          <div class="q-src-label">群发消息、发布作业、延期设置</div>
+          <div class="q-items">
+            <div class="q-item"><b>7.1</b> 给全班同学发一条消息<span class="q-eg">例：给Python课堂全班发一条作业提醒</span></div>
+            <div class="q-item"><b>7.2</b> 帮我发布一个新作业<span class="q-eg">例：发布一个关于"数组操作"的作业，截止本周五</span></div>
+            <div class="q-item"><b>7.3</b> 给某个学生延期某次作业<span class="q-eg">例：给张三的第二次作业延期3天</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第八类</span>
+            <span class="q-cat-name">📈 学生个人学习轨迹</span>
+          </div>
+          <div class="q-src-label">知识画像、成绩时间线、多次对比</div>
+          <div class="q-items">
+            <div class="q-item"><b>8.1</b> 查看某个学生的知识掌握画像<span class="q-eg">例：李娜在Python课程中哪些知识点掌握得好/差？</span></div>
+            <div class="q-item"><b>8.2</b> 某个学生这学期所有作业的得分时间线<span class="q-eg">例：王五这学期作业成绩趋势如何？是进步还是退步？</span></div>
+            <div class="q-item"><b>8.3</b> 对比分析某学生多次作业的表现<span class="q-eg">例：对比张三第一次和第三次作业，哪些题进步了？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第九类</span>
+            <span class="q-cat-name">🔧 作业批改与重判</span>
+          </div>
+          <div class="q-src-label">手动打分、触发重判、修改截止时间</div>
+          <div class="q-items">
+            <div class="q-item"><b>9.1</b> 手动给某学生的某道题打分<span class="q-eg">例：给李娜的问答题打8分，并写上评语</span></div>
+            <div class="q-item"><b>9.2</b> 对某次作业触发重新批改<span class="q-eg">例：对"测试-作业"重新批改，更新自动判分结果</span></div>
+            <div class="q-item"><b>9.3</b> 修改某次作业的截止时间或显示设置<span class="q-eg">例：把作业截止时间延长到下周，设置完成后显示答案</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head">
+            <span class="q-num-badge" style="color:var(--cyan); background:rgba(103,232,249,.1); border-color:rgba(103,232,249,.2);">第十类</span>
+            <span class="q-cat-name">📦 题集管理</span>
+          </div>
+          <div class="q-src-label">打包题集、按难度挑题、发布到班级</div>
+          <div class="q-items">
+            <div class="q-item"><b>10.1</b> 把一组题目打包成题集<span class="q-eg">例：把10道Python基础题打包成"基础练习题集"</span></div>
+            <div class="q-item"><b>10.2</b> 从题库中按难度和知识点挑选题目<span class="q-eg">例：帮我挑10道中等难度的"循环结构"题目</span></div>
+            <div class="q-item"><b>10.3</b> 创建题集后发布作业到指定班级<span class="q-eg">例：把"期中复习题集"发布给2023级实训班</span></div>
+          </div>
+        </div>
+
+      </div><!-- /q-grid mcp -->
+
+      <!-- 使用提示 -->
+      <div id="mcp-tips" class="step" style="margin-top:8px;">
+        <div class="step-header">
+          <div class="step-num" style="background:rgba(103,232,249,.12); border-color:rgba(103,232,249,.3); color:var(--cyan); width:32px; height:32px; font-size:1rem;">💡</div>
+          <h3>使用提示</h3>
+        </div>
+        <div class="feat-list">
+          <div class="feat-item">
+            <span class="fi">📌</span>
+            <div><strong>告知课程或课堂名称</strong>大部分问题需先提供<strong>课程名称</strong>或<strong>课堂名称</strong>，系统会自动获取对应 ID。</div>
+          </div>
+          <div class="feat-item">
+            <span class="fi">🧑‍🎓</span>
+            <div><strong>涉及学生直接用姓名</strong>提供学生<strong>姓名或学号</strong>即可，无需手动查询 ID。</div>
+          </div>
+          <div class="feat-item">
+            <span class="fi">📋</span>
+            <div><strong>作业用名称或时间范围定位</strong>提供<strong>作业名称</strong>或大致时间范围（如"上周发布的"），系统即可自动定位。</div>
+          </div>
+          <div class="feat-item">
+            <span class="fi">🔄</span>
+            <div><strong>数据实时同步</strong>所有操作均通过知新 MCP 工具完成，结果<strong>实时写入知新教学平台</strong>，无需二次确认。</div>
           </div>
         </div>
       </div>
