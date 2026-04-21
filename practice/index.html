@@ -238,6 +238,38 @@ body.day-mode [style*="background:rgba(255,255,255,0.0"],
 body.day-mode [style*="background: rgba(255,255,255,0.0"] { background: rgba(15,23,42,0.03) !important; }
 body.day-mode [style*="border-top:1px solid var(--border)"],
 body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgba(0,0,0,0.08) !important; }
+
+    /* ── Question type grid (Chapter 4) ── */
+    .q-stat-row { display: flex; gap: 12px; margin: 0 0 20px; flex-wrap: wrap; }
+    .q-stat { flex: 1; min-width: 110px; background: rgba(129,140,248,.08); border: 1px solid rgba(129,140,248,.18); border-radius: 12px; padding: 14px 18px; text-align: center; }
+    .q-stat .q-num { font-size: 1.8rem; font-weight: 700; color: var(--indigo); line-height: 1; }
+    .q-stat .q-lbl { font-size: .75rem; color: var(--muted); margin-top: 4px; }
+    .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 6px; }
+    .q-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+    .q-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .q-num-badge { font-size: .68rem; font-weight: 700; color: var(--indigo); background: rgba(129,140,248,.12); border: 1px solid rgba(129,140,248,.2); border-radius: 6px; padding: 2px 8px; flex-shrink: 0; white-space: nowrap; }
+    .q-cat-name { font-size: .92rem; font-weight: 600; color: var(--text); }
+    .q-src-label { font-size: .7rem; color: rgba(255,255,255,.28); margin-bottom: 9px; font-style: italic; }
+    .q-items { display: flex; flex-direction: column; gap: 5px; }
+    .q-item { font-size: .8rem; line-height: 1.6; color: rgba(255,255,255,.55); padding: 6px 10px; background: rgba(255,255,255,.025); border-radius: 6px; border: 1px solid rgba(255,255,255,.07); }
+    .q-item b { color: rgba(255,255,255,.75); font-weight: 600; }
+    .q-item .q-eg { display: block; font-size: .7rem; color: rgba(255,255,255,.28); margin-top: 3px; }
+    .q-section-sep { font-size: .72rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin: 20px 0 14px; display: flex; align-items: center; gap: 10px; }
+    .q-section-sep::before, .q-section-sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    @media (max-width: 900px) { .q-grid { grid-template-columns: 1fr; } }
+    /* day-mode overrides for chapter 4 */
+    body.day-mode .q-stat { background: rgba(99,102,241,.06) !important; border-color: rgba(99,102,241,.18) !important; }
+    body.day-mode .q-stat .q-num { color: #3730a3 !important; }
+    body.day-mode .q-stat .q-lbl { color: rgba(15,23,42,.5) !important; }
+    body.day-mode .q-card { background: rgba(255,255,255,.9) !important; border-color: rgba(0,0,0,.08) !important; }
+    body.day-mode .q-cat-name { color: #0f172a !important; }
+    body.day-mode .q-num-badge { color: #3730a3 !important; background: rgba(99,102,241,.08) !important; border-color: rgba(99,102,241,.18) !important; }
+    body.day-mode .q-src-label { color: rgba(15,23,42,.35) !important; }
+    body.day-mode .q-item { color: rgba(15,23,42,.65) !important; background: rgba(15,23,42,.02) !important; border-color: rgba(0,0,0,.07) !important; }
+    body.day-mode .q-item b { color: #0f172a !important; }
+    body.day-mode .q-item .q-eg { color: rgba(15,23,42,.35) !important; }
+    body.day-mode .q-section-sep { color: rgba(15,23,42,.4) !important; }
+    body.day-mode .q-section-sep::before, body.day-mode .q-section-sep::after { background: rgba(0,0,0,.1) !important; }
   </style>
 </head>
 <body>
@@ -277,6 +309,10 @@ body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgb
       <a href="#s3-9" class="sub">9. 个性化资源推荐</a>
       <a href="#s3-10" class="sub">10. AI 助教生成</a>
       <a href="#s3-11" class="sub">11. 作业深度分析</a>
+      <a href="#questions">四、可提问类型参考</a>
+      <a href="#q-core" class="sub">核心分析（1–10类）</a>
+      <a href="#q-personality" class="sub">个性化拓展（11–15类）</a>
+      <a href="#q-usage" class="sub">使用建议</a>
     </div><!-- /toc -->
 
     <!-- Content -->
@@ -679,6 +715,217 @@ body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgb
         </div>
 
       </div><!-- /steps -->
+
+      <!-- ══ 第四章 ══ -->
+      <div id="questions" class="chapter">
+        <div class="chapter-title" style="border-left-color: var(--indigo);">
+          <span class="ch-num" style="color:var(--indigo); background:rgba(129,140,248,.1); border-color:rgba(129,140,248,.2);">四</span>
+          可向 AI 提出的问题类型
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-bottom:20px;">
+        基于工作空间中的多维度数据（成绩单、知识画像、试卷、星座性格爱好等），系统共支持 <strong>15 大类、44 个</strong>具体问题，全面覆盖教师备课、学情分析、个性化辅导等场景。以下为完整的可提问类型参考。
+      </div>
+
+      <div class="q-stat-row">
+        <div class="q-stat"><div class="q-num">15</div><div class="q-lbl">问题大类</div></div>
+        <div class="q-stat"><div class="q-num">44</div><div class="q-lbl">具体问题</div></div>
+        <div class="q-stat"><div class="q-num">13</div><div class="q-lbl">数据文件类型</div></div>
+        <div class="q-stat"><div class="q-num">3</div><div class="q-lbl">使用场景</div></div>
+      </div>
+
+      <!-- 核心分析类 1–10 -->
+      <div id="q-core" class="q-section-sep">核心分析类 · 第 1—10 类</div>
+
+      <div class="q-grid">
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第一类</span><span class="q-cat-name">学生成绩分析</span></div>
+          <div class="q-src-label">📁 成绩单 CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>1.1</b> 某位学生的具体成绩和掌握情况如何？<span class="q-eg">例：李娜考了多少分？她的知识点掌握情况怎样？</span></div>
+            <div class="q-item"><b>1.2</b> 班级整体成绩分布如何？<span class="q-eg">例：班级平均分是多少？有多少人及格？有多少人达到优秀？</span></div>
+            <div class="q-item"><b>1.3</b> 哪些学生需要学业预警？<span class="q-eg">例：哪些学生不及格？哪些学生成绩在60-65分之间需要重点关注？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第二类</span><span class="q-cat-name">知识点掌握分析</span></div>
+          <div class="q-src-label">📁 知识画像 CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>2.1</b> 全班最薄弱的知识点有哪些？<span class="q-eg">例：哪些知识点全班掌握率最低？哪些知识点风险指数最高？</span></div>
+            <div class="q-item"><b>2.2</b> 某位学生在哪些知识点上表现最好/最差？<span class="q-eg">例：赵磊最强的知识点是什么？郑帅最薄弱的是什么？</span></div>
+            <div class="q-item"><b>2.3</b> 哪些知识点是跨章节交叉的？<span class="q-eg">例：哪些知识点涉及多个章节？它们之间的关联关系是什么？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第三类</span><span class="q-cat-name">试卷分析</span></div>
+          <div class="q-src-label">📁 试卷 DOCX + 标签 CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>3.1</b> 试卷的难度和区分度如何？<span class="q-eg">例：这次考试难不难？题目能不能区分好学生和差学生？</span></div>
+            <div class="q-item"><b>3.2</b> 试卷覆盖了哪些知识点？<span class="q-eg">例：这次考试考了哪些知识点？每个知识点占多少分？</span></div>
+            <div class="q-item"><b>3.3</b> 各大题型的得分率如何？<span class="q-eg">例：选择题和综合题哪个得分率更高？学生在哪种题型上失分最多？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第四类</span><span class="q-cat-name">个性化教学</span></div>
+          <div class="q-src-label">📁 作业 / 资源 MD 文件</div>
+          <div class="q-items">
+            <div class="q-item"><b>4.1</b> 如何为某位学生制定学习计划？<span class="q-eg">例：郑帅应该怎么学习？给他制定一个8周提升计划</span></div>
+            <div class="q-item"><b>4.2</b> 如何为某位学生推荐学习资源？<span class="q-eg">例：给黄丽推荐一些拓展学习资源</span></div>
+            <div class="q-item"><b>4.3</b> 如何为某位学生出个性化作业？<span class="q-eg">例：给李娜、刘洋、郑帅分别出一份作业</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第五类</span><span class="q-cat-name">知识图谱分析</span></div>
+          <div class="q-src-label">📁 知识图谱 CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>5.1</b> 课程的知识结构是怎样的？<span class="q-eg">例：计算机网络课程有哪些知识点？它们之间有什么关系？</span></div>
+            <div class="q-item"><b>5.2</b> 某个知识点的前置依赖是什么？<span class="q-eg">例：学习TCP拥塞控制需要先掌握哪些知识点？</span></div>
+            <div class="q-item"><b>5.3</b> 知识图谱中哪些节点最重要？<span class="q-eg">例：哪些知识点连接的关系最多？哪些是核心知识点？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第六类</span><span class="q-cat-name">学生画像分析</span></div>
+          <div class="q-src-label">📁 画像 HTML + CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>6.1</b> 某位学生的知识画像是什么样的？<span class="q-eg">例：用知识图谱可视化展示胡艳的知识点掌握情况</span></div>
+            <div class="q-item"><b>6.2</b> 两位学生的知识掌握有什么差异？<span class="q-eg">例：赵磊和马娟的知识画像有什么不同？</span></div>
+            <div class="q-item"><b>6.3</b> 某位学生的认知强项和弱项是什么？<span class="q-eg">例：徐敏在记忆、理解、应用、分析哪个认知层次最强？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第七类</span><span class="q-cat-name">学习资源分析</span></div>
+          <div class="q-src-label">📁 资源池 CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>7.1</b> 为某类学生推荐什么类型的资源？<span class="q-eg">例：薄弱学生应该看视频还是做题？良好学生应该做什么拓展？</span></div>
+            <div class="q-item"><b>7.2</b> 哪些学习资源被最多人推荐？<span class="q-eg">例：全班最常推荐的学习资源是什么？</span></div>
+            <div class="q-item"><b>7.3</b> 学习资源如何与知识点对应？<span class="q-eg">例：DHCP协议有哪些学习资源？哪些是视频？哪些是文章？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第八类</span><span class="q-cat-name">AI 助教使用</span></div>
+          <div class="q-src-label">📁 AI 助教 MD 文件</div>
+          <div class="q-items">
+            <div class="q-item"><b>8.1</b> 如何为某位学生配置 AI 助教？<span class="q-eg">例：给黄丽生成一个AI助教</span></div>
+            <div class="q-item"><b>8.2</b> AI 助教支持哪些功能？<span class="q-eg">例：AI助教能出题吗？能制定学习计划吗？</span></div>
+            <div class="q-item"><b>8.3</b> 学生如何使用 AI 助教？<span class="q-eg">例：第一次使用AI助教需要做什么？有哪些快捷指令？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第九类</span><span class="q-cat-name">作业分析</span></div>
+          <div class="q-src-label">📁 作业 MD + CSV</div>
+          <div class="q-items">
+            <div class="q-item"><b>9.1</b> 某份作业的设计思路是什么？<span class="q-eg">例：郑帅的作业为什么出这些题？分值是怎么分配的？</span></div>
+            <div class="q-item"><b>9.2</b> 全班作业覆盖了哪些知识点？<span class="q-eg">例：哪些知识点在全班作业中被重点练习？</span></div>
+            <div class="q-item"><b>9.3</b> 不同水平学生的作业有什么区别？<span class="q-eg">例：良好学生和薄弱学生的作业难度有什么不同？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第十类</span><span class="q-cat-name">综合分析</span></div>
+          <div class="q-src-label">📁 全部数据文件</div>
+          <div class="q-items">
+            <div class="q-item"><b>10.1</b> 从考试到作业到资源，如何形成教学闭环？<span class="q-eg">例：如何根据考试成绩→生成作业→推荐资源→AI助教辅导？</span></div>
+            <div class="q-item"><b>10.2</b> 如何追踪学生的学习进展？<span class="q-eg">例：郑帅学习4周后，如何评估他的进步？</span></div>
+            <div class="q-item"><b>10.3</b> 如何优化教学策略？<span class="q-eg">例：根据这次考试结果，下学期教学应该如何改进？</span></div>
+          </div>
+        </div>
+
+      </div><!-- /q-grid core -->
+
+      <!-- 个性化拓展类 11–15 -->
+      <div id="q-personality" class="q-section-sep">个性化拓展类 · 第 11—15 类（含星座性格数据）</div>
+
+      <div class="q-grid">
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第十一类</span><span class="q-cat-name">性格与学习关联</span></div>
+          <div class="q-src-label">📁 星座性格 CSV + 成绩数据</div>
+          <div class="q-items">
+            <div class="q-item"><b>11.1</b> 不同性格特点的学生学习成绩有什么差异？<span class="q-eg">例：逻辑思维强的学生和想象力丰富的学生在网络课程上表现有何不同？</span></div>
+            <div class="q-item"><b>11.2</b> 兴趣爱好与知识点掌握有关系吗？<span class="q-eg">例：喜欢编程的学生在CRC校验、子网划分等计算题上是否表现更好？</span></div>
+            <div class="q-item"><b>11.3</b> 星座性格与学习风格匹配吗？<span class="q-eg">例：摩羯座学生自律勤奋，是否更适合系统性学习计划？</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第十二类</span><span class="q-cat-name">个性化策略优化</span></div>
+          <div class="q-src-label">📁 星座性格 + 知识画像 + 学习资源</div>
+          <div class="q-items">
+            <div class="q-item"><b>12.1</b> 如何根据学生兴趣定制学习资源？<span class="q-eg">例：赵磊喜欢极限运动和电影，能否用动作电影中的网络场景来讲解TCP协议？</span></div>
+            <div class="q-item"><b>12.2</b> 如何根据性格特点调整辅导方式？<span class="q-eg">例：对"认真细致、追求完美"的陈静，应该提供详细的步骤解析</span></div>
+            <div class="q-item"><b>12.3</b> 如何用座右铭激励学生学习？<span class="q-eg">例：朱浩的座右铭是"不破楼兰终不还"，可用这种拼搏精神鼓励他攻克DHCP协议</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第十三类</span><span class="q-cat-name">学习小组组建</span></div>
+          <div class="q-src-label">📁 星座性格 CSV + 成绩数据</div>
+          <div class="q-items">
+            <div class="q-item"><b>13.1</b> 如何根据性格互补组建学习小组？<span class="q-eg">例：让"逻辑思维强"的张伟和"想象力丰富"的李娜一组，互相补充</span></div>
+            <div class="q-item"><b>13.2</b> 如何根据兴趣爱好组织实践活动？<span class="q-eg">例：喜欢编程的学生可以一起写网络抓包脚本</span></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-card-head"><span class="q-num-badge">第十四类</span><span class="q-cat-name">学习动机激发</span></div>
+          <div class="q-src-label">📁 星座性格 CSV + 知识画像</div>
+          <div class="q-items">
+            <div class="q-item"><b>14.1</b> 如何将学生兴趣与课程内容结合？<span class="q-eg">例：杨阳喜欢足球和街舞，可以类比足球队配合讲解网络协议中的"协作"概念</span></div>
+            <div class="q-item"><b>14.2</b> 如何用座右铭设计个性化学习目标？<span class="q-eg">例：郑帅"敢想敢做敢担当"，可以鼓励他挑战综合题</span></div>
+          </div>
+        </div>
+
+        <div class="q-card" style="grid-column: 1 / -1;">
+          <div class="q-card-head"><span class="q-num-badge">第十五类</span><span class="q-cat-name">综合画像分析</span></div>
+          <div class="q-src-label">📁 全部数据文件（成绩 + 知识画像 + 性格爱好）</div>
+          <div class="q-items">
+            <div class="q-item"><b>15.1</b> 学生的"成绩 + 性格 + 兴趣"完整画像是怎样的？<span class="q-eg">例：郑帅 = 58分 + 狮子座 + 喜欢篮球/说唱/视频创作 + 敢想敢做敢担当，如何基于这个完整画像制定学习方案？</span></div>
+            <div class="q-item"><b>15.2</b> 性格特点是否影响认知强项？<span class="q-eg">例："逻辑思维强"的学生是否在 apply（应用）认知层次表现更好？</span></div>
+          </div>
+        </div>
+
+      </div><!-- /q-grid personality -->
+
+      <!-- 使用建议 -->
+      <div id="q-usage" class="step" style="margin-top:8px;">
+        <div class="step-header">
+          <div class="step-num" style="background:rgba(129,140,248,.15); border-color:rgba(129,140,248,.3); color:var(--indigo); width:32px; height:32px; font-size:1rem;">💡</div>
+          <h3>使用建议</h3>
+        </div>
+        <div class="feat-list">
+          <div class="feat-item">
+            <span class="fi">👨‍🏫</span>
+            <div>
+              <strong>教师使用场景</strong>
+              备课阶段用第 1–3 类分析学情；教学设计用第 4–5 类制定计划；作业布置用第 9 类分析覆盖度；个性化辅导用第 6、11–15 类了解学生特点；教学反思用第 10 类优化教学策略。
+            </div>
+          </div>
+          <div class="feat-item">
+            <span class="fi">🎓</span>
+            <div>
+              <strong>学生使用场景</strong>
+              用第 2、6 类了解自身知识掌握情况；用第 4 类制定个人学习计划；用第 7 类获取个性化学习资源；用第 8 类与 AI 助教互动学习。
+            </div>
+          </div>
+          <div class="feat-item">
+            <span class="fi">🔬</span>
+            <div>
+              <strong>教研使用场景</strong>
+              用第 3 类分析试卷难度和区分度；用第 5 类完善课程知识图谱；用第 11–15 类研究性格特点与学习效果的关系。
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div><!-- /container -->
     </div><!-- /main-wrap -->
