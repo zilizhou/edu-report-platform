@@ -117,7 +117,31 @@
 
     /* ── Images ── */
     .img-wrap { margin: 14px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: rgba(255,255,255,.03); }
-    .img-wrap img { width: 100%; height: auto; display: block; max-height: 460px; object-fit: contain; }
+    .img-wrap img { width: 100%; height: auto; display: block; max-height: 460px; object-fit: contain; cursor: zoom-in; transition: opacity .15s; }
+    .img-wrap img:hover { opacity: .88; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,.88); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 88vh;
+      border-radius: 10px; box-shadow: 0 24px 80px rgba(0,0,0,.7);
+      object-fit: contain; cursor: zoom-out;
+      animation: lb-in .18s ease;
+    }
+    @keyframes lb-in { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
+    #lightbox-close {
+      position: fixed; top: 18px; right: 22px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-size: 1.1rem; line-height: 36px; text-align: center;
+      cursor: pointer; transition: background .2s; user-select: none;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,.22); }
     .img-caption { font-size: .73rem; color: rgba(255,255,255,.28); text-align: center; padding: 6px 12px; border-top: 1px solid var(--border); background: rgba(0,0,0,.12); }
     .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
 
@@ -1131,7 +1155,41 @@ body.day-mode [style*="border-top: 1px solid var(--border)"] { border-color: rgb
     </div><!-- /main-wrap -->
   </div><!-- /layout -->
 
+  <!-- Lightbox overlay -->
+  <div id="lightbox">
+    <div id="lightbox-close">✕</div>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
   <script>
+    // ── Lightbox ──
+    (function() {
+      const lb    = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbClose = document.getElementById('lightbox-close');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      // Click on any img inside .img-wrap
+      document.querySelectorAll('.img-wrap img').forEach(img => {
+        img.addEventListener('click', () => open(img.src, img.alt));
+      });
+
+      lb.addEventListener('click', e => { if (e.target !== lbImg) close(); });
+      lbClose.addEventListener('click', close);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    })();
+
     // Highlight active TOC item on scroll
     const sections = document.querySelectorAll('[id]');
     const tocLinks = document.querySelectorAll('.toc a');
