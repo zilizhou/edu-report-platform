@@ -122,7 +122,7 @@
 
     /* ── Lightbox ── */
     #lightbox {
-      display: none; position: fixed; inset: 0; z-index: 9000;
+      display: none; position: fixed; inset: 0; z-index: 10000;
       background: rgba(0,0,0,.88); backdrop-filter: blur(6px);
       align-items: center; justify-content: center; padding: 24px;
     }
@@ -135,7 +135,7 @@
     }
     @keyframes lb-in { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
     #lightbox-close {
-      position: fixed; top: 18px; right: 22px;
+      position: fixed; top: 18px; right: 22px; z-index: 10001;
       width: 36px; height: 36px; border-radius: 50%;
       background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
       color: #fff; font-size: 1.1rem; line-height: 36px; text-align: center;
